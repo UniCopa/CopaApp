@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="unicopa.copa.app"
+    android:versionCode="1"
+    android:versionName="0.0.1-SNAPSHOT" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+               <activity
+            android:name="unicopa.copa.app.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/app_name" android:name="LoginActivity"/>
+        <activity android:label="@string/app_name" android:name="SettingsActivity"/>
+        <activity android:label="@string/app_name" android:name="PrivilegesActivity"/>
+        <activity android:label="@string/app_name" android:name="SearchActivity"/>
+        <activity android:label="@string/app_name" android:name="SubscriptionActivity"/>
+        <activity android:label="@string/app_name" android:name="EventPrivActivity"/>
+        <activity android:label="@string/app_name" android:name="SingleEventListActivity"/>
+        <activity android:label="@string/app_name" android:name="SingleEventActivity"/>
+        <activity android:label="@string/app_name" android:name="ChangeSingleEventActivity"/>
+    </application>
+
+</manifest>

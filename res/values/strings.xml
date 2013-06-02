@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AndriodTest</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="action_priv">Privileges</string>
+    <string name="action_login">Login</string>
+    <string name="button_login">Login</string>
+    <string name="text_login_username">Username</string>
+    <string name="text_login_pw">Password</string>
+    <string name="button_search">Search</string>
+    <string name="button_priv">other rightholders</string>
+    <string name="language">Language</string>
+    <string name="kindOfNotification">Kind of Notification</string>
+    <string name="language_german">German</string>
+    <string name="language_english">English</string>
+    <string name="action_main">Mainpage</string>
+    <string name="button_subscription">Change Color</string>
+    <string name="details_to_singleevent">More Details</string>
+    <string name="all_singleEvents">Show all dates</string>
+    <string name="button_priv_change">Select date to change</string>
+    <string name="action_subscription">subscribed events</string>
+    <string name="button_singleevent_change">Change this date</string>
+
+</resources>
