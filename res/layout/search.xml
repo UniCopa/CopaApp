@@ -38,6 +38,6 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="38dp"
         android:onClick="onAllDatesButtonClick"
-        android:text="@string/all_singleEvents" />
+        android:text="@string/all_singleevents" />
 
 </RelativeLayout>
