@@ -16,7 +16,6 @@
  */
 package unicopa.copa.app;
 
-
 import unicopa.copa.app.R;
 
 import android.os.Bundle;
@@ -30,78 +29,76 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-	
+
 /**
  * In this activity a user can change his settings.
  * 
  * @author Christiane Kuhn
- */	
-public class SettingsActivity extends Activity implements OnItemSelectedListener {
-	
+ */
+public class SettingsActivity extends Activity implements
+	OnItemSelectedListener {
+
     Spinner language;
     TextView selectedLanguage;
     Spinner notification;
     TextView selectedNotification;
-		@Override
-		protected void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			setContentView(R.layout.settings);
-			selectedLanguage= (TextView) super.findViewById(R.id.textView1);
-			language = (Spinner) findViewById (R.id.spinner1);
-			language.setOnItemSelectedListener(this);
-			selectedNotification= (TextView) super.findViewById(R.id.textView2);
-			notification = (Spinner) findViewById (R.id.spinner2);
-			notification.setOnItemSelectedListener(this);
-		}
 
-		@Override
-		public boolean onCreateOptionsMenu(Menu menu) {
-			getMenuInflater().inflate(R.menu.no_item_menu, menu);
-			return true;
-		}
-		
-		
-		/**
-		 *reaction of selecting an entry in one of the spinners
-		 */
-		@Override
-		public void onItemSelected(AdapterView<?> arg0, View arg1,
-			int arg2, long arg3) {
-		    // TODO Auto-generated method stub
-		    int languagePosition=language.getSelectedItemPosition();
-		    switch(languagePosition){
-		    case 0:
-			selectedLanguage.setText("English");
-			break;
-		    case 1:
-			selectedLanguage.setText("German");
-			break;
-		    default:
-			break;
-		    }
-		int notificationPosition=notification.getSelectedItemPosition();
-			    switch(notificationPosition){
-			    case 0:
-				selectedNotification.setText("Mail");
-				break;
-			    case 1:
-				selectedNotification.setText("Push");
-				break;
-			    case 2:
-				selectedNotification.setText("None");
-			    default:
-				break;
-			    
-			    }
-		}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.settings);
+	selectedLanguage = (TextView) super.findViewById(R.id.language_text);
+	language = (Spinner) findViewById(R.id.languageSpinner);
+	language.setOnItemSelectedListener(this);
+	selectedNotification = (TextView) super.findViewById(R.id.notification);
+	notification = (Spinner) findViewById(R.id.notificationSpinner);
+	notification.setOnItemSelectedListener(this);
+    }
 
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0) {
-		    // TODO Auto-generated method stub
-		    
-		}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+	getMenuInflater().inflate(R.menu.no_item_menu, menu);
+	return true;
+    }
+
+    /**
+     * reaction of selecting an entry in one of the spinners
+     */
+    @Override
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+	    long arg3) {
+	// TODO Auto-generated method stub
+	int languagePosition = language.getSelectedItemPosition();
+	switch (languagePosition) {
+	case 0:
+	    selectedLanguage.setText("English");
+	    break;
+	case 1:
+	    selectedLanguage.setText("German");
+	    break;
+	default:
+	    break;
+	}
+	int notificationPosition = notification.getSelectedItemPosition();
+	switch (notificationPosition) {
+	case 0:
+	    selectedNotification.setText("Mail");
+	    break;
+	case 1:
+	    selectedNotification.setText("Push");
+	    break;
+	case 2:
+	    selectedNotification.setText("None");
+	default:
+	    break;
+
+	}
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+	// TODO Auto-generated method stub
+
+    }
 
 }
-
-
-

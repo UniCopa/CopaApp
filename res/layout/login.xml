@@ -9,21 +9,10 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/login1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login please" />
-
-    <EditText
-        android:id="@+id/usernameField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="43dp"
-        android:ems="10"
-        android:inputType="text" />
 
     <EditText
         android:id="@+id/passwordField"
@@ -38,16 +27,16 @@
     </EditText>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/usernameField"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/login1"
         android:layout_marginTop="23dp"
         android:text="@string/text_login_username" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/login_pw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/passwordField"
@@ -56,13 +45,23 @@
         android:text="@string/text_login_pw" />
 
     <Button
-        android:id="@+id/search_button"
+        android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/passwordField"
         android:layout_below="@+id/passwordField"
         android:layout_marginTop="62dp"
-        android:text="@string/button_login"
-        android:onClick="onLoginButtonClick"/>
+        android:onClick="onLoginButtonClick"
+        android:text="@string/button_login" />
+
+    <EditText
+        android:id="@+id/usernameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/login1"
+        android:layout_below="@+id/notification"
+        android:layout_marginLeft="15dp"
+        android:ems="10"
+        android:inputType="text" />
 
 </RelativeLayout>

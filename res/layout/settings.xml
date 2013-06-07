@@ -9,42 +9,39 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="46dp"
-        android:text="@string/language" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/spinner1"
+        android:layout_alignLeft="@+id/main_text"
+        android:layout_below="@+id/languageSpinner"
         android:layout_marginTop="25dp"
         android:text="@string/kind_of_notification" />
-    
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/languageSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/spinner2"
-        android:layout_below="@+id/textView1"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:layout_alignLeft="@+id/notification"
+        android:layout_below="@+id/language_text"
+        android:entries="@array/language_entries"
         android:prompt="@string/language_pick"
-        android:entries="@array/language_entries" />
+        android:scrollbarAlwaysDrawVerticalTrack="true" />
 
-    <Spinner
-        android:id="@+id/spinner2"
+    <TextView
+        android:id="@+id/language_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:prompt="@string/notification_pick"
-        android:entries="@array/notification_entries"  />
+        android:layout_alignLeft="@+id/languageSpinner"
+        android:layout_alignParentTop="true"
+        android:text="@string/language" />
+
+    <Spinner
+        android:id="@+id/notificationSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/notification"
+        android:layout_below="@+id/notification"
+        android:entries="@array/notification_entries"
+        android:prompt="@string/notification_pick" />
 
 </RelativeLayout>

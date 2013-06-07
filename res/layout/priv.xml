@@ -9,7 +9,7 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/priv_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="List of all subscribed Events" />
@@ -18,14 +18,14 @@
         android:id="@+id/privButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/main_text"
+        android:layout_below="@+id/main_text"
         android:layout_marginTop="62dp"
         android:text="@string/button_priv" 
         android:onClick="onPrivButtonClick"/>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/privButtonChange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/privButton"

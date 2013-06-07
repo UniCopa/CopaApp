@@ -21,37 +21,33 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-	
+
 /**
  * In this activity a user can enter his name and password.
  * 
  * @author Christiane Kuhn
- */	
+ */
 public class LoginActivity extends Activity {
-	
-    		@Override
-		protected void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			setContentView(R.layout.login);
-		}
 
-		@Override
-		public boolean onCreateOptionsMenu(Menu menu) {
-			getMenuInflater().inflate(R.menu.no_item_menu, menu);
-			return true;
-		}
-		
-		/**
-    		 * Is used if LoginButton is clicked.
-    		 * Switches back to MainActivity.
-    		 * 
-    		 * @param view
-    		 */
-		public void onLoginButtonClick(View view){
-		    	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
-		    	LoginActivity.this.startActivity(intentMain);
-		}
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.login);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+	getMenuInflater().inflate(R.menu.no_item_menu, menu);
+	return true;
+    }
 
-
+    /**
+     * Is used if LoginButton is clicked. Switches back to MainActivity.
+     * 
+     * @param view
+     */
+    public void onLoginButtonClick(View view) {
+	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
+	LoginActivity.this.startActivity(intentMain);
+    }
+}

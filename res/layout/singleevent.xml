@@ -9,17 +9,17 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/subscription_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="all details of one SingleEvent" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/allSingleEventsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/main_text"
+        android:layout_below="@+id/main_text"
         android:layout_marginTop="42dp"
         android:onClick="onChangeDateButtonClick"
         android:text="@string/button_singleevent_change" />
