@@ -30,13 +30,6 @@ import android.view.MenuItem;
  */
 public class ChangeSingleEventActivity extends Activity {
 
-    /**
-     * Create a new Event object.
-     * 
-     * @param eventID
-     * @param eventName
-     * @param categories
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);

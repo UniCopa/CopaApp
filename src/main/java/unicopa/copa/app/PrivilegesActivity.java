@@ -16,7 +16,11 @@
  */
 package unicopa.copa.app;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import unicopa.copa.app.R;
+import unicopa.copa.base.event.Event;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,6 +28,10 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * In this activity a user can manage his privileges.
@@ -36,6 +44,31 @@ public class PrivilegesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.priv);
+
+	final ListView eventListView = (ListView) PrivilegesActivity.this
+		.findViewById(R.id.privListView);
+
+	eventListView.setAdapter(null);
+
+	ArrayList<Event> sEvents = new ArrayList<Event>();
+	sEvents.add(new Event(1, 3, "Event1", new ArrayList<Integer>()));
+	sEvents.add(new Event(2, 2, "Event2", new ArrayList<Integer>()));
+	sEvents.add(new Event(3, 4, "Event3", new ArrayList<Integer>()));
+
+	EventAdapter eventAdapter = new EventAdapter(this, sEvents);
+	eventListView.setAdapter((ListAdapter) eventAdapter);
+
+	eventListView.setOnItemClickListener(new OnItemClickListener() {
+	    @Override
+	    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+		    long arg3) {
+		Intent intent = new Intent(PrivilegesActivity.this,
+			SingleEventActivity.class);
+		intent.putExtra("selected",
+			eventListView.getAdapter().getItem(arg2).toString());
+		startActivity(intent);
+	    }
+	});
     }
 
     @Override
@@ -77,30 +110,4 @@ public class PrivilegesActivity extends Activity {
 	    return super.onOptionsItemSelected(item);
 	}
     }
-
-    /**
-     * Is used if PrivButton is clicked. Switches to EventPrivActivity.
-     * 
-     * @param view
-     */
-    public void onPrivButtonClick(View view) {
-	Intent intentEventPriv = new Intent(PrivilegesActivity.this,
-		EventPrivActivity.class);
-	intentEventPriv.putExtra("key", "value");
-	PrivilegesActivity.this.startActivity(intentEventPriv);
-    }
-
-    /**
-     * Is used if PrivChangeButton is clicked. Switches to
-     * SingleEventListActivity.
-     * 
-     * @param view
-     */
-    public void onPrivChangeButtonClick(View view) {
-	Intent intentSingleEventList = new Intent(PrivilegesActivity.this,
-		SingleEventListActivity.class);
-	intentSingleEventList.putExtra("key", "value");
-	PrivilegesActivity.this.startActivity(intentSingleEventList);
-    }
-
 }

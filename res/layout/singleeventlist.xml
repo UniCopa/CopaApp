@@ -28,10 +28,19 @@
         android:id="@+id/allSingleEventsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/singleeventlist_button"
-        android:layout_below="@+id/singleeventlist_button"
-        android:layout_marginTop="26dp"
+        android:layout_alignBaseline="@+id/singleeventlist_button"
+        android:layout_alignBottom="@+id/singleeventlist_button"
+        android:layout_toRightOf="@+id/subscription_text"
         android:onClick="onChangeDateButtonClick"
         android:text="@string/button_singleevent_change" />
+
+    <ListView
+        android:id="@+id/singleEventListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/singleeventlist_button"
+        android:layout_below="@+id/singleeventlist_button" >
+
+    </ListView>
 
 </RelativeLayout>

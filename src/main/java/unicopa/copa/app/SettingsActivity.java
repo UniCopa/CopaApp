@@ -18,7 +18,10 @@ package unicopa.copa.app;
 
 import unicopa.copa.app.R;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -53,6 +56,7 @@ public class SettingsActivity extends Activity implements
 	selectedNotification = (TextView) super.findViewById(R.id.notification);
 	notification = (Spinner) findViewById(R.id.notificationSpinner);
 	notification.setOnItemSelectedListener(this);
+
     }
 
     @Override
