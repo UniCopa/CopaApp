@@ -44,16 +44,6 @@
         android:layout_marginTop="17dp"
         android:text="@string/text_login_pw" />
 
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordField"
-        android:layout_below="@+id/passwordField"
-        android:layout_marginTop="62dp"
-        android:onClick="onLoginButtonClick"
-        android:text="@string/button_login" />
-
     <EditText
         android:id="@+id/usernameField"
         android:layout_width="wrap_content"
@@ -63,5 +53,24 @@
         android:layout_marginLeft="15dp"
         android:ems="10"
         android:inputType="text" />
+
+    <Button
+        android:id="@+id/toCommTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/passwordField"
+        android:layout_marginBottom="52dp"
+        android:onClick="onCommTestButtonClick"
+        android:text="switch to Communicationtest" />
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/login1"
+        android:layout_below="@+id/passwordField"
+        android:onClick="onLoginButtonClick"
+        android:text="@string/button_login" />
 
 </RelativeLayout>

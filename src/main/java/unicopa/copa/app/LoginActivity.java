@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 /**
@@ -33,6 +34,20 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.login);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+	switch (item.getItemId()) {
+	case android.R.id.home:
+	    Intent intentMain = new Intent(LoginActivity.this,
+		    MainActivity.class);
+	    LoginActivity.this.startActivity(intentMain);
+	    return true;
+	default:
+	    return super.onOptionsItemSelected(item);
+	}
     }
 
     @Override
@@ -49,5 +64,12 @@ public class LoginActivity extends Activity {
     public void onLoginButtonClick(View view) {
 	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
 	LoginActivity.this.startActivity(intentMain);
+    }
+
+    public void onCommTestButtonClick(View view) {
+	Intent intentComm = new Intent(LoginActivity.this,
+		CommunicationTestActivity.class);
+	intentComm.putExtra("key", "value");
+	LoginActivity.this.startActivity(intentComm);
     }
 }
