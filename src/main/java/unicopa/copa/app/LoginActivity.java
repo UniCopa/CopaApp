@@ -38,19 +38,6 @@ public class LoginActivity extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-	switch (item.getItemId()) {
-	case android.R.id.home:
-	    Intent intentMain = new Intent(LoginActivity.this,
-		    MainActivity.class);
-	    LoginActivity.this.startActivity(intentMain);
-	    return true;
-	default:
-	    return super.onOptionsItemSelected(item);
-	}
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.no_item_menu, menu);
 	return true;

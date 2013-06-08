@@ -20,13 +20,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import unicopa.copa.base.event.SingleEvent;
@@ -69,13 +72,12 @@ public class SingleEventAdapter extends BaseAdapter {
 		    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    convertView = inflater.inflate(R.layout.listitem_singleevent, null);
 	    holder = new ViewHolder();
-	    holder.location = (TextView) convertView
-		    .findViewById(R.id.location);
-	    holder.eventName = (TextView) convertView
-		    .findViewById(R.id.eventName);
-	    holder.supervisor = (TextView) convertView
-		    .findViewById(R.id.supervisor);
-	    holder.date = (TextView) convertView.findViewById(R.id.time);
+	    holder.change = (Button) convertView
+		    .findViewById(R.id.singleEventList_change);
+	    holder.details = (Button) convertView
+		    .findViewById(R.id.singleEventList_details);
+	    holder.time = (TextView) convertView.findViewById(R.id.list_time);
+	    holder.date = (TextView) convertView.findViewById(R.id.date);
 	    holder.colour = (LinearLayout) convertView
 		    .findViewById(R.id.SingleEventView);
 	    convertView.setTag(holder);
@@ -85,23 +87,49 @@ public class SingleEventAdapter extends BaseAdapter {
 	}
 	SingleEvent sEvent = (SingleEvent) this.getItem(position);
 
-	holder.location.setText(sEvent.getLocation());
-	holder.eventName.setText(sEvent.getSupervisor());
-	holder.supervisor.setText(sEvent.getSupervisor());
-	holder.date.setText(new SimpleDateFormat("HH:mm").format(sEvent
+	holder.date.setText(new SimpleDateFormat("dd.MM").format(sEvent
+		.getDate()));
+	holder.time.setText(new SimpleDateFormat("HH:mm").format(sEvent
 		.getDate()));
 
 	Drawable draw = context.getResources().getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
 
+	holder.change.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+
+		Intent intentChangeSingleEventList = new Intent(context,
+			ChangeSingleEventActivity.class);
+		intentChangeSingleEventList.putExtra("key", "value");
+		context.startActivity(intentChangeSingleEventList);
+
+	    }
+
+	});
+
+	holder.details.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+		Intent intentEventPriv = new Intent(context,
+			SingleEventActivity.class);
+		intentEventPriv.putExtra("key", "value");
+		context.startActivity(intentEventPriv);
+
+	    }
+
+	});
 	return convertView;
+
     }
 
     static class ViewHolder {
-	TextView supervisor;
-	TextView location;
-	TextView eventName;
+	TextView time;
 	TextView date;
+	Button details;
+	Button change;
 	LinearLayout colour;
     }
 

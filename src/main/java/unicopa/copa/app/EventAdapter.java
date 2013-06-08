@@ -92,6 +92,27 @@ public class EventAdapter extends BaseAdapter {
 	Drawable draw = context.getResources().getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
 
+	holder.colorButton.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+	    }
+
+	});
+
+	holder.details.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+		Intent intentSingleEvent = new Intent(context,
+			SingleEventListActivity.class);
+		intentSingleEvent.putExtra("key", "value");
+		context.startActivity(intentSingleEvent);
+
+	    }
+
+	});
+
 	return convertView;
     }
 

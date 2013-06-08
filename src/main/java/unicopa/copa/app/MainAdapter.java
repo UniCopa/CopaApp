@@ -20,45 +20,40 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
-import unicopa.copa.base.event.Event;
+import unicopa.copa.base.event.SingleEvent;
 
 /**
- * This Adapter helps to show the List of Events.
+ * This Adapter helps to show the List of SingleEvents.
  * 
  * @author Christiane Kuhn
  */
-public class PrivAdapter extends BaseAdapter {
+public class MainAdapter extends BaseAdapter {
 
-    ArrayList<Event> EventList;
+    ArrayList<SingleEvent> singleEventList;
     Context context;
 
-    public PrivAdapter(Context context, ArrayList<Event> eventList) {
+    public MainAdapter(Context context, ArrayList<SingleEvent> eventList) {
 	this.context = context;
-	this.EventList = eventList;
+	this.singleEventList = eventList;
     }
 
     @Override
     public int getCount() {
-	return EventList.size();
+	return singleEventList.size();
     }
 
     @Override
     public Object getItem(int arg0) {
-	return EventList.get(arg0);
+	return singleEventList.get(arg0);
     }
 
     @Override
@@ -72,60 +67,41 @@ public class PrivAdapter extends BaseAdapter {
 	if (convertView == null) {
 	    LayoutInflater inflater = (LayoutInflater) this.context
 		    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    convertView = inflater.inflate(R.layout.listitem_priv, null);
+	    convertView = inflater.inflate(R.layout.listitem_main, null);
 	    holder = new ViewHolder();
-
-	    holder.eventName = (TextView) convertView.findViewById(R.id.event);
-	    holder.change = (Button) convertView.findViewById(R.id.priv_change);
-	    holder.other = (Button) convertView.findViewById(R.id.priv_others);
+	    holder.location = (TextView) convertView
+		    .findViewById(R.id.location);
+	    holder.eventName = (TextView) convertView
+		    .findViewById(R.id.eventName);
+	    holder.supervisor = (TextView) convertView
+		    .findViewById(R.id.supervisor);
+	    holder.date = (TextView) convertView.findViewById(R.id.time);
 	    holder.colour = (LinearLayout) convertView
-		    .findViewById(R.id.PrivListView);
+		    .findViewById(R.id.SingleEventView);
 	    convertView.setTag(holder);
 
 	} else {
 	    holder = (ViewHolder) convertView.getTag();
 	}
+	SingleEvent sEvent = (SingleEvent) this.getItem(position);
 
-	Event event = (Event) this.getItem(position);
-	holder.eventName.setText(event.getEventName());
+	holder.location.setText(sEvent.getLocation());
+	holder.eventName.setText(sEvent.getSupervisor());
+	holder.supervisor.setText(sEvent.getSupervisor());
+	holder.date.setText(new SimpleDateFormat("HH:mm").format(sEvent
+		.getDate()));
+
 	Drawable draw = context.getResources().getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
-
-	holder.change.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-
-		Intent intentSingleEventList = new Intent(context,
-			SingleEventListActivity.class);
-		intentSingleEventList.putExtra("key", "value");
-		context.startActivity(intentSingleEventList);
-
-	    }
-
-	});
-
-	holder.other.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-		Intent intentEventPriv = new Intent(context,
-			EventPrivActivity.class);
-		intentEventPriv.putExtra("key", "value");
-		context.startActivity(intentEventPriv);
-
-	    }
-
-	});
 
 	return convertView;
     }
 
     static class ViewHolder {
+	TextView supervisor;
+	TextView location;
 	TextView eventName;
-	TextView eventGroupName;
-	Button change;
-	Button other;
+	TextView date;
 	LinearLayout colour;
     }
 

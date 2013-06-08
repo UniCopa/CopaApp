@@ -34,7 +34,7 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
- * In this activity a user sees all SingleEvents to a Event.
+ * In this activity a user sees all SingleEvents to an Event.
  * 
  * @author Christiane Kuhn
  */
@@ -143,29 +143,4 @@ public class SingleEventListActivity extends Activity {
 	    return super.onOptionsItemSelected(item);
 	}
     }
-
-    /**
-     * Is used if SingleEventListButton is clicked. Switches to
-     * SingleEventActivity.
-     * 
-     * @param view
-     */
-    public void onSingleEventListButtonClick(View view) {
-	Intent intentSingleEvent = new Intent(SingleEventListActivity.this,
-		SingleEventActivity.class);
-	SingleEventListActivity.this.startActivity(intentSingleEvent);
-    }
-
-    /**
-     * Is used if ChangeDateButton is clicked. Switches to
-     * ChangeSingleEventActivity.
-     * 
-     * @param view
-     */
-    public void onChangeDateButtonClick(View view) {
-	Intent intentSingleEvent = new Intent(SingleEventListActivity.this,
-		ChangeSingleEventActivity.class);
-	SingleEventListActivity.this.startActivity(intentSingleEvent);
-    }
-
 }

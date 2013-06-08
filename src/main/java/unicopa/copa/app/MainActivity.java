@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
 		.getTime(), "Silke", 76));
 	sEvents.add(new SingleEvent(15, 5, "HU 106", Calendar.getInstance()
 		.getTime(), "Jan", 90));
-	SingleEventAdapter sEventAdapter = new SingleEventAdapter(this, sEvents);
+	MainAdapter sEventAdapter = new MainAdapter(this, sEvents);
 	singleEventListView.setAdapter((ListAdapter) sEventAdapter);
 
 	singleEventListView.setOnItemClickListener(new OnItemClickListener() {
