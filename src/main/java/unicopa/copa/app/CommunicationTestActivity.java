@@ -25,7 +25,16 @@ public class CommunicationTestActivity extends Activity {
     }
 
     public void onTestButtonClick(View view) {
-	TextView answer = (TextView) super.findViewById(R.id.answer);
-	answer.setText("try again");
+	// TODO check instance exist
+	ServerConnection scon = ServerConnection.getInstance();
+
+	String answer = "empty";
+
+	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/hello/Hello");
+
+	answer = scon.sendToServer();
+
+	TextView textViewAnswer = (TextView) super.findViewById(R.id.answer);
+	textViewAnswer.setText(answer);
     }
 }
