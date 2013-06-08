@@ -16,6 +16,28 @@
  */
 package unicopa.copa.app;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpParams;
+
+import android.content.Context;
+import android.util.Log;
+
 /**
  * This class manages the connection to the server.
  * 
@@ -23,53 +45,263 @@ package unicopa.copa.app;
  */
 public class ServerConnection {
     private boolean m_connected = false;
-    private String m_gcmKey = "";
+    // private String m_gcmKey = "";
+
+    private String value = "";
+    private DefaultHttpClient client = null;
+
+    // TODO url needs to be read from config file or settings not hard coded
+    private String m_url = "";
+
+    private static ServerConnection m_instance;
+
+    public static ServerConnection getInstance() {
+	if (m_instance == null) {
+	    m_instance = new ServerConnection();
+	}
+
+	return m_instance;
+    }
+
+    // private ServerConnection() {
+    // }
+
+    public void setUrl(String url) {
+	m_url = url;
+    }
+
+    // public String getUrl(String url) {
+    // return m_url;
+    // }
 
     public void setConnected(boolean connected) {
 	m_connected = connected;
     }
 
-    public boolean getConnected() {
-	return m_connected;
-    }
-    
-    public void setGMCKey(String gmcKey) {
-	m_gcmKey = gmcKey;
+    // public boolean getConnected() {
+    // return m_connected;
+    // }
+
+    // public void setGCMKey(String gcmKey) {
+    // m_gcmKey = gcmKey;
+    // }
+
+    // public String getGCMKey() {
+    // return m_gcmKey;
+    // }
+
+    /**
+     * This Method opens connection to the server and saves cookie.
+     */
+    public boolean login(String userName, String password, Context context) {
+	// TODO getApplicationContext information needed
+	client = new CoPAAppHttpClient(context);
+
+	// TODO check this
+	// redirect
+	HttpParams params = client.getParams();
+	HttpClientParams.setRedirecting(params, false);
+
+	HttpPost loginMsg = new HttpPost(m_url);
+
+	// login data
+	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+	nameValuePairs.add(new BasicNameValuePair("j_username", userName));
+	nameValuePairs.add(new BasicNameValuePair("j_password", password));
+	try {
+	    loginMsg.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	} catch (UnsupportedEncodingException e1) {
+	    // TODO Auto-generated catch block
+	    e1.printStackTrace();
+	}
+
+	// lend login data
+	HttpResponse response = null;
+	try {
+	    response = client.execute(loginMsg);
+	} catch (ClientProtocolException e1) {
+	    // TODO Auto-generated catch block
+	    e1.printStackTrace();
+	} catch (IOException e1) {
+	    // TODO Auto-generated catch block
+	    e1.printStackTrace();
+	}
+
+	// response
+	InputStreamReader reader = null;
+
+	try {
+	    reader = new InputStreamReader(response.getEntity().getContent());
+	} catch (IllegalStateException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	BufferedReader rd = new BufferedReader(reader);
+	String line = "";
+
+	try {
+	    while ((line = rd.readLine()) != null) {
+		// Log.v("Read form site:", line);
+	    }
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	List<Cookie> cookies = ((AbstractHttpClient) client).getCookieStore()
+		.getCookies();
+
+	if (cookies.isEmpty()) {
+	    Log.w("List<cookies>:", "is empty");
+	} else {
+	    // for (int i = 0; i < cookies.size(); i++) {
+	    // Log.w(">", "- " + cookies.get(i).toString());
+	    // }
+
+	    value = cookies.get(0).getValue().toString();
+
+	    // Log.v("login", value);
+	}
+
+	try {
+	    rd.close();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	try {
+	    reader.close();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	if (cookies.isEmpty()) {
+	    setConnected(false);
+	    return false;
+	} else {
+	    setConnected(true);
+	    return true;
+	}
     }
 
-    public String getGMCKey() {
-	return m_gcmKey;
-    }
-
-    public boolean login(String userName, String password) {
-	//TODO change return value
-	return true;
-	
-    }
-    
     public boolean logout(String userName) {
-	//TODO change return value
 	return true;
     }
 
-    public String sendToServer(String jsonRequest) {
-	//TODO change return value
-	return "";
+    /**
+     * This Method is just for the Communication Test filled with this content.
+     */
+    public String sendToServer(/* String jsonRequest */) {
+	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+	nameValuePairs.clear();
+	nameValuePairs.add(new BasicNameValuePair("req", "ISENTTOCOPATHIS"));
+	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", value));
+
+	// Log.v("Used URL:", m_url);
+
+	HttpPost post = new HttpPost(m_url);
+
+	try {
+	    post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	} catch (UnsupportedEncodingException e3) {
+	    // TODO Auto-generated catch block
+	    e3.printStackTrace();
+	}
+
+	HttpResponse response = null;
+
+	try {
+	    response = client.execute(post);
+	} catch (ClientProtocolException e3) {
+	    // TODO Auto-generated catch block
+	    e3.printStackTrace();
+	} catch (IOException e3) {
+	    // TODO Auto-generated catch block
+	    e3.printStackTrace();
+	}
+
+	// TODO check this
+	// TODO do something with test
+	// check for http 302 (fail) or 200 (ok)
+	String test = response.getStatusLine().toString();
+
+	// Log.v("Site available:", test);
+
+	// Log.v("StatusLIne", test);
+
+	BufferedReader rd2 = null;
+
+	try {
+	    rd2 = new BufferedReader(new InputStreamReader(response.getEntity()
+		    .getContent()));
+	} catch (IllegalStateException e2) {
+	    // TODO Auto-generated catch block
+	    e2.printStackTrace();
+	} catch (IOException e2) {
+	    // TODO Auto-generated catch block
+	    e2.printStackTrace();
+	}
+
+	String line = "";
+	String temp = "";
+
+	try {
+	    while ((line = rd2.readLine()) != null) {
+		temp = line;
+	    }
+
+	    // Log.v("Server Answer", temp);
+
+	} catch (IOException e1) {
+	    // TODO Auto-generated catch block
+	    e1.printStackTrace();
+	}
+
+	// TODO why another cookie thing???
+
+	// List<Cookie> cookies = ((AbstractHttpClient) client).getCookieStore()
+	// .getCookies();
+	//
+	// String content = "";
+	//
+	// if (cookies.isEmpty()) {
+	// Log.w("Subscription.getSingleEventUpdate:",
+	// "No Coockie received!!!");
+	// } else {
+	// for (int i = 0; i < cookies.size(); i++) {
+	// // Log.v(">", "- " + cookies.get(i).toString());
+	// content = cookies.get(0).toString();
+	// value = cookies.get(0).getValue().toString();
+	// }
+	// }
+
+	try {
+	    rd2.close();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	return temp;
     }
-    
+
     public void openConnection() {
     }
 
     public boolean connectionCheck() {
-	//TODO change return value
 	return true;
     }
 
-    public String sendGMCKey() {
-	//TODO change return value
+    public String sendGCMKey() {
 	return "";
     }
-    
+
     public void closeConnection() {
     }
 }
