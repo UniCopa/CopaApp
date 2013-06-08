@@ -41,12 +41,12 @@ import unicopa.copa.base.event.Event;
  * 
  * @author Christiane Kuhn
  */
-public class EventAdapter extends BaseAdapter {
+public class PrivAdapter extends BaseAdapter {
 
     ArrayList<Event> EventList;
     Context context;
 
-    public EventAdapter(Context context, ArrayList<Event> eventList) {
+    public PrivAdapter(Context context, ArrayList<Event> eventList) {
 	this.context = context;
 	this.EventList = eventList;
     }
@@ -72,15 +72,14 @@ public class EventAdapter extends BaseAdapter {
 	if (convertView == null) {
 	    LayoutInflater inflater = (LayoutInflater) this.context
 		    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    convertView = inflater.inflate(R.layout.listitem_event, null);
+	    convertView = inflater.inflate(R.layout.listitem_priv, null);
 	    holder = new ViewHolder();
 
 	    holder.eventName = (TextView) convertView.findViewById(R.id.event);
-	    holder.colorButton = (Button) convertView
-		    .findViewById(R.id.color_change);
-	    holder.details = (Button) convertView.findViewById(R.id.details);
+	    holder.change = (Button) convertView.findViewById(R.id.priv_change);
+	    holder.other = (Button) convertView.findViewById(R.id.priv_others);
 	    holder.colour = (LinearLayout) convertView
-		    .findViewById(R.id.subscrListView);
+		    .findViewById(R.id.PrivListView);
 	    convertView.setTag(holder);
 
 	} else {
@@ -98,8 +97,8 @@ public class EventAdapter extends BaseAdapter {
     static class ViewHolder {
 	TextView eventName;
 	TextView eventGroupName;
-	Button colorButton;
-	Button details;
+	Button change;
+	Button other;
 	LinearLayout colour;
     }
 

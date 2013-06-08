@@ -14,23 +14,13 @@
         android:layout_height="wrap_content"
         android:text="List of all subscribed Events" />
 
-    <Button
-        android:id="@+id/color_button"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/subscriptionListView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/main_text"
-        android:layout_below="@+id/main_text"
-        android:layout_marginTop="62dp"
-        android:text="@string/button_subscription" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/subscription_text" >
 
-    <Button
-        android:id="@+id/allSingleEventsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/color_button"
-        android:layout_below="@+id/color_button"
-        android:layout_marginTop="33dp"
-        android:onClick="onAllDatesButtonClick"
-        android:text="@string/all_singleevents" />
+    </ListView>
 
 </RelativeLayout>

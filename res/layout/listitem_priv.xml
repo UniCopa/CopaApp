@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
        <LinearLayout
-           android:id="@+id/subscrListView"
+           android:id="@+id/PrivListView"
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
            android:layout_alignParentRight="true"
@@ -29,18 +29,18 @@
                android:text="TextView" />
 
            <Button
-               android:id="@+id/color_change"
+               android:id="@+id/priv_change"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight="0.0"
-               android:text="Color" />
+               android:text="Change" />
 
            <Button
-               android:id="@+id/details"
+               android:id="@+id/priv_others"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight="0.0"
-               android:text="Details" />
+               android:text="Other Privs" />
 
        </LinearLayout>
 

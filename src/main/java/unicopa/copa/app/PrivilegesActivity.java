@@ -55,8 +55,8 @@ public class PrivilegesActivity extends Activity {
 	sEvents.add(new Event(2, 2, "Event2", new ArrayList<Integer>()));
 	sEvents.add(new Event(3, 4, "Event3", new ArrayList<Integer>()));
 
-	EventAdapter eventAdapter = new EventAdapter(this, sEvents);
-	eventListView.setAdapter((ListAdapter) eventAdapter);
+	PrivAdapter privAdapter = new PrivAdapter(this, sEvents);
+	eventListView.setAdapter((ListAdapter) privAdapter);
 
 	eventListView.setOnItemClickListener(new OnItemClickListener() {
 	    @Override
