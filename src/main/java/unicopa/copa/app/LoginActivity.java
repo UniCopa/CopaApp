@@ -19,14 +19,14 @@ package unicopa.copa.app;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 /**
  * In this activity a user can enter his name and password.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class LoginActivity extends Activity {
 
@@ -54,9 +54,26 @@ public class LoginActivity extends Activity {
     }
 
     public void onCommTestButtonClick(View view) {
-	Intent intentComm = new Intent(LoginActivity.this,
-		CommunicationTestActivity.class);
-	intentComm.putExtra("key", "value");
-	LoginActivity.this.startActivity(intentComm);
+	ServerConnection scon = ServerConnection.getInstance();
+	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/j_security_check");
+
+	// TODO useName and password empty
+	String userName = "me";
+	String password = "me";
+
+	// TODO read userName and password from respective textEdit
+
+	Log.v("User Name:", userName);
+	Log.v("Password:", password);
+
+	// A Loading Screen or something similar would be nice. Otherwise when
+	// you click during load the app crashes.
+
+	if (scon.login(userName, password, getApplicationContext())) {
+	    Intent intentComm = new Intent(LoginActivity.this,
+		    CommunicationTestActivity.class);
+	    intentComm.putExtra("key", "value");
+	    LoginActivity.this.startActivity(intentComm);
+	}
     }
 }
