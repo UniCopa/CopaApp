@@ -4,6 +4,6 @@
 	<color name="red">#ff0000</color>
     <color name="grey">#55666666</color>
     <color name="grey_light">#ffcccccc</color>
-
+	<color name="background">#65B17D</color>
 
 </resources>

@@ -2,11 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    style="@style/background" >
 
     <TextView
         android:id="@+id/notification"
@@ -18,11 +15,31 @@
         android:text="@string/kind_of_notification" />
 
     <Spinner
-        android:id="@+id/languageSpinner"
+        android:id="@+id/notificationSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/notification"
-        android:layout_below="@+id/language_text"
+        android:layout_below="@+id/notification"
+        android:entries="@array/notification_entries"
+        android:prompt="@string/notification_pick" />
+
+    <TextView
+        android:id="@+id/title_settings"
+        style="@style/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Settings" />
+
+    <Spinner
+        android:id="@+id/languageSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title_settings"
+        android:layout_marginTop="31dp"
         android:entries="@array/language_entries"
         android:prompt="@string/language_pick"
         android:scrollbarAlwaysDrawVerticalTrack="true" />
@@ -31,17 +48,9 @@
         android:id="@+id/language_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/languageSpinner"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title_settings"
+        android:layout_marginTop="14dp"
         android:text="@string/language" />
-
-    <Spinner
-        android:id="@+id/notificationSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/notification"
-        android:layout_below="@+id/notification"
-        android:entries="@array/notification_entries"
-        android:prompt="@string/notification_pick" />
 
 </RelativeLayout>
