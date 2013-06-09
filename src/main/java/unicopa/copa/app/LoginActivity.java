@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * In this activity a user can enter his name and password.
@@ -54,20 +56,28 @@ public class LoginActivity extends Activity {
     }
 
     public void onCommTestButtonClick(View view) {
-	ServerConnection scon = ServerConnection.getInstance();
-	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/j_security_check");
-
-	// TODO useName and password empty
-	String userName = "me";
-	String password = "me";
-
-	// TODO read userName and password from respective textEdit
-
-	Log.v("User Name:", userName);
-	Log.v("Password:", password);
 
 	// A Loading Screen or something similar would be nice. Otherwise when
 	// you click during load the app crashes.
+	Toast toast = Toast.makeText(LoginActivity.this, "Please wait.",
+		Toast.LENGTH_SHORT);
+	toast.show();
+
+	ServerConnection scon = ServerConnection.getInstance();
+	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/j_security_check");
+
+	// read userName and password from respective textEdit
+	String userName = "";
+	String password = "";
+
+	EditText name = (EditText) findViewById(R.id.usernameField);
+	userName = name.getText().toString();
+
+	EditText pw = (EditText) findViewById(R.id.passwordField);
+	password = pw.getText().toString();
+
+	Log.v("User Name:", userName);
+	Log.v("Password:", password);
 
 	if (scon.login(userName, password, getApplicationContext())) {
 	    Intent intentComm = new Intent(LoginActivity.this,
