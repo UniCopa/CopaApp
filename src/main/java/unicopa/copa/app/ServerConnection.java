@@ -35,6 +35,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 
+import unicopa.copa.base.com.GetSingleEventRequest;
+import unicopa.copa.base.event.SingleEvent;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -50,7 +53,8 @@ public class ServerConnection {
     private String value = "";
     private DefaultHttpClient client = null;
 
-    // TODO URL needs to be read from configuration file file or settings not hard coded
+    // TODO URL needs to be read from configuration file file or settings not
+    // hard coded
     private String m_url = "";
 
     private static ServerConnection m_instance;
@@ -91,7 +95,12 @@ public class ServerConnection {
     // }
 
     /**
-     * This Method opens connection to the server and saves cookie.
+     * This Method opens connection to the server and saves the session cookie.
+     * 
+     * @param userName
+     * @param password
+     * @param context
+     * @return success
      */
     public boolean login(String userName, String password, Context context) {
 	// TODO getApplicationContext information needed
@@ -177,9 +186,108 @@ public class ServerConnection {
     }
 
     /**
-     * This Method is just for the Communication Test filled with this content.
+     * This Method return to a given singleEventID a SingleEvent.
+     * 
+     * @param eventID
+     * @return SingleEvent
      */
-    public String sendToServer(/* String jsonRequest */) {
+    public SingleEvent GetSingleEvent(int singleEventID) {
+	GetSingleEventRequest reqObj = new GetSingleEventRequest(singleEventID);
+
+	String reqStr = "";
+	// TODO need to serialize the 'GetSingleEventRequest'
+	// reqStr = ;
+
+	String resStr = "";
+	resStr = sendToServer(reqStr);
+
+	SingleEvent resObj = null;
+	// TODO need to deserialize the 'GetSingleEventResponse'
+	// resObj = ;
+
+	return resObj;
+    }
+
+    /**
+     * This Method sends a json String to the server and returns the answer as a
+     * String.
+     * 
+     * @param request
+     * @return
+     */
+    private String sendToServer(String request) {
+	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+	nameValuePairs.clear();
+	nameValuePairs.add(new BasicNameValuePair("req", request));
+	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", value));
+
+	HttpPost post = new HttpPost(m_url);
+
+	try {
+	    post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	} catch (UnsupportedEncodingException e3) {
+	    // TODO Auto-generated catch block
+	    e3.printStackTrace();
+	}
+
+	HttpResponse response = null;
+
+	try {
+	    response = client.execute(post);
+	} catch (ClientProtocolException e3) {
+	    // TODO Auto-generated catch block
+	    e3.printStackTrace();
+	} catch (IOException e3) {
+	    // TODO Auto-generated catch block
+	    e3.printStackTrace();
+	}
+
+	// TODO check this
+	// TODO do something with test
+	// check for http 302 (fail) or 200 (ok)
+	String test = response.getStatusLine().toString();
+
+	// Log.v("Site available:", test);
+
+	// Log.v("StatusLIne", test);
+
+	BufferedReader rd = null;
+
+	try {
+	    rd = new BufferedReader(new InputStreamReader(response.getEntity()
+		    .getContent()));
+	} catch (IllegalStateException e2) {
+	    // TODO Auto-generated catch block
+	    e2.printStackTrace();
+	} catch (IOException e2) {
+	    // TODO Auto-generated catch block
+	    e2.printStackTrace();
+	}
+
+	String line = "";
+	String temp = "";
+	try {
+	    while ((line = rd.readLine()) != null) {
+		temp = line;
+	    }
+	} catch (IOException e1) {
+	    // TODO Auto-generated catch block
+	    e1.printStackTrace();
+	}
+	try {
+	    rd.close();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	return "";
+    }
+
+    /**
+     * This Method is just for the Communication Test only.
+     */
+    public String sendToServerTest() {
 	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 	nameValuePairs.clear();
 	nameValuePairs.add(new BasicNameValuePair("req", "ISENTTOCOPATHIS"));
