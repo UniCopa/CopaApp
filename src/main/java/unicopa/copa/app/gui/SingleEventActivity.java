@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * In this activity a user can see all details of a SingleEvent.
@@ -37,7 +38,18 @@ public class SingleEventActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.singleevent);
 	Intent intent = getIntent();
-	String event = intent.getStringExtra("selected");
+	int singleEventID = intent.getIntExtra("selectedID", 0);
+	TextView sEventID = (TextView) super
+		.findViewById(R.id.singleEventID_sEV);
+	TextView eventID = (TextView) super.findViewById(R.id.eventID_sEv);
+	TextView location = (TextView) super.findViewById(R.id.location_sEv);
+	TextView date = (TextView) super.findViewById(R.id.date_sEv);
+	TextView supervisor = (TextView) super
+		.findViewById(R.id.supervisor_sEv);
+	TextView durationtime = (TextView) super
+		.findViewById(R.id.durationtime_sEv);
+
+	sEventID.setText(new Integer(singleEventID).toString());
     }
 
     @Override

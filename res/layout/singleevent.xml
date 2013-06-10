@@ -12,13 +12,118 @@
         android:layout_height="wrap_content"
         android:text="all details of one SingleEvent" />
 
+    <TextView
+        android:id="@+id/sEventId_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/subscription_text"
+        android:layout_marginTop="19dp"
+        android:text="SingleEventID:" />
+
+    <TextView
+        android:id="@+id/EventId_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/sEventId_sEv"
+        android:layout_marginTop="14dp"
+        android:text="EventID:" />
+
+    <TextView
+        android:id="@+id/loc_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/EventId_sEv"
+        android:layout_marginTop="15dp"
+        android:text="Location:" />
+
+    <TextView
+        android:id="@+id/dt_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/loc_sEv"
+        android:layout_marginTop="15dp"
+        android:text="Date" />
+
+    <TextView
+        android:id="@+id/spvs_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dt_sEv"
+        android:layout_marginTop="15dp"
+        android:text="Supervisor" />
+
+    <TextView
+        android:id="@+id/dtime_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/spvs_sEv"
+        android:layout_marginTop="15dp"
+        android:text="Durationtime" />
+
+    <TextView
+        android:id="@+id/eventID_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/loc_sEv"
+        android:layout_alignLeft="@+id/singleEventID_sEV"
+        android:text="not known" />
+
+    <TextView
+        android:id="@+id/location_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/loc_sEv"
+        android:layout_alignLeft="@+id/eventID_sEv"
+        android:text="not known" />
+
+    <TextView
+        android:id="@+id/date_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dt_sEv"
+        android:layout_alignLeft="@+id/location_sEv"
+        android:text="not known" />
+
+    <TextView
+        android:id="@+id/supervisor_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spvs_sEv"
+        android:layout_alignLeft="@+id/date_sEv"
+        android:text="not known" />
+
+    <TextView
+        android:id="@+id/durationtime_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dtime_sEv"
+        android:layout_alignBottom="@+id/dtime_sEv"
+        android:layout_alignLeft="@+id/supervisor_sEv"
+        android:text="not known" />
+
+    <TextView
+        android:id="@+id/singleEventID_sEV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/EventId_sEv"
+        android:layout_centerHorizontal="true"
+        android:text="not known" />
+
     <Button
         android:id="@+id/allSingleEventsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/subscription_text"
-        android:layout_below="@+id/subscription_text"
-        android:layout_marginTop="42dp"
+        android:layout_alignLeft="@+id/durationtime_sEv"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/durationtime_sEv"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="31dp"
         android:onClick="onChangeDateButtonClick"
         android:text="@string/button_singleevent_change" />
 
