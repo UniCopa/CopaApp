@@ -32,7 +32,7 @@
         android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/searchEdit"
         android:text="@string/button_search" />
 

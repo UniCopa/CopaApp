@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
@@ -10,8 +11,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/test_button_main"
         android:text="List of next SingleEvents" />
 
     <ListView
@@ -20,9 +21,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/main_text"
-        android:layout_below="@+id/main_text"
+        android:layout_below="@+id/test_button_main"
         android:cacheColorHint="#00000000"
         android:clickable="true" >
     </ListView>
+
+    <Button
+        android:id="@+id/test_button_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/main_text"
+        android:layout_alignParentRight="true"
+        android:onClick="onRefreshButtonClick"
+        android:text="refresh" />
 
 </RelativeLayout>
