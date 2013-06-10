@@ -1,5 +1,9 @@
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import android.app.Activity;
@@ -34,7 +38,15 @@ public class CommunicationTestActivity extends Activity {
 
 	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/hello/Hello");
 
-	answer = scon.sendToServerTest();
+	try {
+	    answer = scon.sendToServerTest();
+	} catch (ClientProtocolException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 
 	TextView textViewAnswer = (TextView) super.findViewById(R.id.answer);
 	textViewAnswer.setText(answer);

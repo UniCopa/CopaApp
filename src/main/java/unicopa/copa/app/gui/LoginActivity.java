@@ -16,6 +16,10 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import android.os.Bundle;
@@ -84,8 +88,16 @@ public class LoginActivity extends Activity {
 	    Log.v("User Name:", userName);
 	    Log.v("Password:", password);
 
-	    if (!scon.login(userName, password, getApplicationContext())) {
+	    try {
+		if (!scon.login(userName, password, getApplicationContext())) {
 		// TODO feedback if login fails
+		}
+	    } catch (ClientProtocolException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	    }
 	}
 

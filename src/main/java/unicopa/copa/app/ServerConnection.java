@@ -35,7 +35,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 
+import unicopa.copa.base.com.AbstractResponse;
 import unicopa.copa.base.com.GetSingleEventRequest;
+import unicopa.copa.base.com.GetSingleEventResponse;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
+import unicopa.copa.base.com.serialization.ClientSerializer;
 import unicopa.copa.base.event.SingleEvent;
 
 import android.content.Context;
@@ -49,12 +56,9 @@ import android.util.Log;
 public class ServerConnection {
     private boolean m_connected = false;
     // private String m_gcmKey = "";
-
-    private String value = "";
+    private String m_sessionID = "";
     private DefaultHttpClient client = null;
 
-    // TODO URL needs to be read from configuration file file or settings not
-    // hard coded
     private String m_url = "";
 
     private static ServerConnection m_instance;
@@ -70,6 +74,7 @@ public class ServerConnection {
     // private ServerConnection() {
     // }
 
+    // TODO URL needs to be read from configuration file or settings
     public void setUrl(String url) {
 	m_url = url;
     }
@@ -101,8 +106,11 @@ public class ServerConnection {
      * @param password
      * @param context
      * @return success
+     * @throws IOException
+     * @throws ClientProtocolException
      */
-    public boolean login(String userName, String password, Context context) {
+    public boolean login(String userName, String password, Context context)
+	    throws ClientProtocolException, IOException {
 	// TODO getApplicationContext information needed
 	client = new CoPAAppHttpClient(context);
 
@@ -117,36 +125,15 @@ public class ServerConnection {
 	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 	nameValuePairs.add(new BasicNameValuePair("j_username", userName));
 	nameValuePairs.add(new BasicNameValuePair("j_password", password));
-	try {
-	    loginMsg.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	} catch (UnsupportedEncodingException e1) {
-	    // TODO Auto-generated catch block
-	    e1.printStackTrace();
-	}
+	loginMsg.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 	// lend login data
 	HttpResponse response = null;
-	try {
-	    response = client.execute(loginMsg);
-	} catch (ClientProtocolException e1) {
-	    // TODO Auto-generated catch block
-	    e1.printStackTrace();
-	} catch (IOException e1) {
-	    // TODO Auto-generated catch block
-	    e1.printStackTrace();
-	}
+	response = client.execute(loginMsg);
 
 	// handle response
 	InputStreamReader reader = null;
-	try {
-	    reader = new InputStreamReader(response.getEntity().getContent());
-	} catch (IllegalStateException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
+	reader = new InputStreamReader(response.getEntity().getContent());
 	BufferedReader rd = new BufferedReader(reader);
 	List<Cookie> cookies = ((AbstractHttpClient) client).getCookieStore()
 		.getCookies();
@@ -154,22 +141,12 @@ public class ServerConnection {
 	if (cookies.isEmpty()) {
 	    Log.w("List<cookies>:", "is empty");
 	} else {
-	    value = cookies.get(0).getValue().toString();
+	    m_sessionID = cookies.get(0).getValue().toString();
 	}
 
 	// cleaning
-	try {
-	    rd.close();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-	try {
-	    reader.close();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
+	rd.close();
+	reader.close();
 
 	// return
 	if (cookies.isEmpty()) {
@@ -190,22 +167,27 @@ public class ServerConnection {
      * 
      * @param eventID
      * @return SingleEvent
+     * @throws InternalErrorException
+     * @throws RequestNotPracticableException
+     * @throws PermissionException
+     * @throws APIException
      */
-    public SingleEvent GetSingleEvent(int singleEventID) {
+    public SingleEvent GetSingleEvent(int singleEventID) throws APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
 	GetSingleEventRequest reqObj = new GetSingleEventRequest(singleEventID);
 
 	String reqStr = "";
-	// TODO need to serialize the 'GetSingleEventRequest'
-	// reqStr = ;
+	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
 	resStr = sendToServer(reqStr);
 
-	SingleEvent resObj = null;
-	// TODO need to deserialize the 'GetSingleEventResponse'
-	// resObj = ;
+	GetSingleEventResponse resObj = null;
+	resObj = (GetSingleEventResponse) ClientSerializer
+		.deserializeResponse(resStr);
 
-	return resObj;
+	return resObj.getSingleEvent();
     }
 
     /**
@@ -219,7 +201,7 @@ public class ServerConnection {
 	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 	nameValuePairs.clear();
 	nameValuePairs.add(new BasicNameValuePair("req", request));
-	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", value));
+	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
 
 	HttpPost post = new HttpPost(m_url);
 
@@ -286,33 +268,24 @@ public class ServerConnection {
 
     /**
      * This Method is just for the Communication Test only.
+     * 
+     * @throws IOException
+     * @throws ClientProtocolException
      */
-    public String sendToServerTest() {
+    public String sendToServerTest() throws ClientProtocolException,
+	    IOException {
 	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 	nameValuePairs.clear();
 	nameValuePairs.add(new BasicNameValuePair("req", "ISENTTOCOPATHIS"));
-	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", value));
+	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
 
 	HttpPost post = new HttpPost(m_url);
 
-	try {
-	    post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	} catch (UnsupportedEncodingException e3) {
-	    // TODO Auto-generated catch block
-	    e3.printStackTrace();
-	}
+	post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 	HttpResponse response = null;
 
-	try {
-	    response = client.execute(post);
-	} catch (ClientProtocolException e3) {
-	    // TODO Auto-generated catch block
-	    e3.printStackTrace();
-	} catch (IOException e3) {
-	    // TODO Auto-generated catch block
-	    e3.printStackTrace();
-	}
+	response = client.execute(post);
 
 	// TODO check this
 	// TODO do something with test
@@ -325,33 +298,15 @@ public class ServerConnection {
 
 	BufferedReader rd2 = null;
 
-	try {
-	    rd2 = new BufferedReader(new InputStreamReader(response.getEntity()
-		    .getContent()));
-	} catch (IllegalStateException e2) {
-	    // TODO Auto-generated catch block
-	    e2.printStackTrace();
-	} catch (IOException e2) {
-	    // TODO Auto-generated catch block
-	    e2.printStackTrace();
-	}
+	rd2 = new BufferedReader(new InputStreamReader(response.getEntity()
+		.getContent()));
 
 	String line = "";
 	String temp = "";
-	try {
-	    while ((line = rd2.readLine()) != null) {
-		temp = line;
-	    }
-	} catch (IOException e1) {
-	    // TODO Auto-generated catch block
-	    e1.printStackTrace();
+	while ((line = rd2.readLine()) != null) {
+	    temp = line;
 	}
-	try {
-	    rd2.close();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
+	rd2.close();
 
 	return temp;
     }
