@@ -28,10 +28,18 @@ import unicopa.copa.base.event.SingleEvent;
 public class SingleEventLocal extends SingleEvent {
     private ArrayList<Integer> m_changeUpdateStatus;
 
-    // TODO include color code in this class
+    private String m_colorCode;
 
     public void setChangeUpdateStatus(ArrayList<Integer> changeUpdateStatus) {
 	m_changeUpdateStatus = changeUpdateStatus;
+    }
+    
+    public void setColorCode(String colorCode) {
+	m_colorCode = colorCode;
+    }
+    
+    public String setColorCode() {
+	return m_colorCode;
     }
 
     public ArrayList<Integer> getChangeUpdateStatus() {
