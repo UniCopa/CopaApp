@@ -49,12 +49,17 @@ public class CoPAAppHttpClient extends DefaultHttpClient {
 	registry.register(new Scheme("http", PlainSocketFactory
 		.getSocketFactory(), 80));
 
-	registry.register(new Scheme("https", newSslSocketFactory(), 443));
+	registry.register(new Scheme("https", newSSSLSocketFactory(), 443));
 
 	return new SingleClientConnManager(getParams(), registry);
     }
 
-    private SSLSocketFactory newSslSocketFactory() {
+    /**
+     * This Method creates a SSLSocketFactory with the custom SSL certificate.
+     * 
+     * @return SSLSocketFactory
+     */
+    private SSLSocketFactory newSSSLSocketFactory() {
 	try {
 	    // get instance of Bouncy Castle KeyStore format
 	    KeyStore trusted = KeyStore.getInstance("BKS");
