@@ -5,44 +5,43 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-       <LinearLayout
-           android:id="@+id/subscrListView"
-           android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:layout_alignParentLeft="true"
-           android:layout_alignParentRight="true"
-           android:layout_margin="3.0dip" >
+    <LinearLayout
+        android:id="@+id/subscrListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="3.0dip" >
 
-           <TextView
-               android:id="@+id/eventGroup"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_margin="3.0dip"
-               android:layout_marginRight="8.0dip"
-               android:layout_weight="0.0"
-               android:text="TextView" />
+        <TextView
+            android:id="@+id/eventGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3.0dip"
+            android:layout_marginRight="8.0dip"
+            android:layout_weight="0.0"
+            android:text="TextView" />
 
-           <TextView
-               android:id="@+id/event"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_margin="3.0dip"
-               android:text="TextView" />
+        <TextView
+            android:id="@+id/event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3.0dip"
+            android:text="TextView" />
 
-           <Button
-               android:id="@+id/color_change"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_weight="0.0"
-               android:text="Color" />
+        <Button
+            android:id="@+id/color_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:text="Color" />
 
-           <Button
-               android:id="@+id/details"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_weight="0.0"
-               android:text="Details" />
-
-       </LinearLayout>
+        <Button
+            android:id="@+id/details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:text="Details" />
+    </LinearLayout>
 
 </RelativeLayout>

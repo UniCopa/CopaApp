@@ -1,16 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/background"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-	style="@style/background"
     tools:context=".MainActivity" >
 
     <TextView
         android:id="@+id/login1"
+        style="@style/text_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Login please"
-        style="@style/text_title" />
+        android:text="Login please" />
 
     <EditText
         android:id="@+id/passwordField"
@@ -21,6 +21,7 @@
         android:layout_marginTop="36dp"
         android:ems="10"
         android:inputType="textPassword" >
+
         <requestFocus />
     </EditText>
 

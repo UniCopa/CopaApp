@@ -23,15 +23,17 @@
     <string name="action_subscription">subscribed events</string>
     <string name="button_singleevent_change">Change this date</string>
     <string name="language_pick">Pick your language</string>
+
     <string-array name="language_entries">
-        <item >@string/language_english</item>
-        <item >@string/language_german</item>
+        <item>@string/language_english</item>
+        <item>@string/language_german</item>
     </string-array>
     <string-array name="notification_entries">
         <item>E-mail</item>
         <item>Push</item>
         <item>None</item>
     </string-array>
+
     <string name="notification_pick">Pick your kind of notification</string>
 
 </resources>

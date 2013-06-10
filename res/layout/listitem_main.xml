@@ -13,7 +13,9 @@
         android:layout_margin="3.0dip"
         android:orientation="vertical" >
 
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/eventName"
@@ -31,9 +33,11 @@
                 android:layout_marginRight="8.0dip"
                 android:layout_weight="0.0"
                 android:text="TextView" />
-
         </LinearLayout>
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/room"
@@ -57,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.0"
                 android:text="TextView" />
-
         </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>

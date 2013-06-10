@@ -49,7 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.0"
             android:text="Change" />
-
     </LinearLayout>
 
 </RelativeLayout>

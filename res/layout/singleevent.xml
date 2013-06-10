@@ -1,16 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/background"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    style="@style/background" >
+    tools:context=".MainActivity" >
 
     <TextView
         android:id="@+id/subscription_text"
+        style="@style/text_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="all details of one SingleEvent"
-        style="@style/text_title" />
+        android:text="all details of one SingleEvent" />
 
     <Button
         android:id="@+id/allSingleEventsButton"

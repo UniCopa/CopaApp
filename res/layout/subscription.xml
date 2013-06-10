@@ -1,26 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/background"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    style="@style/background" >
+    tools:context=".MainActivity" >
 
     <TextView
         android:id="@+id/subscription_text"
+        style="@style/text_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="List of all subscribed Events"
-        style="@style/text_title" />
+        android:text="List of all subscribed Events" />
 
     <ListView
         android:id="@+id/subscriptionListView"
+        style="@style/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/subscription_text"
-        style="@style/background" 
         android:cacheColorHint="#00000000" >
-
     </ListView>
 
 </RelativeLayout>
