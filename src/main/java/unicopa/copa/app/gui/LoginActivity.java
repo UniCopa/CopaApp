@@ -66,26 +66,33 @@ public class LoginActivity extends Activity {
 	toast.show();
 
 	ServerConnection scon = ServerConnection.getInstance();
-	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/j_security_check");
 
-	// read userName and password from respective textEdit
-	String userName = "";
-	String password = "";
+	// TODO check if already logged in
+	if (!scon.getConnected()) {
+	    scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/j_security_check");
 
-	EditText name = (EditText) findViewById(R.id.usernameField);
-	userName = name.getText().toString();
+	    // read userName and password from respective textEdit
+	    String userName = "";
+	    String password = "";
 
-	EditText pw = (EditText) findViewById(R.id.passwordField);
-	password = pw.getText().toString();
+	    EditText name = (EditText) findViewById(R.id.usernameField);
+	    userName = name.getText().toString();
 
-	Log.v("User Name:", userName);
-	Log.v("Password:", password);
+	    EditText pw = (EditText) findViewById(R.id.passwordField);
+	    password = pw.getText().toString();
 
-	if (scon.login(userName, password, getApplicationContext())) {
-	    Intent intentComm = new Intent(LoginActivity.this,
-		    CommunicationTestActivity.class);
-	    intentComm.putExtra("key", "value");
-	    LoginActivity.this.startActivity(intentComm);
+	    Log.v("User Name:", userName);
+	    Log.v("Password:", password);
+
+	    if (!scon.login(userName, password, getApplicationContext())) {
+		// TODO feedback if login fails
+	    }
 	}
+
+	Intent intentComm = new Intent(LoginActivity.this,
+		CommunicationTestActivity.class);
+	intentComm.putExtra("key", "value");
+	LoginActivity.this.startActivity(intentComm);
+
     }
 }
