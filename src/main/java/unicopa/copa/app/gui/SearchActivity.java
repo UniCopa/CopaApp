@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package unicopa.copa.app;
+package unicopa.copa.app.gui;
 
 import unicopa.copa.app.R;
 
@@ -26,23 +26,21 @@ import android.view.MenuItem;
 import android.view.View;
 
 /**
- * In this activity a user can see all details of a SingleEvent.
+ * In this activity a user can search a event.
  * 
  * @author Christiane Kuhn
  */
-public class SingleEventActivity extends Activity {
+public class SearchActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.singleevent);
-	Intent intent = getIntent();
-	String event = intent.getStringExtra("selected");
+	setContentView(R.layout.search);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-	getMenuInflater().inflate(R.menu.all_items_menu, menu);
+	getMenuInflater().inflate(R.menu.search_menu, menu);
 	return true;
     }
 
@@ -50,34 +48,29 @@ public class SingleEventActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
 	case R.id.action_log:
-	    Intent intentLog = new Intent(SingleEventActivity.this,
+	    Intent intentLog = new Intent(SearchActivity.this,
 		    LoginActivity.class);
-	    SingleEventActivity.this.startActivity(intentLog);
+	    SearchActivity.this.startActivity(intentLog);
 	    return true;
 	case R.id.action_main:
-	    Intent intentMain = new Intent(SingleEventActivity.this,
+	    Intent intentMain = new Intent(SearchActivity.this,
 		    MainActivity.class);
-	    SingleEventActivity.this.startActivity(intentMain);
-	    return true;
-	case R.id.action_search:
-	    Intent intentSearch = new Intent(SingleEventActivity.this,
-		    SearchActivity.class);
-	    SingleEventActivity.this.startActivity(intentSearch);
+	    SearchActivity.this.startActivity(intentMain);
 	    return true;
 	case R.id.action_priv:
-	    Intent intentPriv = new Intent(SingleEventActivity.this,
+	    Intent intentPriv = new Intent(SearchActivity.this,
 		    PrivilegesActivity.class);
-	    SingleEventActivity.this.startActivity(intentPriv);
+	    SearchActivity.this.startActivity(intentPriv);
 	    return true;
 	case R.id.action_settings:
-	    Intent intentSettings = new Intent(SingleEventActivity.this,
+	    Intent intentSettings = new Intent(SearchActivity.this,
 		    SettingsActivity.class);
-	    SingleEventActivity.this.startActivity(intentSettings);
+	    SearchActivity.this.startActivity(intentSettings);
 	    return true;
 	case R.id.action_subscription:
-	    Intent intentSubscription = new Intent(SingleEventActivity.this,
+	    Intent intentSubscription = new Intent(SearchActivity.this,
 		    SubscriptionActivity.class);
-	    SingleEventActivity.this.startActivity(intentSubscription);
+	    SearchActivity.this.startActivity(intentSubscription);
 	    return true;
 
 	default:
@@ -86,15 +79,15 @@ public class SingleEventActivity extends Activity {
     }
 
     /**
-     * Is used if ChangeDateButton is clicked. Switches to
-     * ChangeSingleEventActivity.
+     * Is used if AllDatesButton is clicked. Switches to
+     * SingleEventListActivity.
      * 
      * @param view
      */
-    public void onChangeDateButtonClick(View view) {
-	Intent intentSingleEvent = new Intent(SingleEventActivity.this,
-		ChangeSingleEventActivity.class);
-	SingleEventActivity.this.startActivity(intentSingleEvent);
+    public void onAllDatesButtonClick(View view) {
+	Intent intentEventPriv = new Intent(SearchActivity.this,
+		SingleEventListActivity.class);
+	intentEventPriv.putExtra("key", "value");
+	SearchActivity.this.startActivity(intentEventPriv);
     }
-
 }

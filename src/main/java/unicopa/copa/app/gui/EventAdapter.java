@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package unicopa.copa.app;
+package unicopa.copa.app.gui;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +34,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import unicopa.copa.app.R;
 import unicopa.copa.base.event.Event;
 
 /**
@@ -41,12 +42,12 @@ import unicopa.copa.base.event.Event;
  * 
  * @author Christiane Kuhn
  */
-public class PrivAdapter extends BaseAdapter {
+public class EventAdapter extends BaseAdapter {
 
     ArrayList<Event> EventList;
     Context context;
 
-    public PrivAdapter(Context context, ArrayList<Event> eventList) {
+    public EventAdapter(Context context, ArrayList<Event> eventList) {
 	this.context = context;
 	this.EventList = eventList;
     }
@@ -72,14 +73,15 @@ public class PrivAdapter extends BaseAdapter {
 	if (convertView == null) {
 	    LayoutInflater inflater = (LayoutInflater) this.context
 		    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    convertView = inflater.inflate(R.layout.listitem_priv, null);
+	    convertView = inflater.inflate(R.layout.listitem_event, null);
 	    holder = new ViewHolder();
 
 	    holder.eventName = (TextView) convertView.findViewById(R.id.event);
-	    holder.change = (Button) convertView.findViewById(R.id.priv_change);
-	    holder.other = (Button) convertView.findViewById(R.id.priv_others);
+	    holder.colorButton = (Button) convertView
+		    .findViewById(R.id.color_change);
+	    holder.details = (Button) convertView.findViewById(R.id.details);
 	    holder.colour = (LinearLayout) convertView
-		    .findViewById(R.id.PrivListView);
+		    .findViewById(R.id.subscrListView);
 	    convertView.setTag(holder);
 
 	} else {
@@ -91,28 +93,22 @@ public class PrivAdapter extends BaseAdapter {
 	Drawable draw = context.getResources().getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
 
-	holder.change.setOnClickListener(new OnClickListener() {
+	holder.colorButton.setOnClickListener(new OnClickListener() {
 
 	    @Override
 	    public void onClick(View v) {
-
-		Intent intentSingleEventList = new Intent(context,
-			SingleEventListActivity.class);
-		intentSingleEventList.putExtra("key", "value");
-		context.startActivity(intentSingleEventList);
-
 	    }
 
 	});
 
-	holder.other.setOnClickListener(new OnClickListener() {
+	holder.details.setOnClickListener(new OnClickListener() {
 
 	    @Override
 	    public void onClick(View v) {
-		Intent intentEventPriv = new Intent(context,
-			EventPrivActivity.class);
-		intentEventPriv.putExtra("key", "value");
-		context.startActivity(intentEventPriv);
+		Intent intentSingleEvent = new Intent(context,
+			SingleEventListActivity.class);
+		intentSingleEvent.putExtra("key", "value");
+		context.startActivity(intentSingleEvent);
 
 	    }
 
@@ -124,8 +120,8 @@ public class PrivAdapter extends BaseAdapter {
     static class ViewHolder {
 	TextView eventName;
 	TextView eventGroupName;
-	Button change;
-	Button other;
+	Button colorButton;
+	Button details;
 	LinearLayout colour;
     }
 

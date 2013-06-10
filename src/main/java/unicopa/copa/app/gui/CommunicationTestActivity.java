@@ -1,5 +1,7 @@
-package unicopa.copa.app;
+package unicopa.copa.app.gui;
 
+import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

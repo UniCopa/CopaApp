@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package unicopa.copa.app;
+package unicopa.copa.app.gui;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import unicopa.copa.app.R;
 import unicopa.copa.base.event.SingleEvent;
 
 /**

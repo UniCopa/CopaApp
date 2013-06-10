@@ -14,28 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package unicopa.copa.app;
+package unicopa.copa.app.gui;
+
+import unicopa.copa.app.R;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import unicopa.copa.app.R;
+import android.view.View;
 
 /**
- * In this activity a user can see all rightholders, deputies and owners.
+ * In this activity a user can see all details of a SingleEvent.
  * 
  * @author Christiane Kuhn
  */
-public class EventPrivActivity extends Activity {
+public class SingleEventActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.eventpriv);
+	setContentView(R.layout.singleevent);
 	Intent intent = getIntent();
-	String event = intent.getStringExtra("key");
+	String event = intent.getStringExtra("selected");
     }
 
     @Override
@@ -44,46 +46,55 @@ public class EventPrivActivity extends Activity {
 	return true;
     }
 
-    /**
-     * Switch to other activity, depending on which item was clicked.
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
 	case R.id.action_log:
-	    Intent intentLog = new Intent(EventPrivActivity.this,
+	    Intent intentLog = new Intent(SingleEventActivity.this,
 		    LoginActivity.class);
-	    EventPrivActivity.this.startActivity(intentLog);
+	    SingleEventActivity.this.startActivity(intentLog);
 	    return true;
 	case R.id.action_main:
-	    Intent intentMain = new Intent(EventPrivActivity.this,
+	    Intent intentMain = new Intent(SingleEventActivity.this,
 		    MainActivity.class);
-	    EventPrivActivity.this.startActivity(intentMain);
+	    SingleEventActivity.this.startActivity(intentMain);
 	    return true;
 	case R.id.action_search:
-	    Intent intentSearch = new Intent(EventPrivActivity.this,
+	    Intent intentSearch = new Intent(SingleEventActivity.this,
 		    SearchActivity.class);
-	    EventPrivActivity.this.startActivity(intentSearch);
+	    SingleEventActivity.this.startActivity(intentSearch);
 	    return true;
 	case R.id.action_priv:
-	    Intent intentPriv = new Intent(EventPrivActivity.this,
+	    Intent intentPriv = new Intent(SingleEventActivity.this,
 		    PrivilegesActivity.class);
-	    EventPrivActivity.this.startActivity(intentPriv);
+	    SingleEventActivity.this.startActivity(intentPriv);
 	    return true;
 	case R.id.action_settings:
-	    Intent intentSettings = new Intent(EventPrivActivity.this,
+	    Intent intentSettings = new Intent(SingleEventActivity.this,
 		    SettingsActivity.class);
-	    EventPrivActivity.this.startActivity(intentSettings);
+	    SingleEventActivity.this.startActivity(intentSettings);
 	    return true;
 	case R.id.action_subscription:
-	    Intent intentSubscription = new Intent(EventPrivActivity.this,
+	    Intent intentSubscription = new Intent(SingleEventActivity.this,
 		    SubscriptionActivity.class);
-	    EventPrivActivity.this.startActivity(intentSubscription);
+	    SingleEventActivity.this.startActivity(intentSubscription);
 	    return true;
 
 	default:
 	    return super.onOptionsItemSelected(item);
 	}
+    }
+
+    /**
+     * Is used if ChangeDateButton is clicked. Switches to
+     * ChangeSingleEventActivity.
+     * 
+     * @param view
+     */
+    public void onChangeDateButtonClick(View view) {
+	Intent intentSingleEvent = new Intent(SingleEventActivity.this,
+		ChangeSingleEventActivity.class);
+	SingleEventActivity.this.startActivity(intentSingleEvent);
     }
 
 }

@@ -14,48 +14,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package unicopa.copa.app;
+package unicopa.copa.app.gui;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import unicopa.copa.app.R;
+import unicopa.copa.base.event.SingleEvent;
+
+import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import unicopa.copa.base.event.SingleEvent;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
- * In this activity the user sees a list of SingleEvents.
+ * In this activity a user sees all SingleEvents to an Event.
  * 
  * @author Christiane Kuhn
  */
-public class MainActivity extends Activity {
+public class SingleEventListActivity extends Activity {
 
-    /**
-     * creates Activity with a list of SingleEvents. By clicking on a
-     * SingleEvent it switches to SingleEventActivity
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.main);
+	setContentView(R.layout.singleeventlist);
+	Intent intent = getIntent();
+	String event = intent.getStringExtra("selected");
 
-	final ListView singleEventListView = (ListView) MainActivity.this
-		.findViewById(R.id.singleEventView);
+	final ListView singleEventListView = (ListView) SingleEventListActivity.this
+		.findViewById(R.id.singleEventListView);
 
 	singleEventListView.setAdapter(null);
 
 	ArrayList<SingleEvent> sEvents = new ArrayList<SingleEvent>();
 	sEvents.add(new SingleEvent(1, 3, "HU 102", Calendar.getInstance()
-		.getTime(), "David", 4));
+		.getTime(), "SingleEventList", 4));
 	sEvents.add(new SingleEvent(2, 2, "HU 103", Calendar.getInstance()
 		.getTime(), "Robin", 00));
 	sEvents.add(new SingleEvent(3, 4, "HU 104", Calendar.getInstance()
@@ -84,60 +83,64 @@ public class MainActivity extends Activity {
 		.getTime(), "Silke", 76));
 	sEvents.add(new SingleEvent(15, 5, "HU 106", Calendar.getInstance()
 		.getTime(), "Jan", 90));
-	MainAdapter sEventAdapter = new MainAdapter(this, sEvents);
+	SingleEventAdapter sEventAdapter = new SingleEventAdapter(this, sEvents);
 	singleEventListView.setAdapter((ListAdapter) sEventAdapter);
 
 	singleEventListView.setOnItemClickListener(new OnItemClickListener() {
 	    @Override
 	    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 		    long arg3) {
-		Intent intent = new Intent(MainActivity.this,
+		Intent intent = new Intent(SingleEventListActivity.this,
 			SingleEventActivity.class);
 		intent.putExtra("selected", singleEventListView.getAdapter()
 			.getItem(arg2).toString());
 		startActivity(intent);
 	    }
 	});
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+	getMenuInflater().inflate(R.menu.all_items_menu, menu);
+	return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
 	case R.id.action_log:
-	    Intent intentLog = new Intent(MainActivity.this,
+	    Intent intentLog = new Intent(SingleEventListActivity.this,
 		    LoginActivity.class);
-	    MainActivity.this.startActivity(intentLog);
+	    SingleEventListActivity.this.startActivity(intentLog);
+	    return true;
+	case R.id.action_main:
+	    Intent intentMain = new Intent(SingleEventListActivity.this,
+		    MainActivity.class);
+	    SingleEventListActivity.this.startActivity(intentMain);
 	    return true;
 	case R.id.action_search:
-	    Intent intentSearch = new Intent(MainActivity.this,
+	    Intent intentSearch = new Intent(SingleEventListActivity.this,
 		    SearchActivity.class);
-	    MainActivity.this.startActivity(intentSearch);
+	    SingleEventListActivity.this.startActivity(intentSearch);
 	    return true;
 	case R.id.action_priv:
-	    Intent intentPriv = new Intent(MainActivity.this,
+	    Intent intentPriv = new Intent(SingleEventListActivity.this,
 		    PrivilegesActivity.class);
-	    MainActivity.this.startActivity(intentPriv);
+	    SingleEventListActivity.this.startActivity(intentPriv);
 	    return true;
 	case R.id.action_settings:
-	    Intent intentSettings = new Intent(MainActivity.this,
+	    Intent intentSettings = new Intent(SingleEventListActivity.this,
 		    SettingsActivity.class);
-	    MainActivity.this.startActivity(intentSettings);
+	    SingleEventListActivity.this.startActivity(intentSettings);
 	    return true;
 	case R.id.action_subscription:
-	    Intent intentSubscription = new Intent(MainActivity.this,
-		    SubscriptionActivity.class);
-	    MainActivity.this.startActivity(intentSubscription);
+	    Intent intentSubscription = new Intent(
+		    SingleEventListActivity.this, SubscriptionActivity.class);
+	    SingleEventListActivity.this.startActivity(intentSubscription);
 	    return true;
+
 	default:
 	    return super.onOptionsItemSelected(item);
 	}
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-	getMenuInflater().inflate(R.menu.activity_main_menu, menu);
-	return true;
-    }
-
 }
