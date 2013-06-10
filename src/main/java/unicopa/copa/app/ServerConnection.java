@@ -39,7 +39,7 @@ import android.content.Context;
 import android.util.Log;
 
 /**
- * This class manages the connection to the server.
+ * This singleton class manages the connection to the server.
  * 
  * @author Martin Rabe
  */
@@ -50,7 +50,7 @@ public class ServerConnection {
     private String value = "";
     private DefaultHttpClient client = null;
 
-    // TODO url needs to be read from config file or settings not hard coded
+    // TODO URL needs to be read from configuration file file or settings not hard coded
     private String m_url = "";
 
     private static ServerConnection m_instance;
@@ -78,9 +78,9 @@ public class ServerConnection {
 	m_connected = connected;
     }
 
-    // public boolean getConnected() {
-    // return m_connected;
-    // }
+    public boolean getConnected() {
+	return m_connected;
+    }
 
     // public void setGCMKey(String gcmKey) {
     // m_gcmKey = gcmKey;
@@ -127,9 +127,8 @@ public class ServerConnection {
 	    e1.printStackTrace();
 	}
 
-	// response
+	// handle response
 	InputStreamReader reader = null;
-
 	try {
 	    reader = new InputStreamReader(response.getEntity().getContent());
 	} catch (IllegalStateException e) {
@@ -139,41 +138,23 @@ public class ServerConnection {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-
 	BufferedReader rd = new BufferedReader(reader);
-	String line = "";
-
-	try {
-	    while ((line = rd.readLine()) != null) {
-		// Log.v("Read form site:", line);
-	    }
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-
 	List<Cookie> cookies = ((AbstractHttpClient) client).getCookieStore()
 		.getCookies();
 
 	if (cookies.isEmpty()) {
 	    Log.w("List<cookies>:", "is empty");
 	} else {
-	    // for (int i = 0; i < cookies.size(); i++) {
-	    // Log.w(">", "- " + cookies.get(i).toString());
-	    // }
-
 	    value = cookies.get(0).getValue().toString();
-
-	    // Log.v("login", value);
 	}
 
+	// cleaning
 	try {
 	    rd.close();
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-
 	try {
 	    reader.close();
 	} catch (IOException e) {
@@ -181,6 +162,7 @@ public class ServerConnection {
 	    e.printStackTrace();
 	}
 
+	// return
 	if (cookies.isEmpty()) {
 	    setConnected(false);
 	    return false;
@@ -202,8 +184,6 @@ public class ServerConnection {
 	nameValuePairs.clear();
 	nameValuePairs.add(new BasicNameValuePair("req", "ISENTTOCOPATHIS"));
 	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", value));
-
-	// Log.v("Used URL:", m_url);
 
 	HttpPost post = new HttpPost(m_url);
 
@@ -250,37 +230,14 @@ public class ServerConnection {
 
 	String line = "";
 	String temp = "";
-
 	try {
 	    while ((line = rd2.readLine()) != null) {
 		temp = line;
 	    }
-
-	    // Log.v("Server Answer", temp);
-
 	} catch (IOException e1) {
 	    // TODO Auto-generated catch block
 	    e1.printStackTrace();
 	}
-
-	// TODO why another cookie thing???
-
-	// List<Cookie> cookies = ((AbstractHttpClient) client).getCookieStore()
-	// .getCookies();
-	//
-	// String content = "";
-	//
-	// if (cookies.isEmpty()) {
-	// Log.w("Subscription.getSingleEventUpdate:",
-	// "No Coockie received!!!");
-	// } else {
-	// for (int i = 0; i < cookies.size(); i++) {
-	// // Log.v(">", "- " + cookies.get(i).toString());
-	// content = cookies.get(0).toString();
-	// value = cookies.get(0).getValue().toString();
-	// }
-	// }
-
 	try {
 	    rd2.close();
 	} catch (IOException e) {
