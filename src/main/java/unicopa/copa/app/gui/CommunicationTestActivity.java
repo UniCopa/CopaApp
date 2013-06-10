@@ -34,7 +34,7 @@ public class CommunicationTestActivity extends Activity {
 
 	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/hello/Hello");
 
-	answer = scon.sendToServer();
+	answer = scon.sendToServerTest();
 
 	TextView textViewAnswer = (TextView) super.findViewById(R.id.answer);
 	textViewAnswer.setText(answer);
