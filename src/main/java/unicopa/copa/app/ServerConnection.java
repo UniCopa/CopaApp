@@ -181,7 +181,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer(reqStr);
+	resStr = sendToServer("GetSingleEventRequest", reqStr);
 
 	GetSingleEventResponse resObj = null;
 	resObj = (GetSingleEventResponse) ClientSerializer
@@ -193,14 +193,15 @@ public class ServerConnection {
     /**
      * This Method sends a json String to the server and returns the answer as a
      * String.
-     * 
+     * @param requestType
      * @param request
      * @return
      */
-    private String sendToServer(String request) {
+    private String sendToServer(String requestType, String request) {
 	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 	nameValuePairs.clear();
-	nameValuePairs.add(new BasicNameValuePair("req", request));
+	nameValuePairs.add(new BasicNameValuePair("type", requestType));
+	nameValuePairs.add(new BasicNameValuePair("object", request));
 	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
 
 	HttpPost post = new HttpPost(m_url);
