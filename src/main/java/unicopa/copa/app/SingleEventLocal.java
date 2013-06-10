@@ -16,22 +16,25 @@
  */
 package unicopa.copa.app;
 
+import java.util.ArrayList;
+
+import unicopa.copa.base.event.SingleEvent;
+
 /**
  * This class manages the updatestatus of SingleEvents.
  * 
  * @author Martin Rabe
  */
-public class SingleEventUpdate {
-//TODO ArrayList 
-//    private ArrayList<int> m_changeUpdateStatus;
-    
-//TODO ArrayList
-/*    public void setChangeUpdateStatus(ArrayList<int> changeUpdateStatus) {
-	m_updateStatus = updateStatus;
-    }*/
-    
-//TODO ArrayList
-/*    public ArrayList<int> getChangeUpdateStatus() {
-	return ;
-    }*/
+public class SingleEventLocal extends SingleEvent {
+    private ArrayList<Integer> m_changeUpdateStatus;
+
+    // TODO include color code in this class
+
+    public void setChangeUpdateStatus(ArrayList<Integer> changeUpdateStatus) {
+	m_changeUpdateStatus = changeUpdateStatus;
+    }
+
+    public ArrayList<Integer> getChangeUpdateStatus() {
+	return null;
+    }
 }
