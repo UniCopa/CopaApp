@@ -3,12 +3,9 @@
     android:layout_height="fill_parent" >
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         style="@style/background"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity" >
+        android:layout_height="fill_parent" >
 
         <TextView
             android:id="@+id/changes"
@@ -16,16 +13,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="make changes" />
-
-        <TextView
-            android:id="@+id/change_eventGroupname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/changes"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="14dp"
-            android:text="Group" />
 
         <TextView
             android:id="@+id/change_eventName"
@@ -60,16 +47,6 @@
             android:layout_alignBottom="@+id/change_static_time"
             android:layout_toRightOf="@+id/change_static_time"
             android:text="time" />
-
-        <TextView
-            android:id="@+id/change_static_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/change_static_new_date"
-            android:layout_below="@+id/change_edit_date"
-            android:layout_marginTop="14dp"
-            android:text="@string/time"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
             android:id="@+id/change_edit_time"
@@ -109,16 +86,6 @@
             android:text="@string/new_change" />
 
         <TextView
-            android:id="@+id/change_static_dura"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/change_edit_time"
-            android:layout_marginTop="14dp"
-            android:text="@string/dura"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
             android:id="@+id/change_static_new_dura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,26 +112,6 @@
             android:text="duration" />
 
         <TextView
-            android:id="@+id/change_static_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/change_static_location"
-            android:layout_below="@+id/change_eventGroupname"
-            android:layout_marginTop="14dp"
-            android:text="@string/date"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/change_static_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/change_edit_dura"
-            android:layout_marginTop="14dp"
-            android:text="@string/location"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
             android:id="@+id/change_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -180,16 +127,6 @@
             android:layout_alignLeft="@+id/change_edit_dura"
             android:layout_alignTop="@+id/change_static_new_location"
             android:ems="10" />
-
-        <TextView
-            android:id="@+id/change_static_supervisor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/change_edit_location"
-            android:layout_marginTop="14dp"
-            android:text="@string/supervisor"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/change_supervisor"
@@ -224,6 +161,64 @@
             android:layout_alignRight="@+id/change_edit_dura"
             android:layout_alignTop="@+id/change_eventName"
             android:text="@string/change_apply" />
+
+        <TextView
+            android:id="@+id/change_static_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/change_button"
+            android:layout_toLeftOf="@+id/change_time"
+            android:text="@string/date"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/change_static_supervisor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_edit_location"
+            android:layout_marginTop="14dp"
+            android:layout_toLeftOf="@+id/change_edit_supervisor"
+            android:text="@string/supervisor"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/change_static_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_edit_dura"
+            android:layout_marginTop="14dp"
+            android:layout_toLeftOf="@+id/change_edit_location"
+            android:text="@string/location"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/change_static_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_edit_date"
+            android:layout_marginTop="14dp"
+            android:layout_toLeftOf="@+id/change_dura"
+            android:text="@string/time"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/change_eventGroupname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/changes"
+            android:layout_marginTop="15dp"
+            android:text="Group" />
+
+        <TextView
+            android:id="@+id/change_static_dura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/change_eventName"
+            android:layout_below="@+id/change_edit_time"
+            android:layout_marginTop="20dp"
+            android:text="@string/dura"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
 </ScrollView>
