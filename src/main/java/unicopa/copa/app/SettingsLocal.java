@@ -31,6 +31,6 @@ public class SettingsLocal extends UserSettings {
     }
 
     public int getNotificationKind() {
-	return 1;
+	return m_notificationKind;
     }
 }
