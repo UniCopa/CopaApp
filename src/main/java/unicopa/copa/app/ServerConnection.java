@@ -171,8 +171,8 @@ public class ServerConnection {
      * @throws RequestNotPracticableException
      * @throws PermissionException
      * @throws APIException
-     * @throws IOException 
-     * @throws ClientProtocolException 
+     * @throws IOException
+     * @throws ClientProtocolException
      */
     public SingleEvent GetSingleEvent(int singleEventID) throws APIException,
 	    PermissionException, RequestNotPracticableException,
@@ -199,14 +199,15 @@ public class ServerConnection {
      * @param requestType
      * @param request
      * @return
-     * @throws IOException 
-     * @throws ClientProtocolException 
+     * @throws IOException
+     * @throws ClientProtocolException
      */
-    private String sendToServer(String requestType, String requestObject) throws ClientProtocolException, IOException {
+    private String sendToServer(String requestType, String requestObject)
+	    throws ClientProtocolException, IOException {
 	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 	nameValuePairs.clear();
 	nameValuePairs.add(new BasicNameValuePair("type", requestType));
-	nameValuePairs.add(new BasicNameValuePair("object", requestObject));
+	nameValuePairs.add(new BasicNameValuePair("req", requestObject));
 	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
 
 	HttpPost post = new HttpPost(m_url);
@@ -237,7 +238,7 @@ public class ServerConnection {
 	}
 	rd.close();
 
-	return "";
+	return temp;
     }
 
     /**
