@@ -20,10 +20,7 @@
         android:layout_below="@+id/usernameField"
         android:layout_marginTop="36dp"
         android:ems="10"
-        android:inputType="textPassword" >
-
-        <requestFocus />
-    </EditText>
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/notification"
@@ -51,7 +48,10 @@
         android:layout_below="@+id/notification"
         android:layout_marginLeft="15dp"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
 
     <Button
         android:id="@+id/toCommTest"
