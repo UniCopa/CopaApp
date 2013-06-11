@@ -35,7 +35,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 
-import unicopa.copa.base.com.AbstractResponse;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -205,8 +204,16 @@ public class ServerConnection {
 	    return true;
 	}
     }
-
-    public boolean logout(String userName) {
+/**
+ * This method erases the session cookie and tells the server to invalidate the session.
+ * 
+ * @return success
+ */
+    public boolean logout() {
+	// TODO get on https://copa.prakinf.tu-ilmenau.de/logout.jsp
+	// TODO erase the session cookie and sessionID
+	// TODO set m_connected to false
+	
 	return true;
     }
 
