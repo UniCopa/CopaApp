@@ -43,6 +43,6 @@ public class SingleEventLocal extends SingleEvent {
     }
 
     public ArrayList<Integer> getChangeUpdateStatus() {
-	return null;
+	return m_changeUpdateStatus;
     }
 }
