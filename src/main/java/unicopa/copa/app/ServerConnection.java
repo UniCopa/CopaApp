@@ -171,10 +171,12 @@ public class ServerConnection {
      * @throws RequestNotPracticableException
      * @throws PermissionException
      * @throws APIException
+     * @throws IOException 
+     * @throws ClientProtocolException 
      */
     public SingleEvent GetSingleEvent(int singleEventID) throws APIException,
 	    PermissionException, RequestNotPracticableException,
-	    InternalErrorException {
+	    InternalErrorException, ClientProtocolException, IOException {
 	GetSingleEventRequest reqObj = new GetSingleEventRequest(singleEventID);
 
 	String reqStr = "";
@@ -193,37 +195,27 @@ public class ServerConnection {
     /**
      * This Method sends a json String to the server and returns the answer as a
      * String.
+     * 
      * @param requestType
      * @param request
      * @return
+     * @throws IOException 
+     * @throws ClientProtocolException 
      */
-    private String sendToServer(String requestType, String request) {
+    private String sendToServer(String requestType, String requestObject) throws ClientProtocolException, IOException {
 	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 	nameValuePairs.clear();
 	nameValuePairs.add(new BasicNameValuePair("type", requestType));
-	nameValuePairs.add(new BasicNameValuePair("object", request));
+	nameValuePairs.add(new BasicNameValuePair("object", requestObject));
 	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
 
 	HttpPost post = new HttpPost(m_url);
 
-	try {
-	    post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	} catch (UnsupportedEncodingException e3) {
-	    // TODO Auto-generated catch block
-	    e3.printStackTrace();
-	}
+	post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 	HttpResponse response = null;
 
-	try {
-	    response = client.execute(post);
-	} catch (ClientProtocolException e3) {
-	    // TODO Auto-generated catch block
-	    e3.printStackTrace();
-	} catch (IOException e3) {
-	    // TODO Auto-generated catch block
-	    e3.printStackTrace();
-	}
+	response = client.execute(post);
 
 	// TODO check this
 	// TODO do something with test
@@ -231,38 +223,19 @@ public class ServerConnection {
 	String test = response.getStatusLine().toString();
 
 	// Log.v("Site available:", test);
-
 	// Log.v("StatusLIne", test);
 
 	BufferedReader rd = null;
 
-	try {
-	    rd = new BufferedReader(new InputStreamReader(response.getEntity()
-		    .getContent()));
-	} catch (IllegalStateException e2) {
-	    // TODO Auto-generated catch block
-	    e2.printStackTrace();
-	} catch (IOException e2) {
-	    // TODO Auto-generated catch block
-	    e2.printStackTrace();
-	}
+	rd = new BufferedReader(new InputStreamReader(response.getEntity()
+		.getContent()));
 
 	String line = "";
 	String temp = "";
-	try {
-	    while ((line = rd.readLine()) != null) {
-		temp = line;
-	    }
-	} catch (IOException e1) {
-	    // TODO Auto-generated catch block
-	    e1.printStackTrace();
+	while ((line = rd.readLine()) != null) {
+	    temp = line;
 	}
-	try {
-	    rd.close();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
+	rd.close();
 
 	return "";
     }
