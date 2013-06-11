@@ -36,12 +36,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 
 import unicopa.copa.base.com.AbstractResponse;
-import unicopa.copa.base.com.GetSingleEventRequest;
-import unicopa.copa.base.com.GetSingleEventResponse;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.com.exception.RequestNotPracticableException;
+import unicopa.copa.base.com.request.GetSingleEventRequest;
+import unicopa.copa.base.com.request.GetSingleEventResponse;
 import unicopa.copa.base.com.serialization.ClientSerializer;
 import unicopa.copa.base.event.SingleEvent;
 
@@ -54,14 +54,13 @@ import android.util.Log;
  * @author Martin Rabe
  */
 public class ServerConnection {
+    private static ServerConnection m_instance;
+
     private boolean m_connected = false;
     // private String m_gcmKey = "";
     private String m_sessionID = "";
     private DefaultHttpClient client = null;
-
     private String m_url = "";
-
-    private static ServerConnection m_instance;
 
     public static ServerConnection getInstance() {
 	if (m_instance == null) {
@@ -71,8 +70,57 @@ public class ServerConnection {
 	return m_instance;
     }
 
-    // private ServerConnection() {
-    // }
+    private ServerConnection() {
+    }
+
+    /**
+     * This Method sends a json String to the server and returns the answer as a
+     * String.
+     * 
+     * @param requestType
+     * @param request
+     * @return
+     * @throws IOException
+     * @throws ClientProtocolException
+     */
+    private String sendToServer(String requestType, String requestObject)
+	    throws ClientProtocolException, IOException {
+	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+	nameValuePairs.clear();
+	nameValuePairs.add(new BasicNameValuePair("type", requestType));
+	nameValuePairs.add(new BasicNameValuePair("req", requestObject));
+	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
+
+	HttpPost post = new HttpPost(m_url);
+
+	post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+	HttpResponse response = null;
+
+	response = client.execute(post);
+
+	// TODO check this
+	// TODO do something with test
+	// check for http 302 (fail) or 200 (ok)
+	String test = response.getStatusLine().toString();
+
+	// Log.v("Site available:", test);
+	// Log.v("StatusLIne", test);
+
+	BufferedReader rd = null;
+
+	rd = new BufferedReader(new InputStreamReader(response.getEntity()
+		.getContent()));
+
+	String line = "";
+	String temp = "";
+	while ((line = rd.readLine()) != null) {
+	    temp = line;
+	}
+	rd.close();
+
+	return temp;
+    }
 
     // TODO URL needs to be read from configuration file or settings
     public void setUrl(String url) {
@@ -190,55 +238,6 @@ public class ServerConnection {
 		.deserializeResponse(resStr);
 
 	return resObj.getSingleEvent();
-    }
-
-    /**
-     * This Method sends a json String to the server and returns the answer as a
-     * String.
-     * 
-     * @param requestType
-     * @param request
-     * @return
-     * @throws IOException
-     * @throws ClientProtocolException
-     */
-    private String sendToServer(String requestType, String requestObject)
-	    throws ClientProtocolException, IOException {
-	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-	nameValuePairs.clear();
-	nameValuePairs.add(new BasicNameValuePair("type", requestType));
-	nameValuePairs.add(new BasicNameValuePair("req", requestObject));
-	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
-
-	HttpPost post = new HttpPost(m_url);
-
-	post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-	HttpResponse response = null;
-
-	response = client.execute(post);
-
-	// TODO check this
-	// TODO do something with test
-	// check for http 302 (fail) or 200 (ok)
-	String test = response.getStatusLine().toString();
-
-	// Log.v("Site available:", test);
-	// Log.v("StatusLIne", test);
-
-	BufferedReader rd = null;
-
-	rd = new BufferedReader(new InputStreamReader(response.getEntity()
-		.getContent()));
-
-	String line = "";
-	String temp = "";
-	while ((line = rd.readLine()) != null) {
-	    temp = line;
-	}
-	rd.close();
-
-	return temp;
     }
 
     /**

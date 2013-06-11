@@ -44,7 +44,7 @@ import unicopa.copa.base.event.SingleEvent;
 /**
  * In this activity the user sees a list of SingleEvents.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class MainActivity extends Activity {
 
@@ -91,13 +91,12 @@ public class MainActivity extends Activity {
     }
 
     public void onRefreshButtonClick(View view) {
-	SingleEvent sEventNew = null; //new SingleEvent(4, 3, "new Room", Calendar
-		//.getInstance().getTime(), "new Supervisor", 4);
-	
+	SingleEvent sEventNew = null;
+
 	ServerConnection scon = ServerConnection.getInstance();
-	
+
 	int singleEventID = 13;
-	
+
 	try {
 	    sEventNew = scon.GetSingleEvent(singleEventID);
 	} catch (ClientProtocolException e) {
@@ -119,7 +118,7 @@ public class MainActivity extends Activity {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	
+
 	sEvents.add(sEventNew);
 	sEventAdapter.notifyDataSetChanged();
     }

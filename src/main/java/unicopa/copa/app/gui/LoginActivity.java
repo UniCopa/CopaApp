@@ -52,11 +52,51 @@ public class LoginActivity extends Activity {
     }
 
     /**
-     * Is used if LoginButton is clicked. Switches back to MainActivity.
+     * Is used if LoginButton is clicked. Calls the CerverConnection.login
+     * method if it was successful switches back to MainActivity.
      * 
      * @param view
      */
     public void onLoginButtonClick(View view) {
+
+	// A Loading Screen or something similar would be nice. Otherwise when
+	// you click during load the app crashes.
+	Toast toast = Toast.makeText(LoginActivity.this, "Please wait.",
+		Toast.LENGTH_SHORT);
+	toast.show();
+
+	ServerConnection scon = ServerConnection.getInstance();
+
+	// TODO check if already logged in
+	if (!scon.getConnected()) {
+	    scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/j_security_check");
+
+	    // read userName and password from respective textEdit
+	    String userName = "";
+	    String password = "";
+
+	    EditText name = (EditText) findViewById(R.id.usernameField);
+	    userName = name.getText().toString();
+
+	    EditText pw = (EditText) findViewById(R.id.passwordField);
+	    password = pw.getText().toString();
+
+	    Log.v("User Name:", userName);
+	    Log.v("Password:", password);
+
+	    try {
+		if (!scon.login(userName, password, getApplicationContext())) {
+		    // TODO feedback if login fails
+		}
+	    } catch (ClientProtocolException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
+
 	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
 	LoginActivity.this.startActivity(intentMain);
     }
@@ -90,7 +130,7 @@ public class LoginActivity extends Activity {
 
 	    try {
 		if (!scon.login(userName, password, getApplicationContext())) {
-		// TODO feedback if login fails
+		    // TODO feedback if login fails
 		}
 	    } catch (ClientProtocolException e) {
 		// TODO Auto-generated catch block
