@@ -16,10 +16,14 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.apache.http.client.ClientProtocolException;
+
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +35,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.event.SingleEvent;
 
 /**
@@ -83,8 +91,35 @@ public class MainActivity extends Activity {
     }
 
     public void onRefreshButtonClick(View view) {
-	SingleEvent sEventNew = new SingleEvent(4, 3, "new Room", Calendar
-		.getInstance().getTime(), "new Supervisor", 4);
+	SingleEvent sEventNew = null; //new SingleEvent(4, 3, "new Room", Calendar
+		//.getInstance().getTime(), "new Supervisor", 4);
+	
+	ServerConnection scon = ServerConnection.getInstance();
+	
+	int singleEventID = 13;
+	
+	try {
+	    sEventNew = scon.GetSingleEvent(singleEventID);
+	} catch (ClientProtocolException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (APIException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (PermissionException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (RequestNotPracticableException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (InternalErrorException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	
 	sEvents.add(sEventNew);
 	sEventAdapter.notifyDataSetChanged();
     }
