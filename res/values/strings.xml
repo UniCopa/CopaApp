@@ -36,4 +36,18 @@
 
     <string name="notification_pick">Pick your kind of notification</string>
 
+    <string name="date">Date:</string>
+
+    <string name="new_change">New:</string>
+
+    <string name="time">Time:</string>
+
+    <string name="location">Location:</string>
+
+    <string name="dura">Durationtime:</string>
+
+    <string name="supervisor">Supervisor:</string>
+
+    <string name="change_apply">apply</string>
+
 </resources>
