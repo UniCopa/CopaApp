@@ -16,6 +16,10 @@
  */
 package unicopa.copa.app;
 
+import java.util.ArrayList;
+import unicopa.copa.base.event.Event;
+import unicopa.copa.base.event.EventGroup;
+
 /**
  * This class implements the search funnktion.
  * 
@@ -24,30 +28,30 @@ package unicopa.copa.app;
 public class Search {
     private String m_searchItem = "";
     private int m_categoryID = 0;
-    
+
     public void setSearchItem(String searchItem) {
 	m_searchItem = searchItem;
     }
-    
+
     public String getSearchItem() {
 	return m_searchItem;
     }
-    
+
     public void setCategoryID(int categoryID) {
 	m_categoryID = categoryID;
     }
-    
+
     public int getCategoryID() {
 	return m_categoryID;
     }
-    
-//TODO ArrayList
-/*    public ArrayList<Event> getEventSearch(int categoryID, String searchItem, int eventGroupID) {
-	
-    }*/
-    
-//TODO ArrayList
-/*    public ArrayList<EventGroup> getEventGroupSearch(int categoryID, String searchItem) {
-	
-    }*/
+
+    public ArrayList<Event> getEventSearch(int categoryID, String searchItem,
+	    int eventGroupID) {
+	return null;
+    }
+
+    public ArrayList<EventGroup> getEventGroupSearch(int categoryID,
+	    String searchItem) {
+	return null;
+    }
 }
