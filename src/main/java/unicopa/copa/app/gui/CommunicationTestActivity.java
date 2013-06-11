@@ -31,10 +31,9 @@ public class CommunicationTestActivity extends Activity {
     }
 
     public void onTestButtonClick(View view) {
-	// TODO check instance exist
 	ServerConnection scon = ServerConnection.getInstance();
 
-	String answer = "empty";
+	String answer = "";
 
 	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/hello/Hello");
 
