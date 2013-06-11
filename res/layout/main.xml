@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/test_button_main"
-        android:text="List of next SingleEvents" />
+        android:text="Upcoming" />
 
     <ListView
         android:id="@+id/singleEventView"
@@ -30,8 +30,8 @@
         android:id="@+id/test_button_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/main_text"
         android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:onClick="onRefreshButtonClick"
         android:text="refresh" />
 
