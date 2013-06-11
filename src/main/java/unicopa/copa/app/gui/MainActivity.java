@@ -51,6 +51,9 @@ public class MainActivity extends Activity {
     ArrayList<SingleEvent> sEvents = new ArrayList<SingleEvent>();
     MainAdapter sEventAdapter;
 
+    // just for demo
+    int i = 0;
+
     /**
      * creates Activity with a list of SingleEvents. By clicking on a
      * SingleEvent it switches to SingleEventActivity
@@ -94,8 +97,30 @@ public class MainActivity extends Activity {
 	SingleEvent sEventNew = null;
 
 	ServerConnection scon = ServerConnection.getInstance();
+	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/service");
 
-	int singleEventID = 13;
+	// DONE 13 works
+	// DONE ID 0 InternalErrorException
+	// DONE ID 42 RequestNotPracticableException
+	// DONE ID -1 PermissionException
+	int singleEventID = i;
+
+	// just for demo
+	if (i == 0) {
+	    i = 42;
+	} else {
+	    if (i == 42) {
+		i = -1;
+	    } else {
+		if (i == -1) {
+		    i = 13;
+		} else {
+		    if (i == 13) {
+			i = 0;
+		    }
+		}
+	    }
+	}
 
 	try {
 	    sEventNew = scon.GetSingleEvent(singleEventID);
@@ -103,24 +128,39 @@ public class MainActivity extends Activity {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} catch (APIException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    Toast toast = Toast.makeText(MainActivity.this, "APIException!\r\n"
+		    + e.getMessage(), Toast.LENGTH_LONG);
+	    toast.show();
+	    // e.printStackTrace();
 	} catch (PermissionException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    Toast toast = Toast.makeText(MainActivity.this,
+		    "PermissionException!\r\n" + e.getMessage(),
+		    Toast.LENGTH_LONG);
+	    toast.show();
+	    // e.printStackTrace();
 	} catch (RequestNotPracticableException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    Toast toast = Toast.makeText(MainActivity.this,
+		    "RequestNotPracticableException!\r\n" + e.getMessage(),
+		    Toast.LENGTH_LONG);
+	    toast.show();
+	    // e.printStackTrace();
 	} catch (InternalErrorException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    Toast toast = Toast.makeText(MainActivity.this,
+		    "InternalErrorException!\r\n" + e.getMessage(),
+		    Toast.LENGTH_LONG);
+	    toast.show();
+	    // e.printStackTrace();
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    Toast toast = Toast.makeText(MainActivity.this, "IOException!\r\n"
+		    + e.getMessage(), Toast.LENGTH_LONG);
+	    toast.show();
+	    // e.printStackTrace();
 	}
 
-	sEvents.add(sEventNew);
-	sEventAdapter.notifyDataSetChanged();
+	if (sEventNew != null) {
+	    sEvents.add(sEventNew);
+	    sEventAdapter.notifyDataSetChanged();
+	}
     }
 
     @Override

@@ -25,7 +25,6 @@ import unicopa.copa.app.ServerConnection;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -81,41 +80,42 @@ public class LoginActivity extends Activity {
 	    EditText pw = (EditText) findViewById(R.id.passwordField);
 	    password = pw.getText().toString();
 
-	    Log.v("User Name:", userName);
-	    Log.v("Password:", password);
-
+	    // TODO should only switch activity when login successful, but does it anyway
 	    try {
-		if (!scon.login(userName, password, getApplicationContext())) {
-		    // TODO feedback if login fails
+		if (scon.login(userName, password, getApplicationContext())) {
+		    Intent intentMain = new Intent(LoginActivity.this,
+			    MainActivity.class);
+		    LoginActivity.this.startActivity(intentMain);
+		} else {
+		    Toast toast2 = Toast.makeText(LoginActivity.this,
+			    "Login Error!", Toast.LENGTH_LONG);
+		    toast2.show();
 		}
 	    } catch (ClientProtocolException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		Toast toast2 = Toast.makeText(LoginActivity.this,
+			"ClientProtocolException!\r\n" + e.getMessage(),
+			Toast.LENGTH_LONG);
+		toast2.show();
+		// e.printStackTrace();
 	    } catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		Toast toast2 = Toast.makeText(LoginActivity.this,
+			"IOException!\r\n" + e.getMessage(), Toast.LENGTH_LONG);
+		toast2.show();
+		// e.printStackTrace();
 	    }
 	}
-
-	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
-	LoginActivity.this.startActivity(intentMain);
     }
 
     public void onCommTestButtonClick(View view) {
-
-	// A Loading Screen or something similar would be nice. Otherwise when
-	// you click during load the app crashes.
 	Toast toast = Toast.makeText(LoginActivity.this, "Please wait.",
 		Toast.LENGTH_SHORT);
 	toast.show();
 
 	ServerConnection scon = ServerConnection.getInstance();
 
-	// TODO check if already logged in
 	if (!scon.getConnected()) {
 	    scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/j_security_check");
 
-	    // read userName and password from respective textEdit
 	    String userName = "";
 	    String password = "";
 
@@ -125,18 +125,12 @@ public class LoginActivity extends Activity {
 	    EditText pw = (EditText) findViewById(R.id.passwordField);
 	    password = pw.getText().toString();
 
-	    Log.v("User Name:", userName);
-	    Log.v("Password:", password);
-
 	    try {
 		if (!scon.login(userName, password, getApplicationContext())) {
-		    // TODO feedback if login fails
 		}
 	    } catch (ClientProtocolException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	    } catch (IOException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	    }
 	}
@@ -145,6 +139,6 @@ public class LoginActivity extends Activity {
 		CommunicationTestActivity.class);
 	intentComm.putExtra("key", "value");
 	LoginActivity.this.startActivity(intentComm);
-
     }
+
 }

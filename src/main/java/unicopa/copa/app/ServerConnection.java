@@ -19,7 +19,6 @@ package unicopa.copa.app;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,13 +52,14 @@ import android.util.Log;
  * @author Martin Rabe
  */
 public class ServerConnection {
+
     private static ServerConnection m_instance;
 
     private boolean m_connected = false;
     // private String m_gcmKey = "";
     private String m_sessionID = "";
-    private DefaultHttpClient client = null;
     private String m_url = "";
+    private DefaultHttpClient client = null;
 
     public static ServerConnection getInstance() {
 	if (m_instance == null) {
@@ -84,27 +84,25 @@ public class ServerConnection {
      */
     private String sendToServer(String requestType, String requestObject)
 	    throws ClientProtocolException, IOException {
-	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-	nameValuePairs.clear();
-	nameValuePairs.add(new BasicNameValuePair("type", requestType));
-	nameValuePairs.add(new BasicNameValuePair("req", requestObject));
-	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
+	List<NameValuePair> nameValuePairsMsg = new ArrayList<NameValuePair>(1);
+
+	nameValuePairsMsg.clear();
+
+	nameValuePairsMsg.add(new BasicNameValuePair("req", requestObject));
+	nameValuePairsMsg
+		.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
+
+	Log.v("REQUEST:", nameValuePairsMsg.toString());
+	Log.v("URL", this.getUrl());
 
 	HttpPost post = new HttpPost(m_url);
-
-	post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	post.setEntity(new UrlEncodedFormEntity(nameValuePairsMsg));
 
 	HttpResponse response = null;
-
 	response = client.execute(post);
 
-	// TODO check this
-	// TODO do something with test
-	// check for http 302 (fail) or 200 (ok)
-	String test = response.getStatusLine().toString();
-
-	// Log.v("Site available:", test);
-	// Log.v("StatusLIne", test);
+	// Log.v("SITE:", response.toString());
+	// Log.v("SITE AVAILABLE:", response.getStatusLine().toString());
 
 	BufferedReader rd = null;
 
@@ -113,10 +111,14 @@ public class ServerConnection {
 
 	String line = "";
 	String temp = "";
+
 	while ((line = rd.readLine()) != null) {
 	    temp = line;
 	}
+
 	rd.close();
+
+	Log.v("RESPONSE:", temp);
 
 	return temp;
     }
@@ -126,9 +128,9 @@ public class ServerConnection {
 	m_url = url;
     }
 
-    // public String getUrl(String url) {
-    // return m_url;
-    // }
+    public String getUrl() {
+	return m_url;
+    }
 
     public void setConnected(boolean connected) {
 	m_connected = connected;
@@ -159,6 +161,7 @@ public class ServerConnection {
     public boolean login(String userName, String password, Context context)
 	    throws ClientProtocolException, IOException {
 	// TODO getApplicationContext information needed
+	// TODO move this to constructor
 	client = new CoPAAppHttpClient(context);
 
 	// TODO check this
@@ -166,6 +169,7 @@ public class ServerConnection {
 	HttpParams params = client.getParams();
 	HttpClientParams.setRedirecting(params, false);
 
+	Log.v("URL", this.getUrl());
 	HttpPost loginMsg = new HttpPost(m_url);
 
 	// login data
@@ -174,9 +178,14 @@ public class ServerConnection {
 	nameValuePairs.add(new BasicNameValuePair("j_password", password));
 	loginMsg.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
+	Log.v("LOGINMSG", nameValuePairs.toString());
+
 	// lend login data
 	HttpResponse response = null;
 	response = client.execute(loginMsg);
+
+	// Log.v("SITE", response.toString());
+	// Log.v("SITE AVAILABLE", response.getStatusLine().toString());
 
 	// handle response
 	InputStreamReader reader = null;
@@ -191,6 +200,8 @@ public class ServerConnection {
 	    m_sessionID = cookies.get(0).getValue().toString();
 	}
 
+	Log.v("SESSIONID:", m_sessionID);
+
 	// cleaning
 	rd.close();
 	reader.close();
@@ -204,17 +215,25 @@ public class ServerConnection {
 	    return true;
 	}
     }
-/**
- * This method erases the session cookie and tells the server to invalidate the session.
- * 
- * @return success
- */
+
+    /**
+     * This method erases the session cookie and tells the server to invalidate
+     * the session.
+     * 
+     * @return success
+     */
+    // TODO remove this
+    @SuppressWarnings("unused")
     public boolean logout() {
 	// TODO get on https://copa.prakinf.tu-ilmenau.de/logout.jsp
 	// TODO erase the session cookie and sessionID
-	// TODO set m_connected to false
-	
-	return true;
+	if (true) {
+	    this.setConnected(false);
+
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
     /**
@@ -244,11 +263,15 @@ public class ServerConnection {
 	resObj = (GetSingleEventResponse) ClientSerializer
 		.deserializeResponse(resStr);
 
-	return resObj.getSingleEvent();
+	if (resObj instanceof GetSingleEventResponse) {
+	    return resObj.getSingleEvent();
+	} else {
+	    return null;
+	}
     }
 
     /**
-     * This Method is just for the Communication Test only.
+     * This Method is for the Communication Test only.
      * 
      * @throws IOException
      * @throws ClientProtocolException
@@ -268,14 +291,7 @@ public class ServerConnection {
 
 	response = client.execute(post);
 
-	// TODO check this
-	// TODO do something with test
-	// check for http 302 (fail) or 200 (ok)
-	String test = response.getStatusLine().toString();
-
-	// Log.v("Site available:", test);
-
-	// Log.v("StatusLIne", test);
+	Log.v("SITE AVAILABLE:", response.getStatusLine().toString());
 
 	BufferedReader rd2 = null;
 
@@ -284,9 +300,11 @@ public class ServerConnection {
 
 	String line = "";
 	String temp = "";
+
 	while ((line = rd2.readLine()) != null) {
 	    temp = line;
 	}
+
 	rd2.close();
 
 	return temp;
@@ -305,4 +323,5 @@ public class ServerConnection {
 
     public void closeConnection() {
     }
+
 }
