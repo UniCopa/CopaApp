@@ -91,50 +91,14 @@ public class LoginActivity extends Activity {
 		    PopUp.exceptionAlert(this, "Login Error!", "TODO");
 		}
 	    } catch (ClientProtocolException e) {
-		PopUp.exceptionAlert(this, "ClientProtocolException!", e.getMessage());
+		PopUp.exceptionAlert(this, "ClientProtocolException!",
+			e.getMessage());
 		// e.printStackTrace();
 	    } catch (IOException e) {
 		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
 		// e.printStackTrace();
 	    }
 	}
-    }
-
-    public void onCommTestButtonClick(View view) {
-	Toast toast = Toast.makeText(LoginActivity.this, "Please wait.",
-		Toast.LENGTH_SHORT);
-	toast.show();
-
-	ServerConnection scon = ServerConnection.getInstance();
-
-	if (!scon.getConnected()) {
-	    scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/j_security_check");
-
-	    String userName = "";
-	    String password = "";
-
-	    EditText name = (EditText) findViewById(R.id.usernameField);
-	    userName = name.getText().toString();
-
-	    EditText pw = (EditText) findViewById(R.id.passwordField);
-	    password = pw.getText().toString();
-
-	    try {
-		if (!scon.login(userName, password, getApplicationContext())) {
-		}
-	    } catch (ClientProtocolException e) {
-		PopUp.exceptionAlert(this, "ClientProtocolException!", e.getMessage());
-		// e.printStackTrace();
-	    } catch (IOException e) {
-		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
-		// e.printStackTrace();
-	    }
-	}
-
-	Intent intentComm = new Intent(LoginActivity.this,
-		CommunicationTestActivity.class);
-	intentComm.putExtra("key", "value");
-	LoginActivity.this.startActivity(intentComm);
     }
 
 }

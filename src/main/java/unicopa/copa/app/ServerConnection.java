@@ -61,7 +61,7 @@ public class ServerConnection {
     private DefaultHttpClient client = null;
 
     /**
-     * This method is called to get an instance of ServerConnection. 
+     * This method is called to get an instance of ServerConnection.
      * 
      * @return
      */
@@ -274,46 +274,6 @@ public class ServerConnection {
 	} else {
 	    return null;
 	}
-    }
-
-    /**
-     * This Method is for the Communication Test only.
-     * 
-     * @throws IOException
-     * @throws ClientProtocolException
-     */
-    public String sendToServerTest() throws ClientProtocolException,
-	    IOException {
-	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-	nameValuePairs.clear();
-	nameValuePairs.add(new BasicNameValuePair("req", "ISENTTOCOPATHIS"));
-	nameValuePairs.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
-
-	HttpPost post = new HttpPost(m_url);
-
-	post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-	HttpResponse response = null;
-
-	response = client.execute(post);
-
-	Log.v("SITE AVAILABLE:", response.getStatusLine().toString());
-
-	BufferedReader rd2 = null;
-
-	rd2 = new BufferedReader(new InputStreamReader(response.getEntity()
-		.getContent()));
-
-	String line = "";
-	String temp = "";
-
-	while ((line = rd2.readLine()) != null) {
-	    temp = line;
-	}
-
-	rd2.close();
-
-	return temp;
     }
 
     public boolean connectionCheck() {
