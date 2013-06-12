@@ -38,9 +38,12 @@ import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.com.exception.RequestNotPracticableException;
+import unicopa.copa.base.com.request.GetCategoryRequest;
+import unicopa.copa.base.com.request.GetCategoryResponse;
 import unicopa.copa.base.com.request.GetSingleEventRequest;
 import unicopa.copa.base.com.request.GetSingleEventResponse;
 import unicopa.copa.base.com.serialization.ClientSerializer;
+import unicopa.copa.base.event.CategoryNode;
 import unicopa.copa.base.event.SingleEvent;
 
 import android.content.Context;
@@ -271,6 +274,39 @@ public class ServerConnection {
 
 	if (resObj instanceof GetSingleEventResponse) {
 	    return resObj.getSingleEvent();
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * This Method returns the category tree.
+     * 
+     * @return categoryNode
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public CategoryNode getCategory() throws ClientProtocolException,
+	    IOException, APIException, PermissionException,
+	    RequestNotPracticableException, InternalErrorException {
+	GetCategoryRequest reqObj = new GetCategoryRequest();
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetCategoryRequest", reqStr);
+
+	GetCategoryResponse resObj = null;
+	resObj = (GetCategoryResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetCategoryResponse) {
+	    return resObj.getCategoryTree();
 	} else {
 	    return null;
 	}
