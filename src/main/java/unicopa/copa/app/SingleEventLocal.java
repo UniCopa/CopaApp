@@ -16,7 +16,7 @@
  */
 package unicopa.copa.app;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 import unicopa.copa.base.event.SingleEvent;
 
@@ -28,23 +28,64 @@ import unicopa.copa.base.event.SingleEvent;
  */
 public class SingleEventLocal extends SingleEvent {
 
-    private ArrayList<Integer> m_changeUpdateStatus;
-    private String m_colorCode;
+    private String colorCode;
+    private String name;
+    private int locationUpdateCounter;
+    private int dateUpdateCounter;
+    private int supervisorUpdateCounter;
+    private int durationMinutesUpdateCounter;
+    private int colorCodeUpdateCounter;
 
-    public void setChangeUpdateStatus(ArrayList<Integer> changeUpdateStatus) {
-	m_changeUpdateStatus = changeUpdateStatus;
-    }
-
-    public ArrayList<Integer> getChangeUpdateStatus() {
-	return m_changeUpdateStatus;
+    public SingleEventLocal(int singleEventID, int eventID, String location,
+	    Date date, String supervisor, int durationMinutes,
+	    String colorCode, String name, int locationUpdateCounter,
+	    int dateUpdateCounter, int supervisorUpdateCounter,
+	    int durationMinutesUpdateCounter, int colorCodeUpdateCounter) {
+	super(singleEventID, eventID, location, date, supervisor,
+		durationMinutes);
+	this.colorCode = colorCode;
+	this.name = name;
+	this.locationUpdateCounter = locationUpdateCounter;
+	this.dateUpdateCounter = dateUpdateCounter;
+	this.supervisorUpdateCounter = supervisorUpdateCounter;
+	this.durationMinutesUpdateCounter = durationMinutesUpdateCounter;
+	this.colorCodeUpdateCounter = colorCodeUpdateCounter;
     }
 
     public void setColorCode(String colorCode) {
-	m_colorCode = colorCode;
+	this.colorCode = colorCode;
     }
 
     public String getColorCode() {
-	return m_colorCode;
+	return colorCode;
+    }
+
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    public String getName() {
+	return name;
+    }
+
+    public int getLoactionUpdateCounter() {
+	return locationUpdateCounter;
+    }
+
+    public int getDateUpdateCounter() {
+	return dateUpdateCounter;
+    }
+
+    public int getSupervisorUpdateCounter() {
+	return supervisorUpdateCounter;
+    }
+
+    public int getDurationMinutesUpdateCounter() {
+	return durationMinutesUpdateCounter;
+    }
+
+    public int getColorCodeUpdateCounter() {
+	return colorCodeUpdateCounter;
     }
 
 }
