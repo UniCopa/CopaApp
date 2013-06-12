@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -44,9 +45,12 @@ import unicopa.copa.base.com.request.GetCategoryRequest;
 import unicopa.copa.base.com.request.GetCategoryResponse;
 import unicopa.copa.base.com.request.GetSingleEventRequest;
 import unicopa.copa.base.com.request.GetSingleEventResponse;
+import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesRequest;
+import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesResponse;
 import unicopa.copa.base.com.serialization.ClientSerializer;
 import unicopa.copa.base.event.CategoryNode;
 import unicopa.copa.base.event.SingleEvent;
+import unicopa.copa.base.event.SingleEventUpdate;
 
 import android.content.Context;
 import android.util.Log;
@@ -343,6 +347,43 @@ public class ServerConnection {
 
 	if (resObj instanceof GetAllOwnersResponse) {
 	    return resObj.getNames();
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * This method return all updates since a given date for subscribed
+     * SingeEvents.
+     * 
+     * @param date
+     * @return List<List<SingleEventUpdate>>
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public List<List<SingleEventUpdate>> getSubscribedSingleEventUpdates(
+	    Date date) throws ClientProtocolException, IOException,
+	    APIException, PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	GetSubscribedSingleEventUpdatesRequest reqObj = new GetSubscribedSingleEventUpdatesRequest(
+		date);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetSubscribedSingleEventUpdatesRequest", reqStr);
+
+	GetSubscribedSingleEventUpdatesResponse resObj = null;
+	resObj = (GetSubscribedSingleEventUpdatesResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetSubscribedSingleEventUpdatesResponse) {
+	    return resObj.getUpdates();
 	} else {
 	    return null;
 	}
