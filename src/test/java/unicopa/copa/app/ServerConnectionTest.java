@@ -56,7 +56,7 @@ public class ServerConnectionTest {
      */
     @Test
     @Ignore
-    public void GetSingleEventTest() throws ClientProtocolException,
+    public void getSingleEventTest() throws ClientProtocolException,
 	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException, IOException {
 	int singleEventID = 1;
@@ -65,7 +65,7 @@ public class ServerConnectionTest {
 	ServerConnection scon = ServerConnection.getInstance();
 	scon.setUrl(url);
 
-	assertEquals(scon.GetSingleEvent(singleEventID), singleEvent);
+	assertEquals(scon.getSingleEvent(singleEventID), singleEvent);
     }
 
 }

@@ -126,7 +126,7 @@ public class MainActivity extends Activity {
 	    }
 
 	    try {
-		sEventNew = scon.GetSingleEvent(singleEventID);
+		sEventNew = scon.getSingleEvent(singleEventID);
 	    } catch (ClientProtocolException e) {
 		PopUp.exceptionAlert(this, "ClientProtocolException!",
 			e.getMessage());

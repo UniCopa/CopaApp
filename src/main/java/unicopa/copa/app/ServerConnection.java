@@ -254,7 +254,7 @@ public class ServerConnection {
      * @throws IOException
      * @throws ClientProtocolException
      */
-    public SingleEvent GetSingleEvent(int singleEventID) throws APIException,
+    public SingleEvent getSingleEvent(int singleEventID) throws APIException,
 	    PermissionException, RequestNotPracticableException,
 	    InternalErrorException, ClientProtocolException, IOException {
 	GetSingleEventRequest reqObj = new GetSingleEventRequest(singleEventID);
