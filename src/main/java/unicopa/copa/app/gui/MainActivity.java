@@ -34,7 +34,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -51,7 +50,7 @@ public class MainActivity extends Activity {
     ArrayList<SingleEvent> sEvents = new ArrayList<SingleEvent>();
     MainAdapter sEventAdapter;
 
-    // just for demo
+    // JUST FOR DEMO
     int i = 0;
 
     /**
@@ -97,69 +96,68 @@ public class MainActivity extends Activity {
 	SingleEvent sEventNew = null;
 
 	ServerConnection scon = ServerConnection.getInstance();
-	scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/service");
 
-	// DONE 13 works
-	// DONE ID 0 InternalErrorException
-	// DONE ID 42 RequestNotPracticableException
-	// DONE ID -1 PermissionException
-	int singleEventID = i;
+	if (scon.getConnected()) {
 
-	// just for demo
-	if (i == 0) {
-	    i = 42;
-	} else {
-	    if (i == 42) {
-		i = -1;
+	    scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/service");
+
+	    // JUST FOR DEMO
+	    // DONE 13 works
+	    // DONE ID 0 InternalErrorException
+	    // DONE ID 42 RequestNotPracticableException
+	    // DONE ID -1 PermissionException
+	    int singleEventID = i;
+
+	    // JUST FOR DEMO
+	    if (i == 0) {
+		i = 42;
 	    } else {
-		if (i == -1) {
-		    i = 13;
+		if (i == 42) {
+		    i = -1;
 		} else {
-		    if (i == 13) {
-			i = 0;
+		    if (i == -1) {
+			i = 13;
+		    } else {
+			if (i == 13) {
+			    i = 0;
+			}
 		    }
 		}
 	    }
-	}
 
-	try {
-	    sEventNew = scon.GetSingleEvent(singleEventID);
-	} catch (ClientProtocolException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (APIException e) {
-	    Toast toast = Toast.makeText(MainActivity.this, "APIException!\r\n"
-		    + e.getMessage(), Toast.LENGTH_LONG);
-	    toast.show();
-	    // e.printStackTrace();
-	} catch (PermissionException e) {
-	    Toast toast = Toast.makeText(MainActivity.this,
-		    "PermissionException!\r\n" + e.getMessage(),
-		    Toast.LENGTH_LONG);
-	    toast.show();
-	    // e.printStackTrace();
-	} catch (RequestNotPracticableException e) {
-	    Toast toast = Toast.makeText(MainActivity.this,
-		    "RequestNotPracticableException!\r\n" + e.getMessage(),
-		    Toast.LENGTH_LONG);
-	    toast.show();
-	    // e.printStackTrace();
-	} catch (InternalErrorException e) {
-	    Toast toast = Toast.makeText(MainActivity.this,
-		    "InternalErrorException!\r\n" + e.getMessage(),
-		    Toast.LENGTH_LONG);
-	    toast.show();
-	    // e.printStackTrace();
-	} catch (IOException e) {
-	    Toast toast = Toast.makeText(MainActivity.this, "IOException!\r\n"
-		    + e.getMessage(), Toast.LENGTH_LONG);
-	    toast.show();
-	    // e.printStackTrace();
-	}
+	    try {
+		sEventNew = scon.GetSingleEvent(singleEventID);
+	    } catch (ClientProtocolException e) {
+		PopUp.exceptionAlert(this, "ClientProtocolException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (APIException e) {
+		PopUp.exceptionAlert(this, "APIException!", e.getMessage());
+		// e.printStackTrace();
+	    } catch (PermissionException e) {
+		PopUp.exceptionAlert(this, "PermissionException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (RequestNotPracticableException e) {
+		PopUp.exceptionAlert(this, "RequestNotPracticableException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (InternalErrorException e) {
+		PopUp.exceptionAlert(this, "InternalErrorException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (IOException e) {
+		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+		// e.printStackTrace();
+	    }
 
-	if (sEventNew != null) {
-	    sEvents.add(sEventNew);
-	    sEventAdapter.notifyDataSetChanged();
+	    if (sEventNew != null) {
+		sEvents.add(sEventNew);
+		sEventAdapter.notifyDataSetChanged();
+	    }
+	} else {
+	    // TODO l18n
+	    PopUp.alert(this, "Login!", "You are not logged in.");
 	}
     }
 

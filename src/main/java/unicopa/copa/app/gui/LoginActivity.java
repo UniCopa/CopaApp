@@ -80,27 +80,21 @@ public class LoginActivity extends Activity {
 	    EditText pw = (EditText) findViewById(R.id.passwordField);
 	    password = pw.getText().toString();
 
-	    // TODO should only switch activity when login successful, but does it anyway
+	    // TODO should only switch activity when login successful, but does
+	    // it anyway
 	    try {
 		if (scon.login(userName, password, getApplicationContext())) {
 		    Intent intentMain = new Intent(LoginActivity.this,
 			    MainActivity.class);
 		    LoginActivity.this.startActivity(intentMain);
 		} else {
-		    Toast toast2 = Toast.makeText(LoginActivity.this,
-			    "Login Error!", Toast.LENGTH_LONG);
-		    toast2.show();
+		    PopUp.exceptionAlert(this, "Login Error!", "TODO");
 		}
 	    } catch (ClientProtocolException e) {
-		Toast toast2 = Toast.makeText(LoginActivity.this,
-			"ClientProtocolException!\r\n" + e.getMessage(),
-			Toast.LENGTH_LONG);
-		toast2.show();
+		PopUp.exceptionAlert(this, "ClientProtocolException!", e.getMessage());
 		// e.printStackTrace();
 	    } catch (IOException e) {
-		Toast toast2 = Toast.makeText(LoginActivity.this,
-			"IOException!\r\n" + e.getMessage(), Toast.LENGTH_LONG);
-		toast2.show();
+		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
 		// e.printStackTrace();
 	    }
 	}
@@ -129,9 +123,11 @@ public class LoginActivity extends Activity {
 		if (!scon.login(userName, password, getApplicationContext())) {
 		}
 	    } catch (ClientProtocolException e) {
-		e.printStackTrace();
+		PopUp.exceptionAlert(this, "ClientProtocolException!", e.getMessage());
+		// e.printStackTrace();
 	    } catch (IOException e) {
-		e.printStackTrace();
+		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+		// e.printStackTrace();
 	    }
 	}
 
