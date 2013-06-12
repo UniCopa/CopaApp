@@ -35,6 +35,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 
+import unicopa.copa.base.UserSettings;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -47,6 +48,8 @@ import unicopa.copa.base.com.request.GetSingleEventRequest;
 import unicopa.copa.base.com.request.GetSingleEventResponse;
 import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesRequest;
 import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesResponse;
+import unicopa.copa.base.com.request.GetUserSettingsRequest;
+import unicopa.copa.base.com.request.GetUserSettingsResponse;
 import unicopa.copa.base.com.serialization.ClientSerializer;
 import unicopa.copa.base.event.CategoryNode;
 import unicopa.copa.base.event.SingleEvent;
@@ -252,7 +255,7 @@ public class ServerConnection {
     }
 
     /**
-     * This method return to a given singleEventID a SingleEvent.
+     * This method returns to a given singleEventID a SingleEvent.
      * 
      * @param eventID
      * @return SingleEvent
@@ -353,7 +356,7 @@ public class ServerConnection {
     }
 
     /**
-     * This method return all updates since a given date for subscribed
+     * This method returns all updates since a given date for subscribed
      * SingeEvents.
      * 
      * @param date
@@ -384,6 +387,39 @@ public class ServerConnection {
 
 	if (resObj instanceof GetSubscribedSingleEventUpdatesResponse) {
 	    return resObj.getUpdates();
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * This method returns the Settings.
+     * 
+     * @return UserSettings
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public UserSettings getSettings() throws ClientProtocolException,
+	    IOException, APIException, PermissionException,
+	    RequestNotPracticableException, InternalErrorException {
+	GetUserSettingsRequest reqObj = new GetUserSettingsRequest();
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetUserSettingsRequest", reqStr);
+
+	GetUserSettingsResponse resObj = null;
+	resObj = (GetUserSettingsResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetUserSettingsResponse) {
+	    return resObj.getUserSettings();
 	} else {
 	    return null;
 	}
