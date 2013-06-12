@@ -312,6 +312,26 @@ public class ServerConnection {
 	}
     }
 
+    // stub for requests, replace X with the appropriate names
+    // public X get() {
+    // GetXRequest reqObj = new GetXRequest();
+    //
+    // String reqStr = "";
+    // reqStr = ClientSerializer.serialize(reqObj);
+    //
+    // String resStr = "";
+    // resStr = sendToServer("GetXRequest", reqStr);
+    //
+    // GetXResponse resObj = null;
+    // resObj = (GetXResponse) ClientSerializer.deserializeResponse(resStr);
+    //
+    // if (resObj instanceof GetXResponse) {
+    // return resObj.getX;
+    // } else {
+    // return null;
+    // }
+    // }
+
     public boolean connectionCheck() {
 	return true;
     }
