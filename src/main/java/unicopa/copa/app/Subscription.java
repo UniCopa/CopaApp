@@ -16,59 +16,53 @@
  */
 package unicopa.copa.app;
 
+import java.util.Date;
+
 /**
- * This class manages subscriptions.
+ * This class manages subscriptions. (DEPRECATED)
  * 
  * @author Martin Rabe
  */
 public class Subscription {
-    private int[] m_subList; //[eventID, color]
-    private int[] m_perList; //[eventID, permissionCode]
-    
+
+    private int[] m_subList; // [eventID, colorCode]
+    private int[] m_perList; // [eventID, permissionCode]
+
     public boolean add(int eventID) {
-	//TODO return value
 	return true;
     }
-    
+
     public void change(int eventID, String userName, int permissionCode) {
-	
     }
-    
+
     public boolean remove(int eventID) {
-	//TODO return value
 	return true;
     }
-    
+
     public int sendSubscribe(int eventID) {
-	//TODO return value
 	return 1;
     }
-    
+
     public void sendPermission(int eventID) {
-	
     }
-    
+
     public int sendPermissionChange(int eventID, String email) {
-	//TODO return value
 	return 1;
     }
-    
+
     public int sendUnsubscribe(int eventID) {
-	//TODO return value
 	return 1;
     }
-    
-    public int getColor(int eventID) {
-	//TODO return value
+
+    public int getColorCode(int eventID) {
 	return 1;
     }
-    
-    public void setColor(int color, int eventID) {
-	
+
+    public void setColorCode(int colorCode, int eventID) {
     }
-    
-//TODO need to specify which date is to be used
-/*    public int getSingleEventsUpdate(date timeStamp) {
-	
-    }*/
+
+    public int getSingleEventsUpdate(Date timeStamp) {
+	return 0;
+    }
+
 }

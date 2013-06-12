@@ -49,7 +49,7 @@ public class CoPAAppHttpClient extends DefaultHttpClient {
 	registry.register(new Scheme("http", PlainSocketFactory
 		.getSocketFactory(), 80));
 
-	registry.register(new Scheme("https", newSSSLSocketFactory(), 443));
+	registry.register(new Scheme("https", newSSLSocketFactory(), 443));
 
 	return new SingleClientConnManager(getParams(), registry);
     }
@@ -59,7 +59,7 @@ public class CoPAAppHttpClient extends DefaultHttpClient {
      * 
      * @return SSLSocketFactory
      */
-    private SSLSocketFactory newSSSLSocketFactory() {
+    private SSLSocketFactory newSSLSocketFactory() {
 	try {
 	    // get instance of Bouncy Castle KeyStore format
 	    KeyStore trusted = KeyStore.getInstance("BKS");
@@ -85,4 +85,5 @@ public class CoPAAppHttpClient extends DefaultHttpClient {
 	    throw new AssertionError(e);
 	}
     }
+    
 }

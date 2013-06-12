@@ -21,28 +21,30 @@ import java.util.ArrayList;
 import unicopa.copa.base.event.SingleEvent;
 
 /**
- * This class manages the updatestatus of SingleEvents.
+ * This class extends the BaseClass SingleEvent with the update status and color
+ * code.
  * 
  * @author Martin Rabe
  */
 public class SingleEventLocal extends SingleEvent {
-    private ArrayList<Integer> m_changeUpdateStatus;
 
+    private ArrayList<Integer> m_changeUpdateStatus;
     private String m_colorCode;
 
     public void setChangeUpdateStatus(ArrayList<Integer> changeUpdateStatus) {
 	m_changeUpdateStatus = changeUpdateStatus;
     }
-    
-    public void setColorCode(String colorCode) {
-	m_colorCode = colorCode;
-    }
-    
-    public String setColorCode() {
-	return m_colorCode;
-    }
 
     public ArrayList<Integer> getChangeUpdateStatus() {
 	return m_changeUpdateStatus;
     }
+
+    public void setColorCode(String colorCode) {
+	m_colorCode = colorCode;
+    }
+
+    public String getColorCode() {
+	return m_colorCode;
+    }
+
 }

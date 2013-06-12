@@ -21,7 +21,7 @@ import unicopa.copa.base.event.Event;
 import unicopa.copa.base.event.EventGroup;
 
 /**
- * This class implements the search funnktion.
+ * This class implements the search function.
  * 
  * @author Martin Rabe
  */
@@ -54,4 +54,5 @@ public class Search {
 	    String searchItem) {
 	return null;
     }
+    
 }

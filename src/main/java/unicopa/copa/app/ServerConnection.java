@@ -47,20 +47,24 @@ import android.content.Context;
 import android.util.Log;
 
 /**
- * This singleton class manages the connection to the server.
+ * This singleton class manages the connection with the server.
  * 
  * @author Martin Rabe
  */
 public class ServerConnection {
 
     private static ServerConnection m_instance;
-
     private boolean m_connected = false;
     // private String m_gcmKey = "";
     private String m_sessionID = "";
     private String m_url = "";
     private DefaultHttpClient client = null;
 
+    /**
+     * This method is called to get an instance of ServerConnection. 
+     * 
+     * @return
+     */
     public static ServerConnection getInstance() {
 	if (m_instance == null) {
 	    m_instance = new ServerConnection();
@@ -69,6 +73,9 @@ public class ServerConnection {
 	return m_instance;
     }
 
+    /**
+     * Private constructor of the ServerConnection class.
+     */
     private ServerConnection() {
     }
 
@@ -223,7 +230,6 @@ public class ServerConnection {
      * @return success
      */
     // TODO remove this
-    @SuppressWarnings("unused")
     public boolean logout() {
 	// TODO get on https://copa.prakinf.tu-ilmenau.de/logout.jsp
 	// TODO erase the session cookie and sessionID
@@ -310,18 +316,12 @@ public class ServerConnection {
 	return temp;
     }
 
-    public void openConnection() {
-    }
-
     public boolean connectionCheck() {
 	return true;
     }
 
     public String sendGCMKey() {
 	return "";
-    }
-
-    public void closeConnection() {
     }
 
 }

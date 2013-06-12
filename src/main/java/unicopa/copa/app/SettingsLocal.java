@@ -19,11 +19,12 @@ package unicopa.copa.app;
 import unicopa.copa.base.UserSettings;
 
 /**
- * This class extends the BaseClass Settings.
+ * This class extends the BaseClass Settings with notification kind.
  * 
  * @author Martin Rabe
  */
 public class SettingsLocal extends UserSettings {
+
     private int m_notificationKind;
 
     public void setNotificationKind(int notificationKind) {
@@ -33,4 +34,5 @@ public class SettingsLocal extends UserSettings {
     public int getNotificationKind() {
 	return m_notificationKind;
     }
+
 }
