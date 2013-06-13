@@ -21,9 +21,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,10 +99,10 @@ public class SingleEventAdapter extends BaseAdapter {
 	    @Override
 	    public void onClick(View v) {
 
-		Intent intentChangeSingleEventList = new Intent(context,
+		Intent intentChangeSingleEvent = new Intent(context,
 			ChangeSingleEventActivity.class);
-		intentChangeSingleEventList.putExtra("key", "value");
-		context.startActivity(intentChangeSingleEventList);
+		intentChangeSingleEvent.putExtra("key", "value");
+		context.startActivity(intentChangeSingleEvent);
 
 	    }
 

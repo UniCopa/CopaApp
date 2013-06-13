@@ -22,7 +22,9 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import unicopa.copa.app.R;
@@ -72,22 +74,35 @@ public class SearchResultGroupAdapter extends BaseAdapter {
 		    .findViewById(R.id.item_result_group_name);
 	    holder.colour = (LinearLayout) convertView
 		    .findViewById(R.id.item_result_group_list);
+	    holder.info = (Button) convertView
+		    .findViewById(R.id.item_result_group_info);
 	    convertView.setTag(holder);
 
 	} else {
 	    holder = (ViewHolder) convertView.getTag();
 	}
 
-	EventGroup eventGroup = (EventGroup) this.getItem(position);
+	final EventGroup eventGroup = (EventGroup) this.getItem(position);
 	holder.name.setText(eventGroup.getEventGroupName());
 	Drawable draw = context.getResources().getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
 
+	holder.info.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+
+		PopUp.alert(context, eventGroup.getEventGroupName(),
+			eventGroup.getEventGroupInfo());
+	    }
+
+	});
 	return convertView;
     }
 
     static class ViewHolder {
 	TextView name;
+	Button info;
 	LinearLayout colour;
     }
 

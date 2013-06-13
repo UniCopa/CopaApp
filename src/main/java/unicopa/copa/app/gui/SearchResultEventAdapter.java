@@ -18,11 +18,14 @@ package unicopa.copa.app.gui;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import unicopa.copa.app.R;
@@ -69,6 +72,10 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	    holder = new ViewHolder();
 	    holder.name = (TextView) convertView
 		    .findViewById(R.id.item_result_event_name);
+	    holder.dates = (Button) convertView
+		    .findViewById(R.id.item_result_event_datesbutton);
+	    holder.subscr = (Button) convertView
+		    .findViewById(R.id.item_result_event_subcrbutton);
 	    holder.colour = (LinearLayout) convertView
 		    .findViewById(R.id.item_result_event_list);
 	    convertView.setTag(holder);
@@ -77,16 +84,41 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	    holder = (ViewHolder) convertView.getTag();
 	}
 
-	Event event = (Event) this.getItem(position);
+	final Event event = (Event) this.getItem(position);
 	holder.name.setText(event.getEventName());
 	Drawable draw = context.getResources().getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
+
+	holder.dates.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+
+		Intent intentSingleEventList = new Intent(context,
+			SingleEventListActivity.class);
+		intentSingleEventList.putExtra("selected", event.getEventID());
+		context.startActivity(intentSingleEventList);
+
+	    }
+
+	});
+
+	holder.subscr.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+		// send request to server
+	    }
+
+	});
 
 	return convertView;
     }
 
     static class ViewHolder {
 	TextView name;
+	Button dates;
+	Button subscr;
 	LinearLayout colour;
     }
 
