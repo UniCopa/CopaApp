@@ -16,7 +16,11 @@
  */
 package unicopa.copa.app.gui;
 
+import java.util.ArrayList;
+
 import unicopa.copa.app.R;
+
+import unicopa.copa.base.event.CategoryNodeImpl;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,6 +28,13 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * In this activity a user can search a event.
@@ -32,10 +43,45 @@ import android.view.View;
  */
 public class SearchActivity extends Activity {
 
+    ArrayList<CategoryNodeImpl> categories = new ArrayList<CategoryNodeImpl>();
+    SearchAdapter searchAdapter;
+    int currentID = 0;
+    TextView cat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.search);
+	final ListView catListView = (ListView) SearchActivity.this
+		.findViewById(R.id.search_list);
+	cat = (TextView) findViewById(R.id.search_categorie);
+	catListView.setAdapter(null);
+
+	CategoryNodeImpl cattest = new CategoryNodeImpl(1, "Category5");
+	cattest.addChildNode(new CategoryNodeImpl(4, "Category4"));
+	categories.add(cattest);
+	categories.add(new CategoryNodeImpl(2, "Category2"));
+	categories.add(new CategoryNodeImpl(3, "Category3"));
+
+	searchAdapter = new SearchAdapter(this, categories);
+	catListView.setAdapter((ListAdapter) searchAdapter);
+
+	catListView.setOnItemClickListener(new OnItemClickListener() {
+	    @Override
+	    public void onItemClick(AdapterView<?> arg0, View arg1,
+		    int position, long arg3) {
+
+		CategoryNodeImpl clicked = (CategoryNodeImpl) searchAdapter
+			.getItem(position);
+		currentID = clicked.getId();
+		cat.setText(clicked.getName());
+		categories.clear();
+		categories.addAll((ArrayList<CategoryNodeImpl>) clicked
+			.getChildren());
+		searchAdapter.notifyDataSetChanged();
+	    }
+	});
+
     }
 
     @Override
@@ -78,16 +124,10 @@ public class SearchActivity extends Activity {
 	}
     }
 
-    /**
-     * Is used if AllDatesButton is clicked. Switches to
-     * SingleEventListActivity.
-     * 
-     * @param view
-     */
-    public void onAllDatesButtonClick(View view) {
-	Intent intentEventPriv = new Intent(SearchActivity.this,
-		SingleEventListActivity.class);
-	intentEventPriv.putExtra("key", "value");
-	SearchActivity.this.startActivity(intentEventPriv);
+    public void onSearchButtonClick(View view) {
+	Intent intentResult = new Intent(SearchActivity.this,
+		SearchResultGroupActivity.class);
+	intentResult.putExtra("categoryID", currentID);
+	SearchActivity.this.startActivity(intentResult);
     }
 }

@@ -54,6 +54,9 @@
         <activity
             android:name="unicopa.copa.app.gui.ChangeSingleEventActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name="unicopa.copa.app.gui.SearchResultGroupActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

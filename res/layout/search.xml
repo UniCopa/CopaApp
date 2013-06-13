@@ -5,35 +5,51 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-    <EditText
-        android:id="@+id/searchEdit"
+    <ListView
+        android:id="@+id/search_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/search_edit" >
+    </ListView>
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/search_edit"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/search_edit"
+        android:onClick="onSearchButtonClick"
+        android:text="@string/button_search" />
+
+    <TextView
+        android:id="@+id/search_title"
+        style="@style/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
+        android:text="@string/search" />
+
+    <TextView
+        android:id="@+id/search_categorie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/search_title" />
+
+    <EditText
+        android:id="@+id/search_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/search_categorie"
         android:ems="10"
         android:inputType="text" >
 
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/allSingleEventsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="38dp"
-        android:onClick="onAllDatesButtonClick"
-        android:text="@string/all_singleevents" />
-
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/searchEdit"
-        android:text="@string/button_search" />
 
 </RelativeLayout>
