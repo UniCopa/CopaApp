@@ -161,14 +161,6 @@ public class ServerConnection {
 	return connected;
     }
 
-    // public void setGCMKey(String gcmKey) {
-    // this.gcmKey = gcmKey;
-    // }
-
-    // public String getGCMKey() {
-    // return gcmKey;
-    // }
-
     /**
      * This Method opens connection to the server and saves the session cookie.
      * 
@@ -292,7 +284,7 @@ public class ServerConnection {
     }
 
     /**
-     * TODO
+     * This method returns a list of EventGroups for a given categoryID and a searchTerm.
      * 
      * @param categoryNodeID
      * @param searchTerm
@@ -329,7 +321,7 @@ public class ServerConnection {
     }
 
     /**
-     * TODO
+     * This method returns a list of Events for a given eventGroupID and a categoryID.
      * 
      * @param eventGroupID
      * @param categoryNodeID
@@ -437,7 +429,7 @@ public class ServerConnection {
     }
 
     /**
-     * TODO
+     * This method sends the UserSettings to the server.
      * 
      * @param settings
      * @return
@@ -472,7 +464,7 @@ public class ServerConnection {
     }
 
     /**
-     * This method returns the Settings.
+     * This method returns the UserSettings.
      * 
      * @return UserSettings
      * @throws ClientProtocolException
@@ -558,12 +550,9 @@ public class ServerConnection {
     // }
     // }
 
+    // TODO need to know how to check connection status
     public boolean connectionCheck() {
 	return true;
-    }
-
-    public String sendGCMKey() {
-	return "";
     }
 
 }
