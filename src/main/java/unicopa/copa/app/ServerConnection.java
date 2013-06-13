@@ -44,6 +44,10 @@ import unicopa.copa.base.com.request.GetAllOwnersRequest;
 import unicopa.copa.base.com.request.GetAllOwnersResponse;
 import unicopa.copa.base.com.request.GetCategoryRequest;
 import unicopa.copa.base.com.request.GetCategoryResponse;
+import unicopa.copa.base.com.request.GetEventGroupsRequest;
+import unicopa.copa.base.com.request.GetEventGroupsResponse;
+import unicopa.copa.base.com.request.GetEventsRequest;
+import unicopa.copa.base.com.request.GetEventsResponse;
 import unicopa.copa.base.com.request.GetSingleEventRequest;
 import unicopa.copa.base.com.request.GetSingleEventResponse;
 import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesRequest;
@@ -52,6 +56,8 @@ import unicopa.copa.base.com.request.GetUserSettingsRequest;
 import unicopa.copa.base.com.request.GetUserSettingsResponse;
 import unicopa.copa.base.com.serialization.ClientSerializer;
 import unicopa.copa.base.event.CategoryNode;
+import unicopa.copa.base.event.Event;
+import unicopa.copa.base.event.EventGroup;
 import unicopa.copa.base.event.SingleEvent;
 import unicopa.copa.base.event.SingleEventUpdate;
 
@@ -65,11 +71,15 @@ import android.util.Log;
  */
 public class ServerConnection {
 
-    private static ServerConnection m_instance;
-    private boolean m_connected = false;
-    // private String m_gcmKey = "";
-    private String m_sessionID = "";
-    private String m_url = "";
+    private static ServerConnection instance;
+    private boolean connected = false;
+    // private String gcmKey = "";
+    private String sessionID = "";
+
+    // TODO read urls from file
+    private String loginUrl = "https://copa.prakinf.tu-ilmenau.de:443/j_security_check";
+    private String requestUrl = "https://copa.prakinf.tu-ilmenau.de:443/service";
+
     private DefaultHttpClient client = null;
 
     /**
@@ -78,11 +88,11 @@ public class ServerConnection {
      * @return
      */
     public static ServerConnection getInstance() {
-	if (m_instance == null) {
-	    m_instance = new ServerConnection();
+	if (instance == null) {
+	    instance = new ServerConnection();
 	}
 
-	return m_instance;
+	return instance;
     }
 
     /**
@@ -108,13 +118,12 @@ public class ServerConnection {
 	nameValuePairsMsg.clear();
 
 	nameValuePairsMsg.add(new BasicNameValuePair("req", requestObject));
-	nameValuePairsMsg
-		.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
+	nameValuePairsMsg.add(new BasicNameValuePair("JSESSIONID", sessionID));
 
 	Log.v("REQUEST:", nameValuePairsMsg.toString());
-	Log.v("URL", this.getUrl());
+	Log.v("URL", this.requestUrl);
 
-	HttpPost post = new HttpPost(m_url);
+	HttpPost post = new HttpPost(requestUrl);
 	post.setEntity(new UrlEncodedFormEntity(nameValuePairsMsg));
 
 	HttpResponse response = null;
@@ -142,29 +151,20 @@ public class ServerConnection {
 	return temp;
     }
 
-    // TODO URL needs to be read from configuration file or settings
-    public void setUrl(String url) {
-	m_url = url;
-    }
-
-    public String getUrl() {
-	return m_url;
-    }
-
     public void setConnected(boolean connected) {
-	m_connected = connected;
+	this.connected = connected;
     }
 
     public boolean getConnected() {
-	return m_connected;
+	return connected;
     }
 
     // public void setGCMKey(String gcmKey) {
-    // m_gcmKey = gcmKey;
+    // this.gcmKey = gcmKey;
     // }
 
     // public String getGCMKey() {
-    // return m_gcmKey;
+    // return gcmKey;
     // }
 
     /**
@@ -188,8 +188,8 @@ public class ServerConnection {
 	HttpParams params = client.getParams();
 	HttpClientParams.setRedirecting(params, false);
 
-	Log.v("URL", this.getUrl());
-	HttpPost loginMsg = new HttpPost(m_url);
+	Log.v("URL", this.loginUrl);
+	HttpPost loginMsg = new HttpPost(loginUrl);
 
 	// login data
 	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
@@ -216,15 +216,17 @@ public class ServerConnection {
 	if (cookies.isEmpty()) {
 	    Log.w("List<cookies>:", "is empty");
 	} else {
-	    m_sessionID = cookies.get(0).getValue().toString();
+	    sessionID = cookies.get(0).getValue().toString();
 	}
 
-	Log.v("SESSIONID:", m_sessionID);
+	Log.v("SESSIONID:", sessionID);
 
 	// cleaning
 	rd.close();
 	reader.close();
 
+	// TODO this does not work, there is a cookie created whether to login
+	// succeeds or not
 	// return
 	if (cookies.isEmpty()) {
 	    setConnected(false);
@@ -316,6 +318,67 @@ public class ServerConnection {
 
 	if (resObj instanceof GetCategoryResponse) {
 	    return resObj.getCategoryTree();
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * TODO
+     * 
+     * @param categoryNodeID
+     * @param searchTerm
+     * @return
+     * @throws IOException
+     * @throws ClientProtocolException
+     * @throws InternalErrorException
+     * @throws RequestNotPracticableException
+     * @throws PermissionException
+     * @throws APIException
+     */
+    public List<EventGroup> getEventGroups(int categoryNodeID, String searchTerm)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	GetEventGroupsRequest reqObj = new GetEventGroupsRequest(
+		categoryNodeID, searchTerm);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetEventGroupsRequest", reqStr);
+
+	GetEventGroupsResponse resObj = null;
+	resObj = (GetEventGroupsResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetEventGroupsResponse) {
+	    return resObj.getEventGroupList();
+	} else {
+	    return null;
+	}
+    }
+
+    public List<Event> getEvents(int eventGroupID, int categoryNodeID)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	GetEventsRequest reqObj = new GetEventsRequest(eventGroupID,
+		categoryNodeID);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetEventsRequest", reqStr);
+
+	GetEventsResponse resObj = null;
+	resObj = (GetEventsResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetEventsResponse) {
+	    return resObj.getEventList();
 	} else {
 	    return null;
 	}
