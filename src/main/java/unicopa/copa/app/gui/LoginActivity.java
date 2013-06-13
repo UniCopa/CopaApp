@@ -68,15 +68,13 @@ public class LoginActivity extends Activity {
 
 	// TODO check if already logged in
 	if (!scon.getConnected()) {
-	    scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/j_security_check");
 
-	    // read userName and password from respective textEdit
 	    String userName = "";
 	    String password = "";
 
+	    // read userName and password from respective textEdit
 	    EditText name = (EditText) findViewById(R.id.usernameField);
 	    userName = name.getText().toString();
-
 	    EditText pw = (EditText) findViewById(R.id.passwordField);
 	    password = pw.getText().toString();
 

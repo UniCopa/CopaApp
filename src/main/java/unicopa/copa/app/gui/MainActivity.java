@@ -99,8 +99,6 @@ public class MainActivity extends Activity {
 
 	if (scon.getConnected()) {
 
-	    scon.setUrl("https://copa.prakinf.tu-ilmenau.de:443/service");
-
 	    // JUST FOR DEMO
 	    // DONE 13 works
 	    // DONE ID 0 InternalErrorException

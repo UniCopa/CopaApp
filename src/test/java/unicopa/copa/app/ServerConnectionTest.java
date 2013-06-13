@@ -37,9 +37,7 @@ public class ServerConnectionTest {
 	String password = "me";
 	// TODO not sure if this is OK
 	Context context = null;
-	String url = "https://copa.prakinf.tu-ilmenau.de:443/my-webapp-auth/j_security_check";
 	ServerConnection scon = ServerConnection.getInstance();
-	scon.setUrl(url);
 
 	assertEquals(scon.login(userName, password, context), true);
     }
@@ -61,9 +59,7 @@ public class ServerConnectionTest {
 	    InternalErrorException, IOException {
 	int singleEventID = 1;
 	SingleEvent singleEvent = new SingleEvent();
-	String url = "https://copa.prakinf.tu-ilmenau.de:443/service";
 	ServerConnection scon = ServerConnection.getInstance();
-	scon.setUrl(url);
 
 	assertEquals(scon.getSingleEvent(singleEventID), singleEvent);
     }

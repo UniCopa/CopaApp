@@ -65,11 +65,15 @@ import android.util.Log;
  */
 public class ServerConnection {
 
-    private static ServerConnection m_instance;
-    private boolean m_connected = false;
-    // private String m_gcmKey = "";
-    private String m_sessionID = "";
-    private String m_url = "";
+    private static ServerConnection instance;
+    private boolean connected = false;
+    // private String gcmKey = "";
+    private String sessionID = "";
+
+    // TODO read urls from file
+    private String loginUrl = "https://copa.prakinf.tu-ilmenau.de:443/j_security_check";
+    private String requestUrl = "https://copa.prakinf.tu-ilmenau.de:443/service";
+
     private DefaultHttpClient client = null;
 
     /**
@@ -78,11 +82,11 @@ public class ServerConnection {
      * @return
      */
     public static ServerConnection getInstance() {
-	if (m_instance == null) {
-	    m_instance = new ServerConnection();
+	if (instance == null) {
+	    instance = new ServerConnection();
 	}
 
-	return m_instance;
+	return instance;
     }
 
     /**
@@ -108,13 +112,12 @@ public class ServerConnection {
 	nameValuePairsMsg.clear();
 
 	nameValuePairsMsg.add(new BasicNameValuePair("req", requestObject));
-	nameValuePairsMsg
-		.add(new BasicNameValuePair("JSESSIONID", m_sessionID));
+	nameValuePairsMsg.add(new BasicNameValuePair("JSESSIONID", sessionID));
 
 	Log.v("REQUEST:", nameValuePairsMsg.toString());
-	Log.v("URL", this.getUrl());
+	Log.v("URL", this.requestUrl);
 
-	HttpPost post = new HttpPost(m_url);
+	HttpPost post = new HttpPost(requestUrl);
 	post.setEntity(new UrlEncodedFormEntity(nameValuePairsMsg));
 
 	HttpResponse response = null;
@@ -142,29 +145,20 @@ public class ServerConnection {
 	return temp;
     }
 
-    // TODO URL needs to be read from configuration file or settings
-    public void setUrl(String url) {
-	m_url = url;
-    }
-
-    public String getUrl() {
-	return m_url;
-    }
-
     public void setConnected(boolean connected) {
-	m_connected = connected;
+	this.connected = connected;
     }
 
     public boolean getConnected() {
-	return m_connected;
+	return connected;
     }
 
     // public void setGCMKey(String gcmKey) {
-    // m_gcmKey = gcmKey;
+    // this.gcmKey = gcmKey;
     // }
 
     // public String getGCMKey() {
-    // return m_gcmKey;
+    // return gcmKey;
     // }
 
     /**
@@ -188,8 +182,8 @@ public class ServerConnection {
 	HttpParams params = client.getParams();
 	HttpClientParams.setRedirecting(params, false);
 
-	Log.v("URL", this.getUrl());
-	HttpPost loginMsg = new HttpPost(m_url);
+	Log.v("URL", this.loginUrl);
+	HttpPost loginMsg = new HttpPost(loginUrl);
 
 	// login data
 	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
@@ -216,15 +210,17 @@ public class ServerConnection {
 	if (cookies.isEmpty()) {
 	    Log.w("List<cookies>:", "is empty");
 	} else {
-	    m_sessionID = cookies.get(0).getValue().toString();
+	    sessionID = cookies.get(0).getValue().toString();
 	}
 
-	Log.v("SESSIONID:", m_sessionID);
+	Log.v("SESSIONID:", sessionID);
 
 	// cleaning
 	rd.close();
 	reader.close();
 
+	// TODO this does not work, there is a cookie created whether to login
+	// succeeds or not
 	// return
 	if (cookies.isEmpty()) {
 	    setConnected(false);
