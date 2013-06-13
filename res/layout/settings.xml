@@ -1,56 +1,103 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/main_text"
-        android:layout_below="@+id/languageSpinner"
-        android:layout_marginTop="25dp"
-        android:text="@string/kind_of_notification" />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity" >
 
-    <Spinner
-        android:id="@+id/notificationSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/notification"
-        android:layout_below="@+id/notification"
-        android:entries="@array/notification_entries"
-        android:prompt="@string/notification_pick" />
+        <TextView
+            android:id="@+id/settings_title"
+            style="@style/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="Settings" />
 
-    <TextView
-        android:id="@+id/title_settings"
-        style="@style/text_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Settings" />
+        <TextView
+            android:id="@+id/settings_language_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/settings_title"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/language"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Spinner
-        android:id="@+id/languageSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/title_settings"
-        android:layout_marginTop="31dp"
-        android:entries="@array/language_entries"
-        android:prompt="@string/language_pick"
-        android:scrollbarAlwaysDrawVerticalTrack="true" />
+        <CheckBox
+            android:id="@+id/settings_noti_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radio_languages"
+            android:layout_below="@+id/settings_notification"
+            android:layout_marginTop="18dp"
+            android:text="@string/mail" />
 
-    <TextView
-        android:id="@+id/language_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/title_settings"
-        android:layout_marginTop="14dp"
-        android:text="@string/language" />
+        <RadioGroup
+            android:id="@+id/radio_gcm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/settings_noti_mail"
+            android:layout_below="@+id/settings_noti_mail" >
 
-</RelativeLayout>
+            <RadioButton
+                android:id="@+id/settings_noti_gcm_manu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gcm_manu" />
+
+            <RadioButton
+                android:id="@+id/settings_noti_gcm_auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gcm_auto" />
+
+            <RadioButton
+                android:id="@+id/settings_noti_gcm_none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gcm_none" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radio_languages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/settings_language_text"
+            android:layout_below="@+id/settings_language_text"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="18dp" >
+
+            <RadioButton
+                android:id="@+id/settings_language_german"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/language_german" />
+
+            <RadioButton
+                android:id="@+id/settings_language_english"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/language_english" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/settings_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/settings_language_text"
+            android:layout_below="@+id/radio_languages"
+            android:layout_marginTop="36dp"
+            android:text="@string/kind_of_notification"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+</ScrollView>
