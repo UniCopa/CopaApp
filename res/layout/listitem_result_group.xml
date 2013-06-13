@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clickable="false"
+    android:longClickable="false"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -13,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_margin="3.0dip"
-        android:clickable="true" >
+        android:clickable="false" >
 
         <TextView
             android:id="@+id/item_result_group_name"
@@ -22,6 +23,8 @@
             android:layout_margin="3.0dip"
             android:layout_marginRight="8.0dip"
             android:layout_weight="0.0"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:text="TextView" />
 
         <Button
@@ -29,6 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.0"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:text="@string/info" />
     </LinearLayout>
 

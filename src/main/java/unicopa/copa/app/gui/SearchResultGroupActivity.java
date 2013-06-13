@@ -63,6 +63,7 @@ public class SearchResultGroupActivity extends Activity {
 
 	searchGroupAdapter = new SearchResultGroupAdapter(this, eventGroupList);
 	groupListView.setAdapter((ListAdapter) searchGroupAdapter);
+	groupListView.setItemsCanFocus(false);
 
 	groupListView.setOnItemClickListener(new OnItemClickListener() {
 	    @Override
