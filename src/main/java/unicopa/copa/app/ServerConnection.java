@@ -54,6 +54,8 @@ import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesRequest;
 import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesResponse;
 import unicopa.copa.base.com.request.GetUserSettingsRequest;
 import unicopa.copa.base.com.request.GetUserSettingsResponse;
+import unicopa.copa.base.com.request.SetUserSettingsRequest;
+import unicopa.copa.base.com.request.SetUserSettingsResponse;
 import unicopa.copa.base.com.serialization.ClientSerializer;
 import unicopa.copa.base.event.CategoryNode;
 import unicopa.copa.base.event.Event;
@@ -360,6 +362,19 @@ public class ServerConnection {
 	}
     }
 
+    /**
+     * TODO
+     * 
+     * @param eventGroupID
+     * @param categoryNodeID
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
     public List<Event> getEvents(int eventGroupID, int categoryNodeID)
 	    throws ClientProtocolException, IOException, APIException,
 	    PermissionException, RequestNotPracticableException,
@@ -452,6 +467,41 @@ public class ServerConnection {
 	    return resObj.getUpdates();
 	} else {
 	    return null;
+	}
+    }
+
+    /**
+     * TODO
+     * 
+     * @param settings
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public boolean setSettings(UserSettings settings)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	SetUserSettingsRequest reqObj = new SetUserSettingsRequest(settings);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("SetUserSettingsRequest", reqStr);
+
+	SetUserSettingsResponse resObj = null;
+	resObj = (SetUserSettingsResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof SetUserSettingsResponse) {
+	    return true;
+	} else {
+	    return false;
 	}
     }
 
