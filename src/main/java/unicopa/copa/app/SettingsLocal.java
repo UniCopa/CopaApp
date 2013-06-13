@@ -16,23 +16,34 @@
  */
 package unicopa.copa.app;
 
+import java.util.Date;
+
 import unicopa.copa.base.UserSettings;
 
 /**
- * This class extends the BaseClass Settings with notification kind.
+ * This class extends the BaseClass Settings with notification kind and last update.
  * 
  * @author Martin Rabe
  */
 public class SettingsLocal extends UserSettings {
 
-    private int m_notificationKind;
+    private int notificationKind;
+    private Date lastUpdate;
 
     public void setNotificationKind(int notificationKind) {
-	m_notificationKind = notificationKind;
+	this.notificationKind = notificationKind;
     }
 
     public int getNotificationKind() {
-	return m_notificationKind;
+	return notificationKind;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+	this.lastUpdate = lastUpdate;
+    }
+
+    public Date getLastUpdate() {
+	return lastUpdate;
     }
 
 }
