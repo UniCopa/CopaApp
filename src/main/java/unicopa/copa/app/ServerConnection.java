@@ -44,6 +44,8 @@ import unicopa.copa.base.com.request.GetAllOwnersRequest;
 import unicopa.copa.base.com.request.GetAllOwnersResponse;
 import unicopa.copa.base.com.request.GetCategoryRequest;
 import unicopa.copa.base.com.request.GetCategoryResponse;
+import unicopa.copa.base.com.request.GetEventGroupsRequest;
+import unicopa.copa.base.com.request.GetEventGroupsResponse;
 import unicopa.copa.base.com.request.GetSingleEventRequest;
 import unicopa.copa.base.com.request.GetSingleEventResponse;
 import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesRequest;
@@ -52,6 +54,7 @@ import unicopa.copa.base.com.request.GetUserSettingsRequest;
 import unicopa.copa.base.com.request.GetUserSettingsResponse;
 import unicopa.copa.base.com.serialization.ClientSerializer;
 import unicopa.copa.base.event.CategoryNode;
+import unicopa.copa.base.event.EventGroup;
 import unicopa.copa.base.event.SingleEvent;
 import unicopa.copa.base.event.SingleEventUpdate;
 
@@ -312,6 +315,43 @@ public class ServerConnection {
 
 	if (resObj instanceof GetCategoryResponse) {
 	    return resObj.getCategoryTree();
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * TODO
+     * 
+     * @param categoryNodeID
+     * @param searchTerm
+     * @return
+     * @throws IOException
+     * @throws ClientProtocolException
+     * @throws InternalErrorException
+     * @throws RequestNotPracticableException
+     * @throws PermissionException
+     * @throws APIException
+     */
+    public List<EventGroup> getEventGroups(int categoryNodeID, String searchTerm)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	GetEventGroupsRequest reqObj = new GetEventGroupsRequest(
+		categoryNodeID, searchTerm);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetEventGroupsRequest", reqStr);
+
+	GetEventGroupsResponse resObj = null;
+	resObj = (GetEventGroupsResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetEventGroupsResponse) {
+	    return resObj.getEventGroupList();
 	} else {
 	    return null;
 	}
