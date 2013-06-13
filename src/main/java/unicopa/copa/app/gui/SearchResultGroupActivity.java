@@ -34,7 +34,7 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
- * On this activity the EventGroups are shown.
+ * On this activity the EventGroups as results of a search are shown.
  * 
  * @author Christiane Kuhn
  */
@@ -71,13 +71,14 @@ public class SearchResultGroupActivity extends Activity {
 		    int position, long arg3) {
 
 		Intent intent = new Intent(SearchResultGroupActivity.this,
-			SingleEventActivity.class);
+			SearchResultEventActivity.class);
 
 		EventGroup clicked = (EventGroup) searchGroupAdapter
 			.getItem(position);
 
 		intent.putExtra("eventGroupID", clicked.getEventGroupID());
 		intent.putExtra("categoryID", categoryId);
+		intent.putExtra("groupname", clicked.getEventGroupName());
 
 		startActivity(intent);
 
