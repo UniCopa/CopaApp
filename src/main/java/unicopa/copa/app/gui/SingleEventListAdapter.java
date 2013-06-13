@@ -38,12 +38,12 @@ import unicopa.copa.base.event.SingleEvent;
  * 
  * @author Christiane Kuhn
  */
-public class SingleEventAdapter extends BaseAdapter {
+public class SingleEventListAdapter extends BaseAdapter {
 
     ArrayList<SingleEvent> singleEventList;
     Context context;
 
-    public SingleEventAdapter(Context context, ArrayList<SingleEvent> eventList) {
+    public SingleEventListAdapter(Context context, ArrayList<SingleEvent> eventList) {
 	this.context = context;
 	this.singleEventList = eventList;
     }

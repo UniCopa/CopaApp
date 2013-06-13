@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -94,6 +95,18 @@ public class SingleEventActivity extends Activity {
 	default:
 	    return super.onOptionsItemSelected(item);
 	}
+    }
+
+    /**
+     * Is used if ChangeDateButton is clicked. Switches to
+     * ChangeSingleEventActivity.
+     * 
+     * @param view
+     */
+    public void onChangeDateButtonClick(View view) {
+	Intent intentSingleEvent = new Intent(SingleEventActivity.this,
+		ChangeSingleEventActivity.class);
+	SingleEventActivity.this.startActivity(intentSingleEvent);
     }
 
 }
