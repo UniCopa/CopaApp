@@ -46,6 +46,8 @@ import unicopa.copa.base.com.request.GetCategoryRequest;
 import unicopa.copa.base.com.request.GetCategoryResponse;
 import unicopa.copa.base.com.request.GetEventGroupsRequest;
 import unicopa.copa.base.com.request.GetEventGroupsResponse;
+import unicopa.copa.base.com.request.GetEventsRequest;
+import unicopa.copa.base.com.request.GetEventsResponse;
 import unicopa.copa.base.com.request.GetSingleEventRequest;
 import unicopa.copa.base.com.request.GetSingleEventResponse;
 import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesRequest;
@@ -54,6 +56,7 @@ import unicopa.copa.base.com.request.GetUserSettingsRequest;
 import unicopa.copa.base.com.request.GetUserSettingsResponse;
 import unicopa.copa.base.com.serialization.ClientSerializer;
 import unicopa.copa.base.event.CategoryNode;
+import unicopa.copa.base.event.Event;
 import unicopa.copa.base.event.EventGroup;
 import unicopa.copa.base.event.SingleEvent;
 import unicopa.copa.base.event.SingleEventUpdate;
@@ -352,6 +355,30 @@ public class ServerConnection {
 
 	if (resObj instanceof GetEventGroupsResponse) {
 	    return resObj.getEventGroupList();
+	} else {
+	    return null;
+	}
+    }
+
+    public List<Event> getEvents(int eventGroupID, int categoryNodeID)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	GetEventsRequest reqObj = new GetEventsRequest(eventGroupID,
+		categoryNodeID);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetEventsRequest", reqStr);
+
+	GetEventsResponse resObj = null;
+	resObj = (GetEventsResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetEventsResponse) {
+	    return resObj.getEventList();
 	} else {
 	    return null;
 	}
