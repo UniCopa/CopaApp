@@ -11,7 +11,7 @@
     <string name="text_login_pw">Password</string>
     <string name="button_search">Search</string>
     <string name="button_priv">other rightholders</string>
-    <string name="language">Language</string>
+    <string name="language">E-Mail/CoPA-Website Language</string>
     <string name="kind_of_notification">Kind of Notification</string>
     <string name="language_german">German</string>
     <string name="language_english">English</string>
@@ -47,5 +47,9 @@
     <string name="info">Info</string>
     <string name="dates">Dates</string>
     <string name="subscr">Subscribe</string>
+    <string name="mail">E-Mail</string>
+    <string name="gcm_auto">Push automatic</string>
+    <string name="gcm_manu">Push manuel</string>
+    <string name="gcm_none">manuel</string>
 
 </resources>
