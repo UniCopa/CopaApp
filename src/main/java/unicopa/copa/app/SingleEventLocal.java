@@ -35,12 +35,13 @@ public class SingleEventLocal extends SingleEvent {
     private int supervisorUpdateCounter;
     private int durationMinutesUpdateCounter;
     private int colorCodeUpdateCounter;
+    private int permission;
 
     public SingleEventLocal(int singleEventID, int eventID, String location,
 	    Date date, String supervisor, int durationMinutes,
 	    String colorCode, String name, int locationUpdateCounter,
 	    int dateUpdateCounter, int supervisorUpdateCounter,
-	    int durationMinutesUpdateCounter, int colorCodeUpdateCounter) {
+	    int durationMinutesUpdateCounter, int colorCodeUpdateCounter, int permission) {
 	super(singleEventID, eventID, location, date, supervisor,
 		durationMinutes);
 	this.colorCode = colorCode;
@@ -50,6 +51,7 @@ public class SingleEventLocal extends SingleEvent {
 	this.supervisorUpdateCounter = supervisorUpdateCounter;
 	this.durationMinutesUpdateCounter = durationMinutesUpdateCounter;
 	this.colorCodeUpdateCounter = colorCodeUpdateCounter;
+	this.permission = permission;
     }
 
     public void setColorCode(String colorCode) {
@@ -86,6 +88,10 @@ public class SingleEventLocal extends SingleEvent {
 
     public int getColorCodeUpdateCounter() {
 	return colorCodeUpdateCounter;
+    }
+    
+    public int getPermission() {
+	return permission;
     }
 
 }
