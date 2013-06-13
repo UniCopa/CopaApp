@@ -259,40 +259,6 @@ public class ServerConnection {
     }
 
     /**
-     * This method returns to a given singleEventID a SingleEvent.
-     * 
-     * @param eventID
-     * @return SingleEvent
-     * @throws InternalErrorException
-     * @throws RequestNotPracticableException
-     * @throws PermissionException
-     * @throws APIException
-     * @throws IOException
-     * @throws ClientProtocolException
-     */
-    public SingleEvent getSingleEvent(int singleEventID) throws APIException,
-	    PermissionException, RequestNotPracticableException,
-	    InternalErrorException, ClientProtocolException, IOException {
-	GetSingleEventRequest reqObj = new GetSingleEventRequest(singleEventID);
-
-	String reqStr = "";
-	reqStr = ClientSerializer.serialize(reqObj);
-
-	String resStr = "";
-	resStr = sendToServer("GetSingleEventRequest", reqStr);
-
-	GetSingleEventResponse resObj = null;
-	resObj = (GetSingleEventResponse) ClientSerializer
-		.deserializeResponse(resStr);
-
-	if (resObj instanceof GetSingleEventResponse) {
-	    return resObj.getSingleEvent();
-	} else {
-	    return null;
-	}
-    }
-
-    /**
      * This method returns the category tree.
      * 
      * @return categoryNode
@@ -400,34 +366,34 @@ public class ServerConnection {
     }
 
     /**
-     * This method returns to a given eventID all owners.
+     * This method returns to a given singleEventID a SingleEvent.
      * 
      * @param eventID
-     * @return
-     * @throws ClientProtocolException
-     * @throws IOException
-     * @throws APIException
-     * @throws PermissionException
-     * @throws RequestNotPracticableException
+     * @return SingleEvent
      * @throws InternalErrorException
+     * @throws RequestNotPracticableException
+     * @throws PermissionException
+     * @throws APIException
+     * @throws IOException
+     * @throws ClientProtocolException
      */
-    public List<String> getOwners(int eventID) throws ClientProtocolException,
-	    IOException, APIException, PermissionException,
-	    RequestNotPracticableException, InternalErrorException {
-	GetAllOwnersRequest reqObj = new GetAllOwnersRequest(eventID);
+    public SingleEvent getSingleEvent(int singleEventID) throws APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException, ClientProtocolException, IOException {
+	GetSingleEventRequest reqObj = new GetSingleEventRequest(singleEventID);
 
 	String reqStr = "";
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetAllOwnersRequest", reqStr);
+	resStr = sendToServer("GetSingleEventRequest", reqStr);
 
-	GetAllOwnersResponse resObj = null;
-	resObj = (GetAllOwnersResponse) ClientSerializer
+	GetSingleEventResponse resObj = null;
+	resObj = (GetSingleEventResponse) ClientSerializer
 		.deserializeResponse(resStr);
 
-	if (resObj instanceof GetAllOwnersResponse) {
-	    return resObj.getNames();
+	if (resObj instanceof GetSingleEventResponse) {
+	    return resObj.getSingleEvent();
 	} else {
 	    return null;
 	}
@@ -533,6 +499,40 @@ public class ServerConnection {
 
 	if (resObj instanceof GetUserSettingsResponse) {
 	    return resObj.getUserSettings();
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * This method returns to a given eventID all owners.
+     * 
+     * @param eventID
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public List<String> getOwners(int eventID) throws ClientProtocolException,
+	    IOException, APIException, PermissionException,
+	    RequestNotPracticableException, InternalErrorException {
+	GetAllOwnersRequest reqObj = new GetAllOwnersRequest(eventID);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetAllOwnersRequest", reqStr);
+
+	GetAllOwnersResponse resObj = null;
+	resObj = (GetAllOwnersResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetAllOwnersResponse) {
+	    return resObj.getNames();
 	} else {
 	    return null;
 	}
