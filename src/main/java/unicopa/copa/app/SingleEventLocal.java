@@ -34,7 +34,6 @@ public class SingleEventLocal extends SingleEvent {
     private int dateUpdateCounter;
     private int supervisorUpdateCounter;
     private int durationMinutesUpdateCounter;
-    private int colorCodeUpdateCounter;
     private int permission;
 
     public SingleEventLocal(int singleEventID, int eventID, String location,
@@ -50,7 +49,6 @@ public class SingleEventLocal extends SingleEvent {
 	this.dateUpdateCounter = dateUpdateCounter;
 	this.supervisorUpdateCounter = supervisorUpdateCounter;
 	this.durationMinutesUpdateCounter = durationMinutesUpdateCounter;
-	this.colorCodeUpdateCounter = colorCodeUpdateCounter;
 	this.permission = permission;
     }
 
@@ -86,10 +84,6 @@ public class SingleEventLocal extends SingleEvent {
 	return durationMinutesUpdateCounter;
     }
 
-    public int getColorCodeUpdateCounter() {
-	return colorCodeUpdateCounter;
-    }
-    
     public int getPermission() {
 	return permission;
     }
