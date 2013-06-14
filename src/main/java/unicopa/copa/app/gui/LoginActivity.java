@@ -86,14 +86,16 @@ public class LoginActivity extends Activity {
 			    MainActivity.class);
 		    LoginActivity.this.startActivity(intentMain);
 		} else {
-		    PopUp.exceptionAlert(this, "Login Error!", "TODO");
+		    PopUp.exceptionAlert(this, getString(R.string.login_error),
+			    "TODO");
 		}
 	    } catch (ClientProtocolException e) {
-		PopUp.exceptionAlert(this, "ClientProtocolException!",
+		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 			e.getMessage());
 		// e.printStackTrace();
 	    } catch (IOException e) {
-		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+		PopUp.exceptionAlert(this, getString(R.string.io_ex),
+			e.getMessage());
 		// e.printStackTrace();
 	    }
 	}

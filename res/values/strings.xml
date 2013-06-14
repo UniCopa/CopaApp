@@ -42,5 +42,14 @@
     <string name="gcm_none">manuel</string>
     <string name="success">Success</string>
     <string name="settings_saved">Your settings have been saved.</string>
+    <string name="login_ex">Login!</string>
+    <string name="not_login">You are not logged in.</string>
+    <string name="cp_ex">ClientProtocolException!</string>
+    <string name="api_ex">APIException!</string>
+    <string name="per_ex">PermissionException!</string>
+    <string name="rnp_ex">RequestNotPracticableException!</string>
+    <string name="ie_ex">InternalErrorException!</string>
+    <string name="io_ex">IOException!</string>
+    <string name="login_error">Login Error!</string>
 
 </resources>
