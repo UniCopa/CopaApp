@@ -45,7 +45,7 @@ public class Database extends SQLiteOpenHelper{
 		"supervisor","supervisorUpdateCounter",
 		"location","locationUpdateCounter",
 		"durationMinutes","durationMinutesUpdateCounter",
-		"colorCode","colorCodeUpdateCounter",
+		"colorCode",
 		"permissions"
 		};
 	private static final String [] Event_scheme = {
@@ -174,9 +174,6 @@ public class Database extends SQLiteOpenHelper{
 			 		if(sev.getDurationMinutesUpdateCounter()==1){
 			 			UpdateColumns=UpdateColumns+"duration='"+sev.getDurationMinutes()+"',durationMinutesUpdateCounter='"+String.valueOf(c.getInt(10)+1)+"',";
 			 		}
-			 		if(sev.getColorCodeUpdateCounter()==1){
-			 			UpdateColumns=UpdateColumns+"colorCode='"+sev.getColorCode()+"',colorCodeUpdateCounter='"+String.valueOf(c.getInt(12)+1)+"',";
-			 		}
 			 		UpdateColumns=delLast(UpdateColumns)+" WHERE singleEventID='"+ID_old+"'";
 
 			 		Log.w("try",UpdateColumns);
@@ -199,7 +196,6 @@ public class Database extends SQLiteOpenHelper{
 						String.valueOf(sev.getDurationMinutes()),
 						String.valueOf(sev.getDurationMinutesUpdateCounter()),
 						sev.getColorCode(),
-						String.valueOf(sev.getColorCodeUpdateCounter()),
 						String.valueOf(sev.getPermission())
 				};
 				InsertString=InsertString+sqlValues(values);
@@ -241,8 +237,7 @@ public class Database extends SQLiteOpenHelper{
 					 c.getInt(4),	//dateUpdateCounter
 					 c.getInt(6),	//supervisorUpdateCounter
 					 c.getInt(10),	//durationMinutesUpdateCounter
-					 c.getInt(12),	//colorCodeUpdateCounter
-					 c.getInt(13)
+					 c.getInt(12)   //Permissions
 					 );
 			 SingleEventLocalList.add(sev);
 			
