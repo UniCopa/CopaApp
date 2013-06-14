@@ -123,7 +123,7 @@ public class MainActivity extends Activity {
 	singleEventListView.setAdapter(null);
 
 	// begin Just for testing
-	Database db = new Database(MainActivity.this);
+	Database db = Database.getInstance(MainActivity.this);
 	db.Table_delete("SingleEventLocal");
 	db.Table_init();
 	SingleEventLocal test = new SingleEventLocal(1, 3, "HU 102", Calendar

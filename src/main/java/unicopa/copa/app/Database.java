@@ -14,14 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package unicopa.copa.app;
-
-/**
- * This class implements the Android Database.
- * 
- * @author Robin Muench
- */
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +26,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * This class implements the Android Database as a singleton.
+ * 
+ * @author Robin Muench, Martin Rabe
+ */
 public class Database extends SQLiteOpenHelper {
+
+    private static Database instance;
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "COPA_DB";
@@ -49,7 +49,20 @@ public class Database extends SQLiteOpenHelper {
 
     SQLiteDatabase data;
 
-    public Database(Context context) {
+    /**
+     * This method is called to get an instance of Database.
+     * 
+     * @return Database
+     */
+    public static Database getInstance(Context context) {
+	if (instance == null) {
+	    instance = new Database(context);
+	}
+
+	return instance;
+    }
+
+    private Database(Context context) {
 	super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
