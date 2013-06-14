@@ -46,6 +46,8 @@ import unicopa.copa.base.com.request.GetCategoryRequest;
 import unicopa.copa.base.com.request.GetCategoryResponse;
 import unicopa.copa.base.com.request.GetCurrentSingleEventsRequest;
 import unicopa.copa.base.com.request.GetCurrentSingleEventsResponse;
+import unicopa.copa.base.com.request.GetEventGroupRequest;
+import unicopa.copa.base.com.request.GetEventGroupResponse;
 import unicopa.copa.base.com.request.GetEventGroupsRequest;
 import unicopa.copa.base.com.request.GetEventGroupsResponse;
 import unicopa.copa.base.com.request.GetEventsRequest;
@@ -165,10 +167,10 @@ public class ServerConnection {
 	return connected;
     }
 
-    // login/ logout
+    // login / logout
 
     /**
-     * This Method opens connection to the server and saves the session cookie.
+     * This method opens connection to the server and saves the session cookie.
      * 
      * @param userName
      * @param password
@@ -400,6 +402,38 @@ public class ServerConnection {
 	}
     }
 
+    /**
+     * This method returns to a given eventID a EventGroup.
+     * 
+     * @param eventID
+     * @return
+     * @throws IOException 
+     * @throws ClientProtocolException 
+     * @throws InternalErrorException 
+     * @throws RequestNotPracticableException 
+     * @throws PermissionException 
+     * @throws APIException 
+     */
+    public EventGroup getEventGroup(int eventID) throws ClientProtocolException, IOException, APIException, PermissionException, RequestNotPracticableException, InternalErrorException {
+	     GetEventGroupRequest reqObj = new GetEventGroupRequest(eventID);
+	    
+	     String reqStr = "";
+	     reqStr = ClientSerializer.serialize(reqObj);
+	    
+	     String resStr = "";
+	     resStr = sendToServer("GetXRequest", reqStr);
+	    
+	     GetEventGroupResponse resObj = null;
+	     resObj = (GetEventGroupResponse) ClientSerializer.deserializeResponse(resStr);
+	    
+	     if (resObj instanceof GetEventGroupResponse) {
+	     return resObj.getEventGroup();
+	     } else {
+	     return null;
+	     }
+    }
+    
+    // TODO do we need this?
     /**
      * This method returns to a given eventID all SingleEventUpdates since a
      * given date.
