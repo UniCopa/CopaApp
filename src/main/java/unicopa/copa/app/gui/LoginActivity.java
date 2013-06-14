@@ -22,36 +22,62 @@ import org.apache.http.client.ClientProtocolException;
 
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * In this activity a user can enter his name and password.
+ * In this activity a user can enter his name and password to login or click a
+ * button to logout.
  * 
  * @author Christiane Kuhn, Martin Rabe
  */
 public class LoginActivity extends Activity {
+    ServerConnection scon = ServerConnection.getInstance();
 
+    /**
+     * Shows Layout and depending on whether the user is logged in or not the
+     * logout- oder login-button.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.login);
 
+	TextView title = (TextView) findViewById(R.id.login_title);
+	Button loginButton = (Button) findViewById(R.id.login_login_button);
+	Button logoutButton = (Button) findViewById(R.id.login_logout_button);
+	if (scon.getConnected()) {
+	    loginButton.setVisibility(View.GONE);
+	    logoutButton.setVisibility(View.VISIBLE);
+	    title.setText(getString(R.string.title_logout));
+	} else {
+	    logoutButton.setVisibility(View.GONE);
+	    loginButton.setVisibility(View.VISIBLE);
+	    title.setText(getString(R.string.title_login));
+	}
+
     }
 
+    /**
+     * Shows the Menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.no_item_menu, menu);
 	return true;
+
     }
 
     /**
-     * Is used if LoginButton is clicked. Calls the CerverConnection.login
+     * Is used if LoginButton is clicked. Calls the ServerConnection.login
      * method if it was successful switches back to MainActivity.
      * 
      * @param view
@@ -64,8 +90,6 @@ public class LoginActivity extends Activity {
 		Toast.LENGTH_SHORT);
 	toast.show();
 
-	ServerConnection scon = ServerConnection.getInstance();
-
 	// TODO check if already logged in
 	if (!scon.getConnected()) {
 
@@ -73,9 +97,9 @@ public class LoginActivity extends Activity {
 	    String password = "";
 
 	    // read userName and password from respective textEdit
-	    EditText name = (EditText) findViewById(R.id.usernameField);
+	    EditText name = (EditText) findViewById(R.id.login_usernameField);
 	    userName = name.getText().toString();
-	    EditText pw = (EditText) findViewById(R.id.passwordField);
+	    EditText pw = (EditText) findViewById(R.id.login_passwordField);
 	    password = pw.getText().toString();
 
 	    // TODO should only switch activity when login successful, but does
@@ -87,7 +111,7 @@ public class LoginActivity extends Activity {
 		    LoginActivity.this.startActivity(intentMain);
 		} else {
 		    PopUp.exceptionAlert(this, getString(R.string.login_error),
-			    "" /*TODO*/);
+			    "" /* TODO */);
 		}
 	    } catch (ClientProtocolException e) {
 		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
@@ -101,4 +125,19 @@ public class LoginActivity extends Activity {
 	}
     }
 
+    /**
+     * Is used if LogoutButton is clicked. Calls the ServerConnection.logout
+     * method if it was successful switches back to MainActivity.
+     * 
+     * @param view
+     */
+    public void onLogoutButtonClick(View view) {
+	Toast toast = Toast.makeText(LoginActivity.this, "Logged out.",
+		Toast.LENGTH_SHORT);
+	toast.show();
+
+	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
+	LoginActivity.this.startActivity(intentMain);
+
+    }
 }

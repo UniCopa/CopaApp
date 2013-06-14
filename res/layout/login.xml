@@ -6,28 +6,28 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/login1"
+        android:id="@+id/login_title"
         style="@style/text_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Login please" />
 
     <EditText
-        android:id="@+id/passwordField"
+        android:id="@+id/login_passwordField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/usernameField"
-        android:layout_below="@+id/usernameField"
+        android:layout_alignLeft="@+id/login_usernameField"
+        android:layout_below="@+id/login_usernameField"
         android:layout_marginTop="36dp"
         android:ems="10"
         android:inputType="textPassword" />
 
     <TextView
-        android:id="@+id/notification"
+        android:id="@+id/login_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/usernameField"
-        android:layout_below="@+id/login1"
+        android:layout_alignLeft="@+id/login_usernameField"
+        android:layout_below="@+id/login_title"
         android:layout_marginTop="23dp"
         android:text="@string/text_login_username" />
 
@@ -35,30 +35,38 @@
         android:id="@+id/login_pw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordField"
-        android:layout_below="@+id/usernameField"
+        android:layout_alignLeft="@+id/login_passwordField"
+        android:layout_below="@+id/login_usernameField"
         android:layout_marginTop="17dp"
         android:text="@string/text_login_pw" />
 
     <EditText
-        android:id="@+id/usernameField"
+        android:id="@+id/login_usernameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/login1"
-        android:layout_below="@+id/notification"
-        android:layout_marginLeft="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/login_username"
+        android:layout_marginTop="14dp"
         android:ems="10"
-        android:inputType="text" >
-
-        <requestFocus />
-    </EditText>
+        android:inputType="text" />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/login_logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordField"
-        android:layout_below="@+id/passwordField"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/login_passwordField"
+        android:layout_marginTop="25dp"
+        android:onClick="onLogoutButtonClick"
+        android:text="@string/logout" />
+
+    <Button
+        android:id="@+id/login_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/login_passwordField"
+        android:layout_marginTop="25dp"
         android:onClick="onLoginButtonClick"
         android:text="@string/button_login" />
 
