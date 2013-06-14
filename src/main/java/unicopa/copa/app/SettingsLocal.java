@@ -17,11 +17,15 @@
 package unicopa.copa.app;
 
 import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
+import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.UserSettings;
 
 /**
- * This class extends the BaseClass Settings with notification kind and last update.
+ * This class extends the BaseClass Settings with notification kind and last
+ * update.
  * 
  * @author Martin Rabe
  */
@@ -29,6 +33,14 @@ public class SettingsLocal extends UserSettings {
 
     private int notificationKind;
     private Date lastUpdate;
+
+    public SettingsLocal(Set<String> gcmKeys, boolean emailNotification,
+	    String language, Map<Integer, UserEventSettings> eventSettings,
+	    int notificationKind, Date lastUpdate) {
+	super(gcmKeys, emailNotification, language, eventSettings);
+	this.notificationKind = notificationKind;
+	this.lastUpdate = lastUpdate;
+    }
 
     public void setNotificationKind(int notificationKind) {
 	this.notificationKind = notificationKind;
