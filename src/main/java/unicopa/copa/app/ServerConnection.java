@@ -108,7 +108,7 @@ public class ServerConnection {
     }
 
     /**
-     * This Method sends a json String to the server and returns the answer as a
+     * This method sends a json String to the server and returns the answer as a
      * String.
      * 
      * @param requestType
@@ -288,8 +288,8 @@ public class ServerConnection {
     }
 
     /**
-     * This method returns a list of EventGroups for a given categoryID and a
-     * searchTerm.
+     * This method returns for a given categoryID and searchTerm a list of
+     * EventGroup.
      * 
      * @param categoryNodeID
      * @param searchTerm
@@ -326,8 +326,8 @@ public class ServerConnection {
     }
 
     /**
-     * This method returns a list of Events for a given eventGroupID and a
-     * categoryID.
+     * This method returns for a given eventGroupID and categoryID a list of
+     * Event.
      * 
      * @param eventGroupID
      * @param categoryNodeID
@@ -401,7 +401,8 @@ public class ServerConnection {
     }
 
     /**
-     * TODO
+     * This method returns to a given eventID all SingleEventUpdates since a
+     * given date.
      * 
      * @param eventID
      * @param date
@@ -437,6 +438,7 @@ public class ServerConnection {
 	}
     }
 
+    // TODO do we need this?
     /**
      * This method returns to a given singleEventID a SingleEvent.
      * 
