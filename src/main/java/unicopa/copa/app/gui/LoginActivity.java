@@ -87,7 +87,7 @@ public class LoginActivity extends Activity {
 		    LoginActivity.this.startActivity(intentMain);
 		} else {
 		    PopUp.exceptionAlert(this, getString(R.string.login_error),
-			    "TODO");
+			    "" /*TODO*/);
 		}
 	    } catch (ClientProtocolException e) {
 		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
