@@ -20,20 +20,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import unicopa.copa.app.R;
 import unicopa.copa.base.event.SingleEvent;
 
 /**
- * This Adapter helps to show the List of SingleEvents.
+ * This Adapter helps to show the List of SingleEvents on the MainActivity.
  * 
  * @author Christiane Kuhn
  */
@@ -92,8 +91,11 @@ public class MainAdapter extends BaseAdapter {
 	holder.date.setText(new SimpleDateFormat("HH:mm").format(sEvent
 		.getDate()));
 
-	Drawable draw = context.getResources().getDrawable(R.drawable.border);
+	int mColor = 0x99224488;
+	GradientDrawable draw = (GradientDrawable) context.getResources()
+		.getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
+	draw.setStroke(5, mColor);
 
 	return convertView;
     }
