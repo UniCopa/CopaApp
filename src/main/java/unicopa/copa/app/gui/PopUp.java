@@ -16,6 +16,8 @@
  */
 package unicopa.copa.app.gui;
 
+import unicopa.copa.app.R;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +28,17 @@ import android.content.DialogInterface;
  * @author Martin Rabe
  */
 public class PopUp {
+
+    public static void loginFail(Context context) {
+	new AlertDialog.Builder(context).setTitle(R.string.login_ex)
+		.setMessage(R.string.not_login)
+		.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int which) {
+			// do nothing
+		    }
+		}).show();
+
+    }
 
     /**
      * Creates an alert dialog with one button labeled 'OK'.
