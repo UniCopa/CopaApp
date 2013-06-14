@@ -157,8 +157,7 @@ public class MainActivity extends Activity {
 	    }
 	} else {
 	    // TODO l18n
-	    PopUp.alert(this, getString(R.string.login_ex),
-		    getString(R.string.not_login));
+	    PopUp.loginFail(this);
 	}
     }
 
