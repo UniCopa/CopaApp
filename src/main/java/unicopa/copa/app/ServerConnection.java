@@ -50,6 +50,8 @@ import unicopa.copa.base.com.request.GetEventsRequest;
 import unicopa.copa.base.com.request.GetEventsResponse;
 import unicopa.copa.base.com.request.GetSingleEventRequest;
 import unicopa.copa.base.com.request.GetSingleEventResponse;
+import unicopa.copa.base.com.request.GetSingleEventUpdatesRequest;
+import unicopa.copa.base.com.request.GetSingleEventUpdatesResponse;
 import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesRequest;
 import unicopa.copa.base.com.request.GetSubscribedSingleEventUpdatesResponse;
 import unicopa.copa.base.com.request.GetUserSettingsRequest;
@@ -173,11 +175,8 @@ public class ServerConnection {
      */
     public boolean login(String userName, String password, Context context)
 	    throws ClientProtocolException, IOException {
-	// TODO getApplicationContext information needed
-	// TODO move this to constructor
 	client = new CoPAAppHttpClient(context);
 
-	// TODO check this
 	// redirect
 	HttpParams params = client.getParams();
 	HttpClientParams.setRedirecting(params, false);
@@ -237,7 +236,6 @@ public class ServerConnection {
      * 
      * @return success
      */
-    // TODO remove this
     public boolean logout() {
 	// TODO get on https://copa.prakinf.tu-ilmenau.de/logout.jsp
 	// TODO erase the session cookie and sessionID
@@ -284,7 +282,8 @@ public class ServerConnection {
     }
 
     /**
-     * This method returns a list of EventGroups for a given categoryID and a searchTerm.
+     * This method returns a list of EventGroups for a given categoryID and a
+     * searchTerm.
      * 
      * @param categoryNodeID
      * @param searchTerm
@@ -321,7 +320,8 @@ public class ServerConnection {
     }
 
     /**
-     * This method returns a list of Events for a given eventGroupID and a categoryID.
+     * This method returns a list of Events for a given eventGroupID and a
+     * categoryID.
      * 
      * @param eventGroupID
      * @param categoryNodeID
@@ -352,6 +352,43 @@ public class ServerConnection {
 
 	if (resObj instanceof GetEventsResponse) {
 	    return resObj.getEventList();
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * TODO
+     * 
+     * @param eventID
+     * @param date
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public List<List<SingleEventUpdate>> getSingleEventUpdates(int eventID,
+	    Date date) throws ClientProtocolException, IOException,
+	    APIException, PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	GetSingleEventUpdatesRequest reqObj = new GetSingleEventUpdatesRequest(
+		eventID, date);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetXRequest", reqStr);
+
+	GetSingleEventUpdatesResponse resObj = null;
+	resObj = (GetSingleEventUpdatesResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetSingleEventUpdatesResponse) {
+	    return resObj.getUpdateList();
 	} else {
 	    return null;
 	}
