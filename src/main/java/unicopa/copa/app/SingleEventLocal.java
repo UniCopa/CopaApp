@@ -40,7 +40,7 @@ public class SingleEventLocal extends SingleEvent {
 	    Date date, String supervisor, int durationMinutes,
 	    String colorCode, String name, int locationUpdateCounter,
 	    int dateUpdateCounter, int supervisorUpdateCounter,
-	    int durationMinutesUpdateCounter, int colorCodeUpdateCounter, int permission) {
+	    int durationMinutesUpdateCounter, int permission) {
 	super(singleEventID, eventID, location, date, supervisor,
 		durationMinutes);
 	this.colorCode = colorCode;
