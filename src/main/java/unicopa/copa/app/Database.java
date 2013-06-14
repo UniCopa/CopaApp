@@ -244,8 +244,8 @@ public class Database extends SQLiteOpenHelper {
 
 	Cursor c = data.query("SingleEventLocal", columns, selection,
 		selectionArgs, groupBy, having, orderBy);
-	if(!c.isLast()) c.moveToFirst();
-	while (!c.isLast() && num > 0) {
+	if(c.getCount()>0) c.moveToFirst();
+	while (c.getCount()>0 && num > 0) {
 	    Date date = new Date(c.getLong(3));
 	    SingleEventLocal sev = new SingleEventLocal(c.getInt(0), // singleEventID
 		    c.getInt(1), // eventID
