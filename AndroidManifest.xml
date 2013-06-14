@@ -21,11 +21,19 @@
 
     <uses-permission android:name="unicopa.copa.app.permission.C2D_MESSAGE" />
 
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:label="Test"
+        android:targetPackage="unicopa.copa.app" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
+        <uses-library android:name="android.test.runner" />
+        
         <activity
             android:name="unicopa.copa.app.gui.MainActivity"
             android:label="@string/app_name" >

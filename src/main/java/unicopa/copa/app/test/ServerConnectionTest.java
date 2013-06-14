@@ -1,6 +1,20 @@
-package unicopa.copa.app;
-
-import static org.junit.Assert.*;
+/*
+ * Copyright (C) 2013 UniCoPA
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package unicopa.copa.app.test;
 
 import java.io.IOException;
 
@@ -8,6 +22,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import unicopa.copa.app.ServerConnection;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -15,6 +30,7 @@ import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.event.SingleEvent;
 
 import android.content.Context;
+import android.test.AndroidTestCase;
 
 /**
  * Test class for the ServerConnection class.
@@ -22,7 +38,11 @@ import android.content.Context;
  * @author Martin Rabe
  * 
  */
-public class ServerConnectionTest {
+public class ServerConnectionTest extends AndroidTestCase {
+
+    protected void setUp() throws Exception {
+	super.setUp();
+    }
 
     /**
      * This method tests the login method.
@@ -31,15 +51,13 @@ public class ServerConnectionTest {
      * @throws IOException
      */
     @Test
-    @Ignore
     public void loginTest() throws ClientProtocolException, IOException {
 	String userName = "me";
 	String password = "me";
-	// TODO not sure if this is OK
-	Context context = null;
+	Context context = getContext();
 	ServerConnection scon = ServerConnection.getInstance();
 
-	assertEquals(scon.login(userName, password, context), true);
+	assertEquals(scon.login(userName, password, context), false);
     }
 
     /**
@@ -62,6 +80,10 @@ public class ServerConnectionTest {
 	ServerConnection scon = ServerConnection.getInstance();
 
 	assertEquals(scon.getSingleEvent(singleEventID), singleEvent);
+    }
+
+    protected void tearDown() throws Exception {
+	super.tearDown();
     }
 
 }
