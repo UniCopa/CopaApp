@@ -16,10 +16,19 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-import unicopa.copa.app.R;
+import org.apache.http.client.ClientProtocolException;
 
+import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
+
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
+import unicopa.copa.base.event.CategoryNode;
 import unicopa.copa.base.event.CategoryNodeImpl;
 
 import android.os.Bundle;
@@ -39,7 +48,7 @@ import android.widget.AdapterView.OnItemClickListener;
 /**
  * In this activity a user can search a event.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class SearchActivity extends Activity {
 
@@ -52,6 +61,47 @@ public class SearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.search);
+
+	ServerConnection scon = ServerConnection.getInstance();
+
+	if (scon.getConnected()) {
+	    CategoryNode category = null;
+
+	    try {
+		category = scon.getCategory();
+	    } catch (ClientProtocolException e) {
+		PopUp.exceptionAlert(this, "ClientProtocolException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (APIException e) {
+		PopUp.exceptionAlert(this, "APIException!", e.getMessage());
+		// e.printStackTrace();
+	    } catch (PermissionException e) {
+		PopUp.exceptionAlert(this, "PermissionException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (RequestNotPracticableException e) {
+		PopUp.exceptionAlert(this, "RequestNotPracticableException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (InternalErrorException e) {
+		PopUp.exceptionAlert(this, "InternalErrorException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (IOException e) {
+		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+		// e.printStackTrace();
+	    }
+
+	    if (category != null) {
+		// TODO display categories
+	    }
+
+	} else {
+	    // TODO l18n
+	    PopUp.alert(this, "Login!", "You are not logged in.");
+	}
+
 	final ListView catListView = (ListView) SearchActivity.this
 		.findViewById(R.id.search_list);
 	cat = (TextView) findViewById(R.id.search_categorie);
@@ -81,7 +131,6 @@ public class SearchActivity extends Activity {
 		searchAdapter.notifyDataSetChanged();
 	    }
 	});
-
     }
 
     @Override
