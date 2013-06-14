@@ -121,7 +121,7 @@ public class ServerConnection {
      * @throws IOException
      * @throws ClientProtocolException
      */
-    private String sendToServer(String requestType, String requestObject)
+    private String sendToServer(String requestObject)
 	    throws ClientProtocolException, IOException {
 	List<NameValuePair> nameValuePairsMsg = new ArrayList<NameValuePair>(1);
 
@@ -278,7 +278,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetCategoriesRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	GetCategoriesResponse resObj = null;
 	resObj = (GetCategoriesResponse) ClientSerializer
@@ -316,7 +316,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetEventGroupsRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	GetEventGroupsResponse resObj = null;
 	resObj = (GetEventGroupsResponse) ClientSerializer
@@ -354,7 +354,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetEventsRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	GetEventsResponse resObj = null;
 	resObj = (GetEventsResponse) ClientSerializer
@@ -391,7 +391,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetCurrentSingleEventsRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	GetCurrentSingleEventsResponse resObj = null;
 	resObj = (GetCurrentSingleEventsResponse) ClientSerializer
@@ -423,7 +423,7 @@ public class ServerConnection {
 	     reqStr = ClientSerializer.serialize(reqObj);
 	    
 	     String resStr = "";
-	     resStr = sendToServer("GetEventRequest", reqStr);
+	     resStr = sendToServer(reqStr);
 	    
 	     GetEventResponse resObj = null;
 	     resObj = (GetEventResponse) ClientSerializer.deserializeResponse(resStr);
@@ -454,7 +454,7 @@ public class ServerConnection {
 	     reqStr = ClientSerializer.serialize(reqObj);
 	    
 	     String resStr = "";
-	     resStr = sendToServer("GetEventGroupRequest", reqStr);
+	     resStr = sendToServer(reqStr);
 	    
 	     GetEventGroupResponse resObj = null;
 	     resObj = (GetEventGroupResponse) ClientSerializer.deserializeResponse(resStr);
@@ -492,7 +492,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetSingleEventUpdatesRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	GetSingleEventUpdatesResponse resObj = null;
 	resObj = (GetSingleEventUpdatesResponse) ClientSerializer
@@ -527,7 +527,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetSingleEventRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	GetSingleEventResponse resObj = null;
 	resObj = (GetSingleEventResponse) ClientSerializer
@@ -564,7 +564,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetSubscribedSingleEventUpdatesRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	GetSubscribedSingleEventUpdatesResponse resObj = null;
 	resObj = (GetSubscribedSingleEventUpdatesResponse) ClientSerializer
@@ -599,7 +599,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("SetUserSettingsRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	SetUserSettingsResponse resObj = null;
 	resObj = (SetUserSettingsResponse) ClientSerializer
@@ -632,7 +632,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetUserSettingsRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	GetUserSettingsResponse resObj = null;
 	resObj = (GetUserSettingsResponse) ClientSerializer
@@ -666,7 +666,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetAllOwnersRequest", reqStr);
+	resStr = sendToServer(reqStr);
 
 	GetAllOwnersResponse resObj = null;
 	resObj = (GetAllOwnersResponse) ClientSerializer
@@ -687,7 +687,7 @@ public class ServerConnection {
     // reqStr = ClientSerializer.serialize(reqObj);
     //
     // String resStr = "";
-    // resStr = sendToServer("GetXRequest", reqStr);
+    // resStr = sendToServer(reqStr);
     //
     // GetXResponse resObj = null;
     // resObj = (GetXResponse) ClientSerializer.deserializeResponse(resStr);
