@@ -248,7 +248,11 @@ public class ServerConnection {
 	// TODO get on https://copa.prakinf.tu-ilmenau.de/logout.jsp
 	// TODO erase the session cookie and sessionID
 	if (true) {
-	    this.setConnected(false);
+	    setConnected(false);
+
+	    sessionID = "";
+
+	    Log.v("SESSIONID", sessionID);
 
 	    return true;
 	} else {
@@ -416,23 +420,26 @@ public class ServerConnection {
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
      */
-    public Event getEvent(int eventID) throws ClientProtocolException, IOException, APIException, PermissionException, RequestNotPracticableException, InternalErrorException {
-	     GetEventRequest reqObj = new GetEventRequest(eventID);
-	    
-	     String reqStr = "";
-	     reqStr = ClientSerializer.serialize(reqObj);
-	    
-	     String resStr = "";
-	     resStr = sendToServer(reqStr);
-	    
-	     GetEventResponse resObj = null;
-	     resObj = (GetEventResponse) ClientSerializer.deserializeResponse(resStr);
-	    
-	     if (resObj instanceof GetEventResponse) {
-	     return resObj.getEvent();
-	     } else {
-	     return null;
-	     }
+    public Event getEvent(int eventID) throws ClientProtocolException,
+	    IOException, APIException, PermissionException,
+	    RequestNotPracticableException, InternalErrorException {
+	GetEventRequest reqObj = new GetEventRequest(eventID);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer(reqStr);
+
+	GetEventResponse resObj = null;
+	resObj = (GetEventResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetEventResponse) {
+	    return resObj.getEvent();
+	} else {
+	    return null;
+	}
     }
 
     /**
@@ -440,32 +447,36 @@ public class ServerConnection {
      * 
      * @param eventID
      * @return
-     * @throws IOException 
-     * @throws ClientProtocolException 
-     * @throws InternalErrorException 
-     * @throws RequestNotPracticableException 
-     * @throws PermissionException 
-     * @throws APIException 
+     * @throws IOException
+     * @throws ClientProtocolException
+     * @throws InternalErrorException
+     * @throws RequestNotPracticableException
+     * @throws PermissionException
+     * @throws APIException
      */
-    public EventGroup getEventGroup(int eventID) throws ClientProtocolException, IOException, APIException, PermissionException, RequestNotPracticableException, InternalErrorException {
-	     GetEventGroupRequest reqObj = new GetEventGroupRequest(eventID);
-	    
-	     String reqStr = "";
-	     reqStr = ClientSerializer.serialize(reqObj);
-	    
-	     String resStr = "";
-	     resStr = sendToServer(reqStr);
-	    
-	     GetEventGroupResponse resObj = null;
-	     resObj = (GetEventGroupResponse) ClientSerializer.deserializeResponse(resStr);
-	    
-	     if (resObj instanceof GetEventGroupResponse) {
-	     return resObj.getEventGroup();
-	     } else {
-	     return null;
-	     }
+    public EventGroup getEventGroup(int eventID)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	GetEventGroupRequest reqObj = new GetEventGroupRequest(eventID);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer(reqStr);
+
+	GetEventGroupResponse resObj = null;
+	resObj = (GetEventGroupResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetEventGroupResponse) {
+	    return resObj.getEventGroup();
+	} else {
+	    return null;
+	}
     }
-    
+
     // TODO do we need this?
     /**
      * This method returns to a given eventID all SingleEventUpdates since a

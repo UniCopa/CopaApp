@@ -132,6 +132,9 @@ public class LoginActivity extends Activity {
      * @param view
      */
     public void onLogoutButtonClick(View view) {
+
+	scon.logout();
+
 	Toast toast = Toast.makeText(LoginActivity.this, "Logged out.",
 		Toast.LENGTH_SHORT);
 	toast.show();
