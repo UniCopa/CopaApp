@@ -51,5 +51,16 @@
     <string name="ie_ex">InternalErrorException!</string>
     <string name="io_ex">IOException!</string>
     <string name="login_error">Login Error!</string>
+    <string name="pick_color">Pick a color</string>
+
+    <string-array name="colors_array">
+        <item>blue</item>
+        <item>red</item>
+        <item>yellow</item>
+        <item>pink</item>
+        <item>green</item>
+        <item>orange</item>
+        <item>purple</item>
+    </string-array>
 
 </resources>
