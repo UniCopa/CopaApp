@@ -4,12 +4,9 @@
     android:layout_height="fill_parent" >
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         style="@style/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity" >
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/settings_title"
@@ -36,13 +33,13 @@
             android:id="@+id/settings_noti_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/radio_languages"
+            android:layout_alignLeft="@+id/settings_radio_languages"
             android:layout_below="@+id/settings_notification"
             android:layout_marginTop="18dp"
             android:text="@string/mail" />
 
         <RadioGroup
-            android:id="@+id/radio_gcm"
+            android:id="@+id/settings_radio_gcm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/settings_noti_mail"
@@ -68,7 +65,7 @@
         </RadioGroup>
 
         <RadioGroup
-            android:id="@+id/radio_languages"
+            android:id="@+id/settings_radio_languages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/settings_language_text"
@@ -94,10 +91,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/settings_language_text"
-            android:layout_below="@+id/radio_languages"
-            android:layout_marginTop="36dp"
+            android:layout_below="@+id/settings_radio_languages"
+            android:layout_marginTop="15dp"
             android:text="@string/kind_of_notification"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/settings_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:onClick="onApplyButtonClick"
+            android:text="@string/change_apply" />
     </RelativeLayout>
 
 </ScrollView>

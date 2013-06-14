@@ -20,6 +20,10 @@ import unicopa.copa.app.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 /**
  * In this activity a user can change his settings.
@@ -28,10 +32,43 @@ import android.view.Menu;
  */
 public class SettingsActivity extends Activity {
 
+    CheckBox mail;
+    RadioGroup language;
+    RadioGroup gcm;
+    RadioButton english;
+    RadioButton german;
+    RadioButton gcmNone;
+    RadioButton gcmManu;
+    RadioButton gcmAuto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.settings);
+	mail = (CheckBox) findViewById(R.id.settings_noti_mail);
+	language = (RadioGroup) findViewById(R.id.settings_radio_languages);
+	gcm = (RadioGroup) findViewById(R.id.settings_radio_gcm);
+	english = (RadioButton) findViewById(R.id.settings_language_english);
+	german = (RadioButton) findViewById(R.id.settings_language_german);
+	gcmNone = (RadioButton) findViewById(R.id.settings_noti_gcm_none);
+	gcmManu = (RadioButton) findViewById(R.id.settings_noti_gcm_manu);
+	gcmAuto = (RadioButton) findViewById(R.id.settings_noti_gcm_auto);
+
+	// Later depending on saved settings
+	if (true) {
+	    mail.setChecked(true);
+	}
+
+	switch (1) {
+	case 1:
+	    gcmAuto.setChecked(true);
+	default:
+	    gcmAuto.setChecked(true);
+	}
+
+	if (true) {
+	    english.setChecked(true);
+	}
     }
 
     @Override
@@ -40,4 +77,16 @@ public class SettingsActivity extends Activity {
 	return true;
     }
 
+    /**
+     * Send UserSettings to server and save GCMsettings on device.
+     */
+    public void onApplyButtonClick(View view) {
+
+	boolean email = mail.isChecked();
+	int selectedLanguage = language.getCheckedRadioButtonId();
+	int selectedGCM = gcm.getCheckedRadioButtonId();
+
+	PopUp.alert(this, getString(R.string.success),
+		getString(R.string.settings_saved));
+    }
 }
