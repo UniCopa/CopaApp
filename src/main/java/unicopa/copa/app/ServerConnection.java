@@ -42,8 +42,8 @@ import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.com.request.GetAllOwnersRequest;
 import unicopa.copa.base.com.request.GetAllOwnersResponse;
-import unicopa.copa.base.com.request.GetCategoryRequest;
-import unicopa.copa.base.com.request.GetCategoryResponse;
+import unicopa.copa.base.com.request.GetCategoriesRequest;
+import unicopa.copa.base.com.request.GetCategoriesResponse;
 import unicopa.copa.base.com.request.GetCurrentSingleEventsRequest;
 import unicopa.copa.base.com.request.GetCurrentSingleEventsResponse;
 import unicopa.copa.base.com.request.GetEventGroupRequest;
@@ -272,19 +272,19 @@ public class ServerConnection {
     public CategoryNode getCategory() throws ClientProtocolException,
 	    IOException, APIException, PermissionException,
 	    RequestNotPracticableException, InternalErrorException {
-	GetCategoryRequest reqObj = new GetCategoryRequest();
+	GetCategoriesRequest reqObj = new GetCategoriesRequest();
 
 	String reqStr = "";
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetCategoryRequest", reqStr);
+	resStr = sendToServer("GetCategoriesRequest", reqStr);
 
-	GetCategoryResponse resObj = null;
-	resObj = (GetCategoryResponse) ClientSerializer
+	GetCategoriesResponse resObj = null;
+	resObj = (GetCategoriesResponse) ClientSerializer
 		.deserializeResponse(resStr);
 
-	if (resObj instanceof GetCategoryResponse) {
+	if (resObj instanceof GetCategoriesResponse) {
 	    return resObj.getCategoryTree();
 	} else {
 	    return null;
