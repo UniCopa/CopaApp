@@ -50,6 +50,8 @@ import unicopa.copa.base.com.request.GetEventGroupRequest;
 import unicopa.copa.base.com.request.GetEventGroupResponse;
 import unicopa.copa.base.com.request.GetEventGroupsRequest;
 import unicopa.copa.base.com.request.GetEventGroupsResponse;
+import unicopa.copa.base.com.request.GetEventRequest;
+import unicopa.copa.base.com.request.GetEventResponse;
 import unicopa.copa.base.com.request.GetEventsRequest;
 import unicopa.copa.base.com.request.GetEventsResponse;
 import unicopa.copa.base.com.request.GetSingleEventRequest;
@@ -389,7 +391,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetXRequest", reqStr);
+	resStr = sendToServer("GetCurrentSingleEventsRequest", reqStr);
 
 	GetCurrentSingleEventsResponse resObj = null;
 	resObj = (GetCurrentSingleEventsResponse) ClientSerializer
@@ -403,7 +405,38 @@ public class ServerConnection {
     }
 
     /**
-     * This method returns to a given eventID a EventGroup.
+     * This method returns for a given eventID a Event.
+     * 
+     * @param eventID
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public Event getEvent(int eventID) throws ClientProtocolException, IOException, APIException, PermissionException, RequestNotPracticableException, InternalErrorException {
+	     GetEventRequest reqObj = new GetEventRequest(eventID);
+	    
+	     String reqStr = "";
+	     reqStr = ClientSerializer.serialize(reqObj);
+	    
+	     String resStr = "";
+	     resStr = sendToServer("GetEventRequest", reqStr);
+	    
+	     GetEventResponse resObj = null;
+	     resObj = (GetEventResponse) ClientSerializer.deserializeResponse(resStr);
+	    
+	     if (resObj instanceof GetEventResponse) {
+	     return resObj.getEvent();
+	     } else {
+	     return null;
+	     }
+    }
+
+    /**
+     * This method returns to a given eventGroupID a EventGroup.
      * 
      * @param eventID
      * @return
@@ -421,7 +454,7 @@ public class ServerConnection {
 	     reqStr = ClientSerializer.serialize(reqObj);
 	    
 	     String resStr = "";
-	     resStr = sendToServer("GetXRequest", reqStr);
+	     resStr = sendToServer("GetEventGroupRequest", reqStr);
 	    
 	     GetEventGroupResponse resObj = null;
 	     resObj = (GetEventGroupResponse) ClientSerializer.deserializeResponse(resStr);
@@ -459,7 +492,7 @@ public class ServerConnection {
 	reqStr = ClientSerializer.serialize(reqObj);
 
 	String resStr = "";
-	resStr = sendToServer("GetXRequest", reqStr);
+	resStr = sendToServer("GetSingleEventUpdatesRequest", reqStr);
 
 	GetSingleEventUpdatesResponse resObj = null;
 	resObj = (GetSingleEventUpdatesResponse) ClientSerializer
