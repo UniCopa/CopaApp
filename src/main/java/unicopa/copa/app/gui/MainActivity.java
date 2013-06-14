@@ -20,12 +20,15 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.client.ClientProtocolException;
 
+import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
+import unicopa.copa.app.SingleEventLocal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +58,7 @@ import unicopa.copa.base.event.SingleEvent;
  */
 public class MainActivity extends Activity {
 
-    ArrayList<SingleEvent> sEvents = new ArrayList<SingleEvent>();
+    ArrayList<SingleEventLocal> sEvents = new ArrayList<SingleEventLocal>();
     MainAdapter sEventAdapter;
 
     // begin GCM
@@ -119,10 +122,23 @@ public class MainActivity extends Activity {
 
 	singleEventListView.setAdapter(null);
 
-	sEvents.add(new SingleEvent(1, 3, "HU 102", Calendar.getInstance()
-		.getTime(), "David", 4));
-	sEvents.add(new SingleEvent(3, 2, "HU 103", Calendar.getInstance()
-		.getTime(), "Robin", 00));
+	// begin Just for testing
+	Database db = new Database(MainActivity.this);
+	db.Table_delete("SingleEventLocal");
+	db.Table_init();
+	SingleEventLocal test = new SingleEventLocal(1, 3, "HU 102", Calendar
+		.getInstance().getTime(), "Martin", 4, "#77DD22",
+		"Telematik Übung", 0, 0, 0, 0, 0);
+	SingleEventLocal test2 = new SingleEventLocal(5, 2, "HU 104", Calendar
+		.getInstance().getTime(), "Robin", 4, "#770000",
+		"Telematik Übung", 0, 0, 0, 0, 0);
+	db.insert(test, 0);
+	db.insert(test2, 7);
+	// end Just for testing
+
+	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(2);
+	sEvents.add(sEventsloc.get(0));
+	sEvents.add(sEventsloc.get(1));
 
 	sEventAdapter = new MainAdapter(this, sEvents);
 	singleEventListView.setAdapter((ListAdapter) sEventAdapter);
@@ -204,8 +220,8 @@ public class MainActivity extends Activity {
 	    }
 
 	    if (sEventNew != null) {
-		sEvents.add(sEventNew);
-		sEventAdapter.notifyDataSetChanged();
+		// sEvents.add(sEventNew);
+		// sEventAdapter.notifyDataSetChanged();
 	    }
 	} else {
 	    // TODO l18n

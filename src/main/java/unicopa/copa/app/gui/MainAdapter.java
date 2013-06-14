@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import unicopa.copa.app.R;
+import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.base.event.SingleEvent;
 
 /**
@@ -38,10 +39,10 @@ import unicopa.copa.base.event.SingleEvent;
  */
 public class MainAdapter extends BaseAdapter {
 
-    ArrayList<SingleEvent> singleEventList;
+    ArrayList<SingleEventLocal> singleEventList;
     Context context;
 
-    public MainAdapter(Context context, ArrayList<SingleEvent> eventList) {
+    public MainAdapter(Context context, ArrayList<SingleEventLocal> eventList) {
 	this.context = context;
 	this.singleEventList = eventList;
     }
@@ -83,10 +84,10 @@ public class MainAdapter extends BaseAdapter {
 	} else {
 	    holder = (ViewHolder) convertView.getTag();
 	}
-	SingleEvent sEvent = (SingleEvent) this.getItem(position);
+	SingleEventLocal sEvent = (SingleEventLocal) this.getItem(position);
 
 	holder.location.setText(sEvent.getLocation());
-	holder.eventName.setText(sEvent.getSupervisor());
+	holder.eventName.setText(sEvent.getName());
 	holder.supervisor.setText(sEvent.getSupervisor());
 	holder.date.setText(new SimpleDateFormat("HH:mm").format(sEvent
 		.getDate()));
