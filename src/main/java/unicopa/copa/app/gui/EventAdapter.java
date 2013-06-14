@@ -16,24 +16,19 @@
  */
 package unicopa.copa.app.gui;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import unicopa.copa.app.R;
 import unicopa.copa.base.event.Event;
 
@@ -110,6 +105,17 @@ public class EventAdapter extends BaseAdapter {
 		intentSingleEvent.putExtra("key", "value");
 		context.startActivity(intentSingleEvent);
 
+	    }
+
+	});
+
+	holder.colorButton.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+		ColorDialog color = new ColorDialog();
+		Dialog diag = color.onCreateDialog(null, context);
+		diag.show();
 	    }
 
 	});
