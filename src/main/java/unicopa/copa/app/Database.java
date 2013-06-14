@@ -244,8 +244,8 @@ public class Database extends SQLiteOpenHelper {
 
 	Cursor c = data.query("SingleEventLocal", columns, selection,
 		selectionArgs, groupBy, having, orderBy);
+	if(!c.isLast()) c.moveToFirst();
 	while (!c.isLast() && num > 0) {
-	    c.moveToFirst();
 	    Date date = new Date(c.getLong(3));
 	    SingleEventLocal sev = new SingleEventLocal(c.getInt(0), // singleEventID
 		    c.getInt(1), // eventID
@@ -260,9 +260,10 @@ public class Database extends SQLiteOpenHelper {
 		    c.getInt(6), // supervisorUpdateCounter
 		    c.getInt(10), // durationMinutesUpdateCounter
 		    c.getInt(12) // Permissions
+		    
 	    );
 	    SingleEventLocalList.add(sev);
-
+	    c.moveToNext();
 	    num--;
 
 	}
