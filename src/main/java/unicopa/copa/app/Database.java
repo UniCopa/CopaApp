@@ -235,6 +235,8 @@ public class Database extends SQLiteOpenHelper {
 
 	List<SingleEventLocal> SingleEventLocalList = new ArrayList<SingleEventLocal>();
 
+	int elements=0;
+	
 	String columns[] = null;
 	String selection = "";
 	String selectionArgs[] = null;
@@ -244,8 +246,11 @@ public class Database extends SQLiteOpenHelper {
 
 	Cursor c = data.query("SingleEventLocal", columns, selection,
 		selectionArgs, groupBy, having, orderBy);
-	if(c.getCount()>0) c.moveToFirst();
-	while (c.getCount()>0 && num > 0) {
+	if(c.getCount()>0){
+	    c.moveToFirst();
+	    elements = c.getCount();
+	}
+	while (elements > 0 && num > 0) {
 	    Date date = new Date(c.getLong(3));
 	    SingleEventLocal sev = new SingleEventLocal(c.getInt(0), // singleEventID
 		    c.getInt(1), // eventID
@@ -265,6 +270,7 @@ public class Database extends SQLiteOpenHelper {
 	    SingleEventLocalList.add(sev);
 	    c.moveToNext();
 	    num--;
+	    elements--;
 
 	}
 	data.close();
