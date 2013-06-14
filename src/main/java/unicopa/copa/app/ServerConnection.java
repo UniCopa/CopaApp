@@ -44,6 +44,8 @@ import unicopa.copa.base.com.request.GetAllOwnersRequest;
 import unicopa.copa.base.com.request.GetAllOwnersResponse;
 import unicopa.copa.base.com.request.GetCategoryRequest;
 import unicopa.copa.base.com.request.GetCategoryResponse;
+import unicopa.copa.base.com.request.GetCurrentSingleEventsRequest;
+import unicopa.copa.base.com.request.GetCurrentSingleEventsResponse;
 import unicopa.copa.base.com.request.GetEventGroupsRequest;
 import unicopa.copa.base.com.request.GetEventGroupsResponse;
 import unicopa.copa.base.com.request.GetEventsRequest;
@@ -163,6 +165,8 @@ public class ServerConnection {
 	return connected;
     }
 
+    // login/ logout
+
     /**
      * This Method opens connection to the server and saves the session cookie.
      * 
@@ -247,6 +251,8 @@ public class ServerConnection {
 	    return false;
 	}
     }
+
+    // Server requests
 
     /**
      * This method returns the category tree.
@@ -352,6 +358,43 @@ public class ServerConnection {
 
 	if (resObj instanceof GetEventsResponse) {
 	    return resObj.getEventList();
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * This method returns to a given eventID the current SingleEvents.
+     * 
+     * @param eventID
+     * @param date
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public List<SingleEvent> getCurrentSingleEvents(int eventID, Date date)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	GetCurrentSingleEventsRequest reqObj = new GetCurrentSingleEventsRequest(
+		eventID, date);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer("GetXRequest", reqStr);
+
+	GetCurrentSingleEventsResponse resObj = null;
+	resObj = (GetCurrentSingleEventsResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetCurrentSingleEventsResponse) {
+	    return resObj.getSingleEvents();
 	} else {
 	    return null;
 	}
@@ -587,7 +630,11 @@ public class ServerConnection {
     // }
     // }
 
-    // TODO need to know how to check connection status
+    /**
+     * This method checks the connection status with the server.
+     * 
+     * @return
+     */
     public boolean connectionCheck() {
 	return true;
     }
