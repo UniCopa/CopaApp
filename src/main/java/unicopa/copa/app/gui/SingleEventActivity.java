@@ -16,7 +16,12 @@
  */
 package unicopa.copa.app.gui;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
+import unicopa.copa.app.SingleEventLocal;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,6 +29,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -39,17 +45,37 @@ public class SingleEventActivity extends Activity {
 	setContentView(R.layout.singleevent);
 	Intent intent = getIntent();
 	int singleEventID = intent.getIntExtra("selectedID", 0);
+	Database db = Database.getInstance(SingleEventActivity.this);
+
+	// Change to getSingleEventbySingleEventID later
+	List<SingleEventLocal> list = db.getNearestSingleEvents(2);
+	SingleEventLocal sEventLocal = (SingleEventLocal) list.get(0);
+
 	TextView sEventID = (TextView) super
 		.findViewById(R.id.singleEventID_sEV);
 	TextView eventID = (TextView) super.findViewById(R.id.eventID_sEv);
 	TextView location = (TextView) super.findViewById(R.id.location_sEv);
 	TextView date = (TextView) super.findViewById(R.id.date_sEv);
+	TextView time = (TextView) super.findViewById(R.id.time_sEv);
 	TextView supervisor = (TextView) super
 		.findViewById(R.id.supervisor_sEv);
 	TextView durationtime = (TextView) super
 		.findViewById(R.id.durationtime_sEv);
+	Button change = (Button) findViewById(R.id.sEv_change);
 
-	sEventID.setText(new Integer(singleEventID).toString());
+	sEventID.setText(String.valueOf(singleEventID));
+	eventID.setText(String.valueOf(sEventLocal.getEventID()));
+	location.setText(sEventLocal.getLocation());
+	date.setText(new SimpleDateFormat("dd.MM").format(sEventLocal.getDate()));
+	time.setText(new SimpleDateFormat("HH:mm").format(sEventLocal.getDate()));
+	supervisor.setText(sEventLocal.getSupervisor());
+	durationtime.setText(String.valueOf(sEventLocal.getDurationMinutes()));
+	change.setVisibility(View.GONE);
+
+	if (sEventLocal.getPermission() > 1) {
+	    change.setVisibility(View.VISIBLE);
+	}
+
     }
 
     @Override
