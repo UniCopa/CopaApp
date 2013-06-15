@@ -86,7 +86,8 @@ public class SearchResultEventAdapter extends BaseAdapter {
 
 	final Event event = (Event) this.getItem(position);
 	holder.name.setText(event.getEventName());
-	Drawable draw = context.getResources().getDrawable(R.drawable.border);
+	Drawable draw = context.getResources().getDrawable(
+		R.drawable.border_cat);
 	holder.colour.setBackgroundDrawable(draw);
 
 	holder.dates.setOnClickListener(new OnClickListener() {

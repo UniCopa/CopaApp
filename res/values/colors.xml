@@ -5,5 +5,6 @@
     <color name="grey">#55666666</color>
     <color name="grey_light">#ffcccccc</color>
     <color name="background">#65B17D</color>
+    <color name="changed">#D00000</color>
 
 </resources>

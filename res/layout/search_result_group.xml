@@ -20,7 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/result_group_title"
-        android:clickable="true" >
+        android:cacheColorHint="#00000000"
+        android:clickable="true"
+        android:divider="@null"
+        android:dividerHeight="0dp" >
     </ListView>
 
 </RelativeLayout>

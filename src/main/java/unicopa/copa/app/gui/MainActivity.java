@@ -128,7 +128,7 @@ public class MainActivity extends Activity {
 	db.Table_init();
 	SingleEventLocal test = new SingleEventLocal(1, 3, "HU 102", Calendar
 		.getInstance().getTime(), "Martin", 4, "#77DD22",
-		"Telematik Übung", 0, 0, 0, 0, 0);
+		"Telematik Übung", 2, 2, 2, 2, 2);
 	SingleEventLocal test2 = new SingleEventLocal(5, 2, "HU 104", Calendar
 		.getInstance().getTime(), "Robin", 4, "#770000",
 		"Telematik Übung", 0, 0, 0, 0, 0);
@@ -137,8 +137,9 @@ public class MainActivity extends Activity {
 	// end Just for testing
 
 	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(2);
-	sEvents.add(sEventsloc.get(0));
-	sEvents.add(sEventsloc.get(1));
+	for (SingleEventLocal item : sEventsloc) {
+	    sEvents.add(item);
+	}
 
 	sEventAdapter = new MainAdapter(this, sEvents);
 	singleEventListView.setAdapter((ListAdapter) sEventAdapter);
@@ -153,7 +154,6 @@ public class MainActivity extends Activity {
 		SingleEvent clicked = (SingleEvent) singleEventListView
 			.getAdapter().getItem(position);
 		intent.putExtra("selectedID", clicked.getSingleEventID());
-
 		startActivity(intent);
 	    }
 	});

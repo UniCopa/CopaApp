@@ -18,7 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/subscription_text"
-        android:cacheColorHint="#00000000" >
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:dividerHeight="0dp" >
     </ListView>
 
 </RelativeLayout>

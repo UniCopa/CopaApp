@@ -11,14 +11,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="3.0dip" >
+        android:layout_margin="3dp" >
 
         <TextView
             android:id="@+id/eventGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3.0dip"
-            android:layout_marginRight="8.0dip"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="0.0"
             android:text="TextView" />
 
@@ -26,13 +27,17 @@
             android:id="@+id/event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3.0dip"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
             android:text="TextView" />
 
         <Button
             android:id="@+id/color_change"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="0.0"
             android:text="Color" />
 
@@ -40,6 +45,9 @@
             android:id="@+id/details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="0.0"
             android:text="Details" />
     </LinearLayout>

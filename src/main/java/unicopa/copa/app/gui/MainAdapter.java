@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,6 @@ import android.widget.TextView;
 
 import unicopa.copa.app.R;
 import unicopa.copa.app.SingleEventLocal;
-import unicopa.copa.base.event.SingleEvent;
 
 /**
  * This Adapter helps to show the List of SingleEvents on the MainActivity.
@@ -72,11 +72,13 @@ public class MainAdapter extends BaseAdapter {
 	    holder = new ViewHolder();
 	    holder.location = (TextView) convertView
 		    .findViewById(R.id.location);
+	    holder.date = (TextView) convertView.findViewById(R.id.date);
+	    holder.dura = (TextView) convertView.findViewById(R.id.duration);
 	    holder.eventName = (TextView) convertView
 		    .findViewById(R.id.eventName);
 	    holder.supervisor = (TextView) convertView
 		    .findViewById(R.id.supervisor);
-	    holder.date = (TextView) convertView.findViewById(R.id.time);
+	    holder.time = (TextView) convertView.findViewById(R.id.time);
 	    holder.colour = (LinearLayout) convertView
 		    .findViewById(R.id.SingleEventView);
 	    convertView.setTag(holder);
@@ -89,10 +91,39 @@ public class MainAdapter extends BaseAdapter {
 	holder.location.setText(sEvent.getLocation());
 	holder.eventName.setText(sEvent.getName());
 	holder.supervisor.setText(sEvent.getSupervisor());
-	holder.date.setText(new SimpleDateFormat("HH:mm").format(sEvent
+	holder.date.setText(new SimpleDateFormat("dd.MM").format(sEvent
+		.getDate()));
+	holder.dura.setText(String.valueOf(sEvent.getDurationMinutes()));
+	holder.time.setText(new SimpleDateFormat("HH:mm").format(sEvent
 		.getDate()));
 
-	int mColor = 0x99224488;
+	int locationUpdateCounter = sEvent.getLoactionUpdateCounter();
+	int dateUpdateCounter = sEvent.getDateUpdateCounter();
+	int supervisorUpdateCounter = sEvent.getSupervisorUpdateCounter();
+	int durationMinutesUpdateCounter = sEvent
+		.getDurationMinutesUpdateCounter();
+
+	if (locationUpdateCounter > 0) {
+	    holder.location.setTextColor(context.getResources().getColor(
+		    R.color.changed));
+	}
+	if (dateUpdateCounter > 0) {
+	    holder.time.setTextColor(context.getResources().getColor(
+		    R.color.changed));
+	}
+	if (supervisorUpdateCounter > 0) {
+	    holder.supervisor.setTextColor(context.getResources().getColor(
+		    R.color.changed));
+	}
+	if (durationMinutesUpdateCounter > 0) {
+	    holder.dura.setTextColor(context.getResources().getColor(
+		    R.color.changed));
+	}
+
+	// Convert string color to int
+	String colored = sEvent.getColorCode();
+	int mColor = Color.parseColor(colored);
+
 	GradientDrawable draw = (GradientDrawable) context.getResources()
 		.getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
@@ -102,10 +133,12 @@ public class MainAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+	TextView date;
+	TextView dura;
 	TextView supervisor;
 	TextView location;
 	TextView eventName;
-	TextView date;
+	TextView time;
 	LinearLayout colour;
     }
 

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,8 @@ public class SingleEventListAdapter extends BaseAdapter {
     ArrayList<SingleEvent> singleEventList;
     Context context;
 
-    public SingleEventListAdapter(Context context, ArrayList<SingleEvent> eventList) {
+    public SingleEventListAdapter(Context context,
+	    ArrayList<SingleEvent> eventList) {
 	this.context = context;
 	this.singleEventList = eventList;
     }
@@ -91,8 +93,11 @@ public class SingleEventListAdapter extends BaseAdapter {
 	holder.time.setText(new SimpleDateFormat("HH:mm").format(sEvent
 		.getDate()));
 
-	Drawable draw = context.getResources().getDrawable(R.drawable.border);
+	int mColor = 0x99884488;
+	GradientDrawable draw = (GradientDrawable) context.getResources()
+		.getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
+	draw.setStroke(5, mColor);
 
 	holder.change.setOnClickListener(new OnClickListener() {
 

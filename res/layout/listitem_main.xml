@@ -20,12 +20,21 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/eventName"
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                android:layout_weight="1.00"
+                android:layout_weight="0.5"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/eventName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="0.5"
                 android:text="TextView" />
 
             <TextView
@@ -55,7 +64,7 @@
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.0"
+                android:layout_weight="0.5"
                 android:text="TextView" />
 
             <TextView
@@ -64,8 +73,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="15dp"
+                android:layout_weight="0.5"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_weight="0.0"
                 android:text="TextView" />
+
+            <TextView
+                android:id="@+id/item_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="0.0"
+                android:text="@string/minutes" />
         </LinearLayout>
     </LinearLayout>
 

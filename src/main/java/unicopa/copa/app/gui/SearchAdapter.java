@@ -80,7 +80,8 @@ public class SearchAdapter extends BaseAdapter {
 
 	CategoryNodeImpl node = (CategoryNodeImpl) this.getItem(position);
 	holder.catName.setText(node.getName());
-	Drawable draw = context.getResources().getDrawable(R.drawable.border);
+	Drawable draw = context.getResources().getDrawable(
+		R.drawable.border_cat);
 	holder.colour.setBackgroundDrawable(draw);
 
 	return convertView;

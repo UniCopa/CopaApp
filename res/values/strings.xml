@@ -66,5 +66,6 @@
     </string-array>
 
     <string name="logout">Logout</string>
+    <string name="minutes">min</string>
 
 </resources>

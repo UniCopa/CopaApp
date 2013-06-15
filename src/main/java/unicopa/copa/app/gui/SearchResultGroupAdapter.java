@@ -84,7 +84,8 @@ public class SearchResultGroupAdapter extends BaseAdapter {
 
 	final EventGroup eventGroup = (EventGroup) this.getItem(position);
 	holder.name.setText(eventGroup.getEventGroupName());
-	Drawable draw = context.getResources().getDrawable(R.drawable.border);
+	Drawable draw = context.getResources().getDrawable(
+		R.drawable.border_cat);
 	holder.colour.setBackgroundDrawable(draw);
 
 	holder.info.setOnClickListener(new OnClickListener() {

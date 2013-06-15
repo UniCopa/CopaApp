@@ -23,7 +23,9 @@
         android:layout_alignLeft="@+id/main_text"
         android:layout_below="@+id/test_button_main"
         android:cacheColorHint="#00000000"
-        android:clickable="true" >
+        android:clickable="true"
+        android:divider="@null"
+        android:dividerHeight="0dp" >
     </ListView>
 
     <Button

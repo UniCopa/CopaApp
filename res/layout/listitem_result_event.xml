@@ -11,21 +11,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="3.0dip" >
+        android:layout_margin="5dp" >
 
         <TextView
             android:id="@+id/item_result_event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3.0dip"
-            android:layout_marginRight="8.0dip"
-            android:layout_weight="0.0"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
             android:text="TextView" />
 
         <Button
             android:id="@+id/item_result_event_datesbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="0.0"
             android:text="@string/dates" />
 
@@ -33,6 +36,9 @@
             android:id="@+id/item_result_event_subcrbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="0.0"
             android:text="@string/subscr" />
     </LinearLayout>
