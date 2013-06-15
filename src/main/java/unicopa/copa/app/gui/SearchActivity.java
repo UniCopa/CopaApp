@@ -66,13 +66,23 @@ public class SearchActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.search);
 
+	ServerConnection scon = ServerConnection.getInstance();
+
+	// check if logged in if not redirect to LoginActivity
+	if (!scon.getConnected()) {
+	    // TODO redirects instantly without waiting
+	    PopUp.loginFail(this);
+
+	    Intent intentLog = new Intent(SearchActivity.this,
+		    LoginActivity.class);
+	    SearchActivity.this.startActivity(intentLog);
+	}
+
 	final ListView catListView = (ListView) SearchActivity.this
 		.findViewById(R.id.search_list);
 	cat = (TextView) findViewById(R.id.search_categorie);
 	catListView.setAdapter(null);
 	searchEdit = (EditText) findViewById(R.id.search_edit);
-
-	ServerConnection scon = ServerConnection.getInstance();
 
 	if (scon.getConnected()) {
 	    CategoryNode category = null;
