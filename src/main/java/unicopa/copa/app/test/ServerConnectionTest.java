@@ -51,13 +51,13 @@ public class ServerConnectionTest extends AndroidTestCase {
      * @throws IOException
      */
     @Test
-    public void loginTest() throws ClientProtocolException, IOException {
+    public void testLogin() throws ClientProtocolException, IOException {
 	String userName = "me";
 	String password = "me";
 	Context context = getContext();
 	ServerConnection scon = ServerConnection.getInstance();
 
-	assertEquals(scon.login(userName, password, context), false);
+	assertEquals(scon.login(userName, password, context), true);
     }
 
     /**
@@ -71,8 +71,7 @@ public class ServerConnectionTest extends AndroidTestCase {
      * @throws IOException
      */
     @Test
-    @Ignore
-    public void getSingleEventTest() throws ClientProtocolException,
+    public void /*test*/GetSingleEvent() throws ClientProtocolException,
 	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException, IOException {
 	int singleEventID = 1;
