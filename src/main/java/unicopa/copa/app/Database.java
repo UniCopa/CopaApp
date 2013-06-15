@@ -20,9 +20,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import unicopa.copa.base.event.Event;
+import unicopa.copa.base.event.EventGroup;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -31,7 +35,7 @@ import android.util.Log;
  * 
  * @author Robin Muench, Martin Rabe
  */
-public class Database extends SQLiteOpenHelper {
+public class Database extends SQLiteOpenHelper{
 
     private static Database instance;
 
@@ -74,27 +78,36 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-    private String SingleEventLocal_sqlScheme() {
+    private String SingleEventLocal_sqlScheme(String primaryKey) {
 	String sqlString = "(";
 	for (int i = 0; i < SingleEventLocal_scheme.length; i++)
 	    sqlString = sqlString + SingleEventLocal_scheme[i] + ",";
-	sqlString = delLast(sqlString) + ")";
+	if(primaryKey!=null)
+	    sqlString=sqlString+"PRIMARY KEY ("+primaryKey+"))";
+	else
+	    sqlString = delLast(sqlString) + ")";
 	return sqlString;
     }
 
-    private String Event_sqlScheme() {
+    private String Event_sqlScheme(String primaryKey) {
 	String sqlString = "(";
 	for (int i = 0; i < Event_scheme.length; i++)
 	    sqlString = sqlString + Event_scheme[i] + ",";
-	sqlString = delLast(sqlString) + ")";
+	if(primaryKey!=null)
+	    sqlString=sqlString+"PRIMARY KEY ("+primaryKey+"))";
+	else
+	    sqlString = delLast(sqlString) + ")";
 	return sqlString;
     }
 
-    private String EventGroup_sqlScheme() {
+    private String EventGroup_sqlScheme(String primaryKey) {
 	String sqlString = "(";
 	for (int i = 0; i < EventGroup_scheme.length; i++)
 	    sqlString = sqlString + EventGroup_scheme[i] + ",";
-	sqlString = delLast(sqlString) + ")";
+	if(primaryKey!=null)
+	    sqlString=sqlString+"PRIMARY KEY ("+primaryKey+"))";
+	else
+	    sqlString = delLast(sqlString) + ")";
 	return sqlString;
     }
 
@@ -110,27 +123,27 @@ public class Database extends SQLiteOpenHelper {
 	return s.substring(0, s.length() - 1);
     }
 
-    public void Table_init() {
+    public void Table_init() throws SQLiteException{
 	data = this.getWritableDatabase();
 	String Table_Creation_String;
 
 	// Create SingleEventLocal
 	Table_Creation_String = "CREATE TABLE IF NOT EXISTS SingleEventLocal"
-		+ SingleEventLocal_sqlScheme();
+		+ SingleEventLocal_sqlScheme("singleEventID");
 	Log.w("try", Table_Creation_String);
 	data.execSQL(Table_Creation_String);
 	Log.w("exec_succ", Table_Creation_String);
 
 	// Create Event
 	Table_Creation_String = "CREATE TABLE IF NOT EXISTS Event"
-		+ Event_sqlScheme();
+		+ Event_sqlScheme("eventID");
 	Log.w("try", Table_Creation_String);
 	data.execSQL(Table_Creation_String);
 	Log.w("exec_succ", Table_Creation_String);
 
 	// Create EventGroup
 	Table_Creation_String = "CREATE TABLE IF NOT EXISTS EventGroup"
-		+ EventGroup_sqlScheme();
+		+ EventGroup_sqlScheme("eventGroupID");
 	Log.w("try", Table_Creation_String);
 	data.execSQL(Table_Creation_String);
 	Log.w("succ", Table_Creation_String);
@@ -146,18 +159,18 @@ public class Database extends SQLiteOpenHelper {
 	data.close();
     }
 
-    public void insert(Object obj, int ID_old) {
+    public void insert(Object obj, int ID_old){
 	data = this.getWritableDatabase();
 	String TableName = obj.getClass().getSimpleName();
-	boolean insertType = false;
+	boolean newEntry = false;
 
 	// Fill SingleEventLocal
 	if (obj instanceof SingleEventLocal) {
 	    SingleEventLocal sev = (SingleEventLocal) obj;
 
 	    if (ID_old != -1)
-		insertType = false; // Update
-	    if (!insertType) {
+		newEntry = false; // Update
+	    if (!newEntry) {
 		String columns[] = null;
 		String selection = "singleEventID='" + String.valueOf(ID_old)
 			+ "'";
@@ -203,12 +216,13 @@ public class Database extends SQLiteOpenHelper {
 		    data.execSQL(UpdateColumns);
 		    Log.w("succ", UpdateColumns);
 		} else
-		    insertType = true;
+		    newEntry = true;
+		c.close();
 	    }
-	    if (insertType) {
+	    if (newEntry) {
 		String InsertString = "INSERT INTO "
 			+ sev.getClass().getSimpleName() + " "
-			+ SingleEventLocal_sqlScheme() + " VALUES ";
+			+ SingleEventLocal_sqlScheme(null) + " VALUES ";
 		String[] values = { String.valueOf(sev.getSingleEventID()),
 			String.valueOf(sev.getEventID()), sev.getName(),
 			String.valueOf(sev.getDate().getTime()),
@@ -227,10 +241,151 @@ public class Database extends SQLiteOpenHelper {
 	    }
 
 	}
+	
+	if(obj instanceof Event){
+	    newEntry = true;
+	    Event ev = (Event) obj;
+	    if(newEntry){
+		String[] values = { String.valueOf(ev.getEventID()),
+			String.valueOf(ev.getEventGroupID()),
+			ev.getEventName()
+		};
+		
+		String InsertString = "INSERT INTO "+ev.getClass().getSimpleName()+" "+Event_sqlScheme(null)+" VALUES "+sqlValues(values);
+		Log.w("try", InsertString);
+		data.execSQL(InsertString);
+		Log.w("succ", InsertString);
+	    }
+	}
+	
+	if(obj instanceof EventGroup){
+	    newEntry = true;
+	    EventGroup evg = (EventGroup) obj;
+	    if(newEntry){
+		String [] values = {String.valueOf(evg.getEventGroupID()),
+			evg.getEventGroupName(),
+			evg.getEventGroupInfo()
+		};
+		
+		String InsertString = "INSERT INTO "+evg.getClass().getSimpleName()+" "+EventGroup_sqlScheme(null)+" VALUES "+sqlValues(values);
+		Log.w("try", InsertString);
+		data.execSQL(InsertString);
+		Log.w("succ", InsertString);
+	    }
+	    
+	}
+	
 	data.close();
     }
+    
+    public List<Event> getAllEvents(){
+	data = this.getReadableDatabase();
+	List<Event> EventList = new ArrayList<Event>();
+	int elements = 0;
+	
+	String columns[] = null;
+	String selection = "";
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "";
 
-    public List<SingleEventLocal> getNearestSingleEvents(int num) {
+	Cursor c = data.query("Event", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	
+	if(c.getCount()>0){
+	    c.moveToFirst();
+	    elements = c.getCount();
+	}
+	
+	while(elements > 0){
+	    Event ev = new Event(
+		c.getInt(0),
+		c.getInt(1),
+		c.getString(2),
+		null
+	    );
+	    EventList.add(ev);
+	    c.moveToNext();	    
+	    elements--;
+	}
+	c.close();
+	data.close();
+	return EventList;
+    }
+    
+    public String getEventGroupName(int eventGroupID){
+	data=this.getReadableDatabase();
+	String name="eventGroupName";
+	String columns[] = null;
+	String selection = "eventGroupID="+eventGroupID;
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "";
+
+	Cursor c = data.query("EventGroup", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	
+	if(c.getCount()>0){
+	    c.moveToFirst();
+	    name = c.getString(0);
+	}
+	c.close();
+	data.close();
+	return name;
+    }
+    
+    public List<SingleEventLocal> getSingleEventsByEventID(int eventID){
+	data=this.getReadableDatabase();
+	List<SingleEventLocal> SingleEventLocalList = new ArrayList<SingleEventLocal>();
+	int elements = 0;
+	
+	String columns[] = null;
+	String selection = "eventID="+eventID;
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "date ASC";
+
+	Cursor c = data.query("SingleEventLocal", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	
+	if(c.getCount()>0){
+	    c.moveToFirst();
+	    elements = c.getCount();
+	}
+	
+	while(elements > 0){
+	    Date date = new Date(c.getLong(3));
+	    SingleEventLocal sev = new SingleEventLocal(c.getInt(0), // singleEventID
+		    c.getInt(1), // eventID
+		    c.getString(7),// Location
+		    date, // Date
+		    c.getString(5),// supervisor
+		    c.getInt(9), // durationMinutes
+		    c.getString(11),// colorCode
+		    c.getString(2),// name
+		    c.getInt(8), // locationUpdateCounter
+		    c.getInt(4), // dateUpdateCounter
+		    c.getInt(6), // supervisorUpdateCounter
+		    c.getInt(10), // durationMinutesUpdateCounter
+		    c.getInt(12) // Permissions
+		    
+	    );
+	    SingleEventLocalList.add(sev);
+	    c.moveToNext();
+	    elements--;
+	    
+	    elements--;
+	}
+	c.close();
+	data.close();
+	return SingleEventLocalList;
+
+    }
+
+    public List<SingleEventLocal> getNearestSingleEvents(int num){
 	data = this.getReadableDatabase();
 
 	List<SingleEventLocal> SingleEventLocalList = new ArrayList<SingleEventLocal>();
@@ -273,6 +428,7 @@ public class Database extends SQLiteOpenHelper {
 	    elements--;
 
 	}
+	c.close();
 	data.close();
 	return SingleEventLocalList;
     }
