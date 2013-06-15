@@ -19,7 +19,7 @@ package unicopa.copa.app.test;
 import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
 import unicopa.copa.app.ServerConnection;
@@ -51,9 +51,9 @@ public class ServerConnectionTest extends AndroidTestCase {
      * @throws IOException
      */
     @Test
-    public void testLogin() throws ClientProtocolException, IOException {
-	String userName = "me";
-	String password = "me";
+    public void /*test*/Login() throws ClientProtocolException, IOException {
+	String userName = "derp";
+	String password = "pwd";
 	Context context = getContext();
 	ServerConnection scon = ServerConnection.getInstance();
 
@@ -61,7 +61,7 @@ public class ServerConnectionTest extends AndroidTestCase {
     }
 
     /**
-     * This Method tests the GetSingleEvent method
+     * This method tests the GetSingleEvent method
      * 
      * @throws ClientProtocolException
      * @throws APIException
@@ -71,7 +71,7 @@ public class ServerConnectionTest extends AndroidTestCase {
      * @throws IOException
      */
     @Test
-    public void /*test*/GetSingleEvent() throws ClientProtocolException,
+    public void /* test */GetSingleEvent() throws ClientProtocolException,
 	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException, IOException {
 	int singleEventID = 1;
