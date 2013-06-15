@@ -17,8 +17,10 @@
 package unicopa.copa.app.gui;
 
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
@@ -45,6 +47,19 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.settings);
+
+	ServerConnection scon = ServerConnection.getInstance();
+
+	// check if logged in if not redirect to LoginActivity
+	if (!scon.getConnected()) {
+	    // TODO redirects instantly without waiting
+	    PopUp.loginFail(this);
+
+	    Intent intentLog = new Intent(SettingsActivity.this,
+		    LoginActivity.class);
+	    SettingsActivity.this.startActivity(intentLog);
+	}
+
 	mail = (CheckBox) findViewById(R.id.settings_noti_mail);
 	language = (RadioGroup) findViewById(R.id.settings_radio_languages);
 	gcm = (RadioGroup) findViewById(R.id.settings_radio_gcm);
