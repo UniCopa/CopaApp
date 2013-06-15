@@ -308,9 +308,9 @@ public class Database extends SQLiteOpenHelper{
     
     public String getEventGroupName(int eventGroupID){
 	data=this.getReadableDatabase();
-	String name="eventGroupName";
-	String columns[] = null;
-	String selection = "eventGroupID="+eventGroupID;
+	String name="keine eventgroup gefunden";
+	String columns[] = {"eventGroupName"};
+	String selection = "eventGroupID='"+String.valueOf(eventGroupID)+"'";
 	String selectionArgs[] = null;
 	String groupBy = null;
 	String having = null;
@@ -334,7 +334,7 @@ public class Database extends SQLiteOpenHelper{
 	int elements = 0;
 	
 	String columns[] = null;
-	String selection = "eventID="+eventID;
+	String selection = "eventID='"+String.valueOf(eventID)+"'";
 	String selectionArgs[] = null;
 	String groupBy = null;
 	String having = null;
@@ -347,6 +347,7 @@ public class Database extends SQLiteOpenHelper{
 	    c.moveToFirst();
 	    elements = c.getCount();
 	}
+	else SingleEventLocalList = null;
 	
 	while(elements > 0){
 	    Date date = new Date(c.getLong(3));
@@ -421,6 +422,38 @@ public class Database extends SQLiteOpenHelper{
 	c.close();
 	data.close();
 	return SingleEventLocalList;
+    }
+    
+    public SingleEventLocal getSingleEventBySingleEventID(int singleEventID){
+	String columns[] = null;
+	String selection = "singleEventID='"+String.valueOf(singleEventID)+"'";
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "";
+	
+	Cursor c = data.query("SingleEventLocal", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	
+	if(c.getCount()>0){
+	    c.moveToFirst();
+	    SingleEventLocal sev = new SingleEventLocal(c.getInt(0), // singleEventID
+		    c.getInt(1), // eventID
+		    c.getString(7),// Location
+		    new Date(c.getLong(3)), // Date
+		    c.getString(5),// supervisor
+		    c.getInt(9), // durationMinutes
+		    c.getString(11),// colorCode
+		    c.getString(2),// name
+		    c.getInt(8), // locationUpdateCounter
+		    c.getInt(4), // dateUpdateCounter
+		    c.getInt(6), // supervisorUpdateCounter
+		    c.getInt(10), // durationMinutesUpdateCounter
+		    c.getInt(12) // Permissions
+		    );
+	    return sev;
+	}
+	else return null;
     }
 
 }
