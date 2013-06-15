@@ -23,7 +23,6 @@ import org.apache.http.client.ClientProtocolException;
 
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
-
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -74,23 +73,29 @@ public class SearchResultGroupActivity extends Activity {
 	    eventGroupList = (ArrayList<EventGroup>) scon.getEventGroups(
 		    categoryId, searchTerm);
 	} catch (ClientProtocolException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (APIException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (PermissionException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (RequestNotPracticableException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (InternalErrorException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (IOException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	}
 
 	// end getEventGroups
