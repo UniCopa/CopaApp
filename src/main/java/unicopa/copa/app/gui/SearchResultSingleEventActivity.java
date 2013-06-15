@@ -45,7 +45,7 @@ import android.widget.AdapterView.OnItemClickListener;
 /**
  * In this activity a user sees all SingleEvents to an Event.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class SearchResultSingleEventActivity extends Activity {
 
@@ -75,23 +75,29 @@ public class SearchResultSingleEventActivity extends Activity {
 		    eventID, date); // TODO get eventID from previous activity
 				    // and read current date
 	} catch (ClientProtocolException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (APIException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (PermissionException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (RequestNotPracticableException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (InternalErrorException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (IOException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	}
 
 	// end getCurrentSingleEvents
