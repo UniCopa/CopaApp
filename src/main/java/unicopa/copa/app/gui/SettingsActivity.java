@@ -16,8 +16,17 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
+import unicopa.copa.app.SettingsLocal;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -97,10 +106,39 @@ public class SettingsActivity extends Activity {
      */
     public void onApplyButtonClick(View view) {
 
+	ServerConnection scon = ServerConnection.getInstance();
+	SettingsLocal settings = new SettingsLocal();
+
 	boolean email = mail.isChecked();
 	int selectedLanguage = language.getCheckedRadioButtonId();
 	int selectedGCM = gcm.getCheckedRadioButtonId();
 
+	// TODO read SettingsLocal from local database and set new values
+	
+	try {
+	    scon.setSettings(settings);
+	} catch (ClientProtocolException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (APIException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (PermissionException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (RequestNotPracticableException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (InternalErrorException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	
+	// TODO if setSettings succeeded save SettingsLocal to local database
+	
 	PopUp.alert(this, getString(R.string.success),
 		getString(R.string.settings_saved));
     }
