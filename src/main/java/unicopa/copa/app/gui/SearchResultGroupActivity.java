@@ -16,10 +16,18 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-import unicopa.copa.app.R;
+import org.apache.http.client.ClientProtocolException;
 
+import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
+
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.event.EventGroup;
 
 import android.os.Bundle;
@@ -36,7 +44,7 @@ import android.widget.AdapterView.OnItemClickListener;
 /**
  * On this activity the EventGroups as results of a search are shown.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class SearchResultGroupActivity extends Activity {
 
@@ -56,10 +64,40 @@ public class SearchResultGroupActivity extends Activity {
 	ArrayList<EventGroup> eventGroupList = new ArrayList<EventGroup>();
 
 	groupListView.setAdapter(null);
+	
+	// begin getEventGroups
+	
+	ServerConnection scon = ServerConnection.getInstance();
+	int categoryNodeID = 0; // TODO set from previous Activity
+	String searchTerm = ""; // TODO set from previous Activity
+		
+	try {
+	    eventGroupList = (ArrayList<EventGroup>) scon.getEventGroups(categoryNodeID, searchTerm);
+	} catch (ClientProtocolException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (APIException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (PermissionException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (RequestNotPracticableException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (InternalErrorException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+			
+	// end getEventGroups
 
-	eventGroupList.add(new EventGroup(1, "Telematik1", "Info", null));
-	eventGroupList.add(new EventGroup(2, "Betriebssysteme", "Info2", null));
-	eventGroupList.add(new EventGroup(3, "Mathe", "Info3", null));
+//	eventGroupList.add(new EventGroup(1, "Telematik1", "Info", null));
+//	eventGroupList.add(new EventGroup(2, "Betriebssysteme", "Info2", null));
+//	eventGroupList.add(new EventGroup(3, "Mathe", "Info3", null));
 
 	searchGroupAdapter = new SearchResultGroupAdapter(this, eventGroupList);
 	groupListView.setAdapter((ListAdapter) searchGroupAdapter);
