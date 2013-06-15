@@ -40,7 +40,7 @@ import android.widget.TextView;
 /**
  * On this activity the Events as results of a search are shown.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class SearchResultEventActivity extends Activity {
 
@@ -74,23 +74,29 @@ public class SearchResultEventActivity extends Activity {
 	    eventList = (ArrayList<Event>) scon.getEvents(eventGroupID,
 		    categoryId);
 	} catch (ClientProtocolException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (APIException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (PermissionException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (RequestNotPracticableException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	} catch (InternalErrorException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (IOException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
 	}
 
 	// end getEvents
