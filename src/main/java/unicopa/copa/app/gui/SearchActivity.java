@@ -62,6 +62,11 @@ public class SearchActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.search);
 
+	final ListView catListView = (ListView) SearchActivity.this
+		.findViewById(R.id.search_list);
+	cat = (TextView) findViewById(R.id.search_categorie);
+	catListView.setAdapter(null);
+
 	ServerConnection scon = ServerConnection.getInstance();
 
 	if (scon.getConnected()) {
@@ -94,24 +99,17 @@ public class SearchActivity extends Activity {
 	    }
 
 	    if (category != null) {
-		// TODO display categories
+		CategoryNodeImpl impl = (CategoryNodeImpl) category;
+		cat.setText(impl.getName());
+		categories.clear();
+		categories.addAll((ArrayList<CategoryNodeImpl>) impl
+			.getChildren());
 	    }
 
 	} else {
 	    // TODO l18n
 	    PopUp.alert(this, "Login!", "You are not logged in.");
 	}
-
-	final ListView catListView = (ListView) SearchActivity.this
-		.findViewById(R.id.search_list);
-	cat = (TextView) findViewById(R.id.search_categorie);
-	catListView.setAdapter(null);
-
-	CategoryNodeImpl cattest = new CategoryNodeImpl(1, "Category5");
-	cattest.addChildNode(new CategoryNodeImpl(4, "Category4"));
-	categories.add(cattest);
-	categories.add(new CategoryNodeImpl(2, "Category2"));
-	categories.add(new CategoryNodeImpl(3, "Category3"));
 
 	searchAdapter = new SearchAdapter(this, categories);
 	catListView.setAdapter((ListAdapter) searchAdapter);
