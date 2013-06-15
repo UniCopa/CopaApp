@@ -132,21 +132,18 @@ public class Database extends SQLiteOpenHelper{
 		+ SingleEventLocal_sqlScheme("singleEventID");
 	Log.w("try", Table_Creation_String);
 	data.execSQL(Table_Creation_String);
-	Log.w("exec_succ", Table_Creation_String);
 
 	// Create Event
 	Table_Creation_String = "CREATE TABLE IF NOT EXISTS Event"
 		+ Event_sqlScheme("eventID");
 	Log.w("try", Table_Creation_String);
 	data.execSQL(Table_Creation_String);
-	Log.w("exec_succ", Table_Creation_String);
 
 	// Create EventGroup
 	Table_Creation_String = "CREATE TABLE IF NOT EXISTS EventGroup"
 		+ EventGroup_sqlScheme("eventGroupID");
 	Log.w("try", Table_Creation_String);
 	data.execSQL(Table_Creation_String);
-	Log.w("succ", Table_Creation_String);
 
 	data.close();
     }
@@ -155,7 +152,6 @@ public class Database extends SQLiteOpenHelper{
 	data = this.getWritableDatabase();
 	Log.w("try", "DROP TABLE IF EXISTS " + name);
 	data.execSQL("DROP TABLE IF EXISTS " + name);
-	Log.w("succ", "DROP TABLE IF EXISTS " + name);
 	data.close();
     }
 
@@ -214,7 +210,6 @@ public class Database extends SQLiteOpenHelper{
 
 		    Log.w("try", UpdateColumns);
 		    data.execSQL(UpdateColumns);
-		    Log.w("succ", UpdateColumns);
 		} else
 		    newEntry = true;
 		c.close();
@@ -237,7 +232,6 @@ public class Database extends SQLiteOpenHelper{
 		InsertString = InsertString + sqlValues(values);
 		Log.w("try", InsertString);
 		data.execSQL(InsertString);
-		Log.w("succ", InsertString);
 	    }
 
 	}
@@ -254,7 +248,6 @@ public class Database extends SQLiteOpenHelper{
 		String InsertString = "INSERT INTO "+ev.getClass().getSimpleName()+" "+Event_sqlScheme(null)+" VALUES "+sqlValues(values);
 		Log.w("try", InsertString);
 		data.execSQL(InsertString);
-		Log.w("succ", InsertString);
 	    }
 	}
 	
@@ -270,7 +263,6 @@ public class Database extends SQLiteOpenHelper{
 		String InsertString = "INSERT INTO "+evg.getClass().getSimpleName()+" "+EventGroup_sqlScheme(null)+" VALUES "+sqlValues(values);
 		Log.w("try", InsertString);
 		data.execSQL(InsertString);
-		Log.w("succ", InsertString);
 	    }
 	    
 	}
@@ -374,9 +366,7 @@ public class Database extends SQLiteOpenHelper{
 		    
 	    );
 	    SingleEventLocalList.add(sev);
-	    c.moveToNext();
-	    elements--;
-	    
+	    c.moveToNext();	    
 	    elements--;
 	}
 	c.close();
