@@ -29,6 +29,11 @@ import android.content.DialogInterface;
  */
 public class PopUp {
 
+    /**
+     * Creates a Dialog that tells the user that he is not logged in.
+     * 
+     * @param context
+     */
     public static void loginFail(Context context) {
 	new AlertDialog.Builder(context).setTitle(R.string.login_ex)
 		.setMessage(R.string.not_login)
