@@ -454,11 +454,11 @@ public class ServerConnection {
      * @throws PermissionException
      * @throws APIException
      */
-    public EventGroup getEventGroup(int eventID)
+    public EventGroup getEventGroup(int eventGroupID)
 	    throws ClientProtocolException, IOException, APIException,
 	    PermissionException, RequestNotPracticableException,
 	    InternalErrorException {
-	GetEventGroupRequest reqObj = new GetEventGroupRequest(eventID);
+	GetEventGroupRequest reqObj = new GetEventGroupRequest(eventGroupID);
 
 	String reqStr = "";
 	reqStr = ClientSerializer.serialize(reqObj);
