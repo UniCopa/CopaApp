@@ -68,11 +68,10 @@ public class SearchResultGroupActivity extends Activity {
 	// begin getEventGroups
 	
 	ServerConnection scon = ServerConnection.getInstance();
-	int categoryNodeID = 0; // TODO set from previous Activity
 	String searchTerm = ""; // TODO set from previous Activity
 		
 	try {
-	    eventGroupList = (ArrayList<EventGroup>) scon.getEventGroups(categoryNodeID, searchTerm);
+	    eventGroupList = (ArrayList<EventGroup>) scon.getEventGroups(categoryId, searchTerm);
 	} catch (ClientProtocolException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
