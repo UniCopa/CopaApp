@@ -27,6 +27,7 @@ import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.com.exception.RequestNotPracticableException;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -39,7 +40,7 @@ import android.widget.RadioGroup;
 /**
  * In this activity a user can change his settings.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class SettingsActivity extends Activity {
 
@@ -118,24 +119,28 @@ public class SettingsActivity extends Activity {
 	try {
 	    scon.setSettings(settings);
 	} catch (ClientProtocolException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (APIException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (PermissionException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (RequestNotPracticableException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (InternalErrorException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
+		PopUp.exceptionAlert(this, "ClientProtocolException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (APIException e) {
+		PopUp.exceptionAlert(this, "APIException!", e.getMessage());
+		// e.printStackTrace();
+	    } catch (PermissionException e) {
+		PopUp.exceptionAlert(this, "PermissionException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (RequestNotPracticableException e) {
+		PopUp.exceptionAlert(this, "RequestNotPracticableException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (InternalErrorException e) {
+		PopUp.exceptionAlert(this, "InternalErrorException!",
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (IOException e) {
+		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+		// e.printStackTrace();
+	    }
 	
 	// TODO if setSettings succeeded save SettingsLocal to local database
 	
