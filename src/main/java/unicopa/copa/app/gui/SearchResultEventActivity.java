@@ -16,8 +16,17 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.apache.http.client.ClientProtocolException;
+
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.event.Event;
 import android.os.Bundle;
 import android.app.Activity;
@@ -56,9 +65,39 @@ public class SearchResultEventActivity extends Activity {
 
 	eventListView.setAdapter(null);
 
-	eventList.add(new Event(1, 4, "Vorlesung", null));
-	eventList.add(new Event(2, 5, "Übung1", null));
-	eventList.add(new Event(3, 6, "Übung2", null));
+	// begin getEvents
+
+	ServerConnection scon = ServerConnection.getInstance();
+	int eventGroupID = 0; // TODO get eventGroupID from previous activity
+
+	try {
+	    eventList = (ArrayList<Event>) scon.getEvents(eventGroupID,
+		    categoryId);
+	} catch (ClientProtocolException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (APIException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (PermissionException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (RequestNotPracticableException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (InternalErrorException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	// end getEvents
+
+//	eventList.add(new Event(1, 4, "Vorlesung", null));
+//	eventList.add(new Event(2, 5, "Übung1", null));
+//	eventList.add(new Event(3, 6, "Übung2", null));
 
 	searchEventAdapter = new SearchResultEventAdapter(this, eventList);
 	eventListView.setAdapter((ListAdapter) searchEventAdapter);
