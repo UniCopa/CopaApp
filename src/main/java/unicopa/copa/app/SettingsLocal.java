@@ -34,6 +34,9 @@ public class SettingsLocal extends UserSettings {
     private int notificationKind;
     private Date lastUpdate;
 
+    public SettingsLocal() {
+    }
+    
     public SettingsLocal(Set<String> gcmKeys, boolean emailNotification,
 	    String language, Map<Integer, UserEventSettings> eventSettings,
 	    int notificationKind, Date lastUpdate) {
