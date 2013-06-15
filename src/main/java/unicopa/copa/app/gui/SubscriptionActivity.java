@@ -17,7 +17,9 @@
 package unicopa.copa.app.gui;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
 import unicopa.copa.base.event.Event;
 
@@ -49,10 +51,15 @@ public class SubscriptionActivity extends Activity {
 
 	eventListView.setAdapter(null);
 
+	Database db = Database.getInstance(SubscriptionActivity.this);
+
 	ArrayList<Event> sEvents = new ArrayList<Event>();
-	sEvents.add(new Event(1, 3, "Event3", new ArrayList<Integer>()));
-	sEvents.add(new Event(2, 2, "Event2", new ArrayList<Integer>()));
-	sEvents.add(new Event(3, 4, "Event3", new ArrayList<Integer>()));
+
+	List<Event> list = db.getAllEvents();
+
+	for (Event item : list) {
+	    sEvents.add(item);
+	}
 
 	EventAdapter eventAdapter = new EventAdapter(this, sEvents);
 	eventListView.setAdapter((ListAdapter) eventAdapter);

@@ -49,6 +49,8 @@ import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.com.exception.RequestNotPracticableException;
+import unicopa.copa.base.event.Event;
+import unicopa.copa.base.event.EventGroup;
 import unicopa.copa.base.event.SingleEvent;
 
 /**
@@ -125,15 +127,37 @@ public class MainActivity extends Activity {
 	// begin Just for testing
 	Database db = Database.getInstance(MainActivity.this);
 	db.Table_delete("SingleEventLocal");
+	db.Table_delete("Event");
+	db.Table_delete("EventGroup");
 	db.Table_init();
+
+	EventGroup g1 = new EventGroup(3, "Telematik", "info", null);
+	EventGroup g2 = new EventGroup(2, "Mathe", "blabla", null);
+	EventGroup g3 = new EventGroup(4, "Linux", "info2", null);
+
+	Event ev1 = new Event(1, 3, "Übung1", new ArrayList<Integer>());
+	Event ev2 = new Event(2, 2, "Vorlesung", new ArrayList<Integer>());
+	Event ev3 = new Event(3, 4, "Übung2", new ArrayList<Integer>());
+
 	SingleEventLocal test = new SingleEventLocal(1, 3, "HU 102", Calendar
 		.getInstance().getTime(), "Martin", 4, "#77DD22",
-		"Telematik Übung", 2, 2, 2, 2, 2);
+		"Linux Übung2", 2, 2, 2, 2, 2);
 	SingleEventLocal test2 = new SingleEventLocal(5, 2, "HU 104", Calendar
 		.getInstance().getTime(), "Robin", 4, "#770000",
-		"Telematik Übung", 0, 0, 0, 0, 0);
+		"Mathe Vorlesung", 0, 0, 0, 0, 0);
+	SingleEventLocal test3 = new SingleEventLocal(6, 1, "HU 103", Calendar
+		.getInstance().getTime(), "Philip", 4, "#005577",
+		"Telematik Übung1", 0, 0, 0, 0, 0);
+
 	db.insert(test, 0);
 	db.insert(test2, 7);
+	db.insert(test3, 1);
+	db.insert(ev1, 1);
+	db.insert(ev2, 2);
+	db.insert(ev3, 3);
+	db.insert(g1, 9);
+	db.insert(g2, 8);
+	db.insert(g3, 6);
 	// end Just for testing
 
 	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(2);
