@@ -16,10 +16,19 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+
+import org.apache.http.client.ClientProtocolException;
 
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.event.SingleEvent;
 
 import android.os.Bundle;
@@ -50,20 +59,53 @@ public class SearchResultSingleEventActivity extends Activity {
 	final ListView singleEventListView = (ListView) SearchResultSingleEventActivity.this
 		.findViewById(R.id.singleEventListView);
 
-	singleEventListView.setAdapter(null);
-
 	ArrayList<SingleEvent> sEvents = new ArrayList<SingleEvent>();
 
-	sEvents.add(new SingleEvent(1, 3, "HU 102", Calendar.getInstance()
-		.getTime(), "SingleEventList", 4));
-	sEvents.add(new SingleEvent(2, 2, "HU 103", Calendar.getInstance()
-		.getTime(), "Robin", 00));
-	sEvents.add(new SingleEvent(3, 4, "HU 104", Calendar.getInstance()
-		.getTime(), "Philip", 0));
-	sEvents.add(new SingleEvent(4, 3, "HU 105", Calendar.getInstance()
-		.getTime(), "Felix", 7));
-	sEvents.add(new SingleEvent(5, 4, "HU 106", Calendar.getInstance()
-		.getTime(), "Philipp", 66));
+	singleEventListView.setAdapter(null);
+
+	// begin getCurrentSingleEvents
+
+	ServerConnection scon = ServerConnection.getInstance();
+
+	Date date = new Date();
+	int eventID = 0;
+
+	try {
+	    sEvents = (ArrayList<SingleEvent>) scon.getCurrentSingleEvents(
+		    eventID, date); // TODO get eventID from previous activity
+				    // and read current date
+	} catch (ClientProtocolException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (APIException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (PermissionException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (RequestNotPracticableException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (InternalErrorException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	// end getCurrentSingleEvents
+
+	// sEvents.add(new SingleEvent(1, 3, "HU 102", Calendar.getInstance()
+	// .getTime(), "SingleEventList", 4));
+	// sEvents.add(new SingleEvent(2, 2, "HU 103", Calendar.getInstance()
+	// .getTime(), "Robin", 00));
+	// sEvents.add(new SingleEvent(3, 4, "HU 104", Calendar.getInstance()
+	// .getTime(), "Philip", 0));
+	// sEvents.add(new SingleEvent(4, 3, "HU 105", Calendar.getInstance()
+	// .getTime(), "Felix", 7));
+	// sEvents.add(new SingleEvent(5, 4, "HU 106", Calendar.getInstance()
+	// .getTime(), "Philipp", 66));
 
 	SearchResultSingleEventAdapter sEventAdapter = new SearchResultSingleEventAdapter(
 		this, sEvents);
