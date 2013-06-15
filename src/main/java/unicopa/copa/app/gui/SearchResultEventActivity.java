@@ -54,6 +54,7 @@ public class SearchResultEventActivity extends Activity {
 	Intent intent = getIntent();
 	name = intent.getStringExtra("groupname");
 	int categoryId = intent.getIntExtra("categoryID", 0);
+	int eventGroupID = intent.getIntExtra("eventGroupID", 0);
 
 	TextView title = (TextView) findViewById(R.id.result_event_title);
 	title.setText(name);
@@ -68,7 +69,6 @@ public class SearchResultEventActivity extends Activity {
 	// begin getEvents
 
 	ServerConnection scon = ServerConnection.getInstance();
-	int eventGroupID = 0; // TODO get eventGroupID from previous activity
 
 	try {
 	    eventList = (ArrayList<Event>) scon.getEvents(eventGroupID,
@@ -94,10 +94,6 @@ public class SearchResultEventActivity extends Activity {
 	}
 
 	// end getEvents
-
-	// eventList.add(new Event(1, 4, "Vorlesung", null));
-	// eventList.add(new Event(2, 5, "Übung1", null));
-	// eventList.add(new Event(3, 6, "Übung2", null));
 
 	searchEventAdapter = new SearchResultEventAdapter(this, eventList);
 	eventListView.setAdapter((ListAdapter) searchEventAdapter);

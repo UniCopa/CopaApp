@@ -57,6 +57,7 @@ public class SearchResultGroupActivity extends Activity {
 	setContentView(R.layout.search_result_group);
 	Intent intent = getIntent();
 	categoryId = intent.getIntExtra("categoryID", 0);
+	String searchTerm = intent.getStringExtra("searchterm");
 
 	final ListView groupListView = (ListView) SearchResultGroupActivity.this
 		.findViewById(R.id.result_group_list);
@@ -68,7 +69,6 @@ public class SearchResultGroupActivity extends Activity {
 	// begin getEventGroups
 
 	ServerConnection scon = ServerConnection.getInstance();
-	String searchTerm = ""; // TODO set from previous Activity
 
 	try {
 	    eventGroupList = (ArrayList<EventGroup>) scon.getEventGroups(

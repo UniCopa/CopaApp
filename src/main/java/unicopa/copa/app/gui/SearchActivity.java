@@ -18,6 +18,8 @@ package unicopa.copa.app.gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -39,6 +41,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +59,7 @@ public class SearchActivity extends Activity {
     SearchAdapter searchAdapter;
     int currentID = 0;
     TextView cat;
+    EditText searchEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,7 @@ public class SearchActivity extends Activity {
 		.findViewById(R.id.search_list);
 	cat = (TextView) findViewById(R.id.search_categorie);
 	catListView.setAdapter(null);
+	searchEdit = (EditText) findViewById(R.id.search_edit);
 
 	ServerConnection scon = ServerConnection.getInstance();
 
@@ -122,11 +127,21 @@ public class SearchActivity extends Activity {
 		CategoryNodeImpl clicked = (CategoryNodeImpl) searchAdapter
 			.getItem(position);
 		currentID = clicked.getId();
-		cat.setText(clicked.getName());
-		categories.clear();
-		categories.addAll((ArrayList<CategoryNodeImpl>) clicked
-			.getChildren());
-		searchAdapter.notifyDataSetChanged();
+		List<CategoryNodeImpl> list = clicked.getChildren();
+		if (!list.equals(Collections.<CategoryNodeImpl> emptyList())) {
+		    cat.setText(clicked.getName());
+		    categories.clear();
+		    categories.addAll((ArrayList<CategoryNodeImpl>) list);
+		    searchAdapter.notifyDataSetChanged();
+		} else {
+		    String term = searchEdit.getText().toString();
+		    Intent intentResult = new Intent(SearchActivity.this,
+			    SearchResultGroupActivity.class);
+		    intentResult.putExtra("categoryID", currentID);
+		    intentResult.putExtra("searchterm", term);
+		    SearchActivity.this.startActivity(intentResult);
+		}
+
 	    }
 	});
     }
@@ -172,9 +187,11 @@ public class SearchActivity extends Activity {
     }
 
     public void onSearchButtonClick(View view) {
+	String term = searchEdit.getText().toString();
 	Intent intentResult = new Intent(SearchActivity.this,
 		SearchResultGroupActivity.class);
 	intentResult.putExtra("categoryID", currentID);
+	intentResult.putExtra("searchterm", term);
 	SearchActivity.this.startActivity(intentResult);
     }
 }
