@@ -78,7 +78,7 @@ public class SingleEventListAdapter extends BaseAdapter {
 	    holder.details = (Button) convertView
 		    .findViewById(R.id.singleEventList_details);
 	    holder.time = (TextView) convertView.findViewById(R.id.list_time);
-	    holder.date = (TextView) convertView.findViewById(R.id.date);
+	    holder.date = (TextView) convertView.findViewById(R.id.list_date);
 	    holder.colour = (LinearLayout) convertView
 		    .findViewById(R.id.SingleEventView);
 	    convertView.setTag(holder);

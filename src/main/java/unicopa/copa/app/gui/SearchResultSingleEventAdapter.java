@@ -16,10 +16,13 @@
  */
 package unicopa.copa.app.gui;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,31 +32,32 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import unicopa.copa.app.R;
-import unicopa.copa.base.event.Event;
+import unicopa.copa.base.event.SingleEvent;
 
 /**
- * This Adapter helps to show the List of Events.
+ * This Adapter helps to show the List of SingleEvents.
  * 
  * @author Christiane Kuhn
  */
-public class SearchResultEventAdapter extends BaseAdapter {
+public class SearchResultSingleEventAdapter extends BaseAdapter {
 
-    ArrayList<Event> EventList;
+    ArrayList<SingleEvent> singleEventList;
     Context context;
 
-    public SearchResultEventAdapter(Context context, ArrayList<Event> eventList) {
+    public SearchResultSingleEventAdapter(Context context,
+	    ArrayList<SingleEvent> eventList) {
 	this.context = context;
-	this.EventList = eventList;
+	this.singleEventList = eventList;
     }
 
     @Override
     public int getCount() {
-	return EventList.size();
+	return singleEventList.size();
     }
 
     @Override
     public Object getItem(int arg0) {
-	return EventList.get(arg0);
+	return singleEventList.get(arg0);
     }
 
     @Override
@@ -67,59 +71,40 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	if (convertView == null) {
 	    LayoutInflater inflater = (LayoutInflater) this.context
 		    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    convertView = inflater
-		    .inflate(R.layout.listitem_result_event, null);
+	    convertView = inflater.inflate(
+		    R.layout.listitem_result_singleevent, null);
 	    holder = new ViewHolder();
-	    holder.name = (TextView) convertView
-		    .findViewById(R.id.item_result_event_name);
-	    holder.dates = (Button) convertView
-		    .findViewById(R.id.item_result_event_datesbutton);
-	    holder.subscr = (Button) convertView
-		    .findViewById(R.id.item_result_event_subcrbutton);
+
+	    holder.time = (TextView) convertView
+		    .findViewById(R.id.search_list_time);
+	    holder.date = (TextView) convertView
+		    .findViewById(R.id.search_list_date);
 	    holder.colour = (LinearLayout) convertView
-		    .findViewById(R.id.item_result_event_list);
+		    .findViewById(R.id.SingleEventView);
 	    convertView.setTag(holder);
 
 	} else {
 	    holder = (ViewHolder) convertView.getTag();
 	}
+	SingleEvent sEvent = (SingleEvent) this.getItem(position);
 
-	final Event event = (Event) this.getItem(position);
-	holder.name.setText(event.getEventName());
-	Drawable draw = context.getResources().getDrawable(
-		R.drawable.border_cat);
+	holder.date.setText(new SimpleDateFormat("dd.MM").format(sEvent
+		.getDate()));
+	holder.time.setText(new SimpleDateFormat("HH:mm").format(sEvent
+		.getDate()));
+
+	GradientDrawable draw = (GradientDrawable) context.getResources()
+		.getDrawable(R.drawable.border_cat);
 	holder.colour.setBackgroundDrawable(draw);
 
-	holder.dates.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-
-		Intent intentSingleEvent = new Intent(context,
-			SearchResultSingleEventActivity.class);
-		intentSingleEvent.putExtra("selected", event.getEventID());
-		context.startActivity(intentSingleEvent);
-
-	    }
-
-	});
-
-	holder.subscr.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-		// send request to server
-	    }
-
-	});
-
 	return convertView;
+
     }
 
     static class ViewHolder {
-	TextView name;
-	Button dates;
-	Button subscr;
+	TextView time;
+	TextView date;
+
 	LinearLayout colour;
     }
 

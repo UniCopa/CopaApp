@@ -64,14 +64,15 @@ public class SearchResultGroupActivity extends Activity {
 	ArrayList<EventGroup> eventGroupList = new ArrayList<EventGroup>();
 
 	groupListView.setAdapter(null);
-	
+
 	// begin getEventGroups
-	
+
 	ServerConnection scon = ServerConnection.getInstance();
 	String searchTerm = ""; // TODO set from previous Activity
-		
+
 	try {
-	    eventGroupList = (ArrayList<EventGroup>) scon.getEventGroups(categoryId, searchTerm);
+	    eventGroupList = (ArrayList<EventGroup>) scon.getEventGroups(
+		    categoryId, searchTerm);
 	} catch (ClientProtocolException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -91,12 +92,13 @@ public class SearchResultGroupActivity extends Activity {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-			
+
 	// end getEventGroups
 
-//	eventGroupList.add(new EventGroup(1, "Telematik1", "Info", null));
-//	eventGroupList.add(new EventGroup(2, "Betriebssysteme", "Info2", null));
-//	eventGroupList.add(new EventGroup(3, "Mathe", "Info3", null));
+	// eventGroupList.add(new EventGroup(1, "Telematik1", "Info", null));
+	// eventGroupList.add(new EventGroup(2, "Betriebssysteme", "Info2",
+	// null));
+	// eventGroupList.add(new EventGroup(3, "Mathe", "Info3", null));
 
 	searchGroupAdapter = new SearchResultGroupAdapter(this, eventGroupList);
 	groupListView.setAdapter((ListAdapter) searchGroupAdapter);

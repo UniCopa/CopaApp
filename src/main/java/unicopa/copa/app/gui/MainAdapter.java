@@ -72,7 +72,8 @@ public class MainAdapter extends BaseAdapter {
 	    holder = new ViewHolder();
 	    holder.location = (TextView) convertView
 		    .findViewById(R.id.location);
-	    holder.date = (TextView) convertView.findViewById(R.id.date);
+	    holder.date = (TextView) convertView
+		    .findViewById(R.id.list_main_date);
 	    holder.dura = (TextView) convertView.findViewById(R.id.duration);
 	    holder.eventName = (TextView) convertView
 		    .findViewById(R.id.eventName);

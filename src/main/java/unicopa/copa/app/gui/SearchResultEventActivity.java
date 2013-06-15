@@ -95,9 +95,9 @@ public class SearchResultEventActivity extends Activity {
 
 	// end getEvents
 
-//	eventList.add(new Event(1, 4, "Vorlesung", null));
-//	eventList.add(new Event(2, 5, "Übung1", null));
-//	eventList.add(new Event(3, 6, "Übung2", null));
+	// eventList.add(new Event(1, 4, "Vorlesung", null));
+	// eventList.add(new Event(2, 5, "Übung1", null));
+	// eventList.add(new Event(3, 6, "Übung2", null));
 
 	searchEventAdapter = new SearchResultEventAdapter(this, eventList);
 	eventListView.setAdapter((ListAdapter) searchEventAdapter);
