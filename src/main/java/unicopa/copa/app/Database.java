@@ -18,6 +18,7 @@ package unicopa.copa.app;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import unicopa.copa.base.event.Event;
@@ -463,6 +464,17 @@ public class Database extends SQLiteOpenHelper{
 	    data.close();
 	    return null;
 	}
+    }
+    
+    public void updateRightholder(List<Integer> eventList){
+	data = this.getWritableDatabase();
+	for(int eventID:eventList){
+	    String updateString ="UPDATE singleEventLocal SET permissions = '1' WHERE eventID = '"+String.valueOf(eventID)+"'";
+	    Log.w("try", updateString);
+	    data.execSQL(updateString);
+	}
+	    
+	data.close();
     }
 
 }
