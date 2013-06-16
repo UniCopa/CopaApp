@@ -182,6 +182,7 @@ public class Helper {
      */
     public static SingleEventLocal checkChanges(
 	    List<SingleEventUpdate> sEventUpdateList) {
+
 	SingleEvent newestSEvent = null;
 	newestSEvent = sEventUpdateList.get(0).getUpdatedSingleEvent();
 
@@ -224,7 +225,7 @@ public class Helper {
 	    SingleEvent sEvent = null;
 	    sEvent = sEventUpdate.getUpdatedSingleEvent();
 
-	    if (date != sEvent.getDate()) {
+	    if (date.getTime() != sEvent.getDate().getTime()) {
 		dateCount = 1;
 		break;
 	    }
