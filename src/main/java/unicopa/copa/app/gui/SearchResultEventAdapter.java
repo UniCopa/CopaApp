@@ -120,7 +120,7 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	    @Override
 	    public void onClick(View v) {
 		// TODO send request to server
-		int eventID = 0; // TODO get eventID from clicked object
+		int eventID = event.getEventID();
 		SettingsLocal settingsLocal = null;
 
 		Storage storage = new Storage();
@@ -131,29 +131,29 @@ public class SearchResultEventAdapter extends BaseAdapter {
 		try {
 		    Helper.subscribe(eventID, settingsLocal, context);
 		} catch (ClientProtocolException e) {
-		    //TODO getString is unknown
-//		    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-//			    e.getMessage());
+
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.cp_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (APIException e) {
-//		    PopUp.exceptionAlert(this, getString(R.string.api_ex),
-//			    e.getMessage());
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.api_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (PermissionException e) {
-//		    PopUp.exceptionAlert(this, getString(R.string.per_ex),
-//			    e.getMessage());
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.per_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (RequestNotPracticableException e) {
-//		    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
-//			    e.getMessage());
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.rnp_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (InternalErrorException e) {
-//		    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-//			    e.getMessage());
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.ie_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (IOException e) {
-//		    PopUp.exceptionAlert(this, getString(R.string.io_ex),
-//			    e.getMessage());
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.io_ex), e.getMessage());
 		    // e.printStackTrace();
 		}
 	    }
