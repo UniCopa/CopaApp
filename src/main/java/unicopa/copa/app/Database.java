@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.event.Event;
 import unicopa.copa.base.event.EventGroup;
 
@@ -478,6 +480,24 @@ public class Database extends SQLiteOpenHelper{
 	data = this.getWritableDatabase();
 	for(int eventID:eventList){
 	    String updateString ="UPDATE singleEventLocal SET permissions = '"+String.valueOf(permissionCode)+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
+	    Log.w("try", updateString);
+	    data.execSQL(updateString);
+	}
+	data.close();
+    }
+    
+    public void updateColors(SettingsLocal setLoc){
+	data = this.getWritableDatabase();
+	int eventID;
+	String color;
+	String updateString;
+	Set<Integer> events = setLoc.getSubscriptions();
+	Iterator<Integer> iter = events.iterator();
+	while(iter.hasNext()){
+	    eventID = (Integer) iter.next();
+	    UserEventSettings uSett = setLoc.getEventSettings(eventID);
+	    color = uSett.getColorCode();
+	    updateString = "UPDATE singleEventLocal SET colorCode = '"+color+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
 	    Log.w("try", updateString);
 	    data.execSQL(updateString);
 	}
