@@ -208,11 +208,13 @@ public class Database extends SQLiteOpenHelper{
 		    UpdateColumns = delLast(UpdateColumns)
 			    + " WHERE singleEventID='" + ID_old + "'";
 
+		    c.close();
 		    Log.w("try", UpdateColumns);
 		    data.execSQL(UpdateColumns);
-		} else
+		} else{
 		    newEntry = true;
-		c.close();
+		    c.close();
+		}
 	    }
 	    if (newEntry) {
 		String InsertString = "INSERT INTO "
