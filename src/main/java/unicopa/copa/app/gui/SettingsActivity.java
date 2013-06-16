@@ -32,6 +32,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
@@ -140,5 +141,17 @@ public class SettingsActivity extends Activity {
 
 	PopUp.alert(this, getString(R.string.success),
 		getString(R.string.settings_saved));
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+	switch (item.getItemId()) {
+	case R.id.action_about:
+	    Intent intentLog = new Intent(SettingsActivity.this,
+		    AboutActivity.class);
+	    SettingsActivity.this.startActivity(intentLog);
+	    return true;
+	default:
+	    return super.onOptionsItemSelected(item);
+	}
     }
 }

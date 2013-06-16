@@ -67,5 +67,8 @@
 
     <string name="logout">Logout</string>
     <string name="minutes">min</string>
+    <string name="about">About CoPA</string>
+    <string name="about_copa">About CoPA</string>
+    <string name="copa_text">CoPA stands for Change of Plan Application.</string>
 
 </resources>

@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -159,5 +160,17 @@ public class LoginActivity extends Activity {
 	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
 	LoginActivity.this.startActivity(intentMain);
 
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+	switch (item.getItemId()) {
+	case R.id.action_about:
+	    Intent intentLog = new Intent(LoginActivity.this,
+		    AboutActivity.class);
+	    LoginActivity.this.startActivity(intentLog);
+	    return true;
+	default:
+	    return super.onOptionsItemSelected(item);
+	}
     }
 }
