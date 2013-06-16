@@ -171,6 +171,8 @@ public class Helper {
 	    // a lot of unnecessary work
 	}
 
+	// TODO save current date in SettingsLocal
+	
 	return true;
     }
 
