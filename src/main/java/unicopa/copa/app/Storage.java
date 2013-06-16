@@ -47,26 +47,23 @@ public class Storage {
 	this.context = context;
     }
 
-    public void store(String name, Object obj) {
-	if (obj instanceof SettingsLocal) {
+    public void store(SettingsLocal sLoc) {
 	    Gson gson = new Gson();
 	    SharedPreferences appSharedPrefs = context.getSharedPreferences(
 		    "Settings", 0);
 	    Editor prefsEditor = appSharedPrefs.edit();
-	    String json = gson.toJson(obj);
-	    prefsEditor.putString(name, json);
+	    String json = gson.toJson(sLoc);
+	    prefsEditor.putString("SettingsLocalObject", json);
 	    prefsEditor.commit();
-
-	} else
-	    Log.w("error", "No SettingsLocal Object");
     }
 
-    public Object load(String name, Object obj) {
+    public SettingsLocal load() {
 	SharedPreferences appSharedPrefs = context.getSharedPreferences(
 		"Settings", 0);
 	Gson gson = new Gson();
-	String json = appSharedPrefs.getString(name, "Object not found");
-	return gson.fromJson(json, obj.getClass());
+	String json = appSharedPrefs.getString("SettingsLocalObject", "Object not found");
+	Log.w("JSON String",json);
+	return gson.fromJson(json,SettingsLocal.class);
     }
 
     public void deleteSettings() {
