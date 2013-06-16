@@ -52,8 +52,7 @@ public class PrivilegesActivity extends Activity {
 
 	ArrayList<Event> events = new ArrayList<Event>();
 
-	// List<Event> list = db.getEventsWithPermission();
-	List<Event> list = db.getAllEvents();
+	List<Event> list = db.getEventsWithPermission();
 
 	for (Event item : list) {
 	    events.add(item);
