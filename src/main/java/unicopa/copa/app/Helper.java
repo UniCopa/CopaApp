@@ -56,17 +56,17 @@ public class Helper {
      * @throws IOException
      * @throws ClientProtocolException
      */
-    public static boolean subscribe(int eventID, SettingsLocal settings,
+    public static boolean subscribe(int eventID, SettingsLocal settingsLocal,
 	    Context context) throws ClientProtocolException, IOException,
 	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException {
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
-	settings.addSubscription(eventID);
+	settingsLocal.addSubscription(eventID);
 
 	UserSettings userSettings = null;
-	userSettings = (UserSettings) settings;
+	userSettings = (UserSettings) settingsLocal;
 
 	boolean success = false;
 	success = scon.setSettings(userSettings);
@@ -75,11 +75,13 @@ public class Helper {
 	    return false;
 	}
 
-	// TODO save settings to local database
+	Storage storage = new Storage();
+
+	storage.store("SettingsLocal", settingsLocal, context);
 
 	Date date = null;
 	date = Calendar.getInstance().getTime();
-	
+
 	List<SingleEvent> sEvents = null;
 	sEvents = scon.getCurrentSingleEvents(eventID, date);
 
@@ -107,7 +109,9 @@ public class Helper {
 
 	String name = "";
 	name = eventGroup.getEventGroupName() + event.getEventName();
+
 	List<SingleEventLocal> sEventsLocal = null;
+
 	Database db = Database.getInstance(context);
 
 	for (SingleEvent sEvent : sEvents) {
