@@ -22,6 +22,8 @@ import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
+import android.content.Context;
+
 import unicopa.copa.base.UserSettings;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
@@ -53,27 +55,29 @@ public class Helper {
      * @throws IOException
      * @throws ClientProtocolException
      */
-    public static boolean subscribe(int eventID, SettingsLocal settings)
-	    throws ClientProtocolException, IOException, APIException,
-	    PermissionException, RequestNotPracticableException,
+    public static boolean subscribe(int eventID, SettingsLocal settings,
+	    Context context) throws ClientProtocolException, IOException,
+	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException {
-	ServerConnection scon = ServerConnection.getInstance();
-	UserSettings userSettings = (UserSettings) settings;
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
 
-	Date date = new Date();
+	settings.addSubscription(eventID);
+
+	UserSettings userSettings = null;
+	userSettings = (UserSettings) settings;
+
 	boolean success = false;
-	List<SingleEvent> sEvents = null;
-	Event event = null;
-	EventGroup eventGroup = null;
-
-	userSettings.addSubscription(eventID);
-
 	success = scon.setSettings(userSettings);
 
 	if (!success) {
 	    return false;
 	}
 
+	// TODO save settings to local database
+
+	Date date = null;
+	List<SingleEvent> sEvents = null;
 	sEvents = scon.getCurrentSingleEvents(eventID, date); // TODO read
 							      // current date
 
@@ -82,6 +86,7 @@ public class Helper {
 			  // SingleEvents?
 	}
 
+	Event event = null;
 	event = scon.getEvent(eventID);
 
 	if (event == null) {
@@ -91,13 +96,29 @@ public class Helper {
 	int eventGroupID;
 	eventGroupID = event.getEventGroupID();
 
+	EventGroup eventGroup = null;
 	eventGroup = scon.getEventGroup(eventGroupID);
 
 	if (eventGroup == null) {
 	    return false;
 	}
 
-	// TODO save all in local database
+	String name = "";
+	name = eventGroup.getEventGroupName() + event.getEventName();
+	List<SingleEventLocal> sEventsLocal = null;
+	Database db = Database.getInstance(context);
+
+	for (SingleEvent sEvent : sEvents) {
+	    SingleEventLocal sEventLocal = null;
+	    sEventLocal = (SingleEventLocal) sEvent;
+
+	    sEventLocal.setName(name);
+
+	    db.insert(sEventLocal, -1);
+	}
+
+	db.insert(event, -1);
+	db.insert(eventGroup, -1);
 
 	return true;
     }
@@ -115,25 +136,30 @@ public class Helper {
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
      */
-    public static boolean update(Date date) throws ClientProtocolException,
-	    IOException, APIException, PermissionException,
-	    RequestNotPracticableException, InternalErrorException {
-	ServerConnection scon = ServerConnection.getInstance();
-	List<List<SingleEventUpdate>> sEventUpdatesListList = null;
+    public static boolean update(Date date, Context context)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
 
+	List<List<SingleEventUpdate>> sEventUpdatesListList = null;
 	sEventUpdatesListList = scon.getSubscribedSingleEventUpdates(date);
 
 	for (List<SingleEventUpdate> sEventUpdateList : sEventUpdatesListList) {
-	    SingleEventLocal sEventLocal = null;
 	    int listSize = 0;
-	    int oldSEventID = 0;
-
 	    listSize = sEventUpdateList.size();
+
+	    int oldSEventID = 0;
 	    oldSEventID = sEventUpdateList.get(listSize - 1)
 		    .getOldSingleEventID();
+
+	    SingleEventLocal sEventLocal = null;
 	    sEventLocal = checkChanges(sEventUpdateList);
 
-	    // TODO save sEventLocal in local database
+	    Database db = Database.getInstance(context);
+
+	    db.insert(sEventLocal, oldSEventID);
 
 	    // TODO inconsistency (see white board) could be solved by saving
 	    // every sEvent one after another not just the last one, but this is
@@ -155,21 +181,30 @@ public class Helper {
 	SingleEvent newestSEvent = null;
 	newestSEvent = sEventUpdateList.get(0).getUpdatedSingleEvent();
 
-	String location = newestSEvent.getLocation();
-	int locationCount = 0;
-	Date date = null;
-	int dateCount = 0;
-	String supervisor = "";
-	int supervisorCount = 0;
-	int duration = 0;
-	int durationCount = 0;
-	int singleEventID = 0;
-	int eventID = 0;
+	String location = "";
+	location = newestSEvent.getLocation();
 
+	int locationCount = 0;
+
+	Date date = null;
 	date = newestSEvent.getDate();
+
+	int dateCount = 0;
+
+	String supervisor = "";
 	supervisor = newestSEvent.getSupervisor();
+
+	int supervisorCount = 0;
+
+	int duration = 0;
 	duration = newestSEvent.getDurationMinutes();
+
+	int durationCount = 0;
+
+	int singleEventID = 0;
 	singleEventID = newestSEvent.getSingleEventID();
+
+	int eventID = 0;
 	eventID = newestSEvent.getEventID();
 
 	for (SingleEventUpdate sEventUpdate : sEventUpdateList) {
@@ -214,7 +249,7 @@ public class Helper {
 	SingleEventLocal sEventLocal = null;
 	sEventLocal = new SingleEventLocal(singleEventID, eventID, location,
 		date, supervisor, duration, "" /* colorCode */, "" /* name */,
-		locationCount, dateCount, supervisorCount, durationCount, -1 /* permission */);
+		locationCount, dateCount, supervisorCount, durationCount, 0 /* permission */);
 
 	return sEventLocal;
     }
