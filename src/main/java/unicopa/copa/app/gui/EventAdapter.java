@@ -36,7 +36,7 @@ import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.base.event.Event;
 
 /**
- * This Adapter helps to show the List of Events.
+ * This Adapter helps to show the List of subscribed Events.
  * 
  * @author Christiane Kuhn
  */
@@ -65,6 +65,10 @@ public class EventAdapter extends BaseAdapter {
 	return arg0;
     }
 
+    /**
+     * Creates the ListView with Events in user defined colors (black as
+     * default) and reacts on buttonclicks.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 	ViewHolder holder = null;
@@ -93,9 +97,9 @@ public class EventAdapter extends BaseAdapter {
 	String colored = "#000000";
 
 	if (db.getSingleEventsByEventID(event.getEventID()) != null) {
-	    // SingleEventLocal sEvent = (SingleEventLocal) db
-	    // .getSingleEventsByEventID(event.getEventID()).get(0);
-	    // colored = sEvent.getColorCode();
+	    SingleEventLocal sEvent = (SingleEventLocal) db
+		    .getSingleEventsByEventID(event.getEventID()).get(0);
+	    colored = sEvent.getColorCode();
 	}
 
 	holder.eventGroupName.setText(db.getEventGroupName(event

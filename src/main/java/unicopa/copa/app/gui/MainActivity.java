@@ -54,7 +54,7 @@ import unicopa.copa.base.event.EventGroup;
 import unicopa.copa.base.event.SingleEvent;
 
 /**
- * In this activity the user sees a list of SingleEvents.
+ * In this activity the user sees a list of his next SingleEvents.
  * 
  * @author Christiane Kuhn, Martin Rabe
  */
@@ -143,15 +143,15 @@ public class MainActivity extends Activity {
 		.getInstance().getTime(), "Martin", 4, "#77DD22",
 		"Linux Übung2", 2, 2, 2, 2, 2);
 	SingleEventLocal test2 = new SingleEventLocal(5, 2, "HU 104", Calendar
-		.getInstance().getTime(), "Robin", 4, "#770000",
+		.getInstance().getTime(), "Robin", 5, "#770000",
 		"Mathe Vorlesung", 0, 0, 0, 0, 0);
 	SingleEventLocal test3 = new SingleEventLocal(6, 1, "HU 103", Calendar
-		.getInstance().getTime(), "Philip", 4, "#005577",
+		.getInstance().getTime(), "Philip", 90, "#005577",
 		"Telematik Übung1", 0, 0, 0, 0, 0);
 
 	db.insert(test, 0);
 	db.insert(test2, 7);
-	db.insert(test3, 1);
+	db.insert(test3, 4);
 	db.insert(ev1, 1);
 	db.insert(ev2, 2);
 	db.insert(ev3, 3);
@@ -160,7 +160,7 @@ public class MainActivity extends Activity {
 	db.insert(g3, 6);
 	// end Just for testing
 
-	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(2);
+	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(3);
 	for (SingleEventLocal item : sEventsloc) {
 	    sEvents.add(item);
 	}
@@ -253,6 +253,9 @@ public class MainActivity extends Activity {
 	}
     }
 
+    /**
+     * Handles clicks on a menu-item
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
