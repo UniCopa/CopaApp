@@ -110,8 +110,6 @@ public class Helper {
 	String name = "";
 	name = eventGroup.getEventGroupName() + event.getEventName();
 
-	List<SingleEventLocal> sEventsLocal = null;
-
 	Database db = Database.getInstance(context);
 
 	for (SingleEvent sEvent : sEvents) {
