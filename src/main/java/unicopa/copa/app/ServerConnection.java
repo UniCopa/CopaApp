@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -207,6 +208,12 @@ public class ServerConnection {
 	// Log.v("SITE", response.toString());
 	// Log.v("SITE AVAILABLE", response.getStatusLine().toString());
 
+	if (!response.getFirstHeader("location").toString().substring(10, 46)
+		.matches("https://copa.prakinf.tu-ilmenau.de/;")) {
+	    setConnected(false);
+	    return false;
+	}
+
 	// handle response
 	InputStreamReader reader = null;
 	reader = new InputStreamReader(response.getEntity().getContent());
@@ -226,16 +233,8 @@ public class ServerConnection {
 	rd.close();
 	reader.close();
 
-	// TODO this does not work, there is a cookie created whether to login
-	// succeeds or not
-	// return
-	if (cookies.isEmpty()) {
-	    setConnected(false);
-	    return false;
-	} else {
-	    setConnected(true);
-	    return true;
-	}
+	setConnected(true);
+	return true;
     }
 
     /**
