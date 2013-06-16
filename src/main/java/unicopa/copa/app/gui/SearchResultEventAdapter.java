@@ -126,8 +126,7 @@ public class SearchResultEventAdapter extends BaseAdapter {
 		Storage storage = Storage.getInstance(null);
 
 		// TODO is this correct?
-		settingsLocal = (SettingsLocal) storage.load("SettingsLocal",
-			settingsLocal);
+		settingsLocal = (SettingsLocal) storage.load();
 		try {
 		    Helper.subscribe(eventID, settingsLocal, context);
 		} catch (ClientProtocolException e) {
