@@ -154,8 +154,8 @@ public class MainActivity extends Activity {
 	SettingsLocal setLoc = new SettingsLocal(gcmKeys, emailNotification,
 		language, map, notificationKind, lastUpdate);
 
-	Storage S = new Storage();
-	S.store("SettingsLocal", setLoc, this.getApplicationContext());
+	Storage S = Storage.getInstance(this.getApplicationContext());
+	S.store("SettingsLocal", setLoc);
 
 	// Database
 	Database db = Database.getInstance(MainActivity.this);

@@ -26,32 +26,50 @@ import android.util.Log;
 /**
  * This class implements the Android SharedPreferences to store Settings.
  * 
- * @author Robin Muench
+ * @author Robin Muench, Martin Rabe
  */
 
 public class Storage {
-	public void store(String name, Object obj, Context appContext){
-		if(obj instanceof SettingsLocal){
-			Gson gson = new Gson();
-			SharedPreferences appSharedPrefs = appContext.getSharedPreferences("Settings",0);
-			Editor prefsEditor = appSharedPrefs.edit();
-			String json = gson.toJson(obj);
-			prefsEditor.putString(name, json);
-			prefsEditor.commit();
-			
-			
-		}
-		else Log.w("error","No SettingsLocal Object");
+
+    private static Storage instance;
+
+    private Context context;
+
+    public static Storage getInstance(Context context) {
+	if (instance == null) {
+	    instance = new Storage(context);
 	}
-	
-	public Object load(String name, Object obj, Context appContext){
-		  SharedPreferences appSharedPrefs = appContext.getSharedPreferences("Settings", 0);
-		  Gson gson = new Gson();
-		  String json = appSharedPrefs.getString(name, "Object not found");
-		  return gson.fromJson(json, obj.getClass());
-	}
-	
-	public void deleteSettings(Context appContext){
-		appContext.getSharedPreferences("Settings", 0).edit().clear().commit();
-	}
+
+	return instance;
+    }
+
+    private Storage(Context context) {
+	this.context = context;
+    }
+
+    public void store(String name, Object obj) {
+	if (obj instanceof SettingsLocal) {
+	    Gson gson = new Gson();
+	    SharedPreferences appSharedPrefs = context.getSharedPreferences(
+		    "Settings", 0);
+	    Editor prefsEditor = appSharedPrefs.edit();
+	    String json = gson.toJson(obj);
+	    prefsEditor.putString(name, json);
+	    prefsEditor.commit();
+
+	} else
+	    Log.w("error", "No SettingsLocal Object");
+    }
+
+    public Object load(String name, Object obj) {
+	SharedPreferences appSharedPrefs = context.getSharedPreferences(
+		"Settings", 0);
+	Gson gson = new Gson();
+	String json = appSharedPrefs.getString(name, "Object not found");
+	return gson.fromJson(json, obj.getClass());
+    }
+
+    public void deleteSettings() {
+	context.getSharedPreferences("Settings", 0).edit().clear().commit();
+    }
 }
