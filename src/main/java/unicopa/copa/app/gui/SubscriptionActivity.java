@@ -69,9 +69,10 @@ public class SubscriptionActivity extends Activity {
 	    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 		    long arg3) {
 		Intent intent = new Intent(SubscriptionActivity.this,
-			SingleEventActivity.class);
-		intent.putExtra("selected",
-			eventListView.getAdapter().getItem(arg2).toString());
+			SingleEventListActivity.class);
+		Event clicked = (Event) eventListView.getAdapter()
+			.getItem(arg2);
+		intent.putExtra("selected", clicked.getEventID());
 		startActivity(intent);
 	    }
 	});

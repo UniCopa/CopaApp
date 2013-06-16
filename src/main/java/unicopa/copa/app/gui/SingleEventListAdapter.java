@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +31,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import unicopa.copa.app.R;
-import unicopa.copa.base.event.SingleEvent;
+import unicopa.copa.app.SingleEventLocal;
 
 /**
  * This Adapter helps to show the List of SingleEvents.
@@ -41,11 +42,11 @@ import unicopa.copa.base.event.SingleEvent;
  */
 public class SingleEventListAdapter extends BaseAdapter {
 
-    ArrayList<SingleEvent> singleEventList;
+    ArrayList<SingleEventLocal> singleEventList;
     Context context;
 
     public SingleEventListAdapter(Context context,
-	    ArrayList<SingleEvent> eventList) {
+	    ArrayList<SingleEventLocal> eventList) {
 	this.context = context;
 	this.singleEventList = eventList;
     }
@@ -65,6 +66,10 @@ public class SingleEventListAdapter extends BaseAdapter {
 	return arg0;
     }
 
+    /**
+     * Fills the ListView, gives the Items a user defined color and shows
+     * change-button depending on the role of the user.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 	ViewHolder holder = null;
@@ -86,18 +91,27 @@ public class SingleEventListAdapter extends BaseAdapter {
 	} else {
 	    holder = (ViewHolder) convertView.getTag();
 	}
-	SingleEvent sEvent = (SingleEvent) this.getItem(position);
+	final SingleEventLocal sEvent = (SingleEventLocal) this
+		.getItem(position);
 
 	holder.date.setText(new SimpleDateFormat("dd.MM").format(sEvent
 		.getDate()));
 	holder.time.setText(new SimpleDateFormat("HH:mm").format(sEvent
 		.getDate()));
+	String colored = sEvent.getColorCode();
 
-	int mColor = 0x99884488;
+	int mColor = Color.parseColor(colored);
+
 	GradientDrawable draw = (GradientDrawable) context.getResources()
 		.getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
 	draw.setStroke(5, mColor);
+	holder.change.setVisibility(View.GONE);
+
+	// TODO check if role-number is chosen correct
+	if (sEvent.getPermission() > 0) {
+	    holder.change.setVisibility(View.VISIBLE);
+	}
 
 	holder.change.setOnClickListener(new OnClickListener() {
 
@@ -106,7 +120,9 @@ public class SingleEventListAdapter extends BaseAdapter {
 
 		Intent intentChangeSingleEvent = new Intent(context,
 			ChangeSingleEventActivity.class);
-		intentChangeSingleEvent.putExtra("key", "value");
+
+		intentChangeSingleEvent.putExtra("singleID",
+			sEvent.getSingleEventID());
 		context.startActivity(intentChangeSingleEvent);
 
 	    }
@@ -119,7 +135,8 @@ public class SingleEventListAdapter extends BaseAdapter {
 	    public void onClick(View v) {
 		Intent intentEventPriv = new Intent(context,
 			SingleEventActivity.class);
-		intentEventPriv.putExtra("key", "value");
+		intentEventPriv.putExtra("selectedID",
+			sEvent.getSingleEventID());
 		context.startActivity(intentEventPriv);
 
 	    }
