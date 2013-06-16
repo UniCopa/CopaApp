@@ -17,7 +17,6 @@
 package unicopa.copa.app.gui;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
@@ -52,11 +51,9 @@ public class SingleEventActivity extends Activity {
 	int singleEventID = intent.getIntExtra("selectedID", 0);
 	Database db = Database.getInstance(SingleEventActivity.this);
 
-	// TODO Change to getSingleEventbySingleEventID
-	List<SingleEventLocal> list = db.getNearestSingleEvents(2);
-	SingleEventLocal sEventLocal = (SingleEventLocal) list.get(1);
-	// SingleEventLocal sEventLocal = db
-	// .getSingleEventBySingleEventID(singleEventID);
+	SingleEventLocal sEventLocal = db
+		.getSingleEventBySingleEventID(singleEventID);
+	db.close();
 
 	TextView sEventID = (TextView) super
 		.findViewById(R.id.singleEventID_sEV);

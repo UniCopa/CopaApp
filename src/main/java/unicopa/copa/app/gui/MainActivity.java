@@ -149,15 +149,15 @@ public class MainActivity extends Activity {
 		.getInstance().getTime(), "Philip", 90, "#005577",
 		"Telematik Übung1", 0, 0, 0, 0, 0);
 
-	db.insert(test, 0);
-	db.insert(test2, 7);
-	db.insert(test3, 4);
-	db.insert(ev1, 1);
-	db.insert(ev2, 2);
-	db.insert(ev3, 3);
-	db.insert(g1, 9);
-	db.insert(g2, 8);
-	db.insert(g3, 6);
+	db.insert(test, -1);
+	db.insert(test2, -1);
+	db.insert(test3, -1);
+	db.insert(ev1, -1);
+	db.insert(ev2, -1);
+	db.insert(ev3, -1);
+	db.insert(g1, -1);
+	db.insert(g2, -1);
+	db.insert(g3, -1);
 	// end Just for testing
 
 	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(3);
