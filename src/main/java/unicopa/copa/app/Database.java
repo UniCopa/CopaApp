@@ -466,14 +466,21 @@ public class Database extends SQLiteOpenHelper{
 	}
     }
     
-    public void updateRightholder(List<Integer> eventList){
+    public void clearPermissions(){
+	data = this.getWritableDatabase();
+	String updateString = "UPDATE singleEventLocal SET permissions = '0'";
+	Log.w("try", updateString);
+	data.execSQL(updateString);
+	data.close();
+    }
+    
+    public void updatePermissions(List<Integer> eventList,int permissionCode){
 	data = this.getWritableDatabase();
 	for(int eventID:eventList){
-	    String updateString ="UPDATE singleEventLocal SET permissions = '1' WHERE eventID = '"+String.valueOf(eventID)+"'";
+	    String updateString ="UPDATE singleEventLocal SET permissions = '"+String.valueOf(permissionCode)+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
 	    Log.w("try", updateString);
 	    data.execSQL(updateString);
 	}
-	    
 	data.close();
     }
 
