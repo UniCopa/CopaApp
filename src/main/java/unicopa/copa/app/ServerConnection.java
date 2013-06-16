@@ -246,7 +246,6 @@ public class ServerConnection {
      */
     public boolean logout() {
 	// TODO get on https://copa.prakinf.tu-ilmenau.de/logout.jsp
-	// TODO erase the session cookie and sessionID
 	if (true) {
 	    setConnected(false);
 
