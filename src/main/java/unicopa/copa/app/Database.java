@@ -48,7 +48,7 @@ public class Database extends SQLiteOpenHelper{
 	    "eventID", "name", "date", "dateUpdateCounter", "supervisor",
 	    "supervisorUpdateCounter", "location", "locationUpdateCounter",
 	    "durationMinutes", "durationMinutesUpdateCounter", "colorCode",
-	    "permissions" };
+	    "permission" };
     private static final String[] Event_scheme = { "eventID", "eventGroupID",
 	    "eventName" };
     private static final String[] EventGroup_scheme = { "eventGroupID",
@@ -518,6 +518,7 @@ public class Database extends SQLiteOpenHelper{
 	}
 	else{
 	    c.close();
+	    data.close();
 	    Log.w("error","no SingleEventsFound");
 	    return null;
 	}
@@ -527,7 +528,7 @@ public class Database extends SQLiteOpenHelper{
     
     public void clearPermissions(){
 	data = this.getWritableDatabase();
-	String updateString = "UPDATE singleEventLocal SET permissions = '0'";
+	String updateString = "UPDATE singleEventLocal SET permission = '0'";
 	Log.w("try", updateString);
 	data.execSQL(updateString);
 	data.close();
@@ -536,7 +537,7 @@ public class Database extends SQLiteOpenHelper{
     public void updatePermissions(List<Integer> eventList,int permissionCode){
 	data = this.getWritableDatabase();
 	for(int eventID:eventList){
-	    String updateString ="UPDATE singleEventLocal SET permissions = '"+String.valueOf(permissionCode)+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
+	    String updateString ="UPDATE singleEventLocal SET permission = '"+String.valueOf(permissionCode)+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
 	    Log.w("try", updateString);
 	    data.execSQL(updateString);
 	}
