@@ -454,10 +454,12 @@ public class Database extends SQLiteOpenHelper{
 		    c.getInt(10), // durationMinutesUpdateCounter
 		    c.getInt(12) // Permissions
 		    );
+	    c.close();
 	    data.close();
 	    return sev;
 	}
 	else {
+	    c.close();
 	    data.close();
 	    return null;
 	}
