@@ -22,19 +22,19 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
+import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.base.event.Event;
 
 /**
@@ -75,7 +75,8 @@ public class PrivAdapter extends BaseAdapter {
 		    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    convertView = inflater.inflate(R.layout.listitem_priv, null);
 	    holder = new ViewHolder();
-
+	    holder.eventGroupName = (TextView) convertView
+		    .findViewById(R.id.eventGroup);
 	    holder.eventName = (TextView) convertView.findViewById(R.id.event);
 	    holder.change = (Button) convertView.findViewById(R.id.priv_change);
 	    holder.other = (Button) convertView.findViewById(R.id.priv_others);
@@ -86,11 +87,29 @@ public class PrivAdapter extends BaseAdapter {
 	} else {
 	    holder = (ViewHolder) convertView.getTag();
 	}
+	Database db = Database.getInstance(context);
 
 	final Event event = (Event) this.getItem(position);
+	String colored = "#000000";
+
+	if (db.getSingleEventsByEventID(event.getEventID()) != null) {
+	    SingleEventLocal sEvent = (SingleEventLocal) db
+		    .getSingleEventsByEventID(event.getEventID()).get(0);
+	    colored = sEvent.getColorCode();
+	}
+
+	holder.eventGroupName.setText(db.getEventGroupName(event
+		.getEventGroupID()));
 	holder.eventName.setText(event.getEventName());
-	Drawable draw = context.getResources().getDrawable(R.drawable.border);
+
+	// Convert string color to int
+
+	int mColor = Color.parseColor(colored);
+
+	GradientDrawable draw = (GradientDrawable) context.getResources()
+		.getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
+	draw.setStroke(5, mColor);
 
 	holder.change.setOnClickListener(new OnClickListener() {
 

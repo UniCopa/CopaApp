@@ -17,8 +17,9 @@
 package unicopa.copa.app.gui;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
+import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
 import unicopa.copa.base.event.Event;
 
@@ -27,11 +28,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * In this activity a user can manage his privileges.
@@ -50,25 +48,19 @@ public class PrivilegesActivity extends Activity {
 
 	eventListView.setAdapter(null);
 
-	ArrayList<Event> sEvents = new ArrayList<Event>();
-	sEvents.add(new Event(1, 3, "Event1", new ArrayList<Integer>()));
-	sEvents.add(new Event(2, 2, "Event2", new ArrayList<Integer>()));
-	sEvents.add(new Event(3, 4, "Event3", new ArrayList<Integer>()));
+	Database db = Database.getInstance(PrivilegesActivity.this);
 
-	PrivAdapter privAdapter = new PrivAdapter(this, sEvents);
+	ArrayList<Event> events = new ArrayList<Event>();
+
+	// List<Event> list = db.getEventsWithPermission();
+	List<Event> list = db.getAllEvents();
+
+	for (Event item : list) {
+	    events.add(item);
+	}
+
+	PrivAdapter privAdapter = new PrivAdapter(this, events);
 	eventListView.setAdapter((ListAdapter) privAdapter);
-
-	eventListView.setOnItemClickListener(new OnItemClickListener() {
-	    @Override
-	    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-		    long arg3) {
-		Intent intent = new Intent(PrivilegesActivity.this,
-			SingleEventActivity.class);
-		intent.putExtra("selected",
-			eventListView.getAdapter().getItem(arg2).toString());
-		startActivity(intent);
-	    }
-	});
     }
 
     @Override
