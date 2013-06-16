@@ -87,7 +87,7 @@ public class PrivAdapter extends BaseAdapter {
 	    holder = (ViewHolder) convertView.getTag();
 	}
 
-	Event event = (Event) this.getItem(position);
+	final Event event = (Event) this.getItem(position);
 	holder.eventName.setText(event.getEventName());
 	Drawable draw = context.getResources().getDrawable(R.drawable.border);
 	holder.colour.setBackgroundDrawable(draw);
@@ -99,7 +99,7 @@ public class PrivAdapter extends BaseAdapter {
 
 		Intent intentSingleEventList = new Intent(context,
 			SingleEventListActivity.class);
-		intentSingleEventList.putExtra("key", "value");
+		intentSingleEventList.putExtra("selected", event.getEventID());
 		context.startActivity(intentSingleEventList);
 
 	    }

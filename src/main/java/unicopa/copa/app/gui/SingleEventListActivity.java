@@ -52,9 +52,7 @@ public class SingleEventListActivity extends Activity {
 	ArrayList<SingleEventLocal> sEvents = new ArrayList<SingleEventLocal>();
 	Database db = Database.getInstance(SingleEventListActivity.this);
 
-	// List<SingleEventLocal> sEventsloc =
-	// db.getSingleEventsByEventID(event);
-	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(3);
+	List<SingleEventLocal> sEventsloc = db.getSingleEventsByEventID(event);
 	for (SingleEventLocal item : sEventsloc) {
 	    sEvents.add(item);
 	}

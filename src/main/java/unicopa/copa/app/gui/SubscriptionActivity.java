@@ -28,11 +28,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * In this activity a user can see all Events, which he has subscribed.
@@ -64,18 +61,6 @@ public class SubscriptionActivity extends Activity {
 	EventAdapter eventAdapter = new EventAdapter(this, sEvents);
 	eventListView.setAdapter((ListAdapter) eventAdapter);
 
-	eventListView.setOnItemClickListener(new OnItemClickListener() {
-	    @Override
-	    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-		    long arg3) {
-		Intent intent = new Intent(SubscriptionActivity.this,
-			SingleEventListActivity.class);
-		Event clicked = (Event) eventListView.getAdapter()
-			.getItem(arg2);
-		intent.putExtra("selected", clicked.getEventID());
-		startActivity(intent);
-	    }
-	});
     }
 
     @Override

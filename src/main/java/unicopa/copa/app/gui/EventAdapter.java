@@ -93,7 +93,7 @@ public class EventAdapter extends BaseAdapter {
 	}
 	Database db = Database.getInstance(context);
 
-	Event event = (Event) this.getItem(position);
+	final Event event = (Event) this.getItem(position);
 	String colored = "#000000";
 
 	if (db.getSingleEventsByEventID(event.getEventID()) != null) {
@@ -129,7 +129,7 @@ public class EventAdapter extends BaseAdapter {
 	    public void onClick(View v) {
 		Intent intentSingleEvent = new Intent(context,
 			SingleEventListActivity.class);
-		intentSingleEvent.putExtra("key", "value");
+		intentSingleEvent.putExtra("selected", event.getEventID());
 		context.startActivity(intentSingleEvent);
 
 	    }
