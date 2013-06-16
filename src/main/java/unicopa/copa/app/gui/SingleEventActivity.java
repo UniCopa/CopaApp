@@ -37,6 +37,7 @@ import android.widget.TextView;
  * @author Christiane Kuhn
  */
 public class SingleEventActivity extends Activity {
+    SingleEventLocal sEventLocal;
 
     /**
      * Shows all information of a SingleEvent which are in the database.
@@ -51,8 +52,7 @@ public class SingleEventActivity extends Activity {
 	int singleEventID = intent.getIntExtra("selectedID", 0);
 	Database db = Database.getInstance(SingleEventActivity.this);
 
-	SingleEventLocal sEventLocal = db
-		.getSingleEventBySingleEventID(singleEventID);
+	sEventLocal = db.getSingleEventBySingleEventID(singleEventID);
 	db.close();
 
 	TextView sEventID = (TextView) super
@@ -138,9 +138,11 @@ public class SingleEventActivity extends Activity {
      * @param view
      */
     public void onChangeDateButtonClick(View view) {
-	Intent intentSingleEvent = new Intent(SingleEventActivity.this,
+	Intent intentChangeSingleEvent = new Intent(SingleEventActivity.this,
 		ChangeSingleEventActivity.class);
-	SingleEventActivity.this.startActivity(intentSingleEvent);
+	intentChangeSingleEvent.putExtra("singleID",
+		sEventLocal.getSingleEventID());
+	SingleEventActivity.this.startActivity(intentChangeSingleEvent);
     }
 
 }

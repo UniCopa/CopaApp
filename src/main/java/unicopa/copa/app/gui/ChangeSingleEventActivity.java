@@ -16,12 +16,18 @@
  */
 package unicopa.copa.app.gui;
 
+import java.text.SimpleDateFormat;
+
+import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
+import unicopa.copa.app.SingleEventLocal;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 /**
  * In this activity a user can update a event, if he has the rights to do it.
@@ -35,7 +41,28 @@ public class ChangeSingleEventActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.changesingleevent);
 	Intent intent = getIntent();
-	String event = intent.getStringExtra("key");
+	int sEventID = intent.getIntExtra("singleID", 0);
+
+	Database db = Database.getInstance(ChangeSingleEventActivity.this);
+
+	SingleEventLocal sEventLocal = db
+		.getSingleEventBySingleEventID(sEventID);
+	db.close();
+
+	TextView name = (TextView) findViewById(R.id.change_eventGroupname);
+	TextView location = (TextView) findViewById(R.id.change_location);
+	TextView date = (TextView) findViewById(R.id.change_date);
+	TextView time = (TextView) findViewById(R.id.change_time);
+	TextView supervisor = (TextView) findViewById(R.id.change_supervisor);
+	TextView durationtime = (TextView) findViewById(R.id.change_dura);
+
+	name.setText(sEventLocal.getName());
+	location.setText(sEventLocal.getLocation());
+	date.setText(new SimpleDateFormat("dd.MM").format(sEventLocal.getDate()));
+	time.setText(new SimpleDateFormat("HH:mm").format(sEventLocal.getDate()));
+	supervisor.setText(sEventLocal.getSupervisor());
+	durationtime.setText(String.valueOf(sEventLocal.getDurationMinutes()));
+
     }
 
     /**
