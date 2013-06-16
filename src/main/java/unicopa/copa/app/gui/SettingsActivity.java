@@ -62,12 +62,7 @@ public class SettingsActivity extends Activity {
 
 	// check if logged in if not redirect to LoginActivity
 	if (!scon.getConnected()) {
-	    // TODO redirects instantly without waiting
 	    PopUp.loginFail(this);
-
-	    Intent intentLog = new Intent(SettingsActivity.this,
-		    LoginActivity.class);
-	    SettingsActivity.this.startActivity(intentLog);
 	}
 
 	mail = (CheckBox) findViewById(R.id.settings_noti_mail);
@@ -115,35 +110,34 @@ public class SettingsActivity extends Activity {
 	int selectedGCM = gcm.getCheckedRadioButtonId();
 
 	// TODO read SettingsLocal from local database and set new values
-	
+
 	try {
 	    scon.setSettings(settings);
 	} catch (ClientProtocolException e) {
-		PopUp.exceptionAlert(this, "ClientProtocolException!",
-			e.getMessage());
-		// e.printStackTrace();
-	    } catch (APIException e) {
-		PopUp.exceptionAlert(this, "APIException!", e.getMessage());
-		// e.printStackTrace();
-	    } catch (PermissionException e) {
-		PopUp.exceptionAlert(this, "PermissionException!",
-			e.getMessage());
-		// e.printStackTrace();
-	    } catch (RequestNotPracticableException e) {
-		PopUp.exceptionAlert(this, "RequestNotPracticableException!",
-			e.getMessage());
-		// e.printStackTrace();
-	    } catch (InternalErrorException e) {
-		PopUp.exceptionAlert(this, "InternalErrorException!",
-			e.getMessage());
-		// e.printStackTrace();
-	    } catch (IOException e) {
-		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
-		// e.printStackTrace();
-	    }
-	
+	    PopUp.exceptionAlert(this, "ClientProtocolException!",
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (APIException e) {
+	    PopUp.exceptionAlert(this, "APIException!", e.getMessage());
+	    // e.printStackTrace();
+	} catch (PermissionException e) {
+	    PopUp.exceptionAlert(this, "PermissionException!", e.getMessage());
+	    // e.printStackTrace();
+	} catch (RequestNotPracticableException e) {
+	    PopUp.exceptionAlert(this, "RequestNotPracticableException!",
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (InternalErrorException e) {
+	    PopUp.exceptionAlert(this, "InternalErrorException!",
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (IOException e) {
+	    PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+	    // e.printStackTrace();
+	}
+
 	// TODO if setSettings succeeded save SettingsLocal to local database
-	
+
 	PopUp.alert(this, getString(R.string.success),
 		getString(R.string.settings_saved));
     }
