@@ -425,6 +425,7 @@ public class Database extends SQLiteOpenHelper{
     }
     
     public SingleEventLocal getSingleEventBySingleEventID(int singleEventID){
+	data=this.getReadableDatabase();
 	String columns[] = null;
 	String selection = "singleEventID='"+String.valueOf(singleEventID)+"'";
 	String selectionArgs[] = null;
@@ -451,9 +452,13 @@ public class Database extends SQLiteOpenHelper{
 		    c.getInt(10), // durationMinutesUpdateCounter
 		    c.getInt(12) // Permissions
 		    );
+	    data.close();
 	    return sev;
 	}
-	else return null;
+	else {
+	    data.close();
+	    return null;
+	}
     }
 
 }
