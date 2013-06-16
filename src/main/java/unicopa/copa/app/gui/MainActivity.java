@@ -155,7 +155,7 @@ public class MainActivity extends Activity {
 		language, map, notificationKind, lastUpdate);
 
 	Storage S = Storage.getInstance(this.getApplicationContext());
-	S.store("SettingsLocal", setLoc);
+	S.store(setLoc);
 
 	// Database
 	Database db = Database.getInstance(MainActivity.this);

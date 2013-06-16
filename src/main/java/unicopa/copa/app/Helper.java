@@ -78,7 +78,7 @@ public class Helper {
 
 	Storage storage = Storage.getInstance(null);
 
-	storage.store("SettingsLocal", settingsLocal);
+	storage.store(settingsLocal);
 
 	Date date = null;
 	date = Calendar.getInstance().getTime();
