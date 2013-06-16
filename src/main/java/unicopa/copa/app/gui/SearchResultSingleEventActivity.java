@@ -38,6 +38,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * In this activity a user sees all SingleEvents to an Event.
@@ -52,6 +53,12 @@ public class SearchResultSingleEventActivity extends Activity {
 	setContentView(R.layout.singleeventlist);
 	Intent intent = getIntent();
 	int eventID = intent.getIntExtra("selected", 0);
+	String groupname = intent.getStringExtra("groupname");
+	String evname = intent.getStringExtra("eventname");
+	String name = groupname + " " + evname;
+
+	TextView title = (TextView) findViewById(R.id.subscription_text);
+	title.setText(name);
 
 	final ListView singleEventListView = (ListView) SearchResultSingleEventActivity.this
 		.findViewById(R.id.singleEventListView);

@@ -101,7 +101,7 @@ public class SearchResultEventActivity extends Activity {
 
 	// end getEvents
 
-	searchEventAdapter = new SearchResultEventAdapter(this, eventList);
+	searchEventAdapter = new SearchResultEventAdapter(this, eventList, name);
 	eventListView.setAdapter((ListAdapter) searchEventAdapter);
     }
 

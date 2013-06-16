@@ -51,10 +51,13 @@ public class SearchResultEventAdapter extends BaseAdapter {
 
     ArrayList<Event> EventList;
     Context context;
+    String groupname;
 
-    public SearchResultEventAdapter(Context context, ArrayList<Event> eventList) {
+    public SearchResultEventAdapter(Context context,
+	    ArrayList<Event> eventList, String name) {
 	this.context = context;
 	this.EventList = eventList;
+	this.groupname = name;
     }
 
     @Override
@@ -109,6 +112,8 @@ public class SearchResultEventAdapter extends BaseAdapter {
 		Intent intentSingleEvent = new Intent(context,
 			SearchResultSingleEventActivity.class);
 		intentSingleEvent.putExtra("selected", event.getEventID());
+		intentSingleEvent.putExtra("groupname", groupname);
+		intentSingleEvent.putExtra("eventname", event.getEventName());
 		context.startActivity(intentSingleEvent);
 
 	    }
