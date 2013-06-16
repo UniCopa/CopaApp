@@ -36,11 +36,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * In this activity a user sees all SingleEvents to an Event.
@@ -54,7 +51,7 @@ public class SearchResultSingleEventActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.singleeventlist);
 	Intent intent = getIntent();
-	String event = intent.getStringExtra("selected");
+	int eventID = intent.getIntExtra("selected", 0);
 
 	final ListView singleEventListView = (ListView) SearchResultSingleEventActivity.this
 		.findViewById(R.id.singleEventListView);
@@ -70,11 +67,9 @@ public class SearchResultSingleEventActivity extends Activity {
 	Date date = null;
 	date = Calendar.getInstance().getTime();
 
-	int eventID = 0;
-
 	try {
 	    sEvents = (ArrayList<SingleEvent>) scon.getCurrentSingleEvents(
-		    eventID, date); // TODO get eventID from previous activity
+		    eventID, date);
 	} catch (ClientProtocolException e) {
 	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 		    e.getMessage());
@@ -102,17 +97,6 @@ public class SearchResultSingleEventActivity extends Activity {
 	}
 
 	// end getCurrentSingleEvents
-
-	// sEvents.add(new SingleEvent(1, 3, "HU 102", Calendar.getInstance()
-	// .getTime(), "SingleEventList", 4));
-	// sEvents.add(new SingleEvent(2, 2, "HU 103", Calendar.getInstance()
-	// .getTime(), "Robin", 00));
-	// sEvents.add(new SingleEvent(3, 4, "HU 104", Calendar.getInstance()
-	// .getTime(), "Philip", 0));
-	// sEvents.add(new SingleEvent(4, 3, "HU 105", Calendar.getInstance()
-	// .getTime(), "Felix", 7));
-	// sEvents.add(new SingleEvent(5, 4, "HU 106", Calendar.getInstance()
-	// .getTime(), "Philipp", 66));
 
 	SearchResultSingleEventAdapter sEventAdapter = new SearchResultSingleEventAdapter(
 		this, sEvents);

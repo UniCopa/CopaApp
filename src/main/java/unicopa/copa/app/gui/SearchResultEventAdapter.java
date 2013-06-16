@@ -108,7 +108,7 @@ public class SearchResultEventAdapter extends BaseAdapter {
 
 	    @Override
 	    public void onClick(View v) {
-		// send request to server
+		// TODO send request to server
 	    }
 
 	});
