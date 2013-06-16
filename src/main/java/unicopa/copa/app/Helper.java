@@ -17,6 +17,7 @@
 package unicopa.copa.app;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -77,9 +78,10 @@ public class Helper {
 	// TODO save settings to local database
 
 	Date date = null;
+	date = Calendar.getInstance().getTime();
+	
 	List<SingleEvent> sEvents = null;
-	sEvents = scon.getCurrentSingleEvents(eventID, date); // TODO read
-							      // current date
+	sEvents = scon.getCurrentSingleEvents(eventID, date);
 
 	if (sEvents == null) {
 	    return false; // TODO is it possible to subscribe an event with no

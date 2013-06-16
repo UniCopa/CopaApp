@@ -67,13 +67,14 @@ public class SearchResultSingleEventActivity extends Activity {
 
 	ServerConnection scon = ServerConnection.getInstance();
 
-	Date date = new Date();
+	Date date = null;
+	date = Calendar.getInstance().getTime();
+
 	int eventID = 0;
 
 	try {
 	    sEvents = (ArrayList<SingleEvent>) scon.getCurrentSingleEvents(
 		    eventID, date); // TODO get eventID from previous activity
-				    // and read current date
 	} catch (ClientProtocolException e) {
 	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 		    e.getMessage());
