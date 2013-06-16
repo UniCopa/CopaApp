@@ -28,6 +28,7 @@ import unicopa.copa.base.event.EventGroup;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -236,7 +237,11 @@ public class Database extends SQLiteOpenHelper{
 			sev.getColorCode(), String.valueOf(sev.getPermission()) };
 		InsertString = InsertString + sqlValues(values);
 		Log.w("try", InsertString);
+		try{
 		data.execSQL(InsertString);
+		}catch(SQLiteConstraintException ex){
+		    Log.e("error","singleEventID is not unique");
+		}
 	    }
 
 	}
@@ -252,7 +257,11 @@ public class Database extends SQLiteOpenHelper{
 		
 		String InsertString = "INSERT INTO "+ev.getClass().getSimpleName()+" "+Event_sqlScheme(null)+" VALUES "+sqlValues(values);
 		Log.w("try", InsertString);
+		try{
 		data.execSQL(InsertString);
+		}catch(SQLiteConstraintException ex){
+		    Log.e("error","eventID is not unique");
+		}
 	    }
 	}
 	
@@ -267,7 +276,11 @@ public class Database extends SQLiteOpenHelper{
 		
 		String InsertString = "INSERT INTO "+evg.getClass().getSimpleName()+" "+EventGroup_sqlScheme(null)+" VALUES "+sqlValues(values);
 		Log.w("try", InsertString);
+		try{
 		data.execSQL(InsertString);
+		}catch(SQLiteConstraintException ex){
+		    Log.e("error","eventGroupID is not unique");
+		}
 	    }
 	    
 	}
