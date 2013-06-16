@@ -16,7 +16,11 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.apache.http.client.ClientProtocolException;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -28,13 +32,20 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
+import unicopa.copa.app.SettingsLocal;
+import unicopa.copa.app.Storage;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.event.Event;
 
 /**
  * This Adapter helps to show the List of Events.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class SearchResultEventAdapter extends BaseAdapter {
 
@@ -109,6 +120,42 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	    @Override
 	    public void onClick(View v) {
 		// TODO send request to server
+		int eventID = 0; // TODO get eventID from clicked object
+		SettingsLocal settingsLocal = null;
+
+		Storage storage = new Storage();
+
+		// TODO is this correct?
+		settingsLocal = (SettingsLocal) storage.load("SettingsLocal",
+			settingsLocal, context);
+		try {
+		    Helper.subscribe(eventID, settingsLocal, context);
+		} catch (ClientProtocolException e) {
+		    //TODO getString is unknown
+//		    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+//			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (APIException e) {
+//		    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+//			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (PermissionException e) {
+//		    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+//			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (RequestNotPracticableException e) {
+//		    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+//			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (InternalErrorException e) {
+//		    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+//			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (IOException e) {
+//		    PopUp.exceptionAlert(this, getString(R.string.io_ex),
+//			    e.getMessage());
+		    // e.printStackTrace();
+		}
 	    }
 
 	});
