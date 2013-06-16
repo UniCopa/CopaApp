@@ -20,7 +20,12 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.client.ClientProtocolException;
@@ -28,7 +33,9 @@ import org.apache.http.client.ClientProtocolException;
 import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
+import unicopa.copa.app.SettingsLocal;
 import unicopa.copa.app.SingleEventLocal;
+import unicopa.copa.app.Storage;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -45,6 +52,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -125,6 +133,31 @@ public class MainActivity extends Activity {
 	singleEventListView.setAdapter(null);
 
 	// begin Just for testing
+
+	// Settings
+	Set<String> gcmKeys = new HashSet<String>();
+	gcmKeys.add("ololo");
+	boolean emailNotification = true;
+	String language = "German";
+	Map<Integer, UserEventSettings> map = new HashMap<Integer, UserEventSettings>();
+	UserEventSettings farb1 = new UserEventSettings();
+	UserEventSettings farb2 = new UserEventSettings();
+	farb1.setColorCode("#999999");
+	farb2.setColorCode("#444444");
+
+	map.put(1, farb1);
+	map.put(2, farb2);
+
+	int notificationKind = 2;
+	Date lastUpdate = new Date(4000);
+
+	SettingsLocal setLoc = new SettingsLocal(gcmKeys, emailNotification,
+		language, map, notificationKind, lastUpdate);
+
+	Storage S = new Storage();
+	S.store("SettingsLocal", setLoc, this.getApplicationContext());
+
+	// Database
 	Database db = Database.getInstance(MainActivity.this);
 	db.Table_delete("SingleEventLocal");
 	db.Table_delete("Event");
