@@ -468,6 +468,63 @@ public class Database extends SQLiteOpenHelper{
 	}
     }
     
+    public List<Event> getEventsWithPermission(){
+	data=this.getReadableDatabase();
+	List<Event> eventList = new ArrayList<Event>();
+	
+	int elements = 0;
+	
+	boolean distinct = true;
+	String columns[] = {"eventID"};
+	String selection = "permission > '0'";
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "";
+	String limit = null;
+	
+	Cursor c = data.query(distinct, "SingleEventLocal", columns, selection, selectionArgs, groupBy, having, orderBy, limit);
+	
+	if(c.getCount()>0){
+	    c.moveToFirst();
+	    elements = c.getCount();
+	    while(elements > 0){
+		String ev_columns[] = null;
+		String ev_selection = "eventID = '"+c.getString(0)+"'";
+		String ev_selectionArgs[] = null;
+		String ev_groupBy = null;
+		String ev_having = null;
+		String ev_orderBy = "";
+
+		Cursor ev_c = data.query("Event", ev_columns, ev_selection,
+			ev_selectionArgs, ev_groupBy, ev_having, ev_orderBy);
+		
+		if(ev_c.getCount()>0){
+		    ev_c.moveToFirst();
+		    Event ev = new Event(
+			    ev_c.getInt(0),
+			    ev_c.getInt(1),
+			    ev_c.getString(2),
+			    null);
+		    eventList.add(ev);
+		}
+		else{
+		    Log.w("error","no Event with ID "+c.getString(0)+" found");
+		    ev_c.close();
+		}
+		c.moveToNext();
+		elements--;
+	    }
+	}
+	else{
+	    c.close();
+	    Log.w("error","no SingleEventsFound");
+	    return null;
+	}
+	data.close();
+	return eventList;
+    }
+    
     public void clearPermissions(){
 	data = this.getWritableDatabase();
 	String updateString = "UPDATE singleEventLocal SET permissions = '0'";
