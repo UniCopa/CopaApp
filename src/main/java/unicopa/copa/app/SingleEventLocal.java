@@ -28,13 +28,13 @@ import unicopa.copa.base.event.SingleEvent;
  */
 public class SingleEventLocal extends SingleEvent {
 
-    private String colorCode;
-    private String name;
-    private int locationUpdateCounter;
-    private int dateUpdateCounter;
-    private int supervisorUpdateCounter;
-    private int durationMinutesUpdateCounter;
-    private int permission;
+    private String colorCode = "";
+    private String name = "";
+    private int locationUpdateCounter = 0;
+    private int dateUpdateCounter = 0;
+    private int supervisorUpdateCounter = 0;
+    private int durationMinutesUpdateCounter = 0;
+    private int permission = 0;
 
     public SingleEventLocal(int singleEventID, int eventID, String location,
 	    Date date, String supervisor, int durationMinutes,
@@ -82,6 +82,10 @@ public class SingleEventLocal extends SingleEvent {
 
     public int getDurationMinutesUpdateCounter() {
 	return durationMinutesUpdateCounter;
+    }
+
+    public void setPermission(int permission) {
+	this.permission = permission;
     }
 
     public int getPermission() {
