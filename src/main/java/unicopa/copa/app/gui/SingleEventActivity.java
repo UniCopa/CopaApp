@@ -39,6 +39,11 @@ import android.widget.TextView;
  */
 public class SingleEventActivity extends Activity {
 
+    /**
+     * Shows all information of a SingleEvent which are in the database.
+     * Depending on the user role of the corresponding event the change-button
+     * is shown.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -47,9 +52,11 @@ public class SingleEventActivity extends Activity {
 	int singleEventID = intent.getIntExtra("selectedID", 0);
 	Database db = Database.getInstance(SingleEventActivity.this);
 
-	// Change to getSingleEventbySingleEventID later
+	// TODO Change to getSingleEventbySingleEventID
 	List<SingleEventLocal> list = db.getNearestSingleEvents(2);
-	SingleEventLocal sEventLocal = (SingleEventLocal) list.get(0);
+	SingleEventLocal sEventLocal = (SingleEventLocal) list.get(1);
+	// SingleEventLocal sEventLocal = db
+	// .getSingleEventBySingleEventID(singleEventID);
 
 	TextView sEventID = (TextView) super
 		.findViewById(R.id.singleEventID_sEV);
@@ -72,7 +79,8 @@ public class SingleEventActivity extends Activity {
 	durationtime.setText(String.valueOf(sEventLocal.getDurationMinutes()));
 	change.setVisibility(View.GONE);
 
-	if (sEventLocal.getPermission() > 1) {
+	// TODO check if role-number is chosen correct
+	if (sEventLocal.getPermission() > 0) {
 	    change.setVisibility(View.VISIBLE);
 	}
 
@@ -84,6 +92,9 @@ public class SingleEventActivity extends Activity {
 	return true;
     }
 
+    /**
+     * Handles clicks on a menu-item
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
