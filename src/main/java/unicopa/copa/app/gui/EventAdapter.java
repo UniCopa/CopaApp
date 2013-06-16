@@ -141,7 +141,8 @@ public class EventAdapter extends BaseAdapter {
 	    @Override
 	    public void onClick(View v) {
 		ColorDialog color = new ColorDialog();
-		Dialog diag = color.onCreateDialog(null, context);
+		Dialog diag = color.onCreateDialog(null, context,
+			event.getEventID());
 		diag.show();
 	    }
 

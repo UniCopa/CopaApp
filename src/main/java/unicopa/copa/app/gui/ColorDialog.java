@@ -32,13 +32,32 @@ import android.support.v4.app.DialogFragment;
  */
 public class ColorDialog extends DialogFragment {
 
-    public Dialog onCreateDialog(Bundle savedInstanceState, Context context) {
+    public Dialog onCreateDialog(Bundle savedInstanceState, Context context,
+	    int eventId) {
 	AlertDialog.Builder builder = new AlertDialog.Builder(context);
 	builder.setTitle(R.string.pick_color).setItems(R.array.colors_array,
 		new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int which) {
-			// The 'which' argument contains the index position
-			// of the selected item
+			String color;
+			switch (which) {
+			case 0:// blue
+			    color = "#6495ED";
+			case 1:// red
+			    color = "#B22222";
+			case 2:// yellow
+			    color = "#FFA500";
+			case 3:// pink
+			    color = "#FF1493";
+			case 4:// green
+			    color = "#9ACD32";
+			case 5:// orange
+			    color = "#FF8C00";
+			case 6:// purple
+			    color = "#BA55D3";
+			default:// black
+			    color = "#000000";
+			}
+			// TODO save color in userSettings and on device
 		    }
 		});
 	return builder.create();
