@@ -65,26 +65,18 @@ public class SearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.search);
-
-	ServerConnection scon = ServerConnection.getInstance();
-
-	// check if logged in if not redirect to LoginActivity
-	if (!scon.getConnected()) {
-	    // TODO redirects instantly without waiting
-	    PopUp.loginFail(this);
-
-	    Intent intentLog = new Intent(SearchActivity.this,
-		    LoginActivity.class);
-	    SearchActivity.this.startActivity(intentLog);
-	}
-
 	final ListView catListView = (ListView) SearchActivity.this
 		.findViewById(R.id.search_list);
 	cat = (TextView) findViewById(R.id.search_categorie);
 	catListView.setAdapter(null);
 	searchEdit = (EditText) findViewById(R.id.search_edit);
 
-	if (scon.getConnected()) {
+	ServerConnection scon = ServerConnection.getInstance();
+
+	// check if logged in if not redirect to LoginActivity
+	if (!scon.getConnected()) {
+	    PopUp.loginFail(this);
+	} else {
 	    CategoryNode category = null;
 
 	    try {
@@ -121,9 +113,6 @@ public class SearchActivity extends Activity {
 			.getChildren());
 	    }
 
-	} else {
-	    // TODO l18n
-	    PopUp.alert(this, "Login!", "You are not logged in.");
 	}
 
 	searchAdapter = new SearchAdapter(this, categories);

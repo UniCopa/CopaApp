@@ -41,6 +41,7 @@ import android.widget.Toast;
  */
 public class LoginActivity extends Activity {
     ServerConnection scon = ServerConnection.getInstance();
+    int fail;
 
     /**
      * Shows Layout and depending on whether the user is logged in or not the
@@ -50,6 +51,8 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.login);
+	Intent intent = getIntent();
+	fail = intent.getIntExtra("failed", 0);
 
 	TextView title = (TextView) findViewById(R.id.login_title);
 	Button loginButton = (Button) findViewById(R.id.login_login_button);
@@ -64,6 +67,20 @@ public class LoginActivity extends Activity {
 	    title.setText(getString(R.string.title_login));
 	}
 
+    }
+
+    /**
+     * Lead to MainActivity if PopUp.loginFail happened before.
+     */
+    @Override
+    public void onBackPressed() {
+	if (fail == 1) {
+	    Intent intentMain = new Intent(LoginActivity.this,
+		    MainActivity.class);
+	    LoginActivity.this.startActivity(intentMain);
+	} else {
+	    finish();
+	}
     }
 
     /**

@@ -21,25 +21,30 @@ import unicopa.copa.app.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 
 /**
  * This is a helper class for dialogs and alerts.
  * 
- * @author Martin Rabe
+ * @author Martin Rabe, Christiane Kuhn
  */
 public class PopUp {
 
     /**
-     * Creates a Dialog that tells the user that he is not logged in.
+     * Creates a Dialog that tells the user that he is not logged in and starts
+     * the LoginActivity.
      * 
      * @param context
      */
-    public static void loginFail(Context context) {
+    public static void loginFail(final Context context) {
 	new AlertDialog.Builder(context).setTitle(R.string.login_ex)
 		.setMessage(R.string.not_login)
 		.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int which) {
-			// do nothing
+			Intent intentLog = new Intent(context,
+				LoginActivity.class);
+			intentLog.putExtra("failed", 1);
+			context.startActivity(intentLog);
 		    }
 		}).show();
 
