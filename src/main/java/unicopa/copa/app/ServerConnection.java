@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -244,18 +243,15 @@ public class ServerConnection {
      * @return success
      */
     public boolean logout() {
-	// TODO get on https://copa.prakinf.tu-ilmenau.de/logout.jsp
-	if (true) {
-	    setConnected(false);
+	// TODO get on https://copa.prakinf.tu-ilmenau.de/logout.jsp to
+	// invalidate session on server side
+	setConnected(false);
 
-	    sessionID = "";
+	sessionID = "";
 
-	    Log.v("SESSIONID", sessionID);
-
-	    return true;
-	} else {
-	    return false;
-	}
+	Log.v("SESSIONID", sessionID);
+	
+	return true;
     }
 
     // Server requests
