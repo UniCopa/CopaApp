@@ -36,7 +36,8 @@ import unicopa.copa.base.event.SingleEvent;
 import unicopa.copa.base.event.SingleEventUpdate;
 
 /**
- * This is a helper class which implements some methods.
+ * This is a helper class which implements some methods for repeating tasks that
+ * are needed on various occasions.
  * 
  * @author Martin Rabe
  */
