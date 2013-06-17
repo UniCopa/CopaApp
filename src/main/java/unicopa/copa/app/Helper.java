@@ -165,8 +165,7 @@ public class Helper {
 
 	Database db = Database.getInstance(context);
 
-	// TODO remove event from local database
-	// TODO does the local database check whether it can remove eventGroup?
+	db.deleteEventByEventID(eventID);
 
 	return true;
     }
