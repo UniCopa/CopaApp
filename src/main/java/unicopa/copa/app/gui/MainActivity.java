@@ -31,6 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.http.client.ClientProtocolException;
 
 import unicopa.copa.app.Database;
+import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
@@ -226,38 +227,21 @@ public class MainActivity extends Activity {
     }
 
     public void onRefreshButtonClick(View view) {
-	SingleEvent sEventNew = null;
-
-	ServerConnection scon = ServerConnection.getInstance();
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
 
 	if (scon.getConnected()) {
+	    Storage storage = Storage.getInstance(MainActivity.this);
 
-	    // JUST FOR DEMO
-	    // DONE 13 works
-	    // DONE ID 0 InternalErrorException
-	    // DONE ID 42 RequestNotPracticableException
-	    // DONE ID -1 PermissionException
-	    int singleEventID = i;
+	    SettingsLocal settingsLocal = null;
+	    settingsLocal = storage.load();
 
-	    // JUST FOR DEMO
-	    if (i == 0) {
-		i = 42;
-	    } else {
-		if (i == 42) {
-		    i = -1;
-		} else {
-		    if (i == -1) {
-			i = 13;
-		    } else {
-			if (i == 13) {
-			    i = 0;
-			}
-		    }
-		}
-	    }
+	    Date date = null;
+	    date = settingsLocal.getLastUpdate();
 
+	    boolean success = false;
 	    try {
-		sEventNew = scon.getSingleEvent(singleEventID);
+		Helper.update(date, MainActivity.this);
 	    } catch (ClientProtocolException e) {
 		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 			e.getMessage());
@@ -284,12 +268,11 @@ public class MainActivity extends Activity {
 		// e.printStackTrace();
 	    }
 
-	    if (sEventNew != null) {
-		// sEvents.add(sEventNew);
-		// sEventAdapter.notifyDataSetChanged();
+	    if (success) {
+		// TODO load new SingleEvents from local database and display
+		// them
 	    }
 	} else {
-	    // TODO l18n
 	    PopUp.loginFail(this);
 	}
     }
