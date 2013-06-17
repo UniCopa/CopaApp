@@ -25,6 +25,7 @@ import org.apache.http.client.ClientProtocolException;
 
 import android.content.Context;
 
+import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.UserSettings;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
@@ -65,6 +66,11 @@ public class Helper {
 	scon = ServerConnection.getInstance();
 
 	settingsLocal.addSubscription(eventID);
+	
+	UserEventSettings eventSettings = new UserEventSettings();
+	eventSettings.setColorCode("000000"); 
+	
+	settingsLocal.putEventSettings(eventID, eventSettings);
 
 	UserSettings userSettings = null;
 	userSettings = (UserSettings) settingsLocal;
@@ -197,11 +203,12 @@ public class Helper {
      * @throws PermissionException
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
+     * @throws NoStorageException 
      */
     public static boolean update(Date date, Context context)
 	    throws ClientProtocolException, IOException, APIException,
 	    PermissionException, RequestNotPracticableException,
-	    InternalErrorException {
+	    InternalErrorException, NoStorageException {
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 

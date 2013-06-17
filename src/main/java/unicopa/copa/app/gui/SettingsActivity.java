@@ -20,10 +20,12 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
+import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
 import unicopa.copa.app.Storage;
+import unicopa.copa.base.UserSettings;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -77,11 +79,18 @@ public class SettingsActivity extends Activity {
 	gcmManu = (RadioButton) findViewById(R.id.settings_noti_gcm_manu);
 	gcmAuto = (RadioButton) findViewById(R.id.settings_noti_gcm_auto);
 
+	// TODO would it be better to read settings from server?
 	Storage S = null;
 	S = Storage.getInstance(this.getApplicationContext());
 
 	SettingsLocal settings = null;
-	settings = S.load();
+	
+	try {
+	    settings = S.load();
+	} catch (NoStorageException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 
 	if (settings.isEmailNotificationEnabled()) {
 	    mail.setChecked(true);
@@ -123,50 +132,73 @@ public class SettingsActivity extends Activity {
      */
     public void onApplyButtonClick(View view) {
 	boolean email = mail.isChecked();
-	int selectedLanguage = language.getCheckedRadioButtonId();
-	int selectedGCM = gcm.getCheckedRadioButtonId();
+	int selectedLanguage = language.getCheckedRadioButtonId(); // TODO why id?
+	int selectedGCM = gcm.getCheckedRadioButtonId(); // TODO why id?
 
-	SettingsLocal settings = null;
-	settings = new SettingsLocal();
+	SettingsLocal settingsLocal = null;
+	settingsLocal = new SettingsLocal();
 
 	Storage S = Storage.getInstance(this.getApplicationContext());
-	settings = S.load();
+	
+	try {
+	    settingsLocal = S.load();
+	} catch (NoStorageException e1) {
+	    // TODO Auto-generated catch block
+	    e1.printStackTrace();
+	}
 
 	if (email) {
-	    settings.enableEmailNotification();
+	    settingsLocal.enableEmailNotification();
 	} else {
-	    settings.disableEmailNotification();
+	    settingsLocal.disableEmailNotification();
 	}
 
-	switch (selectedLanguage) {
-	case 0:
-	    settings.setLanguage("english");
-	    break;
-	case 1:
-	    settings.setLanguage("german");
-	    break;
-	default:
-	    settings.setLanguage("english");
-	    break;
+//	switch (selectedLanguage) {
+//	case 0:
+	if(english.isChecked()) {
+	    settingsLocal.setLanguage("english");
 	}
+//	    break;
+//	case 1:
+	if(german.isChecked()) {
+	    settingsLocal.setLanguage("german");
+	}
+//	    break;
+//	default:
+//	    settingsLocal.setLanguage("english");
+//	    break;
+//	}
 
-	settings.setNotificationKind(selectedGCM);
+//	settingsLocal.setNotificationKind(selectedGCM);
 
-	String gcmKey = ""; // TODO where to get GCMKey?
+	if(gcmNone.isChecked()) {
+	    settingsLocal.setNotificationKind(2);
+	}
+	
+	if(gcmAuto.isChecked()) {
+	    settingsLocal.setNotificationKind(1);
+	}
+	
+	if(gcmManu.isChecked()) {
+	    settingsLocal.setNotificationKind(0);
+	}
+	
+	String gcmKey = "";
+	gcmKey = settingsLocal.getLocalGcmKey();
 
-	if (selectedGCM == 2) {
-	    settings.removeGCMKey(gcmKey);
+	if (settingsLocal.getNotificationKind() == 2) {
+	    settingsLocal.removeGCMKey(gcmKey);
 	} else {
-	    settings.addGCMKey(gcmKey);
+	    settingsLocal.addGCMKey(gcmKey);
 	}
 
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
 	boolean success = false;
-
+	
 	try {
-	    success = scon.setSettings(settings);
+	    success = scon.setSettings(settingsLocal);
 	} catch (ClientProtocolException e) {
 	    PopUp.exceptionAlert(this, "ClientProtocolException!",
 		    e.getMessage());
@@ -194,7 +226,7 @@ public class SettingsActivity extends Activity {
 	storage = Storage.getInstance(SettingsActivity.this);
 
 	if (success) {
-	    storage.store(settings);
+	    storage.store(settingsLocal);
 
 	    PopUp.alert(this, getString(R.string.success),
 		    getString(R.string.settings_saved));

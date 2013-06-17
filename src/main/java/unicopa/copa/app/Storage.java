@@ -48,24 +48,32 @@ public class Storage {
     }
 
     public void store(SettingsLocal sLoc) {
-	    Gson gson = new Gson();
-	    SharedPreferences appSharedPrefs = context.getSharedPreferences(
-		    "Settings", 0);
-	    Editor prefsEditor = appSharedPrefs.edit();
-	    String json = gson.toJson(sLoc);
-	    prefsEditor.putString("SettingsLocalObject", json);
-	    prefsEditor.commit();
+	Gson gson = new Gson();
+	SharedPreferences appSharedPrefs = context.getSharedPreferences(
+		"Settings", 0);
+	Editor prefsEditor = appSharedPrefs.edit();
+	String json = gson.toJson(sLoc);
+
+	Log.v("STORAGE SAVE:", json);
+	
+	prefsEditor.putString("SettingsLocalObject", json);
+	prefsEditor.commit();
     }
 
-    public SettingsLocal load() {
+    public SettingsLocal load() throws NoStorageException {
 	SharedPreferences appSharedPrefs = context.getSharedPreferences(
 		"Settings", 0);
 	Gson gson = new Gson();
+	
 	String json = appSharedPrefs.getString("SettingsLocalObject", "empty");
-	Log.w("JSON String",json);
-	if(json == "empty") return null;
-	else
-	return gson.fromJson(json,SettingsLocal.class);
+	
+	Log.v("STORAGE LOAD:", json);
+	
+	if (json == "empty") {
+	    throw new NoStorageException();
+	} else {
+	    return gson.fromJson(json, SettingsLocal.class);
+	}
     }
 
     public void deleteSettings() {

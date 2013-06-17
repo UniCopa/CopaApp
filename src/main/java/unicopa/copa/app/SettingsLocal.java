@@ -33,16 +33,18 @@ public class SettingsLocal extends UserSettings {
 
     private int notificationKind;
     private Date lastUpdate;
+    private String localGcmKey;
 
     public SettingsLocal() {
     }
     
     public SettingsLocal(Set<String> gcmKeys, boolean emailNotification,
 	    String language, Map<Integer, UserEventSettings> eventSettings,
-	    int notificationKind, Date lastUpdate) {
+	    int notificationKind, Date lastUpdate, String localGcmKey) {
 	super(gcmKeys, emailNotification, language, eventSettings);
 	this.notificationKind = notificationKind;
 	this.lastUpdate = lastUpdate;
+	this.localGcmKey = localGcmKey;
     }
 
     public void setNotificationKind(int notificationKind) {
@@ -59,6 +61,14 @@ public class SettingsLocal extends UserSettings {
 
     public Date getLastUpdate() {
 	return lastUpdate;
+    }
+    
+    public void setLocalGcmKey(String localGcmKey) {
+	this.localGcmKey = localGcmKey;
+    }
+    
+    public String getLocalGcmKey() {
+	return localGcmKey;
     }
 
 }

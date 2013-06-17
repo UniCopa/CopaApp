@@ -19,7 +19,6 @@ package unicopa.copa.app.gui;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,6 +31,7 @@ import org.apache.http.client.ClientProtocolException;
 
 import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
+import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
@@ -43,7 +43,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -59,8 +58,6 @@ import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.com.exception.RequestNotPracticableException;
-import unicopa.copa.base.event.Event;
-import unicopa.copa.base.event.EventGroup;
 import unicopa.copa.base.event.SingleEvent;
 
 /**
@@ -107,9 +104,6 @@ public class MainActivity extends Activity {
 
     // end GCM
 
-    // JUST FOR DEMO
-    int i = 0;
-
     /**
      * creates Activity with a list of SingleEvents. By clicking on a
      * SingleEvent it switches to SingleEventActivity
@@ -118,12 +112,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
+
 	text = (TextView) findViewById(R.id.main_nothing);
 
 	// begin GCM
 
 	context = getApplicationContext();
-	regid = getRegistrationId(context);
+	regid = "d08ewqf94"; // TODO getRegistrationId(context);
 
 	if (regid.length() == 0) {
 	    registerBackground();
@@ -137,37 +132,69 @@ public class MainActivity extends Activity {
 
 	singleEventListView.setAdapter(null);
 
+	Storage storage = null;
+	storage = Storage.getInstance(this.getApplicationContext());
+
+	SettingsLocal settingsLocal = null;
+
+	/**
+	 * check if settings exists if not create it with default values
+	 */
+	try {
+	    settingsLocal = storage.load();
+	} catch (NoStorageException e) {
+	    // TODO welcome message
+	    // PopUp.alert(MainActivity.this, "Welcome!",
+	    // "Hello, this is the first time you meet CoPA.");
+
+	    // TODO maybe first try to get settings from server?
+	    Set<String> gcmKeys = new HashSet<String>();
+	    gcmKeys.add(regid); // TODO is this the GCMKey?
+	    boolean emailNotification = true;
+	    String language = "german";
+	    Map<Integer, UserEventSettings> map = null;
+	    int notificationKind = 1; // set notification to gcm-auto
+	    Date lastUpdate = new Date(0);
+
+	    settingsLocal = new SettingsLocal(gcmKeys, emailNotification,
+		    language, map, notificationKind, lastUpdate, regid);
+
+	    storage.store(settingsLocal);
+	    // e.printStackTrace();
+	}
+
 	// begin Just for testing
 
 	// Settings
-	Set<String> gcmKeys = new HashSet<String>();
-	gcmKeys.add("ololo");
-	boolean emailNotification = true;
-	String language = "german";
-	Map<Integer, UserEventSettings> map = new HashMap<Integer, UserEventSettings>();
-	UserEventSettings farb1 = new UserEventSettings();
-	UserEventSettings farb2 = new UserEventSettings();
-	farb1.setColorCode("999999");
-	farb2.setColorCode("444444");
-
-	map.put(1, farb1);
-	map.put(2, farb2);
-
-	int notificationKind = 2;
-	Date lastUpdate = new Date(4000);
-
-	SettingsLocal setLoc = new SettingsLocal(gcmKeys, emailNotification,
-		language, map, notificationKind, lastUpdate);
-
-	Storage S = Storage.getInstance(this.getApplicationContext());
-	S.store(setLoc);
+	// Set<String> gcmKeys = new HashSet<String>();
+	// gcmKeys.add("ololo");
+	// boolean emailNotification = true;
+	// String language = "german";
+	// Map<Integer, UserEventSettings> map = new HashMap<Integer,
+	// UserEventSettings>();
+	// UserEventSettings farb1 = new UserEventSettings();
+	// UserEventSettings farb2 = new UserEventSettings();
+	// farb1.setColorCode("999999");
+	// farb2.setColorCode("444444");
+	//
+	// map.put(1, farb1);
+	// map.put(2, farb2);
+	//
+	// int notificationKind = 2;
+	// Date lastUpdate = new Date(4000);
+	//
+	// SettingsLocal setLoc = new SettingsLocal(gcmKeys, emailNotification,
+	// language, map, notificationKind, lastUpdate);
+	//
+	// Storage S = Storage.getInstance(this.getApplicationContext());
+	// S.store(setLoc);
 
 	// Database
-	Database db = Database.getInstance(MainActivity.this);
+	// Database db = Database.getInstance(MainActivity.this);
 	// db.Table_delete("SingleEventLocal");
 	// db.Table_delete("Event");
 	// db.Table_delete("EventGroup");
-	db.Table_init();
+	// db.Table_init();
 
 	// EventGroup g1 = new EventGroup(3, "Telematik", "info", null);
 	// EventGroup g2 = new EventGroup(2, "Mathe", "blabla", null);
@@ -200,9 +227,15 @@ public class MainActivity extends Activity {
 	// db.insert(g3, -1);
 	// end Just for testing
 
-	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(10);
+	Database db = null;
+	db = Database.getInstance(MainActivity.this);
 
-	for (SingleEventLocal item : sEventsloc) {
+	db.Table_init();
+
+	List<SingleEventLocal> sEventsLocal = null;
+	sEventsLocal = db.getNearestSingleEvents(10); // TODO maybe more?
+
+	for (SingleEventLocal item : sEventsLocal) {
 	    sEvents.add(item);
 	}
 
@@ -226,7 +259,6 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	    }
 	});
-
     }
 
     public void onRefreshButtonClick(View view) {
@@ -234,15 +266,22 @@ public class MainActivity extends Activity {
 	scon = ServerConnection.getInstance();
 
 	if (scon.getConnected()) {
-	    Storage storage = Storage.getInstance(MainActivity.this);
+	    Storage storage = null;
+	    storage = Storage.getInstance(MainActivity.this);
 
 	    SettingsLocal settingsLocal = null;
-	    settingsLocal = storage.load();
+	    try {
+		settingsLocal = storage.load();
+	    } catch (NoStorageException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	    }
 
 	    Date date = null;
 	    date = settingsLocal.getLastUpdate();
 
 	    boolean success = false;
+
 	    try {
 		success = Helper.update(date, MainActivity.this);
 	    } catch (ClientProtocolException e) {
@@ -269,16 +308,21 @@ public class MainActivity extends Activity {
 		PopUp.exceptionAlert(this, getString(R.string.io_ex),
 			e.getMessage());
 		// e.printStackTrace();
+	    } catch (NoStorageException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	    }
 
 	    if (success) {
 		Database db = null;
 		db = Database.getInstance(MainActivity.this);
+
 		List<SingleEventLocal> sEventsLocal = null;
+		sEventsLocal = db.getNearestSingleEvents(10); // TODO maybe more?
 
 		sEvents.clear();
-		sEventsLocal = db.getNearestSingleEvents(10);
 		text.setText("");
+
 		for (SingleEventLocal item : sEventsLocal) {
 		    sEvents.add(item);
 		}
@@ -288,8 +332,8 @@ public class MainActivity extends Activity {
 		}
 
 		sEventAdapter = new MainAdapter(this, sEvents);
-		singleEventListView.setAdapter((ListAdapter) sEventAdapter);
 
+		singleEventListView.setAdapter((ListAdapter) sEventAdapter);
 	    }
 	} else {
 	    PopUp.loginFail(this);

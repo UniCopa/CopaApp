@@ -36,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
+import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.SettingsLocal;
 import unicopa.copa.app.SingleEventLocal;
@@ -163,7 +164,12 @@ public class EventAdapter extends BaseAdapter {
 		storage = Storage.getInstance(null);
 
 		SettingsLocal settingsLocal = null;
-		settingsLocal = (SettingsLocal) storage.load();
+		try {
+		    settingsLocal = (SettingsLocal) storage.load();
+		} catch (NoStorageException e1) {
+		    // TODO Auto-generated catch block
+		    e1.printStackTrace();
+		}
 
 		try {
 		    Helper.unsubscribe(eventID, settingsLocal, context);
