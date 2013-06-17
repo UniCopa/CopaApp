@@ -70,7 +70,7 @@ public class Helper {
 	userSettings = (UserSettings) settingsLocal;
 
 	boolean success = false;
-	success = true; // scon.setSettings(userSettings);
+	success = true; // TODO scon.setSettings(userSettings);
 
 	if (!success) {
 	    return false;
@@ -85,11 +85,6 @@ public class Helper {
 
 	List<SingleEvent> sEvents = null;
 	sEvents = scon.getCurrentSingleEvents(eventID, date);
-
-	if (sEvents == null) {
-	    return false; // TODO is it possible to subscribe an event with no
-			  // SingleEvents?
-	}
 
 	Event event = null;
 	event = scon.getEvent(eventID);
@@ -113,17 +108,65 @@ public class Helper {
 
 	Database db = Database.getInstance(context);
 
-	for (SingleEvent sEvent : sEvents) {
-	    SingleEventLocal sEventLocal = null;
-	    sEventLocal = (SingleEventLocal) sEvent;
+	if (sEvents.size() != 0) {
+	    for (SingleEvent sEvent : sEvents) {
+		SingleEventLocal sEventLocal = null;
+		sEventLocal = (SingleEventLocal) sEvent;
 
-	    sEventLocal.setName(name);
+		sEventLocal.setName(name);
 
-	    db.insert(sEventLocal, -1);
+		db.insert(sEventLocal, -1);
+	    }
 	}
 
 	db.insert(event, -1);
 	db.insert(eventGroup, -1);
+
+	return true;
+    }
+
+    /**
+     * This method removes an Event from the subscription list and erases all
+     * unnecessary data from the local database.
+     * 
+     * @param eventID
+     * @param settingsLocal
+     * @return
+     * @throws InternalErrorException
+     * @throws RequestNotPracticableException
+     * @throws PermissionException
+     * @throws APIException
+     * @throws IOException
+     * @throws ClientProtocolException
+     */
+    public static boolean unsubscribe(int eventID, SettingsLocal settingsLocal,
+	    Context context) throws ClientProtocolException, IOException,
+	    APIException, PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
+
+	settingsLocal.removeSubscription(eventID);
+
+	UserSettings userSettings = null;
+	userSettings = (UserSettings) settingsLocal;
+
+	boolean success = false;
+	success = true; // TODO scon.setSettings(userSettings);
+
+	if (!success) {
+	    return false;
+	}
+
+	Storage storage = null;
+	storage = Storage.getInstance(null);
+
+	storage.store(settingsLocal);
+
+	Database db = Database.getInstance(context);
+
+	// TODO remove event from local database
+	// TODO does the local database check whether it can remove eventGroup?
 
 	return true;
     }
@@ -171,8 +214,16 @@ public class Helper {
 	    // a lot of unnecessary work
 	}
 
-	// TODO save current date in SettingsLocal
+	Storage storage = null;
+	storage = Storage.getInstance(null);
+
+	SettingsLocal settingsLocal = null;
+	settingsLocal = storage.load();
 	
+	settingsLocal.setLastUpdate(date);
+	
+	storage.store(settingsLocal);
+
 	return true;
     }
 
