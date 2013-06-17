@@ -587,7 +587,7 @@ public class Database extends SQLiteOpenHelper{
 	String sEvent_having = null;
 	String sEvent_orderBy = "";
 
-	Cursor c = data.query("Event", sEvent_columns, sEvent_selection,
+	Cursor c = data.query("SingleEventLocal", sEvent_columns, sEvent_selection,
 		sEvent_selectionArgs, sEvent_groupBy, sEvent_having, sEvent_orderBy);
 	
 	if(c.getCount() > 0){
@@ -605,7 +605,7 @@ public class Database extends SQLiteOpenHelper{
 	    String Event_having = null;
 	    String Event_orderBy = "";
 
-	    c = data.query("EventGroup", Event_columns, Event_selection,
+	    c = data.query("Event", Event_columns, Event_selection,
 		    Event_selectionArgs, Event_groupBy, Event_having, Event_orderBy);
 	    
 	    c.moveToFirst();
@@ -630,6 +630,40 @@ public class Database extends SQLiteOpenHelper{
 	    }
 	    
 	}
+	data.close();
+    }
+    
+    public void deleteExpiredSingleEvents(){
+	data = this.getWritableDatabase();
+	Date d = new Date();
+	int elements=0;
+	
+	String columns[] = {"singleEventID","date"};
+	String selection = "";
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "";
+	
+	Cursor c = data.query("SingleEventLocal", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	
+	if (c.getCount()>0){
+	    c.moveToFirst();
+	    elements = c.getCount();
+	    
+	    while(elements > 0){
+		if(new Date(c.getLong(1)).compareTo(d)<0){
+		    String deleteString = "DELETE FROM SingleEventLocal WHERE singleEventID = '"+c.getString(0)+"'";
+			Log.w("try", deleteString);
+			data.execSQL(deleteString);
+		}
+		c.moveToNext();
+		elements--;
+	    }
+	}
+	else Log.i("deleteExpiredSingleEvents","No SingleEvents found");
+	c.close();
 	data.close();
     }
 
