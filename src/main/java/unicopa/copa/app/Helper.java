@@ -207,6 +207,8 @@ public class Helper {
 
 	List<List<SingleEventUpdate>> sEventUpdatesListList = null;
 	sEventUpdatesListList = scon.getSubscribedSingleEventUpdates(date);
+	
+	// TODO check whether request succeeds
 
 	for (List<SingleEventUpdate> sEventUpdateList : sEventUpdatesListList) {
 	    int listSize = 0;
@@ -234,6 +236,8 @@ public class Helper {
 	SettingsLocal settingsLocal = null;
 	settingsLocal = storage.load();
 
+	date = Calendar.getInstance().getTime();
+	
 	settingsLocal.setLastUpdate(date);
 
 	storage.store(settingsLocal);
