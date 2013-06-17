@@ -83,6 +83,8 @@ public class EventAdapter extends BaseAdapter {
 	    holder.eventName = (TextView) convertView.findViewById(R.id.event);
 	    holder.colorButton = (Button) convertView
 		    .findViewById(R.id.color_change);
+	    holder.unsubscribe = (Button) convertView
+		    .findViewById(R.id.unsubscribe_event);
 	    holder.details = (Button) convertView.findViewById(R.id.details);
 	    holder.colour = (LinearLayout) convertView
 		    .findViewById(R.id.subscrListView);
@@ -115,14 +117,6 @@ public class EventAdapter extends BaseAdapter {
 	holder.colour.setBackgroundDrawable(draw);
 	draw.setStroke(5, mColor);
 
-	holder.colorButton.setOnClickListener(new OnClickListener() {
-
-	    @Override
-	    public void onClick(View v) {
-	    }
-
-	});
-
 	holder.details.setOnClickListener(new OnClickListener() {
 
 	    @Override
@@ -148,6 +142,17 @@ public class EventAdapter extends BaseAdapter {
 
 	});
 
+	holder.unsubscribe.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v) {
+		// TODO unsubscribe
+		PopUp.alert(context, context.getString(R.string.success),
+			context.getString(R.string.unsubscribed));
+	    }
+
+	});
+
 	return convertView;
     }
 
@@ -155,6 +160,7 @@ public class EventAdapter extends BaseAdapter {
 	TextView eventName;
 	TextView eventGroupName;
 	Button colorButton;
+	Button unsubscribe;
 	Button details;
 	LinearLayout colour;
     }

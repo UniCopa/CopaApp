@@ -72,5 +72,7 @@
     <string name="about_copa">About CoPA</string>
     <string name="copa_text">CoPA stands for Change of Plan Application.</string>
     <string name="nothing">There are no coming events subscribed. \n Use the search to find your events and subscribe them.</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="unsubscribed">You have unsubscribed this event.</string>
 
 </resources>
