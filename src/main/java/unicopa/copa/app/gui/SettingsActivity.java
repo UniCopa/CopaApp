@@ -137,10 +137,13 @@ public class SettingsActivity extends Activity {
 	switch (selectedLanguage) {
 	case 0:
 	    settings.setLanguage("english");
+	    break;
 	case 1:
 	    settings.setLanguage("german");
+	    break;
 	default:
 	    settings.setLanguage("english");
+	    break;
 	}
 
 	settings.setNotificationKind(selectedGCM);
