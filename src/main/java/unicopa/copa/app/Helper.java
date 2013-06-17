@@ -113,7 +113,7 @@ public class Helper {
 		Date sel_date = sEvent.getDate();
 		String sel_supervisor = sEvent.getSupervisor();
 		int sel_durationMinutes = sEvent.getDurationMinutes();
-		String sel_colorCode = "";
+		String sel_colorCode = "000000";
 		String sel_name = eventGroup.getEventGroupName()
 			+ event.getEventName();
 		int sel_locationUpdateCounter = 0;
@@ -321,7 +321,7 @@ public class Helper {
 
 	SingleEventLocal sEventLocal = null;
 	sEventLocal = new SingleEventLocal(singleEventID, eventID, location,
-		date, supervisor, duration, "" /* colorCode */, "" /* name */,
+		date, supervisor, duration, "000000" /* colorCode */, "" /* name */,
 		locationCount, dateCount, supervisorCount, durationCount, 0 /* permission */);
 
 	return sEventLocal;
