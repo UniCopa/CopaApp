@@ -70,7 +70,7 @@ public class Helper {
 	userSettings = (UserSettings) settingsLocal;
 
 	boolean success = false;
-	success = true; // TODO scon.setSettings(userSettings);
+	success = scon.setSettings(userSettings);
 
 	if (!success) {
 	    return false;
@@ -167,7 +167,7 @@ public class Helper {
 	userSettings = (UserSettings) settingsLocal;
 
 	boolean success = false;
-	success = true; // TODO scon.setSettings(userSettings);
+	success = scon.setSettings(userSettings);
 
 	if (!success) {
 	    return false;
