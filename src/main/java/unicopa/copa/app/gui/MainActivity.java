@@ -198,7 +198,8 @@ public class MainActivity extends Activity {
 	// db.insert(g3, -1);
 	// end Just for testing
 
-	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(3);
+	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(10);
+	
 	for (SingleEventLocal item : sEventsloc) {
 	    sEvents.add(item);
 	}
@@ -269,8 +270,12 @@ public class MainActivity extends Activity {
 	    }
 
 	    if (success) {
-		// TODO load new SingleEvents from local database and display
-		// them
+		Database db = null;
+		db = Database.getInstance(MainActivity.this);
+		List<SingleEventLocal> sEventsLocal = null;
+		sEventsLocal = db.getNearestSingleEvents(10);
+
+		// TODO display sEventsLocal
 	    }
 	} else {
 	    PopUp.loginFail(this);
