@@ -23,6 +23,7 @@ import org.apache.http.client.ClientProtocolException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
+import unicopa.copa.app.Storage;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -58,6 +59,8 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.settings);
+	Storage S = Storage.getInstance(this.getApplicationContext());
+	SettingsLocal settings = S.load();
 
 	ServerConnection scon = ServerConnection.getInstance();
 
@@ -75,21 +78,33 @@ public class SettingsActivity extends Activity {
 	gcmManu = (RadioButton) findViewById(R.id.settings_noti_gcm_manu);
 	gcmAuto = (RadioButton) findViewById(R.id.settings_noti_gcm_auto);
 
-	// Later depending on saved settings
-	if (true) {
+	if (settings.isEmailNotificationEnabled()) {
 	    mail.setChecked(true);
+	} else {
+	    mail.setChecked(false);
 	}
 
-	switch (1) {
+	switch (settings.getNotificationKind()) {
+	case 0:
+	    gcmManu.setChecked(true);
+	    break;
 	case 1:
 	    gcmAuto.setChecked(true);
+	    break;
+	case 2:
+	    gcmNone.setChecked(true);
+	    break;
 	default:
 	    gcmAuto.setChecked(true);
+	    break;
 	}
 
-	if (true) {
+	if (settings.getLanguage().equalsIgnoreCase("german")) {
+	    german.setChecked(true);
+	} else {
 	    english.setChecked(true);
 	}
+
     }
 
     @Override
@@ -110,7 +125,25 @@ public class SettingsActivity extends Activity {
 	int selectedLanguage = language.getCheckedRadioButtonId();
 	int selectedGCM = gcm.getCheckedRadioButtonId();
 
-	// TODO read SettingsLocal from local database and set new values
+	// TODO find out why settings were not saved
+	Storage S = Storage.getInstance(this.getApplicationContext());
+	settings = S.load();
+	if (email) {
+	    settings.enableEmailNotification();
+	} else {
+	    settings.disableEmailNotification();
+	}
+
+	switch (selectedLanguage) {
+	case 0:
+	    settings.setLanguage("english");
+	case 1:
+	    settings.setLanguage("german");
+	default:
+	    settings.setLanguage("english");
+	}
+
+	settings.setNotificationKind(selectedGCM);
 
 	try {
 	    scon.setSettings(settings);
