@@ -59,10 +59,9 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.settings);
-	Storage S = Storage.getInstance(this.getApplicationContext());
-	SettingsLocal settings = S.load();
 
-	ServerConnection scon = ServerConnection.getInstance();
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
 
 	// check if logged in if not redirect to LoginActivity
 	if (!scon.getConnected()) {
@@ -77,6 +76,12 @@ public class SettingsActivity extends Activity {
 	gcmNone = (RadioButton) findViewById(R.id.settings_noti_gcm_none);
 	gcmManu = (RadioButton) findViewById(R.id.settings_noti_gcm_manu);
 	gcmAuto = (RadioButton) findViewById(R.id.settings_noti_gcm_auto);
+
+	Storage S = null;
+	S = Storage.getInstance(this.getApplicationContext());
+
+	SettingsLocal settings = null;
+	settings = S.load();
 
 	if (settings.isEmailNotificationEnabled()) {
 	    mail.setChecked(true);
@@ -117,17 +122,16 @@ public class SettingsActivity extends Activity {
      * Send UserSettings to server and save GCMsettings on device.
      */
     public void onApplyButtonClick(View view) {
-
-	ServerConnection scon = ServerConnection.getInstance();
-	SettingsLocal settings = new SettingsLocal();
-
 	boolean email = mail.isChecked();
 	int selectedLanguage = language.getCheckedRadioButtonId();
 	int selectedGCM = gcm.getCheckedRadioButtonId();
 
-	// TODO find out why settings were not saved
+	SettingsLocal settings = null;
+	settings = new SettingsLocal();
+
 	Storage S = Storage.getInstance(this.getApplicationContext());
 	settings = S.load();
+
 	if (email) {
 	    settings.enableEmailNotification();
 	} else {
@@ -148,8 +152,21 @@ public class SettingsActivity extends Activity {
 
 	settings.setNotificationKind(selectedGCM);
 
+	String gcmKey = ""; // TODO where to get GCMKey?
+
+	if (selectedGCM == 2) {
+	    settings.removeGCMKey(gcmKey);
+	} else {
+	    settings.addGCMKey(gcmKey);
+	}
+
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
+
+	boolean success = false;
+
 	try {
-	    scon.setSettings(settings);
+	    success = scon.setSettings(settings);
 	} catch (ClientProtocolException e) {
 	    PopUp.exceptionAlert(this, "ClientProtocolException!",
 		    e.getMessage());
@@ -173,10 +190,15 @@ public class SettingsActivity extends Activity {
 	    // e.printStackTrace();
 	}
 
-	// TODO if setSettings succeeded save SettingsLocal to local database
+	Storage storage = null;
+	storage = Storage.getInstance(SettingsActivity.this);
 
-	PopUp.alert(this, getString(R.string.success),
-		getString(R.string.settings_saved));
+	if (success) {
+	    storage.store(settings);
+
+	    PopUp.alert(this, getString(R.string.success),
+		    getString(R.string.settings_saved));
+	}
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
