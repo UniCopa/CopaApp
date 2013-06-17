@@ -16,7 +16,11 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.apache.http.client.ClientProtocolException;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -31,14 +35,21 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import unicopa.copa.app.Database;
+import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
+import unicopa.copa.app.SettingsLocal;
 import unicopa.copa.app.SingleEventLocal;
+import unicopa.copa.app.Storage;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.event.Event;
 
 /**
  * This Adapter helps to show the List of subscribed Events.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class EventAdapter extends BaseAdapter {
 
@@ -146,7 +157,42 @@ public class EventAdapter extends BaseAdapter {
 
 	    @Override
 	    public void onClick(View v) {
-		// TODO unsubscribe
+		int eventID = event.getEventID();
+
+		Storage storage = null;
+		storage = Storage.getInstance(null);
+
+		SettingsLocal settingsLocal = null;
+		settingsLocal = (SettingsLocal) storage.load();
+
+		try {
+		    Helper.unsubscribe(eventID, settingsLocal, context);
+		} catch (ClientProtocolException e) {
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.cp_ex), e.getMessage());
+		    // e.printStackTrace();
+		} catch (APIException e) {
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.api_ex), e.getMessage());
+		    // e.printStackTrace();
+		} catch (PermissionException e) {
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.per_ex), e.getMessage());
+		    // e.printStackTrace();
+		} catch (RequestNotPracticableException e) {
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.rnp_ex), e.getMessage());
+		    // e.printStackTrace();
+		} catch (InternalErrorException e) {
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.ie_ex), e.getMessage());
+		    // e.printStackTrace();
+		} catch (IOException e) {
+		    PopUp.exceptionAlert(context,
+			    context.getString(R.string.io_ex), e.getMessage());
+		    // e.printStackTrace();
+		}
+
 		PopUp.alert(context, context.getString(R.string.success),
 			context.getString(R.string.unsubscribed));
 	    }
