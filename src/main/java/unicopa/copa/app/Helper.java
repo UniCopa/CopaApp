@@ -103,17 +103,32 @@ public class Helper {
 	    return false;
 	}
 
-	String name = "";
-	name = eventGroup.getEventGroupName() + event.getEventName();
-
 	Database db = Database.getInstance(context);
 
 	if (sEvents.size() != 0) {
 	    for (SingleEvent sEvent : sEvents) {
-		SingleEventLocal sEventLocal = null;
-		sEventLocal = (SingleEventLocal) sEvent;
+		int sel_singleEventID = sEvent.getSingleEventID();
+		int sel_eventID = sEvent.getEventID();
+		String sel_location = sEvent.getLocation();
+		Date sel_date = sEvent.getDate();
+		String sel_supervisor = sEvent.getSupervisor();
+		int sel_durationMinutes = sEvent.getDurationMinutes();
+		String sel_colorCode = "";
+		String sel_name = eventGroup.getEventGroupName()
+			+ event.getEventName();
+		int sel_locationUpdateCounter = 0;
+		int sel_dateUpdateCounter = 0;
+		int sel_supervisorUpdateCounter = 0;
+		int sel_durationMinutesUpdateCounter = 0;
+		int sel_permission = 0;
 
-		sEventLocal.setName(name);
+		SingleEventLocal sEventLocal = null;
+		sEventLocal = new SingleEventLocal(sel_singleEventID,
+			sel_eventID, sel_location, sel_date, sel_supervisor,
+			sel_durationMinutes, sel_colorCode, sel_name,
+			sel_locationUpdateCounter, sel_dateUpdateCounter,
+			sel_supervisorUpdateCounter,
+			sel_durationMinutesUpdateCounter, sel_permission);
 
 		db.insert(sEventLocal, -1);
 	    }
@@ -218,9 +233,9 @@ public class Helper {
 
 	SettingsLocal settingsLocal = null;
 	settingsLocal = storage.load();
-	
+
 	settingsLocal.setLastUpdate(date);
-	
+
 	storage.store(settingsLocal);
 
 	return true;
