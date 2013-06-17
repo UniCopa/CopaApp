@@ -61,8 +61,10 @@ public class Storage {
 	SharedPreferences appSharedPrefs = context.getSharedPreferences(
 		"Settings", 0);
 	Gson gson = new Gson();
-	String json = appSharedPrefs.getString("SettingsLocalObject", "Object not found");
+	String json = appSharedPrefs.getString("SettingsLocalObject", "empty");
 	Log.w("JSON String",json);
+	if(json == "empty") return null;
+	else
 	return gson.fromJson(json,SettingsLocal.class);
     }
 
