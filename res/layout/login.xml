@@ -10,7 +10,7 @@
         style="@style/text_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Login please" />
+        android:text="@string/title_login" />
 
     <EditText
         android:id="@+id/login_usernameField"
@@ -55,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/login_passwordField"
         android:layout_marginTop="25dp"
         android:onClick="onLogoutButtonClick"
@@ -65,6 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/login_passwordField"
         android:layout_marginTop="25dp"
         android:onClick="onLoginButtonClick"
