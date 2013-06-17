@@ -86,11 +86,6 @@ public class Helper {
 	List<SingleEvent> sEvents = null;
 	sEvents = scon.getCurrentSingleEvents(eventID, date);
 
-	if (sEvents == null) {
-	    return false; // TODO is it possible to subscribe an event with no
-			  // SingleEvents?
-	}
-
 	Event event = null;
 	event = scon.getEvent(eventID);
 
@@ -113,13 +108,15 @@ public class Helper {
 
 	Database db = Database.getInstance(context);
 
-	for (SingleEvent sEvent : sEvents) {
-	    SingleEventLocal sEventLocal = null;
-	    sEventLocal = (SingleEventLocal) sEvent;
+	if (sEvents.size() != 0) {
+	    for (SingleEvent sEvent : sEvents) {
+		SingleEventLocal sEventLocal = null;
+		sEventLocal = (SingleEventLocal) sEvent;
 
-	    sEventLocal.setName(name);
+		sEventLocal.setName(name);
 
-	    db.insert(sEventLocal, -1);
+		db.insert(sEventLocal, -1);
+	    }
 	}
 
 	db.insert(event, -1);
@@ -161,7 +158,8 @@ public class Helper {
 	    return false;
 	}
 
-	Storage storage = Storage.getInstance(null);
+	Storage storage = null;
+	storage = Storage.getInstance(null);
 
 	storage.store(settingsLocal);
 
@@ -216,7 +214,15 @@ public class Helper {
 	    // a lot of unnecessary work
 	}
 
-	// TODO save current date in SettingsLocal
+	Storage storage = null;
+	storage = Storage.getInstance(null);
+
+	SettingsLocal settingsLocal = null;
+	settingsLocal = storage.load();
+	
+	settingsLocal.setLastUpdate(date);
+	
+	storage.store(settingsLocal);
 
 	return true;
     }
