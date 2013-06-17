@@ -195,6 +195,11 @@ public class EventAdapter extends BaseAdapter {
 
 		PopUp.alert(context, context.getString(R.string.success),
 			context.getString(R.string.unsubscribed));
+
+		Intent intentSubscription = new Intent(context,
+			SubscriptionActivity.class);
+		context.startActivity(intentSubscription);
+
 	    }
 
 	});
