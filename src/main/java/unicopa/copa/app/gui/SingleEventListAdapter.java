@@ -98,7 +98,7 @@ public class SingleEventListAdapter extends BaseAdapter {
 		.getDate()));
 	holder.time.setText(new SimpleDateFormat("HH:mm").format(sEvent
 		.getDate()));
-	String colored = sEvent.getColorCode();
+	String colored = "#" + sEvent.getColorCode();
 
 	int mColor = Color.parseColor(colored);
 

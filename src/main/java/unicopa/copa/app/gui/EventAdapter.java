@@ -112,7 +112,7 @@ public class EventAdapter extends BaseAdapter {
 	if (db.getSingleEventsByEventID(event.getEventID()) != null) {
 	    SingleEventLocal sEvent = (SingleEventLocal) db
 		    .getSingleEventsByEventID(event.getEventID()).get(0);
-	    colored = sEvent.getColorCode();
+	    colored = "#" + sEvent.getColorCode();
 	}
 
 	holder.eventGroupName.setText(db.getEventGroupName(event
