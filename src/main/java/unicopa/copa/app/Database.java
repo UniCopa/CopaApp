@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import unicopa.copa.base.UserEventSettings;
+import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.event.Event;
 import unicopa.copa.base.event.EventGroup;
 
@@ -571,6 +572,63 @@ public class Database extends SQLiteOpenHelper{
 	    updateString = "UPDATE singleEventLocal SET colorCode = '"+color+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
 	    Log.w("try", updateString);
 	    data.execSQL(updateString);
+	}
+	data.close();
+    }
+    
+    public void deleteEventByEventID(int eventID) throws PermissionException{
+	data = this.getWritableDatabase();
+	boolean lastEvent = false;
+	//Test whether User is Owner
+	String sEvent_columns[] = {"permission"};
+	String sEvent_selection = "eventID = '"+String.valueOf(eventID)+"' AND permission > '2'";
+	String sEvent_selectionArgs[] = null;
+	String sEvent_groupBy = null;
+	String sEvent_having = null;
+	String sEvent_orderBy = "";
+
+	Cursor c = data.query("Event", sEvent_columns, sEvent_selection,
+		sEvent_selectionArgs, sEvent_groupBy, sEvent_having, sEvent_orderBy);
+	
+	if(c.getCount() > 0){
+	    c.close();
+	    data.close();
+	    throw new PermissionException("You are Owner of this Event");
+	}
+	else{
+	    c.close();
+	    //Test whether there are multiple Events in the same EventGroup
+	    String Event_columns[] = {"eventGroupID"};
+	    String Event_selection = "eventID = '"+String.valueOf(eventID)+"'";
+	    String Event_selectionArgs[] = null;
+	    String Event_groupBy = null;
+	    String Event_having = null;
+	    String Event_orderBy = "";
+
+	    c = data.query("EventGroup", Event_columns, Event_selection,
+		    Event_selectionArgs, Event_groupBy, Event_having, Event_orderBy);
+	    
+	    c.moveToFirst();
+	    
+	    String eventGroupID = c.getString(0);
+	    
+	    if(c.getCount()<2) lastEvent = true;
+	    c.close();
+	    
+	    //delete Event
+	    String deleteEventString = "DELETE FROM Event WHERE eventID = '"+String.valueOf(eventID)+"'";
+	    String deleteSingleEventString = "DELETE FROM SingleEventLocal WHERE eventID = '"+String.valueOf(eventID)+"'";
+	    Log.w("try", deleteEventString);
+	    data.execSQL(deleteEventString);
+	    Log.w("try", deleteSingleEventString);
+	    data.execSQL(deleteSingleEventString);
+	    
+	    if(lastEvent){
+		String deleteEventGroupString = "DELETE FROM EventGroup WHERE eventGroupID = '"+eventGroupID+"'";
+		Log.w("try", deleteEventGroupString);
+		data.execSQL(deleteEventGroupString);
+	    }
+	    
 	}
 	data.close();
     }
