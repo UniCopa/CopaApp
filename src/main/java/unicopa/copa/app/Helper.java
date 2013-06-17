@@ -70,7 +70,7 @@ public class Helper {
 	userSettings = (UserSettings) settingsLocal;
 
 	boolean success = false;
-	success = true; // scon.setSettings(userSettings);
+	success = true; // TODO scon.setSettings(userSettings);
 
 	if (!success) {
 	    return false;
@@ -129,6 +129,51 @@ public class Helper {
     }
 
     /**
+     * This method removes an Event from the subscription list and erases all
+     * unnecessary data from the local database.
+     * 
+     * @param eventID
+     * @param settingsLocal
+     * @return
+     * @throws InternalErrorException
+     * @throws RequestNotPracticableException
+     * @throws PermissionException
+     * @throws APIException
+     * @throws IOException
+     * @throws ClientProtocolException
+     */
+    public static boolean unsubscribe(int eventID, SettingsLocal settingsLocal,
+	    Context context) throws ClientProtocolException, IOException,
+	    APIException, PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
+
+	settingsLocal.removeSubscription(eventID);
+
+	UserSettings userSettings = null;
+	userSettings = (UserSettings) settingsLocal;
+
+	boolean success = false;
+	success = true; // TODO scon.setSettings(userSettings);
+
+	if (!success) {
+	    return false;
+	}
+
+	Storage storage = Storage.getInstance(null);
+
+	storage.store(settingsLocal);
+
+	Database db = Database.getInstance(context);
+
+	// TODO remove event from local database
+	// TODO does the local database check whether it can remove eventGroup?
+
+	return true;
+    }
+
+    /**
      * This method gets all updates since a given date and saves them to the
      * local database;
      * 
@@ -172,7 +217,7 @@ public class Helper {
 	}
 
 	// TODO save current date in SettingsLocal
-	
+
 	return true;
     }
 
