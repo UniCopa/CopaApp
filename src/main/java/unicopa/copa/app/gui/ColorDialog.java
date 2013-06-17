@@ -42,20 +42,28 @@ public class ColorDialog extends DialogFragment {
 			switch (which) {
 			case 0:// blue
 			    color = "#6495ED";
+			    break;
 			case 1:// red
 			    color = "#B22222";
+			    break;
 			case 2:// yellow
 			    color = "#FFA500";
+			    break;
 			case 3:// pink
 			    color = "#FF1493";
+			    break;
 			case 4:// green
 			    color = "#9ACD32";
+			    break;
 			case 5:// orange
 			    color = "#FF8C00";
+			    break;
 			case 6:// purple
 			    color = "#BA55D3";
+			    break;
 			default:// black
 			    color = "#000000";
+			    break;
 			}
 			// TODO save color in userSettings and on device
 		    }
