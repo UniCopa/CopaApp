@@ -141,12 +141,12 @@ public class MainActivity extends Activity {
 	Set<String> gcmKeys = new HashSet<String>();
 	gcmKeys.add("ololo");
 	boolean emailNotification = true;
-	String language = "German";
+	String language = "german";
 	Map<Integer, UserEventSettings> map = new HashMap<Integer, UserEventSettings>();
 	UserEventSettings farb1 = new UserEventSettings();
 	UserEventSettings farb2 = new UserEventSettings();
-	farb1.setColorCode("#999999");
-	farb2.setColorCode("#444444");
+	farb1.setColorCode("999999");
+	farb2.setColorCode("444444");
 
 	map.put(1, farb1);
 	map.put(2, farb2);
