@@ -72,6 +72,8 @@ public class MainActivity extends Activity {
 
     ArrayList<SingleEventLocal> sEvents = new ArrayList<SingleEventLocal>();
     MainAdapter sEventAdapter;
+    TextView text;
+    ListView singleEventListView;
 
     // begin GCM
 
@@ -116,7 +118,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
-	TextView text = (TextView) findViewById(R.id.main_nothing);
+	text = (TextView) findViewById(R.id.main_nothing);
 
 	// begin GCM
 
@@ -130,7 +132,7 @@ public class MainActivity extends Activity {
 
 	// end GCM
 
-	final ListView singleEventListView = (ListView) MainActivity.this
+	singleEventListView = (ListView) MainActivity.this
 		.findViewById(R.id.singleEventView);
 
 	singleEventListView.setAdapter(null);
@@ -199,7 +201,7 @@ public class MainActivity extends Activity {
 	// end Just for testing
 
 	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(10);
-	
+
 	for (SingleEventLocal item : sEventsloc) {
 	    sEvents.add(item);
 	}
@@ -242,7 +244,7 @@ public class MainActivity extends Activity {
 
 	    boolean success = false;
 	    try {
-		Helper.update(date, MainActivity.this);
+		success = Helper.update(date, MainActivity.this);
 	    } catch (ClientProtocolException e) {
 		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 			e.getMessage());
@@ -273,9 +275,21 @@ public class MainActivity extends Activity {
 		Database db = null;
 		db = Database.getInstance(MainActivity.this);
 		List<SingleEventLocal> sEventsLocal = null;
-		sEventsLocal = db.getNearestSingleEvents(10);
 
-		// TODO display sEventsLocal
+		sEvents.clear();
+		sEventsLocal = db.getNearestSingleEvents(10);
+		text.setText("");
+		for (SingleEventLocal item : sEventsLocal) {
+		    sEvents.add(item);
+		}
+
+		if (sEvents.equals(new ArrayList<SingleEventLocal>())) {
+		    text.setText(getString(R.string.nothing));
+		}
+
+		sEventAdapter = new MainAdapter(this, sEvents);
+		singleEventListView.setAdapter((ListAdapter) sEventAdapter);
+
 	    }
 	} else {
 	    PopUp.loginFail(this);
