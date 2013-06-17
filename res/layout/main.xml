@@ -37,4 +37,12 @@
         android:onClick="onRefreshButtonClick"
         android:text="refresh" />
 
+    <TextView
+        android:id="@+id/main_nothing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/test_button_main" />
+
 </RelativeLayout>

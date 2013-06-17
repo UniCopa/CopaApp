@@ -30,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * In this activity a user can manage his privileges.
@@ -43,6 +44,7 @@ public class PrivilegesActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.priv);
 
+	TextView text = (TextView) findViewById(R.id.priv_nothing);
 	final ListView eventListView = (ListView) PrivilegesActivity.this
 		.findViewById(R.id.privListView);
 
@@ -54,12 +56,17 @@ public class PrivilegesActivity extends Activity {
 
 	List<Event> list = db.getEventsWithPermission();
 
-	for (Event item : list) {
-	    events.add(item);
-	}
+	if (list == null) {
+	    text.setText(getString(R.string.nothing));
+	} else {
 
-	PrivAdapter privAdapter = new PrivAdapter(this, events);
-	eventListView.setAdapter((ListAdapter) privAdapter);
+	    for (Event item : list) {
+		events.add(item);
+	    }
+
+	    PrivAdapter privAdapter = new PrivAdapter(this, events);
+	    eventListView.setAdapter((ListAdapter) privAdapter);
+	}
     }
 
     @Override

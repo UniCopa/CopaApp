@@ -52,6 +52,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
@@ -114,6 +115,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
+	TextView text = (TextView) findViewById(R.id.main_nothing);
 
 	// begin GCM
 
@@ -159,43 +161,49 @@ public class MainActivity extends Activity {
 
 	// Database
 	Database db = Database.getInstance(MainActivity.this);
-	db.Table_delete("SingleEventLocal");
-	db.Table_delete("Event");
-	db.Table_delete("EventGroup");
+	// db.Table_delete("SingleEventLocal");
+	// db.Table_delete("Event");
+	// db.Table_delete("EventGroup");
 	db.Table_init();
 
-//	EventGroup g1 = new EventGroup(3, "Telematik", "info", null);
-//	EventGroup g2 = new EventGroup(2, "Mathe", "blabla", null);
-//	EventGroup g3 = new EventGroup(4, "Linux", "info2", null);
-//
-//	Event ev1 = new Event(1, 3, "Übung1", new ArrayList<Integer>());
-//	Event ev2 = new Event(2, 2, "Vorlesung", new ArrayList<Integer>());
-//	Event ev3 = new Event(3, 4, "Übung2", new ArrayList<Integer>());
-//
-//	SingleEventLocal test = new SingleEventLocal(1, 3, "HU 102", Calendar
-//		.getInstance().getTime(), "Martin", 4, "#77DD22",
-//		"Linux Übung2", 2, 2, 2, 2, 2);
-//	SingleEventLocal test2 = new SingleEventLocal(5, 2, "HU 104", Calendar
-//		.getInstance().getTime(), "Robin", 5, "#770000",
-//		"Mathe Vorlesung", 0, 0, 0, 0, 0);
-//	SingleEventLocal test3 = new SingleEventLocal(6, 1, "HU 103", Calendar
-//		.getInstance().getTime(), "Philip", 90, "#005577",
-//		"Telematik Übung1", 0, 0, 0, 0, 0);
-//
-//	db.insert(test, -1);
-//	db.insert(test2, -1);
-//	db.insert(test3, -1);
-//	db.insert(ev1, -1);
-//	db.insert(ev2, -1);
-//	db.insert(ev3, -1);
-//	db.insert(g1, -1);
-//	db.insert(g2, -1);
-//	db.insert(g3, -1);
+	// EventGroup g1 = new EventGroup(3, "Telematik", "info", null);
+	// EventGroup g2 = new EventGroup(2, "Mathe", "blabla", null);
+	// EventGroup g3 = new EventGroup(4, "Linux", "info2", null);
+	//
+	// Event ev1 = new Event(1, 3, "Übung1", new ArrayList<Integer>());
+	// Event ev2 = new Event(2, 2, "Vorlesung", new ArrayList<Integer>());
+	// Event ev3 = new Event(3, 4, "Übung2", new ArrayList<Integer>());
+	//
+	// SingleEventLocal test = new SingleEventLocal(1, 3, "HU 102", Calendar
+	// .getInstance().getTime(), "Martin", 4, "#77DD22",
+	// "Linux Übung2", 2, 2, 2, 2, 2);
+	// SingleEventLocal test2 = new SingleEventLocal(5, 2, "HU 104",
+	// Calendar
+	// .getInstance().getTime(), "Robin", 5, "#770000",
+	// "Mathe Vorlesung", 0, 0, 0, 0, 0);
+	// SingleEventLocal test3 = new SingleEventLocal(6, 1, "HU 103",
+	// Calendar
+	// .getInstance().getTime(), "Philip", 90, "#005577",
+	// "Telematik Übung1", 0, 0, 0, 0, 0);
+	//
+	// db.insert(test, -1);
+	// db.insert(test2, -1);
+	// db.insert(test3, -1);
+	// db.insert(ev1, -1);
+	// db.insert(ev2, -1);
+	// db.insert(ev3, -1);
+	// db.insert(g1, -1);
+	// db.insert(g2, -1);
+	// db.insert(g3, -1);
 	// end Just for testing
 
 	List<SingleEventLocal> sEventsloc = db.getNearestSingleEvents(3);
 	for (SingleEventLocal item : sEventsloc) {
 	    sEvents.add(item);
+	}
+
+	if (sEvents.equals(new ArrayList<SingleEventLocal>())) {
+	    text.setText(getString(R.string.nothing));
 	}
 
 	sEventAdapter = new MainAdapter(this, sEvents);
