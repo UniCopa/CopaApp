@@ -51,6 +51,23 @@ public class PopUp {
     }
 
     /**
+     * Creates a Dialog that tells the user that he has unsubscribed an event.
+     * 
+     * @param context
+     */
+    public static void unsubscribed(final Context context) {
+	new AlertDialog.Builder(context).setTitle(R.string.success)
+		.setMessage(R.string.unsubscribed)
+		.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int which) {
+			Intent intentSubscription = new Intent(context,
+				SubscriptionActivity.class);
+			context.startActivity(intentSubscription);
+		    }
+		}).show();
+    }
+
+    /**
      * Creates an alert dialog with one button labeled 'OK'.
      * 
      * @param context
