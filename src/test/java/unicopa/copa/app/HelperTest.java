@@ -55,7 +55,7 @@ public class HelperTest {
 	sEventUpdates.add(sEventUpdate1);
 
 	sEventLocal = new SingleEventLocal(1236, 123, "HS-2", date1, "David",
-		90, "", "", 1, 0, 1, 0, 0);
+		90, "000000", "", 1, 0, 1, 0, 0);
 
 	SingleEventLocal returnevent = Helper.checkChanges(sEventUpdates);
 
