@@ -57,7 +57,7 @@ public class SearchResultSingleEventActivity extends Activity {
 	String evname = intent.getStringExtra("eventname");
 	String name = groupname + " " + evname;
 
-	TextView title = (TextView) findViewById(R.id.subscription_text);
+	TextView title = (TextView) findViewById(R.id.singlelist_text);
 	title.setText(name);
 
 	final ListView singleEventListView = (ListView) SearchResultSingleEventActivity.this

@@ -30,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * In this activity a user sees all SingleEvents to an Event.
@@ -44,6 +45,7 @@ public class SingleEventListActivity extends Activity {
 	setContentView(R.layout.singleeventlist);
 	Intent intent = getIntent();
 	int event = intent.getIntExtra("selected", 0);
+	TextView text = (TextView) findViewById(R.id.singlelist_nothing);
 
 	final ListView singleEventListView = (ListView) SingleEventListActivity.this
 		.findViewById(R.id.singleEventListView);
@@ -53,15 +55,18 @@ public class SingleEventListActivity extends Activity {
 	Database db = Database.getInstance(SingleEventListActivity.this);
 
 	List<SingleEventLocal> sEventsloc = db.getSingleEventsByEventID(event);
-	for (SingleEventLocal item : sEventsloc) {
-	    sEvents.add(item);
-	}
-
 	db.close();
+	if (sEventsloc == null) {
+	    text.setText("no dates");
+	} else {
 
-	SingleEventListAdapter sEventAdapter = new SingleEventListAdapter(this,
-		sEvents);
-	singleEventListView.setAdapter((ListAdapter) sEventAdapter);
+	    for (SingleEventLocal item : sEventsloc) {
+		sEvents.add(item);
+	    }
+	    SingleEventListAdapter sEventAdapter = new SingleEventListAdapter(
+		    this, sEvents);
+	    singleEventListView.setAdapter((ListAdapter) sEventAdapter);
+	}
 
     }
 

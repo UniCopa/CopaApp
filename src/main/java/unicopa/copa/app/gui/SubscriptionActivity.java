@@ -21,6 +21,7 @@ import java.util.List;
 
 import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
+import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.base.event.Event;
 
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * In this activity a user can see all Events, which he has subscribed.
@@ -42,6 +44,7 @@ public class SubscriptionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.subscription);
+	TextView text = (TextView) findViewById(R.id.subscription_nothing);
 
 	final ListView eventListView = (ListView) SubscriptionActivity.this
 		.findViewById(R.id.subscriptionListView);
@@ -56,6 +59,10 @@ public class SubscriptionActivity extends Activity {
 
 	for (Event item : list) {
 	    sEvents.add(item);
+	}
+
+	if (sEvents.equals(new ArrayList<SingleEventLocal>())) {
+	    text.setText(getString(R.string.nothing));
 	}
 
 	EventAdapter eventAdapter = new EventAdapter(this, sEvents);

@@ -7,7 +7,7 @@
     <string name="action_priv">Privileges</string>
     <string name="action_login">Login/Logout</string>
     <string name="button_login">Login</string>
-    <string name="title_login">Login please</string>
+    <string name="title_login">Login</string>
     <string name="title_logout">Logout</string>
     <string name="text_login_username">Username</string>
     <string name="text_login_pw">Password</string>
@@ -44,6 +44,7 @@
     <string name="gcm_none">manuel</string>
     <string name="success">Success</string>
     <string name="settings_saved">Your settings have been saved.</string>
+    <string name="logged_out">You have been logged out.</string>
     <string name="login_ex">Login!</string>
     <string name="not_login">You are not logged in.</string>
     <string name="cp_ex">ClientProtocolException!</string>

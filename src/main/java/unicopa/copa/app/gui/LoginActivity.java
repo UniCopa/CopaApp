@@ -56,10 +56,18 @@ public class LoginActivity extends Activity {
 	fail = intent.getIntExtra("failed", 0);
 
 	TextView title = (TextView) findViewById(R.id.login_title);
+	TextView user = (TextView) findViewById(R.id.login_username);
+	TextView password = (TextView) findViewById(R.id.login_pw);
+	EditText name = (EditText) findViewById(R.id.login_usernameField);
+	EditText pw = (EditText) findViewById(R.id.login_passwordField);
 	Button loginButton = (Button) findViewById(R.id.login_login_button);
 	Button logoutButton = (Button) findViewById(R.id.login_logout_button);
 	if (scon.getConnected()) {
 	    loginButton.setVisibility(View.GONE);
+	    user.setVisibility(View.GONE);
+	    password.setVisibility(View.GONE);
+	    name.setVisibility(View.GONE);
+	    pw.setVisibility(View.GONE);
 	    logoutButton.setVisibility(View.VISIBLE);
 	    title.setText(getString(R.string.title_logout));
 	} else {
