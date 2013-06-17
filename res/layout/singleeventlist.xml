@@ -6,7 +6,7 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/subscription_text"
+        android:id="@+id/singlelist_text"
         style="@style/text_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -17,10 +17,18 @@
         style="@style/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/subscription_text"
+        android:layout_below="@+id/singlelist_text"
         android:cacheColorHint="#00000000"
         android:divider="@null"
         android:dividerHeight="0dp" >
     </ListView>
+
+    <TextView
+        android:id="@+id/singlelist_nothing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/singlelist_text" />
 
 </RelativeLayout>
