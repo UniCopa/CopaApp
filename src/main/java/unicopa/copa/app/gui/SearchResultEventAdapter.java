@@ -124,13 +124,11 @@ public class SearchResultEventAdapter extends BaseAdapter {
 
 	    @Override
 	    public void onClick(View v) {
-		// TODO send request to server
 		int eventID = event.getEventID();
 		SettingsLocal settingsLocal = null;
 
 		Storage storage = Storage.getInstance(null);
 
-		// TODO is this correct?
 		settingsLocal = (SettingsLocal) storage.load();
 		try {
 		    Helper.subscribe(eventID, settingsLocal, context);
