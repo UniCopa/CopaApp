@@ -126,21 +126,22 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	    @Override
 	    public void onClick(View v) {
 		int eventID = event.getEventID();
+
+		Storage storage = null;
+		storage = Storage.getInstance(null);
+
 		SettingsLocal settingsLocal = null;
 
-		Storage storage = Storage.getInstance(null);
-
 		try {
-		    settingsLocal = (SettingsLocal) storage.load();
+		    settingsLocal = storage.load();
 		} catch (NoStorageException e1) {
 		    // TODO Auto-generated catch block
 		    e1.printStackTrace();
 		}
-		
+
 		try {
 		    Helper.subscribe(eventID, settingsLocal, context);
 		} catch (ClientProtocolException e) {
-
 		    PopUp.exceptionAlert(context,
 			    context.getString(R.string.cp_ex), e.getMessage());
 		    // e.printStackTrace();
