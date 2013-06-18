@@ -42,6 +42,8 @@ import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.com.request.AddSingleEventUpdateRequest;
 import unicopa.copa.base.com.request.AddSingleEventUpdateResponse;
+import unicopa.copa.base.com.request.CancelSingleEventRequest;
+import unicopa.copa.base.com.request.CancelSingleEventResponse;
 import unicopa.copa.base.com.request.GetAllOwnersRequest;
 import unicopa.copa.base.com.request.GetAllOwnersResponse;
 import unicopa.copa.base.com.request.GetCategoriesRequest;
@@ -507,6 +509,43 @@ public class ServerConnection {
 	    return resObj.getSingleEventID();
 	} else {
 	    return -1;
+	}
+    }
+
+    /**
+     * This method removes a SingleEvent.
+     * 
+     * @param singleEventID
+     * @param msg
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public boolean removeSingleEvent(int singleEventID, String msg)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	CancelSingleEventRequest reqObj = new CancelSingleEventRequest(
+		singleEventID, msg);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer(reqStr);
+
+	CancelSingleEventResponse resObj = null;
+	resObj = (CancelSingleEventResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof CancelSingleEventResponse) {
+	    return true;
+	} else {
+	    return false;
 	}
     }
 
