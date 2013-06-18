@@ -40,6 +40,13 @@ public class SearchResultGroupAdapter extends BaseAdapter {
     ArrayList<EventGroup> GroupList;
     Context context;
 
+    /**
+     * Creates a SearchResultGroupAdapter with a EventGroupList that should be
+     * shown.
+     * 
+     * @param context
+     * @param groupList
+     */
     public SearchResultGroupAdapter(Context context,
 	    ArrayList<EventGroup> groupList) {
 	this.context = context;
@@ -61,6 +68,12 @@ public class SearchResultGroupAdapter extends BaseAdapter {
 	return arg0;
     }
 
+    /**
+     * Creates the ListView with EventGroups. The name and an "info"-button are
+     * shown. By clicking on the button a dialog appears and shows the infotext
+     * to this EventGroup.
+     * 
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 	ViewHolder holder = null;
@@ -101,6 +114,12 @@ public class SearchResultGroupAdapter extends BaseAdapter {
 	return convertView;
     }
 
+    /**
+     * Helps to show the EventGroups in the SearchResultGroupAdapter.
+     * 
+     * @author Christiane Kuhn
+     * 
+     */
     static class ViewHolder {
 	TextView name;
 	Button info;

@@ -50,6 +50,12 @@ public class SearchResultGroupActivity extends Activity {
     SearchResultGroupAdapter searchGroupAdapter;
     int categoryId;
 
+    /**
+     * Creates SearchResultGroupActivity with a list of EventGroups which are
+     * the result of a searchrequest are shown. By clicking on one of them all
+     * depending Events, which fit to the before chosen category, are shown in
+     * the SearchResultEventActivity that is started then.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -100,11 +106,6 @@ public class SearchResultGroupActivity extends Activity {
 
 	// end getEventGroups
 
-	// eventGroupList.add(new EventGroup(1, "Telematik1", "Info", null));
-	// eventGroupList.add(new EventGroup(2, "Betriebssysteme", "Info2",
-	// null));
-	// eventGroupList.add(new EventGroup(3, "Mathe", "Info3", null));
-
 	searchGroupAdapter = new SearchResultGroupAdapter(this, eventGroupList);
 	groupListView.setAdapter((ListAdapter) searchGroupAdapter);
 	groupListView.setItemsCanFocus(false);
@@ -130,12 +131,19 @@ public class SearchResultGroupActivity extends Activity {
 	});
     }
 
+    /**
+     * Shows the menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.search_menu, menu);
 	return true;
     }
 
+    /**
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
