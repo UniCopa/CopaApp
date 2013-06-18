@@ -218,8 +218,10 @@ public class Database extends SQLiteOpenHelper{
      * 
      * @param obj
      * @param ID_old
+     * @throws NoEventGroupException 
+     * @throws NoEventException 
      */
-    public void insert(Object obj, int ID_old){
+    public void insert(Object obj, int ID_old) throws NoEventGroupException, NoEventException{
 	data = this.getWritableDatabase();
 	String TableName = obj.getClass().getSimpleName();
 	boolean newEntry = false;
@@ -271,8 +273,23 @@ public class Database extends SQLiteOpenHelper{
 		    }
 		    UpdateColumns = delLast(UpdateColumns)
 			    + " WHERE singleEventID='" + ID_old + "'";
+		    
+		    
+			//check whether SingleEvent has an existing Event
+			String Tcolumns[] = {"eventID"};
+			String Tselection = "eventID='"+c.getString(1)+"'";
+			String TselectionArgs[] = null;
+			String TgroupBy = null;
+			String Thaving = null;
+			String TorderBy = "";
 
-		    c.close();
+			Cursor Tc = data.query("Event", Tcolumns, Tselection,
+				TselectionArgs, TgroupBy, Thaving, TorderBy);
+			
+			if(c.getCount()<1) throw new NoEventException("No matching Event for SingleEvent "+c.getString(0)+" found!");
+			Tc.close();
+		    
+			c.close();
 		    Log.w("try", UpdateColumns);
 		    data.execSQL(UpdateColumns);
 		} else{
@@ -281,6 +298,21 @@ public class Database extends SQLiteOpenHelper{
 		}
 	    }
 	    if (newEntry) {
+		
+		//check whether SingleEvent has an existing Event
+		String Tcolumns[] = {"eventID"};
+		String Tselection = "eventID='"+String.valueOf(sev.getEventID())+"'";
+		String TselectionArgs[] = null;
+		String TgroupBy = null;
+		String Thaving = null;
+		String TorderBy = "";
+
+		Cursor Tc = data.query("Event", Tcolumns, Tselection,
+			TselectionArgs, TgroupBy, Thaving, TorderBy);
+		
+		if(Tc.getCount()<1) throw new NoEventException("No matching Event for SingleEvent "+String.valueOf(sev.getSingleEventID())+" found!");
+		Tc.close();
+		
 		String InsertString = "INSERT INTO "
 			+ sev.getClass().getSimpleName() + " "
 			+ SingleEventLocal_sqlScheme(null) + " VALUES ";
@@ -322,6 +354,19 @@ public class Database extends SQLiteOpenHelper{
 		}catch(SQLiteConstraintException ex){
 		    Log.e("error","eventID is not unique");
 		}
+		//check whether Event has an existing EventGroup
+		String columns[] = {"eventGroupID"};
+		String selection = "eventGrouID='"+String.valueOf(ev.getEventGroupID())+"'";
+		String selectionArgs[] = null;
+		String groupBy = null;
+		String having = null;
+		String orderBy = "";
+
+		Cursor c = data.query("Event", columns, selection,
+			selectionArgs, groupBy, having, orderBy);
+		
+		if(c.getCount()<1) throw new NoEventGroupException("No matching EventGroup for Event "+String.valueOf(ev.getEventGroupID())+" found!");
+		c.close();
 	    }
 	}
 	
