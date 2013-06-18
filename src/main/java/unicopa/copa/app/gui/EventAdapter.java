@@ -57,6 +57,12 @@ public class EventAdapter extends BaseAdapter {
     ArrayList<Event> EventList;
     Context context;
 
+    /**
+     * Creates a EventAdapter with a EventList that should be shown.
+     * 
+     * @param context
+     * @param eventList
+     */
     public EventAdapter(Context context, ArrayList<Event> eventList) {
 	this.context = context;
 	this.EventList = eventList;
@@ -79,7 +85,15 @@ public class EventAdapter extends BaseAdapter {
 
     /**
      * Creates the ListView with Events in user defined colors (black as
-     * default) and reacts on buttonclicks.
+     * default). In the ListView the EventGroupName, the EventName and three
+     * buttons are shown. It also handles the clicks on the buttons. If the
+     * "color"-button is clicked a colorDialog opens. If the
+     * "unsubscribe"-button is clicked a message to the server is send that
+     * unsubscribes the user.The user will also be informed by a dialog. If the
+     * "details"-button is clicked the SingleEventListActivity with all
+     * SingleEvents, that belong to the currently watched event, is shown.
+     * 
+     * 
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -220,6 +234,12 @@ public class EventAdapter extends BaseAdapter {
 	return convertView;
     }
 
+    /**
+     * Helps to show the events in the EventAdapter.
+     * 
+     * @author Christiane Kuhn
+     * 
+     */
     static class ViewHolder {
 	TextView eventName;
 	TextView eventGroupName;

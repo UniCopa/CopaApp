@@ -31,12 +31,24 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
 /**
- * This is a helper class for the colordialog.
+ * This is a helper class for the colordialog. With it a user will pick the
+ * color for an event.
  * 
  * @author Christiane Kuhn
  */
 public class ColorDialog extends DialogFragment {
 
+    /**
+     * This method creates a colorDialog. The dailog offers different colors and
+     * it saves the picked color in SettingsLocal and sends the new userSettings
+     * to the server. After saving a color the updated SubscriptionActivity is
+     * shown.
+     * 
+     * @param savedInstanceState
+     * @param context
+     * @param eventId
+     * @return
+     */
     public Dialog onCreateDialog(Bundle savedInstanceState,
 	    final Context context, final int eventId) {
 	AlertDialog.Builder builder = new AlertDialog.Builder(context);

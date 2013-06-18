@@ -31,7 +31,7 @@ import android.content.Intent;
 public class PopUp {
 
     /**
-     * Creates a Dialog that tells the user that he is not logged in and starts
+     * Creates a dialog that tells the user that he is not logged in and starts
      * the LoginActivity.
      * 
      * @param context
@@ -51,7 +51,7 @@ public class PopUp {
     }
 
     /**
-     * Creates a Dialog that tells the user that he has unsubscribed an event.
+     * Creates a dialog that tells the user that he has unsubscribed an event.
      * 
      * @param context
      */

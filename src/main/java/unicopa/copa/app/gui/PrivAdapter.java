@@ -40,7 +40,8 @@ import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.event.Event;
 
 /**
- * This Adapter helps to show the List of Events.
+ * This Adapter helps to show the List of Events to which a user has special
+ * rights.
  * 
  * @author Christiane Kuhn
  */
@@ -49,6 +50,14 @@ public class PrivAdapter extends BaseAdapter {
     ArrayList<Event> EventList;
     Context context;
 
+    /**
+     * Creates a PrivAdapter with a list of events that should be shown.
+     * Typically these events are those for which a user has rights to change
+     * depending SingleEvents.
+     * 
+     * @param context
+     * @param eventList
+     */
     public PrivAdapter(Context context, ArrayList<Event> eventList) {
 	this.context = context;
 	this.EventList = eventList;
@@ -69,6 +78,17 @@ public class PrivAdapter extends BaseAdapter {
 	return arg0;
     }
 
+    /**
+     * Creates the ListView with Events in user defined colors (black as
+     * default). In the ListView the EventGroupName, the EventName and two
+     * buttons are shown. It also handles the clicks on the buttons. If the
+     * "change"-button is clicked the SingleEventList opens and the user can
+     * chose a SingleEvent to update it. If the "others"-button is clicked the
+     * EventPricActivity is started and the user can see all rightholders,
+     * deputies and owners.
+     * 
+     * 
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 	ViewHolder holder = null;
@@ -152,6 +172,12 @@ public class PrivAdapter extends BaseAdapter {
 	return convertView;
     }
 
+    /**
+     * Helps to show the events in the PrivAdapter.
+     * 
+     * @author Christiane Kuhn
+     * 
+     */
     static class ViewHolder {
 	TextView eventName;
 	TextView eventGroupName;

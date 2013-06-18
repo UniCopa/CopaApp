@@ -191,6 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/change_eventGroupname"
             android:layout_alignRight="@+id/change_edit_dura"
+            android:onClick="onApplyButtonClick"
             android:text="@string/change_apply" />
 
         <TextView

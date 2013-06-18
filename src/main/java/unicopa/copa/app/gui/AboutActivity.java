@@ -24,18 +24,27 @@ import android.content.Intent;
 import android.view.View;
 
 /**
- * In this activity shows Information about CoPA.
+ * This activity shows information about CoPA.
  * 
  * @author Christiane Kuhn
  */
 public class AboutActivity extends Activity {
 
+    /**
+     * Creates AboutActivity with a text and a button. The text contains
+     * information about CoPA.
+     * 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.about);
     }
 
+    /**
+     * Handles click on "OK"-Button with a switch to the MainActivity.
+     * 
+     */
     public void onOkButtonClick(View view) {
 	Intent intentMain = new Intent(AboutActivity.this, MainActivity.class);
 	AboutActivity.this.startActivity(intentMain);

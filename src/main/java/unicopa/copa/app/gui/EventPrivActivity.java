@@ -24,20 +24,28 @@ import android.view.MenuItem;
 import unicopa.copa.app.R;
 
 /**
- * In this activity a user can see all rightholders, deputies and owners.
+ * In this activity a user can see all rightholders, deputies and owners of an
+ * event.
  * 
  * @author Christiane Kuhn
  */
 public class EventPrivActivity extends Activity {
 
+    /**
+     * Creates the EventPrivActivity with a list of all rightholders, deputies
+     * and owners that belong to an event, that the user picked before.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.eventpriv);
 	Intent intent = getIntent();
-	String event = intent.getStringExtra("key");
+	int event = intent.getIntExtra("eventID", 0);
     }
 
+    /**
+     * Shows the menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.all_items_menu, menu);
@@ -45,7 +53,8 @@ public class EventPrivActivity extends Activity {
     }
 
     /**
-     * Switch to other activity, depending on which item was clicked.
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

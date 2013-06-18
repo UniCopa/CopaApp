@@ -100,7 +100,7 @@ public class LoginActivity extends Activity {
     }
 
     /**
-     * Shows the Menu.
+     * Shows the menu.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,7 +111,8 @@ public class LoginActivity extends Activity {
 
     /**
      * Is used if LoginButton is clicked. Calls the ServerConnection.login
-     * method if it was successful switches back to MainActivity.
+     * method and logs in the user.If it was successful switches back to
+     * MainActivity.
      * 
      * @param view
      */
@@ -205,7 +206,8 @@ public class LoginActivity extends Activity {
 
     /**
      * Is used if LogoutButton is clicked. Calls the ServerConnection.logout
-     * method if it was successful switches back to MainActivity.
+     * method and logs out the user. If it was successful switches back to
+     * MainActivity.
      * 
      * @param view
      */
@@ -222,6 +224,10 @@ public class LoginActivity extends Activity {
 
     }
 
+    /**
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
 	case R.id.action_about:

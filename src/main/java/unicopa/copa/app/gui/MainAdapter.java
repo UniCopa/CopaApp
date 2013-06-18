@@ -42,6 +42,12 @@ public class MainAdapter extends BaseAdapter {
     ArrayList<SingleEventLocal> singleEventList;
     Context context;
 
+    /**
+     * Creates a EventAdapter with a SingleEventList that should be shown.
+     * 
+     * @param context
+     * @param eventList
+     */
     public MainAdapter(Context context, ArrayList<SingleEventLocal> eventList) {
 	this.context = context;
 	this.singleEventList = eventList;
@@ -62,6 +68,14 @@ public class MainAdapter extends BaseAdapter {
 	return arg0;
     }
 
+    /**
+     * Creates the ListView with SingleEvents in user defined colors (black as
+     * default). In the ListView the depending EventGroupName and EventName and
+     * also the location, date, time, duration and the supervisor are shown.
+     * Updated values are highlighted in red. If the user clicks on a
+     * SingleEvent all details of it are shown in the SingleEventActivity.
+     * 
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 	ViewHolder holder = null;
@@ -133,6 +147,12 @@ public class MainAdapter extends BaseAdapter {
 	return convertView;
     }
 
+    /**
+     * Helps to show the SingleEvents in the MainAdapter.
+     * 
+     * @author Christiane Kuhn
+     * 
+     */
     static class ViewHolder {
 	TextView date;
 	TextView dura;

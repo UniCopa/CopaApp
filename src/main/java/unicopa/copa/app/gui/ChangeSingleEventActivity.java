@@ -27,7 +27,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * In this activity a user can update a event, if he has the rights to do it.
@@ -36,6 +38,11 @@ import android.widget.TextView;
  */
 public class ChangeSingleEventActivity extends Activity {
 
+    /**
+     * Creates ChangeSingleEventActivity with editText for an update input and
+     * shows the current values of this SingleEvent.
+     * 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -66,7 +73,7 @@ public class ChangeSingleEventActivity extends Activity {
     }
 
     /**
-     * Inflate the menu; this adds items to the action bar if it is present.
+     * Inflate the menu.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,7 +82,7 @@ public class ChangeSingleEventActivity extends Activity {
     }
 
     /**
-     * Switch to other activity, depending on which item was clicked.
+     * Switch to other activity, depending on which menu item was clicked.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -114,6 +121,17 @@ public class ChangeSingleEventActivity extends Activity {
 	default:
 	    return super.onOptionsItemSelected(item);
 	}
+    }
+
+    /**
+     * Handles click on "Apply"-Button and sends the currently written inputs of
+     * the editTexts as an update to the server.
+     * 
+     */
+    public void onApplyButtonClick(View view) {
+
+	// TODO send update to server
+
     }
 
 }

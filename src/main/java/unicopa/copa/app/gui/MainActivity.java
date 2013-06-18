@@ -105,8 +105,10 @@ public class MainActivity extends Activity {
     // end GCM
 
     /**
-     * creates Activity with a list of SingleEvents. By clicking on a
-     * SingleEvent it switches to SingleEventActivity
+     * Creates MainActivity with a list of the next SingleEvents. By clicking on
+     * a SingleEvent it switches to SingleEventActivity and shows details about
+     * the SingleEvent. If the "refresh"-button is used it loads all new updates
+     * if the user is logged in. If not a dialog reminds the user to log in.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,6 +263,12 @@ public class MainActivity extends Activity {
 	});
     }
 
+    /**
+     * Loads all updates if the user is logged in. If not a dialog reminds the
+     * user to log in.
+     * 
+     * @param view
+     */
     public void onRefreshButtonClick(View view) {
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
@@ -366,7 +374,8 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Handles clicks on a menu-item
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -535,6 +544,9 @@ public class MainActivity extends Activity {
 
     // end GCM
 
+    /**
+     * Shows the menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.activity_main_menu, menu);
