@@ -128,17 +128,11 @@ public class LoginActivity extends Activity {
 	    EditText pw = (EditText) findViewById(R.id.login_passwordField);
 	    password = pw.getText().toString();
 
-	    // TODO should only switch activity when login successful, but does
-	    // it anyway
+	    boolean success = false;
+
 	    try {
-		if (scon.login(userName, password, getApplicationContext())) {
-		    Intent intentMain = new Intent(LoginActivity.this,
-			    MainActivity.class);
-		    LoginActivity.this.startActivity(intentMain);
-		} else {
-		    PopUp.exceptionAlert(this, getString(R.string.login_error),
-			    "" /* TODO */);
-		}
+		success = scon.login(userName, password,
+			getApplicationContext());
 	    } catch (ClientProtocolException e) {
 		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 			e.getMessage());
@@ -147,6 +141,14 @@ public class LoginActivity extends Activity {
 		PopUp.exceptionAlert(this, getString(R.string.io_ex),
 			e.getMessage());
 		// e.printStackTrace();
+	    }
+
+	    if (success) {
+		Intent intentMain = new Intent(LoginActivity.this,
+			MainActivity.class);
+		LoginActivity.this.startActivity(intentMain);
+	    } else {
+		PopUp.exceptionAlert(this, getString(R.string.login_error), "" /* TODO */);
 	    }
 	}
     }
