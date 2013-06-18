@@ -20,8 +20,15 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
+import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
+import unicopa.copa.app.SettingsLocal;
+import unicopa.copa.app.Storage;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -144,6 +151,44 @@ public class LoginActivity extends Activity {
 	    }
 
 	    if (success) {
+		SettingsLocal settingsLocal = null;
+
+		try {
+		    settingsLocal = scon.getSettings();
+		} catch (ClientProtocolException e) {
+		    PopUp.exceptionAlert(this, "ClientProtocolException!",
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (APIException e) {
+		    PopUp.exceptionAlert(this, "APIException!", e.getMessage());
+		    // e.printStackTrace();
+		} catch (PermissionException e) {
+		    PopUp.exceptionAlert(this, "PermissionException!",
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (RequestNotPracticableException e) {
+		    PopUp.exceptionAlert(this,
+			    "RequestNotPracticableException!", e.getMessage());
+		    // e.printStackTrace();
+		} catch (InternalErrorException e) {
+		    PopUp.exceptionAlert(this, "InternalErrorException!",
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (IOException e) {
+		    PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+		    // e.printStackTrace();
+		} catch (NoStorageException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+
+		if (settingsLocal != null) {
+		    Storage storage = null;
+		    storage = Storage.getInstance(null);
+
+		    storage.store(settingsLocal);
+		}
+
 		Intent intentMain = new Intent(LoginActivity.this,
 			MainActivity.class);
 		LoginActivity.this.startActivity(intentMain);
