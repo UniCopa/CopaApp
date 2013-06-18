@@ -82,7 +82,12 @@ public class Database extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
-
+/**
+ * This is a helper-method to create the SQLDatabase-schemeString for SingleEventLocal.
+ * 
+ * @param primaryKey
+ * @return
+ */
     private String SingleEventLocal_sqlScheme(String primaryKey) {
 	String sqlString = "(";
 	for (int i = 0; i < SingleEventLocal_scheme.length; i++)
@@ -94,6 +99,12 @@ public class Database extends SQLiteOpenHelper{
 	return sqlString;
     }
 
+    /**
+     * This is a helper-method to create the SQLDatabase-schemeString for Event.
+     * 
+     * @param primaryKey
+     * @return
+     */
     private String Event_sqlScheme(String primaryKey) {
 	String sqlString = "(";
 	for (int i = 0; i < Event_scheme.length; i++)
@@ -105,6 +116,12 @@ public class Database extends SQLiteOpenHelper{
 	return sqlString;
     }
 
+    /**
+     * This is a helper-method to create the SQLDatabase-schemeString for EventGroup.
+     * 
+     * @param primaryKey
+     * @return
+     */
     private String EventGroup_sqlScheme(String primaryKey) {
 	String sqlString = "(";
 	for (int i = 0; i < EventGroup_scheme.length; i++)
@@ -115,7 +132,12 @@ public class Database extends SQLiteOpenHelper{
 	    sqlString = delLast(sqlString) + ")";
 	return sqlString;
     }
-
+/**
+ * This is a helper-method to create a bracketed String of values, separated with commas.
+ * 
+ * @param values
+ * @return
+ */
     private String sqlValues(String[] values) {
 	String valueString = "(";
 	for (int i = 0; i < values.length; i++)
@@ -124,10 +146,27 @@ public class Database extends SQLiteOpenHelper{
 	return valueString;
     }
 
+    /**
+     * This is a helper-method to delete the last char of a String
+     * 
+     * @param s
+     * @return
+     */
     private String delLast(String s) {
 	return s.substring(0, s.length() - 1);
     }
 
+    /**
+     * This method initializes the Tables:
+     * 
+     * EventGroup
+     * Event
+     * SingleEventLocal
+     * 
+     * that are required in the Application
+     * 
+     * @throws SQLiteException
+     */
     public void Table_init() throws SQLiteException{
 	data = this.getWritableDatabase();
 	String Table_Creation_String;
@@ -153,6 +192,11 @@ public class Database extends SQLiteOpenHelper{
 	data.close();
     }
 
+    /**
+     * This method deletes an existing Database-table by name.
+     * 
+     * @param name
+     */
     public void Table_delete(String name) {
 	data = this.getWritableDatabase();
 	Log.w("try", "DROP TABLE IF EXISTS " + name);
@@ -160,6 +204,21 @@ public class Database extends SQLiteOpenHelper{
 	data.close();
     }
 
+    /**
+     * This method inserts an Object into the Database.
+     * Allowed Objects are:
+     * 
+     * EventGroup
+     * Event
+     * SingleEventLocal
+     * 
+     * The parameter ID_old is used to update SingleEventLocals and should contain the ID of the
+     * SingleEvent that should be updated. If ID_old is not found in the Database or -1, the 
+     * Object will be inserted.
+     * 
+     * @param obj
+     * @param ID_old
+     */
     public void insert(Object obj, int ID_old){
 	data = this.getWritableDatabase();
 	String TableName = obj.getClass().getSimpleName();
@@ -289,6 +348,11 @@ public class Database extends SQLiteOpenHelper{
 	data.close();
     }
     
+    /**
+     * This method returns a List of all stored Events
+     * 
+     * @return
+     */
     public List<Event> getAllEvents(){
 	data = this.getReadableDatabase();
 	List<Event> EventList = new ArrayList<Event>();
@@ -324,7 +388,13 @@ public class Database extends SQLiteOpenHelper{
 	data.close();
 	return EventList;
     }
-    
+   
+    /**
+     * This method returns the Name of the EventGroup with the given eventGroupID
+     * 
+     * @param eventGroupID
+     * @return
+     */
     public String getEventGroupName(int eventGroupID){
 	data=this.getReadableDatabase();
 	String name="keine eventgroup gefunden";
@@ -347,6 +417,12 @@ public class Database extends SQLiteOpenHelper{
 	return name;
     }
     
+    /**
+     * This method returns all SingleEvents with the given eventID
+     * 
+     * @param eventID
+     * @return
+     */
     public List<SingleEventLocal> getSingleEventsByEventID(int eventID){
 	data=this.getReadableDatabase();
 	List<SingleEventLocal> SingleEventLocalList = new ArrayList<SingleEventLocal>();
@@ -395,6 +471,12 @@ public class Database extends SQLiteOpenHelper{
 
     }
 
+    /**
+     * This method returns a List of the next upcoming SingleEvents
+     * 
+     * @param num
+     * @return
+     */
     public List<SingleEventLocal> getNearestSingleEvents(int num){
 	data = this.getReadableDatabase();
 
@@ -443,6 +525,12 @@ public class Database extends SQLiteOpenHelper{
 	return SingleEventLocalList;
     }
     
+    /**
+     * This method returns a SingleEventLocal-Object with the given singleEventID
+     * 
+     * @param singleEventID
+     * @return
+     */
     public SingleEventLocal getSingleEventBySingleEventID(int singleEventID){
 	data=this.getReadableDatabase();
 	String columns[] = null;
@@ -482,6 +570,11 @@ public class Database extends SQLiteOpenHelper{
 	}
     }
     
+    /**
+     * This method returns a List of all Events with a PermissionCode > 0
+     * 
+     * @return
+     */
     public List<Event> getEventsWithPermission(){
 	data=this.getReadableDatabase();
 	List<Event> eventList = new ArrayList<Event>();
@@ -540,6 +633,9 @@ public class Database extends SQLiteOpenHelper{
 	return eventList;
     }
     
+    /**
+     * This method sets the PermissionCode of all SingleEvents to 0
+     */
     public void clearPermissions(){
 	data = this.getWritableDatabase();
 	String updateString = "UPDATE singleEventLocal SET permission = '0'";
@@ -548,6 +644,12 @@ public class Database extends SQLiteOpenHelper{
 	data.close();
     }
     
+    /**
+     * This Method is for updating 
+     * 
+     * @param eventList
+     * @param permissionCode
+     */
     public void updatePermissions(List<Integer> eventList,int permissionCode){
 	data = this.getWritableDatabase();
 	for(int eventID:eventList){
@@ -558,6 +660,11 @@ public class Database extends SQLiteOpenHelper{
 	data.close();
     }
     
+    /**
+     * This Method gets colors from a SettingsLocal-Object and updates the Database.
+     * 
+     * @param setLoc
+     */
     public void updateColors(SettingsLocal setLoc){
 	data = this.getWritableDatabase();
 	int eventID;
@@ -576,6 +683,13 @@ public class Database extends SQLiteOpenHelper{
 	data.close();
     }
     
+    /**
+     * This Method deletes an Event and all connected SingleEvents.
+     * If the Event is the last one in the related EventGroup, it will be deleted as well.
+     * 
+     * @param eventID
+     * @throws PermissionException
+     */
     public void deleteEventByEventID(int eventID) throws PermissionException{
 	data = this.getWritableDatabase();
 	boolean lastEvent = false;
@@ -633,6 +747,9 @@ public class Database extends SQLiteOpenHelper{
 	data.close();
     }
     
+    /**
+     * This Method deletes all expired SingleEvents from the Database
+     */
     public void deleteExpiredSingleEvents(){
 	data = this.getWritableDatabase();
 	Date d = new Date();
