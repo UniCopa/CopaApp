@@ -57,6 +57,9 @@ public class SettingsActivity extends Activity {
     RadioButton gcmManu;
     RadioButton gcmAuto;
 
+    /**
+     * Creates the SettingsActivity and shows the saved settings as picked.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -84,7 +87,7 @@ public class SettingsActivity extends Activity {
 	S = Storage.getInstance(this.getApplicationContext());
 
 	SettingsLocal settings = null;
-	
+
 	try {
 	    settings = S.load();
 	} catch (NoStorageException e) {
@@ -121,6 +124,9 @@ public class SettingsActivity extends Activity {
 
     }
 
+    /**
+     * Shows the menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.no_item_menu, menu);
@@ -128,18 +134,20 @@ public class SettingsActivity extends Activity {
     }
 
     /**
-     * Send UserSettings to server and save GCMsettings on device.
+     * Handles click on "apply"-button and sends the modified UserSettings to
+     * server and saves GCMsettings on device. If it succeeds the user is
+     * informed with a dialog.
      */
     public void onApplyButtonClick(View view) {
 	boolean email = mail.isChecked();
-	int selectedLanguage = language.getCheckedRadioButtonId(); // TODO why id?
-	int selectedGCM = gcm.getCheckedRadioButtonId(); // TODO why id?
+	int selectedLanguage = language.getCheckedRadioButtonId();
+	int selectedGCM = gcm.getCheckedRadioButtonId();
 
 	SettingsLocal settingsLocal = null;
 	settingsLocal = new SettingsLocal();
 
 	Storage S = Storage.getInstance(this.getApplicationContext());
-	
+
 	try {
 	    settingsLocal = S.load();
 	} catch (NoStorageException e1) {
@@ -153,36 +161,26 @@ public class SettingsActivity extends Activity {
 	    settingsLocal.disableEmailNotification();
 	}
 
-//	switch (selectedLanguage) {
-//	case 0:
-	if(english.isChecked()) {
+	if (english.isChecked()) {
 	    settingsLocal.setLanguage("english");
 	}
-//	    break;
-//	case 1:
-	if(german.isChecked()) {
+
+	if (german.isChecked()) {
 	    settingsLocal.setLanguage("german");
 	}
-//	    break;
-//	default:
-//	    settingsLocal.setLanguage("english");
-//	    break;
-//	}
 
-//	settingsLocal.setNotificationKind(selectedGCM);
-
-	if(gcmNone.isChecked()) {
+	if (gcmNone.isChecked()) {
 	    settingsLocal.setNotificationKind(2);
 	}
-	
-	if(gcmAuto.isChecked()) {
+
+	if (gcmAuto.isChecked()) {
 	    settingsLocal.setNotificationKind(1);
 	}
-	
-	if(gcmManu.isChecked()) {
+
+	if (gcmManu.isChecked()) {
 	    settingsLocal.setNotificationKind(0);
 	}
-	
+
 	String gcmKey = "";
 	gcmKey = settingsLocal.getLocalGcmKey();
 
@@ -196,7 +194,7 @@ public class SettingsActivity extends Activity {
 	scon = ServerConnection.getInstance();
 
 	boolean success = false;
-	
+
 	try {
 	    success = scon.setSettings(settingsLocal);
 	} catch (ClientProtocolException e) {
@@ -233,6 +231,10 @@ public class SettingsActivity extends Activity {
 	}
     }
 
+    /**
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
 	case R.id.action_about:

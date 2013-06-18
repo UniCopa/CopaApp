@@ -40,6 +40,10 @@ import android.widget.TextView;
  */
 public class SubscriptionActivity extends Activity {
 
+    /**
+     * Creates SubscriptionActivity with a ListView of all subscribed Events. If
+     * no Event is subscribed an infotext appears.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -70,12 +74,19 @@ public class SubscriptionActivity extends Activity {
 
     }
 
+    /**
+     * Shows the menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.subscription_menu, menu);
 	return true;
     }
 
+    /**
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {

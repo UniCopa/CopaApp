@@ -50,8 +50,8 @@ import android.widget.TextView;
 public class PrivilegesActivity extends Activity {
 
     /**
-     * Creates PrivilegesActivity with a list of the events to which the user
-     * has special rights.
+     * Creates PrivilegesActivity with a list of the Events to which the user
+     * has special rights. If there is no such Event an infotext appears.
      * 
      */
     @Override

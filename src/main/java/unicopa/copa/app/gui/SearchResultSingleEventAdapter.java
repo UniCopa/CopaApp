@@ -45,6 +45,13 @@ public class SearchResultSingleEventAdapter extends BaseAdapter {
     ArrayList<SingleEvent> singleEventList;
     Context context;
 
+    /**
+     * Creates a SearchResultSingleEventAdapter with a SingleEventList that
+     * should be shown.
+     * 
+     * @param context
+     * @param eventList
+     */
     public SearchResultSingleEventAdapter(Context context,
 	    ArrayList<SingleEvent> eventList) {
 	this.context = context;

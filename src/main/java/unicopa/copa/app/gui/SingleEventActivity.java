@@ -71,13 +71,15 @@ public class SingleEventActivity extends Activity {
 	durationtime.setText(String.valueOf(sEventLocal.getDurationMinutes()));
 	change.setVisibility(View.GONE);
 
-	// TODO check if role-number is chosen correct
 	if (sEventLocal.getPermission() > 0) {
 	    change.setVisibility(View.VISIBLE);
 	}
 
     }
 
+    /**
+     * Shows the menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.all_items_menu, menu);
@@ -85,7 +87,8 @@ public class SingleEventActivity extends Activity {
     }
 
     /**
-     * Handles clicks on a menu-item
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

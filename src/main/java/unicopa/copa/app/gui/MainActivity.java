@@ -107,8 +107,10 @@ public class MainActivity extends Activity {
     /**
      * Creates MainActivity with a list of the next SingleEvents. By clicking on
      * a SingleEvent it switches to SingleEventActivity and shows details about
-     * the SingleEvent. If the "refresh"-button is used it loads all new updates
-     * if the user is logged in. If not a dialog reminds the user to log in.
+     * the SingleEvent.If no SingleEvent exists that could be shown an infotext
+     * appears. If the "refresh"-button is used it loads all new updates if the
+     * user is logged in. If not a dialog reminds the user to log in.
+     * 
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
