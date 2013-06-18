@@ -40,6 +40,8 @@ import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.com.exception.RequestNotPracticableException;
+import unicopa.copa.base.com.request.AddSingleEventUpdateRequest;
+import unicopa.copa.base.com.request.AddSingleEventUpdateResponse;
 import unicopa.copa.base.com.request.GetAllOwnersRequest;
 import unicopa.copa.base.com.request.GetAllOwnersResponse;
 import unicopa.copa.base.com.request.GetCategoriesRequest;
@@ -250,7 +252,7 @@ public class ServerConnection {
 	sessionID = "";
 
 	Log.v("SESSIONID", sessionID);
-	
+
 	return true;
     }
 
@@ -468,6 +470,43 @@ public class ServerConnection {
 	    return resObj.getEventGroup();
 	} else {
 	    return null;
+	}
+    }
+
+    /**
+     * This method returns the new singleEventID for a SingleEvent update.
+     * 
+     * @param sEvent
+     * @param msg
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws InternalErrorException
+     * @throws RequestNotPracticableException
+     * @throws PermissionException
+     * @throws APIException
+     */
+    public int setUpdate(SingleEvent sEvent, String msg)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	AddSingleEventUpdateRequest reqObj = new AddSingleEventUpdateRequest(
+		sEvent, msg);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer(reqStr);
+
+	AddSingleEventUpdateResponse resObj = null;
+	resObj = (AddSingleEventUpdateResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof AddSingleEventUpdateResponse) {
+	    return resObj.getSingleEventID();
+	} else {
+	    return -1;
 	}
     }
 
