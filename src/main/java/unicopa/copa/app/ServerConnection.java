@@ -103,7 +103,7 @@ public class ServerConnection {
     /**
      * This method is called to get an instance of ServerConnection.
      * 
-     * @return
+     * @return The instance of ServerConnection.
      */
     public static ServerConnection getInstance() {
 	if (instance == null) {
@@ -123,9 +123,8 @@ public class ServerConnection {
      * This method sends a json String to the server and returns the answer as a
      * String.
      * 
-     * @param requestType
      * @param request
-     * @return
+     * @return Response as a json string.
      * @throws IOException
      * @throws ClientProtocolException
      */
@@ -185,7 +184,7 @@ public class ServerConnection {
      * @param userName
      * @param password
      * @param context
-     * @return success
+     * @return True for success. / False for failure.
      * @throws IOException
      * @throws ClientProtocolException
      */
@@ -248,7 +247,7 @@ public class ServerConnection {
      * This method erases the session cookie and tells the server to invalidate
      * the session.
      * 
-     * @return success
+     * @return True for success. / False for failure.
      */
     public boolean logout() {
 	// TODO get on https://copa.prakinf.tu-ilmenau.de/logout.jsp to
@@ -267,7 +266,7 @@ public class ServerConnection {
     /**
      * This method returns the category tree.
      * 
-     * @return categoryNode
+     * @return The root node of the CategoryTree.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -303,7 +302,7 @@ public class ServerConnection {
      * 
      * @param categoryNodeID
      * @param searchTerm
-     * @return
+     * @return A list of EventGroups.
      * @throws IOException
      * @throws ClientProtocolException
      * @throws InternalErrorException
@@ -341,7 +340,7 @@ public class ServerConnection {
      * 
      * @param eventGroupID
      * @param categoryNodeID
-     * @return
+     * @return A list of Events.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -378,7 +377,7 @@ public class ServerConnection {
      * 
      * @param eventID
      * @param date
-     * @return
+     * @return A list of SingleEvents.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -411,10 +410,10 @@ public class ServerConnection {
     }
 
     /**
-     * This method returns for a given eventID a Event.
+     * This method returns for a given eventID an Event.
      * 
      * @param eventID
-     * @return
+     * @return An Event.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -448,7 +447,7 @@ public class ServerConnection {
      * This method returns to a given eventGroupID a EventGroup.
      * 
      * @param eventID
-     * @return
+     * @return An EventGroup.
      * @throws IOException
      * @throws ClientProtocolException
      * @throws InternalErrorException
@@ -480,9 +479,9 @@ public class ServerConnection {
     }
 
     /**
+     * This method updates the user rights in the local database.
      * 
-     * 
-     * @return
+     * @return A list of lists of Events where the user has higher rights.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -490,9 +489,9 @@ public class ServerConnection {
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
      */
-    public List<List<Integer>> getMyEvents() throws ClientProtocolException, IOException,
-	    APIException, PermissionException, RequestNotPracticableException,
-	    InternalErrorException {
+    public List<List<Integer>> getMyEvents() throws ClientProtocolException,
+	    IOException, APIException, PermissionException,
+	    RequestNotPracticableException, InternalErrorException {
 	GetMyEventsRequest reqObj = new GetMyEventsRequest();
 
 	String reqStr = "";
@@ -533,7 +532,7 @@ public class ServerConnection {
      * 
      * @param sEvent
      * @param msg
-     * @return
+     * @return The new SingleEventID.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws InternalErrorException
@@ -570,7 +569,7 @@ public class ServerConnection {
      * 
      * @param singleEventID
      * @param msg
-     * @return
+     * @return True for success. / False for failure.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -609,7 +608,7 @@ public class ServerConnection {
      * 
      * @param eventID
      * @param date
-     * @return
+     * @return A list per Event, this list contains SingleEventUpdates.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -645,7 +644,7 @@ public class ServerConnection {
      * This method returns to a given singleEventID a SingleEvent.
      * 
      * @param eventID
-     * @return SingleEvent
+     * @return A SingleEvent.
      * @throws InternalErrorException
      * @throws RequestNotPracticableException
      * @throws PermissionException
@@ -680,7 +679,7 @@ public class ServerConnection {
      * SingeEvents.
      * 
      * @param date
-     * @return List<List<SingleEventUpdate>>
+     * @return A list per Event, this list contains SingleEventUpdates.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -716,7 +715,7 @@ public class ServerConnection {
      * This method sends the UserSettings to the server.
      * 
      * @param settings
-     * @return
+     * @return True for success. / False for Failure.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -750,7 +749,7 @@ public class ServerConnection {
     /**
      * This method returns the UserSettings.
      * 
-     * @return UserSettings
+     * @return The UserSettings.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -784,7 +783,7 @@ public class ServerConnection {
      * This method returns to a given eventID all owners.
      * 
      * @param eventID
-     * @return
+     * @return A list of names.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
