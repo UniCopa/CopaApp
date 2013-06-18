@@ -66,10 +66,10 @@ public class Helper {
 	scon = ServerConnection.getInstance();
 
 	settingsLocal.addSubscription(eventID);
-	
+
 	UserEventSettings eventSettings = new UserEventSettings();
-	eventSettings.setColorCode("000000"); 
-	
+	eventSettings.setColorCode("000000");
+
 	settingsLocal.putEventSettings(eventID, eventSettings);
 
 	UserSettings userSettings = null;
@@ -113,28 +113,12 @@ public class Helper {
 
 	if (sEvents.size() != 0) {
 	    for (SingleEvent sEvent : sEvents) {
-		int sel_singleEventID = sEvent.getSingleEventID();
-		int sel_eventID = sEvent.getEventID();
-		String sel_location = sEvent.getLocation();
-		Date sel_date = sEvent.getDate();
-		String sel_supervisor = sEvent.getSupervisor();
-		int sel_durationMinutes = sEvent.getDurationMinutes();
-		String sel_colorCode = "000000";
-		String sel_name = eventGroup.getEventGroupName()
-			+ event.getEventName();
-		int sel_locationUpdateCounter = 0;
-		int sel_dateUpdateCounter = 0;
-		int sel_supervisorUpdateCounter = 0;
-		int sel_durationMinutesUpdateCounter = 0;
-		int sel_permission = 0;
+		String name = "";
+		name = eventGroup.getEventGroupName() + event.getEventName();
 
 		SingleEventLocal sEventLocal = null;
-		sEventLocal = new SingleEventLocal(sel_singleEventID,
-			sel_eventID, sel_location, sel_date, sel_supervisor,
-			sel_durationMinutes, sel_colorCode, sel_name,
-			sel_locationUpdateCounter, sel_dateUpdateCounter,
-			sel_supervisorUpdateCounter,
-			sel_durationMinutesUpdateCounter, sel_permission);
+		sEventLocal = Helper
+			.singleEventToSingleEventLocal(sEvent, name);
 
 		db.insert(sEventLocal, -1);
 	    }
@@ -192,6 +176,73 @@ public class Helper {
     }
 
     /**
+     * This method what to do with a SingleEvent change.
+     * 
+     * @param sEventLocal
+     * @param msg
+     * @param context
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public static boolean setUpdate(SingleEventLocal sEventLocal, String msg,
+	    Context context) throws ClientProtocolException, IOException,
+	    APIException, PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+
+	// TODO i guess we should force an update before and after the change
+
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
+
+	int sEventID = 0;
+	sEventID = sEventLocal.getSingleEventID();
+
+	int newEventID = 0;
+	boolean success = false;
+
+	switch (sEventID) {
+	case 0: // TODO not sure what the ID needs to be for remove
+	    success = scon.removeSingleEvent(sEventID, msg);
+	    break;
+	default:
+	    newEventID = scon.setSingleEventUpdate(sEventLocal, msg);
+	    break;
+	}
+
+	if (newEventID != -1) {
+	    Database db = null;
+	    db = Database.getInstance(context);
+
+	    SingleEvent newSEvent = null;
+	    newSEvent = scon.getSingleEvent(newEventID);
+
+	    SingleEventLocal newSEventLocal = null;
+	    newSEventLocal = Helper
+		    .singleEventToSingleEventLocal(newSEvent, "");
+
+	    db.insert(newSEventLocal, sEventID);
+
+	    return true;
+	}
+
+	if (success) {
+	    Database db = null;
+	    db = Database.getInstance(context);
+
+	    // db. TODO remove SinlgeEvent from localDatabase
+
+	    return true;
+	}
+
+	return false;
+    }
+
+    /**
      * This method gets all updates since a given date and saves them to the
      * local database;
      * 
@@ -203,7 +254,7 @@ public class Helper {
      * @throws PermissionException
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
-     * @throws NoStorageException 
+     * @throws NoStorageException
      */
     public static boolean getUpdate(Date date, Context context)
 	    throws ClientProtocolException, IOException, APIException,
@@ -214,7 +265,7 @@ public class Helper {
 
 	List<List<SingleEventUpdate>> sEventUpdatesListList = null;
 	sEventUpdatesListList = scon.getSubscribedSingleEventUpdates(date);
-	
+
 	// TODO check whether request succeeds
 
 	for (List<SingleEventUpdate> sEventUpdateList : sEventUpdatesListList) {
@@ -244,7 +295,7 @@ public class Helper {
 	settingsLocal = storage.load();
 
 	date = Calendar.getInstance().getTime();
-	
+
 	settingsLocal.setLastUpdate(date);
 
 	storage.store(settingsLocal);
@@ -332,8 +383,43 @@ public class Helper {
 
 	SingleEventLocal sEventLocal = null;
 	sEventLocal = new SingleEventLocal(singleEventID, eventID, location,
-		date, supervisor, duration, "000000" /* colorCode */, "" /* name */,
-		locationCount, dateCount, supervisorCount, durationCount, 0 /* permission */);
+		date, supervisor, duration, "000000" /* colorCode */,
+		"" /* name */, locationCount, dateCount, supervisorCount,
+		durationCount, 0 /* permission */);
+
+	return sEventLocal;
+    }
+
+    /**
+     * This method returns to a given SinlgeEvent a SingleEventLocal with the
+     * necessary default values.
+     * 
+     * @param sEvent
+     * @param name
+     * @return
+     */
+    public static SingleEventLocal singleEventToSingleEventLocal(
+	    SingleEvent sEvent, String name) {
+	int sel_singleEventID = sEvent.getSingleEventID();
+	int sel_eventID = sEvent.getEventID();
+	String sel_location = sEvent.getLocation();
+	Date sel_date = sEvent.getDate();
+	String sel_supervisor = sEvent.getSupervisor();
+	int sel_durationMinutes = sEvent.getDurationMinutes();
+	String sel_colorCode = "000000";
+	String sel_name = name;
+	int sel_locationUpdateCounter = 0;
+	int sel_dateUpdateCounter = 0;
+	int sel_supervisorUpdateCounter = 0;
+	int sel_durationMinutesUpdateCounter = 0;
+	int sel_permission = 0;
+
+	SingleEventLocal sEventLocal = null;
+	sEventLocal = new SingleEventLocal(sel_singleEventID, sel_eventID,
+		sel_location, sel_date, sel_supervisor, sel_durationMinutes,
+		sel_colorCode, sel_name, sel_locationUpdateCounter,
+		sel_dateUpdateCounter, sel_supervisorUpdateCounter,
+		sel_durationMinutesUpdateCounter, sel_permission);
 
 	return sEventLocal;
     }
