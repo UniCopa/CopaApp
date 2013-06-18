@@ -266,74 +266,97 @@ public class MainActivity extends Activity {
 	scon = ServerConnection.getInstance();
 
 	if (scon.getConnected()) {
-	    Storage storage = null;
-	    storage = Storage.getInstance(MainActivity.this);
-
 	    SettingsLocal settingsLocal = null;
-	    try {
-		settingsLocal = storage.load();
-	    } catch (NoStorageException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	    }
-
-	    Date date = null;
-	    date = settingsLocal.getLastUpdate();
-
-	    boolean success = false;
 
 	    try {
-		success = Helper.getUpdate(date, MainActivity.this);
+		settingsLocal = scon.getSettings();
 	    } catch (ClientProtocolException e) {
-		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+		PopUp.exceptionAlert(this, "ClientProtocolException!",
 			e.getMessage());
 		// e.printStackTrace();
 	    } catch (APIException e) {
-		PopUp.exceptionAlert(this, getString(R.string.api_ex),
-			e.getMessage());
+		PopUp.exceptionAlert(this, "APIException!", e.getMessage());
 		// e.printStackTrace();
 	    } catch (PermissionException e) {
-		PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		PopUp.exceptionAlert(this, "PermissionException!",
 			e.getMessage());
 		// e.printStackTrace();
 	    } catch (RequestNotPracticableException e) {
-		PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		PopUp.exceptionAlert(this, "RequestNotPracticableException!",
 			e.getMessage());
 		// e.printStackTrace();
 	    } catch (InternalErrorException e) {
-		PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+		PopUp.exceptionAlert(this, "InternalErrorException!",
 			e.getMessage());
 		// e.printStackTrace();
 	    } catch (IOException e) {
-		PopUp.exceptionAlert(this, getString(R.string.io_ex),
-			e.getMessage());
+		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
 		// e.printStackTrace();
 	    } catch (NoStorageException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	    }
 
-	    if (success) {
-		Database db = null;
-		db = Database.getInstance(MainActivity.this);
+	    if (settingsLocal != null) {
+		Date date = null;
+		date = settingsLocal.getLastUpdate();
 
-		List<SingleEventLocal> sEventsLocal = null;
-		sEventsLocal = db.getNearestSingleEvents(10); // TODO maybe more?
+		boolean success = false;
 
-		sEvents.clear();
-		text.setText("");
-
-		for (SingleEventLocal item : sEventsLocal) {
-		    sEvents.add(item);
+		try {
+		    success = Helper.getUpdate(date, MainActivity.this);
+		} catch (ClientProtocolException e) {
+		    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (APIException e) {
+		    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (PermissionException e) {
+		    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (RequestNotPracticableException e) {
+		    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (InternalErrorException e) {
+		    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (IOException e) {
+		    PopUp.exceptionAlert(this, getString(R.string.io_ex),
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (NoStorageException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
 		}
 
-		if (sEvents.equals(new ArrayList<SingleEventLocal>())) {
-		    text.setText(getString(R.string.nothing));
+		if (success) {
+		    Database db = null;
+		    db = Database.getInstance(MainActivity.this);
+
+		    List<SingleEventLocal> sEventsLocal = null;
+		    sEventsLocal = db.getNearestSingleEvents(10); // TODO maybe
+								  // more?
+
+		    sEvents.clear();
+		    text.setText("");
+
+		    for (SingleEventLocal item : sEventsLocal) {
+			sEvents.add(item);
+		    }
+
+		    if (sEvents.equals(new ArrayList<SingleEventLocal>())) {
+			text.setText(getString(R.string.nothing));
+		    }
+
+		    sEventAdapter = new MainAdapter(this, sEvents);
+
+		    singleEventListView.setAdapter((ListAdapter) sEventAdapter);
 		}
-
-		sEventAdapter = new MainAdapter(this, sEvents);
-
-		singleEventListView.setAdapter((ListAdapter) sEventAdapter);
 	    }
 	} else {
 	    PopUp.loginFail(this);
