@@ -488,7 +488,7 @@ public class ServerConnection {
      * @throws PermissionException
      * @throws APIException
      */
-    public int setUpdate(SingleEvent sEvent, String msg)
+    public int setSingleEventUpdate(SingleEvent sEvent, String msg)
 	    throws ClientProtocolException, IOException, APIException,
 	    PermissionException, RequestNotPracticableException,
 	    InternalErrorException {
