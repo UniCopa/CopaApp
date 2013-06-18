@@ -119,8 +119,8 @@ public class LoginActivity extends Activity {
 
 	// A Loading Screen or something similar would be nice. Otherwise when
 	// you click during load the app crashes.
-	Toast toast = Toast.makeText(LoginActivity.this, "Please wait.",
-		Toast.LENGTH_SHORT);
+	Toast toast = Toast.makeText(LoginActivity.this,
+		getString(R.string.wait), Toast.LENGTH_SHORT);
 	toast.show();
 
 	// TODO check if already logged in
@@ -159,26 +159,28 @@ public class LoginActivity extends Activity {
 		try {
 		    settingsLocal = scon.getSettings();
 		} catch (ClientProtocolException e) {
-		    PopUp.exceptionAlert(this, "ClientProtocolException!",
+		    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (APIException e) {
-		    PopUp.exceptionAlert(this, "APIException!", e.getMessage());
+		    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (PermissionException e) {
-		    PopUp.exceptionAlert(this, "PermissionException!",
+		    PopUp.exceptionAlert(this, getString(R.string.per_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (RequestNotPracticableException e) {
-		    PopUp.exceptionAlert(this,
-			    "RequestNotPracticableException!", e.getMessage());
+		    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (InternalErrorException e) {
-		    PopUp.exceptionAlert(this, "InternalErrorException!",
+		    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (IOException e) {
-		    PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+		    PopUp.exceptionAlert(this, getString(R.string.io_ex),
+			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (NoStorageException e) {
 		    // TODO Auto-generated catch block
@@ -211,8 +213,8 @@ public class LoginActivity extends Activity {
 
 	scon.logout();
 
-	Toast toast = Toast.makeText(LoginActivity.this, "Logged out.",
-		Toast.LENGTH_SHORT);
+	Toast toast = Toast.makeText(LoginActivity.this,
+		getString(R.string.logged_out), Toast.LENGTH_SHORT);
 	toast.show();
 
 	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);

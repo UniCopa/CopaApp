@@ -86,5 +86,6 @@
     <string name="details_singleEve">Alle Informationen zu diesem Termin</string>
     <string name="allSingle">Alle Termine</string>
     <string name="subscrEve">Abonnierte Veranstaltungen</string>
+    <string name="wait">Bitte warten.</string>
 
 </resources>

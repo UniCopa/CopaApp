@@ -87,5 +87,6 @@
     <string name="details_singleEve">All details of one date</string>
     <string name="allSingle">All dates</string>
     <string name="subscrEve">List of all subscribed events</string>
+    <string name="wait">Please wait.</string>
 
 </resources>

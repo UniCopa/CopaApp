@@ -271,26 +271,28 @@ public class MainActivity extends Activity {
 	    try {
 		settingsLocal = scon.getSettings();
 	    } catch (ClientProtocolException e) {
-		PopUp.exceptionAlert(this, "ClientProtocolException!",
+		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 			e.getMessage());
 		// e.printStackTrace();
 	    } catch (APIException e) {
-		PopUp.exceptionAlert(this, "APIException!", e.getMessage());
+		PopUp.exceptionAlert(this, getString(R.string.api_ex),
+			e.getMessage());
 		// e.printStackTrace();
 	    } catch (PermissionException e) {
-		PopUp.exceptionAlert(this, "PermissionException!",
+		PopUp.exceptionAlert(this, getString(R.string.per_ex),
 			e.getMessage());
 		// e.printStackTrace();
 	    } catch (RequestNotPracticableException e) {
-		PopUp.exceptionAlert(this, "RequestNotPracticableException!",
+		PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
 			e.getMessage());
 		// e.printStackTrace();
 	    } catch (InternalErrorException e) {
-		PopUp.exceptionAlert(this, "InternalErrorException!",
+		PopUp.exceptionAlert(this, getString(R.string.ie_ex),
 			e.getMessage());
 		// e.printStackTrace();
 	    } catch (IOException e) {
-		PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+		PopUp.exceptionAlert(this, getString(R.string.io_ex),
+			e.getMessage());
 		// e.printStackTrace();
 	    } catch (NoStorageException e) {
 		// TODO Auto-generated catch block
