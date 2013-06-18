@@ -39,6 +39,11 @@ public class CoPAAppHttpClient extends DefaultHttpClient {
 
     final Context context;
 
+    /**
+     * Class constructor.
+     * 
+     * @param context
+     */
     public CoPAAppHttpClient(Context context) {
 	this.context = context;
     }

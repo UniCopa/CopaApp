@@ -35,9 +35,23 @@ public class SettingsLocal extends UserSettings {
     private Date lastUpdate;
     private String localGcmKey;
 
+    /**
+     * Class constructor without initialization.
+     */
     public SettingsLocal() {
     }
-    
+
+    /**
+     * Class constructor with initialization.
+     * 
+     * @param GcmKeys
+     * @param EmailNotification
+     * @param Language
+     * @param EventSettings
+     * @param NotificationKind
+     * @param LastUpdate
+     * @param LocalGcmKey
+     */
     public SettingsLocal(Set<String> gcmKeys, boolean emailNotification,
 	    String language, Map<Integer, UserEventSettings> eventSettings,
 	    int notificationKind, Date lastUpdate, String localGcmKey) {

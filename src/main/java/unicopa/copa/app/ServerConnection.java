@@ -168,10 +168,20 @@ public class ServerConnection {
 	return temp;
     }
 
+    /**
+     * This method sets the connected attribute.
+     * 
+     * @param Connected
+     */
     public void setConnected(boolean connected) {
 	this.connected = connected;
     }
 
+    /**
+     * This method returns the value of the connected attribute.
+     * 
+     * @return True if connected. / False if disconnected.
+     */
     public boolean getConnected() {
 	return connected;
     }
@@ -181,9 +191,9 @@ public class ServerConnection {
     /**
      * This method opens connection to the server and saves the session cookie.
      * 
-     * @param userName
-     * @param password
-     * @param context
+     * @param UserName
+     * @param Password
+     * @param Context
      * @return True for success. / False for failure.
      * @throws IOException
      * @throws ClientProtocolException
@@ -207,7 +217,7 @@ public class ServerConnection {
 
 	Log.v("LOGINMSG", nameValuePairs.toString());
 
-	// lend login data
+	// send login data
 	HttpResponse response = null;
 	response = client.execute(loginMsg);
 
@@ -221,9 +231,6 @@ public class ServerConnection {
 	}
 
 	// handle response
-	InputStreamReader reader = null;
-	reader = new InputStreamReader(response.getEntity().getContent());
-	BufferedReader rd = new BufferedReader(reader);
 	List<Cookie> cookies = ((AbstractHttpClient) client).getCookieStore()
 		.getCookies();
 
@@ -234,10 +241,6 @@ public class ServerConnection {
 	}
 
 	Log.v("SESSIONID:", sessionID);
-
-	// cleaning
-	rd.close();
-	reader.close();
 
 	setConnected(true);
 	return true;
@@ -300,8 +303,8 @@ public class ServerConnection {
      * This method returns for a given categoryID and searchTerm a list of
      * EventGroup.
      * 
-     * @param categoryNodeID
-     * @param searchTerm
+     * @param CategoryNodeID
+     * @param SearchTerm
      * @return A list of EventGroups.
      * @throws IOException
      * @throws ClientProtocolException
@@ -338,8 +341,8 @@ public class ServerConnection {
      * This method returns for a given eventGroupID and categoryID a list of
      * Event.
      * 
-     * @param eventGroupID
-     * @param categoryNodeID
+     * @param EventGroupID
+     * @param CategoryNodeID
      * @return A list of Events.
      * @throws ClientProtocolException
      * @throws IOException
@@ -375,8 +378,8 @@ public class ServerConnection {
     /**
      * This method returns to a given eventID the current SingleEvents.
      * 
-     * @param eventID
-     * @param date
+     * @param EventID
+     * @param Date
      * @return A list of SingleEvents.
      * @throws ClientProtocolException
      * @throws IOException
@@ -412,7 +415,7 @@ public class ServerConnection {
     /**
      * This method returns for a given eventID an Event.
      * 
-     * @param eventID
+     * @param EventID
      * @return An Event.
      * @throws ClientProtocolException
      * @throws IOException
@@ -446,7 +449,7 @@ public class ServerConnection {
     /**
      * This method returns to a given eventGroupID a EventGroup.
      * 
-     * @param eventID
+     * @param EventID
      * @return An EventGroup.
      * @throws IOException
      * @throws ClientProtocolException
@@ -530,8 +533,8 @@ public class ServerConnection {
     /**
      * This method returns the new singleEventID for a SingleEvent update.
      * 
-     * @param sEvent
-     * @param msg
+     * @param SingleEvent
+     * @param Message
      * @return The new SingleEventID.
      * @throws ClientProtocolException
      * @throws IOException
@@ -567,8 +570,8 @@ public class ServerConnection {
     /**
      * This method removes a SingleEvent.
      * 
-     * @param singleEventID
-     * @param msg
+     * @param SingleEventID
+     * @param Message
      * @return True for success. / False for failure.
      * @throws ClientProtocolException
      * @throws IOException
@@ -606,8 +609,8 @@ public class ServerConnection {
      * This method returns to a given eventID all SingleEventUpdates since a
      * given date.
      * 
-     * @param eventID
-     * @param date
+     * @param EventID
+     * @param Date
      * @return A list per Event, this list contains SingleEventUpdates.
      * @throws ClientProtocolException
      * @throws IOException
@@ -643,7 +646,7 @@ public class ServerConnection {
     /**
      * This method returns to a given singleEventID a SingleEvent.
      * 
-     * @param eventID
+     * @param EventID
      * @return A SingleEvent.
      * @throws InternalErrorException
      * @throws RequestNotPracticableException
@@ -714,7 +717,7 @@ public class ServerConnection {
     /**
      * This method sends the UserSettings to the server.
      * 
-     * @param settings
+     * @param UserSettings
      * @return True for success. / False for Failure.
      * @throws ClientProtocolException
      * @throws IOException
@@ -790,7 +793,7 @@ public class ServerConnection {
     /**
      * This method returns to a given eventID all owners.
      * 
-     * @param eventID
+     * @param EventID
      * @return A list of names.
      * @throws ClientProtocolException
      * @throws IOException
@@ -844,7 +847,7 @@ public class ServerConnection {
     /**
      * This method checks the connection status with the server.
      * 
-     * @return
+     * @return True if connected. / False if disconnected.
      */
     public boolean connectionCheck() {
 	return true;

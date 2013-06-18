@@ -52,8 +52,8 @@ public class Helper {
      * This method adds an Event to the subscription list and saves all
      * necessary data in the local database.
      * 
-     * @param eventID
-     * @param settings
+     * @param EventID
+     * @param SettingsLocal
      * @return True for success. / False for Failure.
      * @throws InternalErrorException
      * @throws RequestNotPracticableException
@@ -146,9 +146,9 @@ public class Helper {
      * This method removes an Event from the subscription list and erases all
      * unnecessary data from the local database.
      * 
-     * @param eventID
-     * @param settingsLocal
-     * @return
+     * @param EventID
+     * @param EettingsLocal
+     * @return True for success. / False for failure.
      * @throws InternalErrorException
      * @throws RequestNotPracticableException
      * @throws PermissionException
@@ -190,10 +190,10 @@ public class Helper {
     /**
      * This method decides what to do with a SingleEvent change.
      * 
-     * @param sEventLocal
-     * @param msg
-     * @param context
-     * @return
+     * @param SingleEventLocal
+     * @param Message
+     * @param Context
+     * @return True for success. / False for failure.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -294,8 +294,8 @@ public class Helper {
      * This method gets all updates since a given date and saves them to the
      * local database;
      * 
-     * @param date
-     * @return
+     * @param Date
+     * @return True for success. / False for failure.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -388,7 +388,7 @@ public class Helper {
     /**
      * This method updates the database with received permissions.
      * 
-     * @return
+     * @return True for success. / False for failure.
      * @throws ClientProtocolException
      * @throws IOException
      * @throws APIException
@@ -418,43 +418,43 @@ public class Helper {
 
 	List<Integer> owner = null;
 	owner = rights.get(0);
-//	try {
-	    db.updatePermissions(rightholder, 1);
-	    db.updatePermissions(deputy, 2);
-	    db.updatePermissions(owner, 3);
-//	} catch (NoEventGroupException e) {
-//	    // This should never happen
-//	    e.printStackTrace();
-//	} catch (NoEventException e) {
-//	    int eventID = 0;
-//	    eventID = e.eventID;
-//
-//	    Event event = null;
-//	    event = scon.getEvent(eventID);
-//
-//	    if (event == null) {
-//		return false;
-//	    }
-//
-//	    try {
-//		db.insert(event, eventID);
-//	    } catch (NoEventGroupException e1) {
-//		int eventGroupID;
-//		eventGroupID = event.getEventGroupID();
-//
-//		EventGroup eventGroup = null;
-//		eventGroup = scon.getEventGroup(eventGroupID);
-//
-//		if (eventGroup == null) {
-//		    return false;
-//		}
-//		// e1.printStackTrace();
-//	    } catch (NoEventException e1) {
-//		// This should never happen
-//		e1.printStackTrace();
-//	    }
-//	    // e.printStackTrace();
-//	}
+	// try {
+	db.updatePermissions(rightholder, 1);
+	db.updatePermissions(deputy, 2);
+	db.updatePermissions(owner, 3);
+	// } catch (NoEventGroupException e) {
+	// // This should never happen
+	// e.printStackTrace();
+	// } catch (NoEventException e) {
+	// int eventID = 0;
+	// eventID = e.eventID;
+	//
+	// Event event = null;
+	// event = scon.getEvent(eventID);
+	//
+	// if (event == null) {
+	// return false;
+	// }
+	//
+	// try {
+	// db.insert(event, eventID);
+	// } catch (NoEventGroupException e1) {
+	// int eventGroupID;
+	// eventGroupID = event.getEventGroupID();
+	//
+	// EventGroup eventGroup = null;
+	// eventGroup = scon.getEventGroup(eventGroupID);
+	//
+	// if (eventGroup == null) {
+	// return false;
+	// }
+	// // e1.printStackTrace();
+	// } catch (NoEventException e1) {
+	// // This should never happen
+	// e1.printStackTrace();
+	// }
+	// // e.printStackTrace();
+	// }
 
 	return true;
     }
@@ -464,7 +464,7 @@ public class Helper {
      * and returns a SingleEventLocal.
      * 
      * @param sEventUpdateList
-     * @return
+     * @return The newest version of the SingleEvents.
      */
     public static SingleEventLocal checkChanges(
 	    List<SingleEventUpdate> sEventUpdateList) {
@@ -550,9 +550,9 @@ public class Helper {
      * This method returns to a given SinlgeEvent a SingleEventLocal with the
      * necessary default values.
      * 
-     * @param sEvent
+     * @param SingleEvent
      * @param name
-     * @return
+     * @return A SingleEventLocal.
      */
     public static SingleEventLocal singleEventToSingleEventLocal(
 	    SingleEvent sEvent, String name) {
@@ -580,6 +580,13 @@ public class Helper {
 	return sEventLocal;
     }
 
+    /**
+     * This method converts a instance of UserSettings to SettingsLocal.
+     * 
+     * @param UserSettings
+     * @return SettingsLocal
+     * @throws NoStorageException
+     */
     public static SettingsLocal userSettingsToSettingsLocal(
 	    UserSettings settings) throws NoStorageException {
 	Set<String> gcmKeys = null;

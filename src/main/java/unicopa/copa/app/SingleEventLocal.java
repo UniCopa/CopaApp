@@ -36,6 +36,23 @@ public class SingleEventLocal extends SingleEvent {
     private int durationMinutesUpdateCounter = 0;
     private int permission = 0;
 
+    /**
+     * Class constructor with initialization.
+     * 
+     * @param SingleEventID
+     * @param EventID
+     * @param Location
+     * @param Date
+     * @param Supervisor
+     * @param DurationMinutes
+     * @param ColorCode
+     * @param Name
+     * @param LocationUpdateCounter
+     * @param DateUpdateCounter
+     * @param SupervisorUpdateCounter
+     * @param DurationMinutesUpdateCounter
+     * @param Permission
+     */
     public SingleEventLocal(int singleEventID, int eventID, String location,
 	    Date date, String supervisor, int durationMinutes,
 	    String colorCode, String name, int locationUpdateCounter,
