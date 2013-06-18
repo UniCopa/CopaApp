@@ -16,11 +16,21 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.client.ClientProtocolException;
+
 import unicopa.copa.app.Database;
+import unicopa.copa.app.Helper;
+import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 import unicopa.copa.base.event.Event;
 
 import android.os.Bundle;
@@ -43,6 +53,35 @@ public class PrivilegesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.priv);
+
+	// update list of privileges in database
+	try {
+	    Helper.getRights();
+	} catch (ClientProtocolException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (APIException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (PermissionException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (RequestNotPracticableException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (InternalErrorException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (IOException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	}
 
 	TextView text = (TextView) findViewById(R.id.priv_nothing);
 	final ListView eventListView = (ListView) PrivilegesActivity.this
