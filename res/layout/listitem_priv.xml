@@ -38,7 +38,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
             android:layout_weight="0.0"
-            android:text="Change" />
+            android:text="@string/change" />
 
         <Button
             android:id="@+id/priv_others"
@@ -48,7 +48,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:layout_weight="0.0"
-            android:text="Other Privs" />
+            android:text="@string/otherprivs" />
     </LinearLayout>
 
 </RelativeLayout>

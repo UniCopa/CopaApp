@@ -74,5 +74,18 @@
     <string name="nothing">There are no coming events subscribed. \n Use the search to find your events and subscribe them.</string>
     <string name="unsubscribe">Unsubscribe</string>
     <string name="unsubscribed">You have unsubscribed this event.</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="refresh">Refresh</string>
+    <string name="room">Room:</string>
+    <string name="privevents">Events with permissions</string>
+    <string name="makechanges">Make changes</string>
+    <string name="rightholderlist">List of all rightholders, deputies and owners</string>
+    <string name="color">Color</string>
+    <string name="details">Details</string>
+    <string name="change">Change</string>
+    <string name="otherprivs">Privileged</string>
+    <string name="details_singleEve">All details of one date</string>
+    <string name="allSingle">All dates</string>
+    <string name="subscrEve">List of all subscribed events</string>
 
 </resources>

@@ -16,7 +16,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="Settings" />
+            android:text="@string/action_settings" />
 
         <TextView
             android:id="@+id/settings_language_text"

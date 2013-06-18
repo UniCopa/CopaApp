@@ -13,7 +13,7 @@
             style="@style/text_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="make changes" />
+            android:text="@string/makechanges" />
 
         <TextView
             android:id="@+id/change_date"

@@ -10,7 +10,7 @@
         style="@style/text_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="List of all subscribed Events" />
+        android:text="@string/subscrEve" />
 
     <ListView
         android:id="@+id/subscriptionListView"

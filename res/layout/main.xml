@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/test_button_main"
-        android:text="Upcoming" />
+        android:text="@string/upcoming" />
 
     <ListView
         android:id="@+id/singleEventView"
@@ -35,7 +35,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:onClick="onRefreshButtonClick"
-        android:text="refresh" />
+        android:text="@string/refresh" />
 
     <TextView
         android:id="@+id/main_nothing"

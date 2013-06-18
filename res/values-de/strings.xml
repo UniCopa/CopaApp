@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CoPA</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_search">Suche</string>
+    <string name="action_priv">Rechte</string>
+    <string name="action_login">An-/Abmelden</string>
+    <string name="button_login">Anmelden</string>
+    <string name="title_login">Anmelden</string>
+    <string name="title_logout">Abmelden</string>
+    <string name="text_login_username">Benutzername</string>
+    <string name="text_login_pw">Passwort</string>
+    <string name="button_search">Suchen</string>
+    <string name="button_priv">andere Rechteinhaber</string>
+    <string name="language">E-Mail/CoPA-Webseiten Sprache</string>
+    <string name="kind_of_notification">Benachrichtigungsart</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_english">Englisch</string>
+    <string name="action_main">Startseite</string>
+    <string name="button_subscription">Farbe ändern</string>
+    <string name="details_to_singleevent">Mehr Details</string>
+    <string name="all_singleevents">Alle Termine</string>
+    <string name="action_subscription">Abonnements</string>
+    <string name="button_singleevent_change">Termin ändern</string>
+    <string name="language_pick">Sprache auswählen</string>
+    <string name="notification_pick">Benachrichtigungsart auswählen</string>
+    <string name="date">Datum:</string>
+    <string name="new_change">Neu:</string>
+    <string name="time">Zeit:</string>
+    <string name="location">Ort:</string>
+    <string name="dura">Dauer:</string>
+    <string name="supervisor">Betreuer:</string>
+    <string name="change_apply">Bestätigen</string>
+    <string name="search">Suche</string>
+    <string name="results">Ergebnis</string>
+    <string name="info">Info</string>
+    <string name="dates">Datum</string>
+    <string name="subscr">Abonnieren</string>
+    <string name="mail">E-Mail</string>
+    <string name="gcm_auto">automatisch pushen</string>
+    <string name="gcm_manu">manuell pushen</string>
+    <string name="gcm_none">manuell</string>
+    <string name="success">Erfolreich!</string>
+    <string name="settings_saved">Ihre Einstellungen wurden gespeichert.</string>
+    <string name="logged_out">Sie haben sich ausgeloggt.</string>
+    <string name="login_ex">Anmelden!</string>
+    <string name="not_login">Sie sind nicht angemeldet.</string>
+    <string name="cp_ex">ClientProtocolException!</string>
+    <string name="api_ex">APIException!</string>
+    <string name="per_ex">PermissionException!</string>
+    <string name="rnp_ex">RequestNotPracticableException!</string>
+    <string name="ie_ex">InternalErrorException!</string>
+    <string name="io_ex">IOException!</string>
+    <string name="login_error">Anmeldefehler!</string>
+    <string name="pick_color">Farbe auswählen</string>
+
+    <string-array name="colors_array">
+        <item>blau</item>
+        <item>rot</item>
+        <item>gelb</item>
+        <item>pink</item>
+        <item>grün</item>
+        <item>orange</item>
+        <item>violett</item>
+    </string-array>
+
+    <string name="logout">abmelden</string>
+    <string name="minutes">min</string>
+    <string name="about">Über CoPA</string>
+    <string name="about_copa">Über CoPA</string>
+    <string name="copa_text">CoPA steht für "Change of Plan Application".</string>
+    <string name="nothing">Sie haben keine zukünftigen Veranstaltungen abonniert. \n Nutzen Sie die Suche um Ihre Veranstaltungen zu finden und zu abonnieren.</string>
+    <string name="unsubscribe">Abbestellen</string>
+    <string name="unsubscribed">Sie haben diese Veranstaltung abbestellt.</string>
+    <string name="upcoming">Bevorstehend</string>
+    <string name="refresh">Aktualisieren</string>
+    <string name="room">Raum:</string>
+    <string name="privevents">Veranstaltungen mit besonderen Rechten</string>
+    <string name="makechanges">Änderungen vornehmen</string>
+    <string name="rightholderlist">Liste von allen Rechteinhabern, Stellvertretern und Eignern</string>
+    <string name="color">Farbe</string>
+    <string name="details">Details</string>
+    <string name="change">Ändern</string>
+    <string name="otherprivs">Berechtigte</string>
+    <string name="details_singleEve">Alle Informationen zu diesem Termin</string>
+    <string name="allSingle">Alle Termine</string>
+    <string name="subscrEve">Abonnierte Veranstaltungen</string>
+
+</resources>

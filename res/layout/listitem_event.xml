@@ -64,7 +64,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="0.3"
-                android:text="Color" />
+                android:text="@string/color" />
 
             <Button
                 android:id="@+id/details"
@@ -74,7 +74,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="0dp"
                 android:layout_weight="0.3"
-                android:text="Details" />
+                android:text="@string/details" />
         </LinearLayout>
     </LinearLayout>
 

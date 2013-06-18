@@ -58,7 +58,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="0.0"
-                android:text="Room:" />
+                android:text="@string/room" />
 
             <TextView
                 android:id="@+id/location"
