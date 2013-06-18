@@ -47,6 +47,11 @@ public class SearchResultEventActivity extends Activity {
     SearchResultEventAdapter searchEventAdapter;
     String name;
 
+    /**
+     * Creates SearchResultEventActivity with a List of Events that belong to
+     * the before chosen EventGroup and got the also before chosen category.
+     * 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -105,12 +110,19 @@ public class SearchResultEventActivity extends Activity {
 	eventListView.setAdapter((ListAdapter) searchEventAdapter);
     }
 
+    /**
+     * Shows the menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.search_menu, menu);
 	return true;
     }
 
+    /**
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {

@@ -54,6 +54,13 @@ public class SearchResultEventAdapter extends BaseAdapter {
     Context context;
     String groupname;
 
+    /**
+     * Creates a SearchResultEventAdapter with a EventList that should be shown.
+     * 
+     * @param context
+     * @param eventList
+     * @param name
+     */
     public SearchResultEventAdapter(Context context,
 	    ArrayList<Event> eventList, String name) {
 	this.context = context;
@@ -76,6 +83,14 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	return arg0;
     }
 
+    /**
+     * Creates the ListView with Events. The name and two buttons are shown. By
+     * clicking on the "subscribe" button a event will be subscribed by calling
+     * Helper.subscribe. If the "dates"-button is clicked the
+     * SearchResultSingleEventActivity is started and shows all SingleEvents
+     * that belong to the chosen Event.
+     * 
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 	ViewHolder holder = null;
@@ -173,6 +188,12 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	return convertView;
     }
 
+    /**
+     * Helps to show the events in the SearchResultEventAdapter.
+     * 
+     * @author Christiane Kuhn
+     * 
+     */
     static class ViewHolder {
 	TextView name;
 	Button dates;

@@ -35,7 +35,8 @@ import unicopa.copa.app.R;
 import unicopa.copa.base.event.SingleEvent;
 
 /**
- * This Adapter helps to show the List of SingleEvents.
+ * This Adapter helps to show the List of SingleEvents which belong to a before
+ * with the search found Event.
  * 
  * @author Christiane Kuhn
  */
@@ -65,6 +66,10 @@ public class SearchResultSingleEventAdapter extends BaseAdapter {
 	return arg0;
     }
 
+    /**
+     * Creates the ListView with SingleEvents. The time and date to every
+     * SingleEvent are shown.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 	ViewHolder holder = null;
@@ -101,6 +106,12 @@ public class SearchResultSingleEventAdapter extends BaseAdapter {
 
     }
 
+    /**
+     * Helps to show the SingleEvents in the SearchResultSingleEventAdapter.
+     * 
+     * @author Christiane Kuhn
+     * 
+     */
     static class ViewHolder {
 	TextView time;
 	TextView date;

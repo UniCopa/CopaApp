@@ -41,12 +41,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * In this activity a user sees all SingleEvents to an Event.
+ * In this activity a user sees all SingleEvents to an Event which he has found
+ * before with the search.
  * 
  * @author Christiane Kuhn, Martin Rabe
  */
 public class SearchResultSingleEventActivity extends Activity {
 
+    /**
+     * Creates SearchResultSingleEventActivity with a List of SingleEvents that
+     * belong to the before chosen Event.
+     * 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -111,12 +117,19 @@ public class SearchResultSingleEventActivity extends Activity {
 	singleEventListView.setClickable(false);
     }
 
+    /**
+     * Shows the menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.all_items_menu, menu);
 	return true;
     }
 
+    /**
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
