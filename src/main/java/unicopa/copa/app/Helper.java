@@ -17,6 +17,7 @@
 package unicopa.copa.app;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -301,6 +302,45 @@ public class Helper {
 	storage.store(settingsLocal);
 
 	return true;
+    }
+
+    /**
+     * 
+     * 
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public static boolean getRights(Context context)
+	    throws ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
+
+	List<List<Integer>> rights = null;
+	rights = scon.getMyEvents();
+
+	if (rights != null) {
+	    Database db = null;
+	    db = Database.getInstance(context);
+
+	    db.clearPermissions();
+
+	    int permissionCode = 1;
+	    for (List<Integer> right : rights) {
+		db.updatePermissions(right, permissionCode);
+		permissionCode++;
+	    }
+
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
     /**
