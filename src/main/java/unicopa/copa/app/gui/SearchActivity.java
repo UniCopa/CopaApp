@@ -49,7 +49,8 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
- * In this activity a user can search a event.
+ * In this activity a user start his search after a event by chosing categories
+ * and a searchterm.
  * 
  * @author Christiane Kuhn, Martin Rabe
  */
@@ -61,6 +62,11 @@ public class SearchActivity extends Activity {
     TextView cat;
     EditText searchEdit;
 
+    /**
+     * Creates SearchActivity and shows the first level of the category-tree.
+     * The user can navigate through the category-tree and add a searchterm for
+     * his search. It also handles the click on the "search"-button.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -145,12 +151,19 @@ public class SearchActivity extends Activity {
 	});
     }
 
+    /**
+     * Shows the menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.search_menu, menu);
 	return true;
     }
 
+    /**
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
@@ -185,6 +198,12 @@ public class SearchActivity extends Activity {
 	}
     }
 
+    /**
+     * Handles click on "search"-button and starts the SearchResultGroupActivity
+     * on which the searchrequest is send to the server.
+     * 
+     * @param view
+     */
     public void onSearchButtonClick(View view) {
 	String term = searchEdit.getText().toString();
 	Intent intentResult = new Intent(SearchActivity.this,
