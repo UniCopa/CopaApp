@@ -151,6 +151,9 @@ public class LoginActivity extends Activity {
 	    }
 
 	    if (success) {
+
+		// TODO only if notificationKind 'none' or 'gcm-manu'/'gmc-auto'
+		// and a gcm message with settings update notification
 		SettingsLocal settingsLocal = null;
 
 		try {
