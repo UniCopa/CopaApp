@@ -38,6 +38,12 @@ public class SearchAdapter extends BaseAdapter {
     ArrayList<CategoryNodeImpl> CategoryList;
     Context context;
 
+    /**
+     * Creates a SearchAdapter with a CategoryList that should be shown.
+     * 
+     * @param context
+     * @param eventList
+     */
     public SearchAdapter(Context context,
 	    ArrayList<CategoryNodeImpl> categoryList) {
 	this.context = context;
@@ -59,6 +65,10 @@ public class SearchAdapter extends BaseAdapter {
 	return arg0;
     }
 
+    /**
+     * Creates the ListView with categories and shows the name of them.
+     * 
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 	ViewHolder holder = null;
@@ -87,6 +97,12 @@ public class SearchAdapter extends BaseAdapter {
 	return convertView;
     }
 
+    /**
+     * Helps to show the categories in the SearchAdapter.
+     * 
+     * @author Christiane Kuhn
+     * 
+     */
     static class ViewHolder {
 	TextView catName;
 	LinearLayout colour;
