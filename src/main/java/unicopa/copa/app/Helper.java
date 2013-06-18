@@ -293,9 +293,9 @@ public class Helper {
 	    db.insert(sEventLocal, oldSEventID);
 
 	    // TODO getEvent if database throws EventMissingException
-	    
+
 	    // TODO getEventGroup if database throws EventGroupMissingException
-	    
+
 	    // TODO inconsistency (see white board) could be solved by saving
 	    // every sEvent one after another not just the last one, but this is
 	    // a lot of unnecessary work
@@ -327,31 +327,37 @@ public class Helper {
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
      */
-    public static boolean getRights() throws ClientProtocolException,
-	    IOException, APIException, PermissionException,
-	    RequestNotPracticableException, InternalErrorException {
+    public static void getRights() throws ClientProtocolException, IOException,
+	    APIException, PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
 	List<List<Integer>> rights = null;
 	rights = scon.getMyEvents();
 
-	if (rights != null) {
-	    Database db = null;
-	    db = Database.getInstance(null);
+	Database db = null;
+	db = Database.getInstance(null);
 
-	    db.clearPermissions();
+	db.clearPermissions();
 
-	    int permissionCode = 1;
-	    for (List<Integer> right : rights) {
-		db.updatePermissions(right, permissionCode);
-		permissionCode++;
-	    }
+	List<Integer> rightholder = null;
+	rightholder = rights.get(0);
 
-	    return true;
-	} else {
-	    return false;
-	}
+	List<Integer> deputy = null;
+	deputy = rights.get(0);
+
+	List<Integer> owner = null;
+	owner = rights.get(0);
+
+	db.updatePermissions(rightholder, 1);
+	db.updatePermissions(deputy, 2);
+	db.updatePermissions(owner, 3);
+
+	// TODO if database throws EventMissingException getEvent and save Event
+	// to database
+	// TODO if database throws EventGroupMissingException getEventGroup and
+	// save EventGroup to database
     }
 
     /**
