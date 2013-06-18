@@ -147,9 +147,8 @@ public class MainActivity extends Activity {
 	try {
 	    settingsLocal = storage.load();
 	} catch (NoStorageException e) {
-	    // TODO welcome message
-	    // PopUp.alert(MainActivity.this, "Welcome!",
-	    // "Hello, this is the first time you meet CoPA.");
+	    PopUp.alert(this, getString(R.string.welcome),
+		    getString(R.string.welcome_text));
 
 	    // TODO maybe first try to get settings from server?
 	    Set<String> gcmKeys = new HashSet<String>();
