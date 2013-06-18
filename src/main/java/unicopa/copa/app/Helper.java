@@ -54,7 +54,7 @@ public class Helper {
      * 
      * @param eventID
      * @param settings
-     * @return
+     * @return True for success. / False for Failure.
      * @throws InternalErrorException
      * @throws RequestNotPracticableException
      * @throws PermissionException
@@ -86,7 +86,8 @@ public class Helper {
 	    return false;
 	}
 
-	Storage storage = Storage.getInstance(null);
+	Storage storage = null;
+	storage = Storage.getInstance(null);
 
 	storage.store(settingsLocal);
 
@@ -103,6 +104,8 @@ public class Helper {
 	    return false;
 	}
 
+	// TODO only get EventGroups if local database throws
+	// EventGroupMissingException
 	int eventGroupID;
 	eventGroupID = event.getEventGroupID();
 
@@ -129,6 +132,8 @@ public class Helper {
 	}
 
 	db.insert(event, -1);
+
+	// TODO only save EventGroups if database throws EventGroupException
 	db.insert(eventGroup, -1);
 
 	return true;
@@ -287,6 +292,10 @@ public class Helper {
 
 	    db.insert(sEventLocal, oldSEventID);
 
+	    // TODO getEvent if database throws EventMissingException
+	    
+	    // TODO getEventGroup if database throws EventGroupMissingException
+	    
 	    // TODO inconsistency (see white board) could be solved by saving
 	    // every sEvent one after another not just the last one, but this is
 	    // a lot of unnecessary work
@@ -318,10 +327,9 @@ public class Helper {
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
      */
-    public static boolean getRights(Context context)
-	    throws ClientProtocolException, IOException, APIException,
-	    PermissionException, RequestNotPracticableException,
-	    InternalErrorException {
+    public static boolean getRights() throws ClientProtocolException,
+	    IOException, APIException, PermissionException,
+	    RequestNotPracticableException, InternalErrorException {
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
@@ -330,7 +338,7 @@ public class Helper {
 
 	if (rights != null) {
 	    Database db = null;
-	    db = Database.getInstance(context);
+	    db = Database.getInstance(null);
 
 	    db.clearPermissions();
 
