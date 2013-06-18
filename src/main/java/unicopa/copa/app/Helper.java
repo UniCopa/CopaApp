@@ -205,7 +205,7 @@ public class Helper {
      * @throws InternalErrorException
      * @throws NoStorageException 
      */
-    public static boolean update(Date date, Context context)
+    public static boolean getUpdate(Date date, Context context)
 	    throws ClientProtocolException, IOException, APIException,
 	    PermissionException, RequestNotPracticableException,
 	    InternalErrorException, NoStorageException {

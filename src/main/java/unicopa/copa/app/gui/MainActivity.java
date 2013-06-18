@@ -283,7 +283,7 @@ public class MainActivity extends Activity {
 	    boolean success = false;
 
 	    try {
-		success = Helper.update(date, MainActivity.this);
+		success = Helper.getUpdate(date, MainActivity.this);
 	    } catch (ClientProtocolException e) {
 		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 			e.getMessage());
