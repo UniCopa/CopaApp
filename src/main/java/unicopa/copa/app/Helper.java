@@ -97,44 +97,47 @@ public class Helper {
 	List<SingleEvent> sEvents = null;
 	sEvents = scon.getCurrentSingleEvents(eventID, date);
 
-	Event event = null;
-	event = scon.getEvent(eventID);
-
-	if (event == null) {
-	    return false;
-	}
-
-	// TODO only get EventGroups if local database throws
-	// EventGroupMissingException
-	int eventGroupID;
-	eventGroupID = event.getEventGroupID();
-
-	EventGroup eventGroup = null;
-	eventGroup = scon.getEventGroup(eventGroupID);
-
-	if (eventGroup == null) {
-	    return false;
-	}
-
 	Database db = Database.getInstance(context);
 
 	if (sEvents.size() != 0) {
 	    for (SingleEvent sEvent : sEvents) {
-		String name = "";
-		name = eventGroup.getEventGroupName() + event.getEventName();
-
 		SingleEventLocal sEventLocal = null;
-		sEventLocal = Helper
-			.singleEventToSingleEventLocal(sEvent, name);
+		sEventLocal = Helper.singleEventToSingleEventLocal(sEvent, "");
 
-		db.insert(sEventLocal, -1);
+		try {
+		    db.insert(sEventLocal, -1);
+		} catch (NoEventGroupException e) {
+		    // This should never happen
+		    e.printStackTrace();
+		} catch (NoEventException e) {
+		    Event event = null;
+		    event = scon.getEvent(eventID);
+
+		    if (event == null) {
+			return false;
+		    }
+
+		    try {
+			db.insert(event, eventID);
+		    } catch (NoEventGroupException e1) {
+			int eventGroupID;
+			eventGroupID = event.getEventGroupID();
+
+			EventGroup eventGroup = null;
+			eventGroup = scon.getEventGroup(eventGroupID);
+
+			if (eventGroup == null) {
+			    return false;
+			}
+			// e1.printStackTrace();
+		    } catch (NoEventException e1) {
+			// This should never happen
+			e1.printStackTrace();
+		    }
+		    // e.printStackTrace();
+		}
 	    }
 	}
-
-	db.insert(event, -1);
-
-	// TODO only save EventGroups if database throws EventGroupException
-	db.insert(eventGroup, -1);
 
 	return true;
     }
@@ -185,7 +188,7 @@ public class Helper {
     }
 
     /**
-     * This method what to do with a SingleEvent change.
+     * This method decides what to do with a SingleEvent change.
      * 
      * @param sEventLocal
      * @param msg
@@ -223,6 +226,8 @@ public class Helper {
 	    break;
 	}
 
+	// TODO would probably be better to just update the whole subscription
+
 	if (newEventID != -1) {
 	    Database db = null;
 	    db = Database.getInstance(context);
@@ -234,7 +239,41 @@ public class Helper {
 	    newSEventLocal = Helper
 		    .singleEventToSingleEventLocal(newSEvent, "");
 
-	    db.insert(newSEventLocal, sEventID);
+	    try {
+		db.insert(newSEventLocal, sEventID);
+	    } catch (NoEventGroupException e) {
+		// This should never happen
+		e.printStackTrace();
+	    } catch (NoEventException e) {
+		int eventID = 0;
+		eventID = newSEvent.getEventID();
+
+		Event event = null;
+		event = scon.getEvent(eventID);
+
+		if (event == null) {
+		    return false;
+		}
+
+		try {
+		    db.insert(event, eventID);
+		} catch (NoEventGroupException e1) {
+		    int eventGroupID;
+		    eventGroupID = event.getEventGroupID();
+
+		    EventGroup eventGroup = null;
+		    eventGroup = scon.getEventGroup(eventGroupID);
+
+		    if (eventGroup == null) {
+			return false;
+		    }
+		    // e1.printStackTrace();
+		} catch (NoEventException e1) {
+		    // This should never happen
+		    e1.printStackTrace();
+		}
+		// e.printStackTrace();
+	    }
 
 	    return true;
 	}
@@ -290,11 +329,41 @@ public class Helper {
 
 	    Database db = Database.getInstance(context);
 
-	    db.insert(sEventLocal, oldSEventID);
+	    try {
+		db.insert(sEventLocal, oldSEventID);
+	    } catch (NoEventGroupException e) {
+		// This should never happen
+		e.printStackTrace();
+	    } catch (NoEventException e) {
+		int eventID = 0;
+		eventID = sEventLocal.getEventID();
 
-	    // TODO getEvent if database throws EventMissingException
+		Event event = null;
+		event = scon.getEvent(eventID);
 
-	    // TODO getEventGroup if database throws EventGroupMissingException
+		if (event == null) {
+		    return false;
+		}
+
+		try {
+		    db.insert(event, eventID);
+		} catch (NoEventGroupException e1) {
+		    int eventGroupID;
+		    eventGroupID = event.getEventGroupID();
+
+		    EventGroup eventGroup = null;
+		    eventGroup = scon.getEventGroup(eventGroupID);
+
+		    if (eventGroup == null) {
+			return false;
+		    }
+		    // e1.printStackTrace();
+		} catch (NoEventException e1) {
+		    // This should never happen
+		    e1.printStackTrace();
+		}
+		// e.printStackTrace();
+	    }
 
 	    // TODO inconsistency (see white board) could be solved by saving
 	    // every sEvent one after another not just the last one, but this is
@@ -317,7 +386,7 @@ public class Helper {
     }
 
     /**
-     * 
+     * This method updates the database with received permissions.
      * 
      * @return
      * @throws ClientProtocolException
@@ -327,9 +396,9 @@ public class Helper {
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
      */
-    public static void getRights() throws ClientProtocolException, IOException,
-	    APIException, PermissionException, RequestNotPracticableException,
-	    InternalErrorException {
+    public static boolean getRights() throws ClientProtocolException,
+	    IOException, APIException, PermissionException,
+	    RequestNotPracticableException, InternalErrorException {
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
@@ -349,15 +418,45 @@ public class Helper {
 
 	List<Integer> owner = null;
 	owner = rights.get(0);
+//	try {
+	    db.updatePermissions(rightholder, 1);
+	    db.updatePermissions(deputy, 2);
+	    db.updatePermissions(owner, 3);
+//	} catch (NoEventGroupException e) {
+//	    // This should never happen
+//	    e.printStackTrace();
+//	} catch (NoEventException e) {
+//	    int eventID = 0;
+//	    eventID = e.eventID;
+//
+//	    Event event = null;
+//	    event = scon.getEvent(eventID);
+//
+//	    if (event == null) {
+//		return false;
+//	    }
+//
+//	    try {
+//		db.insert(event, eventID);
+//	    } catch (NoEventGroupException e1) {
+//		int eventGroupID;
+//		eventGroupID = event.getEventGroupID();
+//
+//		EventGroup eventGroup = null;
+//		eventGroup = scon.getEventGroup(eventGroupID);
+//
+//		if (eventGroup == null) {
+//		    return false;
+//		}
+//		// e1.printStackTrace();
+//	    } catch (NoEventException e1) {
+//		// This should never happen
+//		e1.printStackTrace();
+//	    }
+//	    // e.printStackTrace();
+//	}
 
-	db.updatePermissions(rightholder, 1);
-	db.updatePermissions(deputy, 2);
-	db.updatePermissions(owner, 3);
-
-	// TODO if database throws EventMissingException getEvent and save Event
-	// to database
-	// TODO if database throws EventGroupMissingException getEventGroup and
-	// save EventGroup to database
+	return true;
     }
 
     /**
