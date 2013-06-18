@@ -39,6 +39,11 @@ import android.widget.TextView;
  */
 public class SingleEventListActivity extends Activity {
 
+    /**
+     * Creates SingleEventListActivity with a list of all SingleEvents that
+     * belong to an Event which has been chosen before.
+     * 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -70,12 +75,19 @@ public class SingleEventListActivity extends Activity {
 
     }
 
+    /**
+     * Shows the menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.all_items_menu, menu);
 	return true;
     }
 
+    /**
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {

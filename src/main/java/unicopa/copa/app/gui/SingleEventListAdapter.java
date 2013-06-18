@@ -45,6 +45,13 @@ public class SingleEventListAdapter extends BaseAdapter {
     ArrayList<SingleEventLocal> singleEventList;
     Context context;
 
+    /**
+     * Creates a SingleEventListAdapter with a SingleEventList that should be
+     * shown.
+     * 
+     * @param context
+     * @param eventList
+     */
     public SingleEventListAdapter(Context context,
 	    ArrayList<SingleEventLocal> eventList) {
 	this.context = context;
@@ -67,8 +74,15 @@ public class SingleEventListAdapter extends BaseAdapter {
     }
 
     /**
-     * Fills the ListView, gives the Items a user defined color and shows
-     * change-button depending on the role of the user.
+     * Creates the ListView with SingleEvents in user defined colors (black as
+     * default). In the ListView the time, the date and buttons are shown. It
+     * also handles the clicks on the buttons. If the "change"-button, which is
+     * only shown if the user gots the right to change, is clicked the
+     * ChangeSingleEventActivity starts. So the user can fill in his changes. If
+     * the "details"-button is clicked the SingleEventActivity starts and the
+     * user can see all details.
+     * 
+     * 
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -108,7 +122,6 @@ public class SingleEventListAdapter extends BaseAdapter {
 	draw.setStroke(5, mColor);
 	holder.change.setVisibility(View.GONE);
 
-	// TODO check if role-number is chosen correct
 	if (sEvent.getPermission() > 0) {
 	    holder.change.setVisibility(View.VISIBLE);
 	}
@@ -146,6 +159,12 @@ public class SingleEventListAdapter extends BaseAdapter {
 
     }
 
+    /**
+     * Helps to show the SingleEvents in the SingleEventListAdapter.
+     * 
+     * @author Christiane Kuhn
+     * 
+     */
     static class ViewHolder {
 	TextView time;
 	TextView date;
