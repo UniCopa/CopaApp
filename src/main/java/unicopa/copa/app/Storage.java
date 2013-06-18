@@ -35,6 +35,12 @@ public class Storage {
 
     private Context context;
 
+    /**
+     * This method is called to create an instance of Storage
+     * 
+     * @param context
+     * @return
+     */
     public static Storage getInstance(Context context) {
 	if (instance == null) {
 	    instance = new Storage(context);
@@ -43,10 +49,20 @@ public class Storage {
 	return instance;
     }
 
+    /**
+     * This is the Constructor of Storage
+     * 
+     * @param context
+     */
     private Storage(Context context) {
 	this.context = context;
     }
 
+    /**
+     * This method stores the given SettingsLocal as JSON-String into the SharedPreferences.
+     * 
+     * @param sLoc
+     */
     public void store(SettingsLocal sLoc) {
 	Gson gson = new Gson();
 	SharedPreferences appSharedPrefs = context.getSharedPreferences(
@@ -60,6 +76,12 @@ public class Storage {
 	prefsEditor.commit();
     }
 
+    /**
+     * This method loads stored SettingLocal from the SharedPreferences
+     * 
+     * @return
+     * @throws NoStorageException
+     */
     public SettingsLocal load() throws NoStorageException {
 	SharedPreferences appSharedPrefs = context.getSharedPreferences(
 		"Settings", 0);
@@ -76,6 +98,9 @@ public class Storage {
 	}
     }
 
+    /**
+     * This method deleted all stored Settings from the SharedPreferences
+     */
     public void deleteSettings() {
 	context.getSharedPreferences("Settings", 0).edit().clear().commit();
     }
