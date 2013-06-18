@@ -756,10 +756,12 @@ public class ServerConnection {
      * @throws PermissionException
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
+     * @throws NoStorageException
      */
-    public UserSettings getSettings() throws ClientProtocolException,
+    public SettingsLocal getSettings() throws ClientProtocolException,
 	    IOException, APIException, PermissionException,
-	    RequestNotPracticableException, InternalErrorException {
+	    RequestNotPracticableException, InternalErrorException,
+	    NoStorageException {
 	GetUserSettingsRequest reqObj = new GetUserSettingsRequest();
 
 	String reqStr = "";
@@ -773,7 +775,13 @@ public class ServerConnection {
 		.deserializeResponse(resStr);
 
 	if (resObj instanceof GetUserSettingsResponse) {
-	    return resObj.getUserSettings();
+	    UserSettings userSettings = null;
+	    userSettings = resObj.getUserSettings();
+
+	    SettingsLocal settingsLocal = null;
+	    settingsLocal = Helper.userSettingsToSettingsLocal(userSettings);
+
+	    return settingsLocal;
 	} else {
 	    return null;
 	}
