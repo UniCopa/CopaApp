@@ -20,7 +20,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -462,6 +465,51 @@ public class Helper {
 		sel_durationMinutesUpdateCounter, sel_permission);
 
 	return sEventLocal;
+    }
+
+    public static SettingsLocal userSettingsToSettingsLocal(
+	    UserSettings settings) throws NoStorageException {
+	Set<String> gcmKeys = null;
+	gcmKeys = settings.getGCMKeys();
+
+	boolean emailNotification = false;
+	emailNotification = settings.isEmailNotificationEnabled();
+
+	String language = "";
+	language = settings.getLanguage();
+
+	Map<Integer, UserEventSettings> eventSettings = null;
+	eventSettings = new HashMap<Integer, UserEventSettings>();
+
+	Set<Integer> subscriptions = null;
+	subscriptions = settings.getSubscriptions();
+
+	for (int eventID : subscriptions) {
+	    UserEventSettings eSettings = settings.getEventSettings(eventID);
+
+	    eventSettings.put(eventID, eSettings);
+	}
+
+	Storage storage = null;
+	storage = Storage.getInstance(null);
+
+	SettingsLocal oldSettingsLocal = null;
+	oldSettingsLocal = storage.load();
+
+	int notificationKind = 0;
+	notificationKind = oldSettingsLocal.getNotificationKind();
+
+	Date lastUpdate = null;
+	lastUpdate = oldSettingsLocal.getLastUpdate();
+
+	String localGcmKey = "";
+	localGcmKey = oldSettingsLocal.getLocalGcmKey();
+
+	SettingsLocal settingsLocal = null;
+	settingsLocal = new SettingsLocal(gcmKeys, emailNotification, language,
+		eventSettings, notificationKind, lastUpdate, localGcmKey);
+
+	return settingsLocal;
     }
 
 }
