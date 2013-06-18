@@ -16,12 +16,17 @@
  */
 package unicopa.copa.app.gui;
 
+import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
+import unicopa.copa.app.SettingsLocal;
+import unicopa.copa.app.Storage;
+import unicopa.copa.base.UserEventSettings;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
@@ -32,8 +37,8 @@ import android.support.v4.app.DialogFragment;
  */
 public class ColorDialog extends DialogFragment {
 
-    public Dialog onCreateDialog(Bundle savedInstanceState, Context context,
-	    int eventId) {
+    public Dialog onCreateDialog(Bundle savedInstanceState,
+	    final Context context, final int eventId) {
 	AlertDialog.Builder builder = new AlertDialog.Builder(context);
 	builder.setTitle(R.string.pick_color).setItems(R.array.colors_array,
 		new DialogInterface.OnClickListener() {
@@ -59,13 +64,37 @@ public class ColorDialog extends DialogFragment {
 			    color = "FF8C00";
 			    break;
 			case 6:// purple
-			    color = "BA55D3";
+			    color = "5C1B72";
 			    break;
 			default:// black
 			    color = "000000";
 			    break;
 			}
-			// TODO save color in userSettings and on device
+			Storage S = null;
+			S = Storage.getInstance(context);
+
+			SettingsLocal settings = null;
+
+			try {
+			    settings = S.load();
+			} catch (NoStorageException e) {
+			    // TODO Auto-generated catch block
+			    e.printStackTrace();
+			}
+			UserEventSettings evSettings = settings
+				.getEventSettings(eventId);
+			if (evSettings != null) {
+			    evSettings.setColorCode(color);
+			} else {
+			    settings.putEventSettings(eventId,
+				    new UserEventSettings(color));
+			}
+			S.store(settings);
+			Intent intentSubscription = new Intent(context,
+				SubscriptionActivity.class);
+			context.startActivity(intentSubscription);
+
+			// TODO send new userSettings to server
 		    }
 		});
 	return builder.create();

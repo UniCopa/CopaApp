@@ -16,7 +16,6 @@
  */
 package unicopa.copa.app.gui;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -33,8 +32,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import unicopa.copa.app.Database;
+import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
-import unicopa.copa.app.SingleEventLocal;
+import unicopa.copa.app.SettingsLocal;
+import unicopa.copa.app.Storage;
+import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.event.Event;
 
 /**
@@ -91,11 +93,20 @@ public class PrivAdapter extends BaseAdapter {
 
 	final Event event = (Event) this.getItem(position);
 	String colored = "#000000";
+	Storage S = null;
+	S = Storage.getInstance(context);
 
-	if (db.getSingleEventsByEventID(event.getEventID()) != null) {
-	    SingleEventLocal sEvent = (SingleEventLocal) db
-		    .getSingleEventsByEventID(event.getEventID()).get(0);
-	    colored = "#" + sEvent.getColorCode();
+	SettingsLocal settings = null;
+
+	try {
+	    settings = S.load();
+	    UserEventSettings evsettings = settings.getEventSettings(event
+		    .getEventID());
+	    if (evsettings != null && evsettings.getColorCode() != null)
+		colored = "#" + evsettings.getColorCode();
+	} catch (NoStorageException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
 
 	holder.eventGroupName.setText(db.getEventGroupName(event

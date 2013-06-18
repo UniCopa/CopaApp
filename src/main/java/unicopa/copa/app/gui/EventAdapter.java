@@ -39,8 +39,8 @@ import unicopa.copa.app.Helper;
 import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.SettingsLocal;
-import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.app.Storage;
+import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -110,10 +110,22 @@ public class EventAdapter extends BaseAdapter {
 	final Event event = (Event) this.getItem(position);
 	String colored = "#000000";
 
-	if (db.getSingleEventsByEventID(event.getEventID()) != null) {
-	    SingleEventLocal sEvent = (SingleEventLocal) db
-		    .getSingleEventsByEventID(event.getEventID()).get(0);
-	    colored = "#" + sEvent.getColorCode();
+	Storage S = null;
+	S = Storage.getInstance(context);
+
+	SettingsLocal settings = null;
+
+	try {
+	    settings = S.load();
+
+	    UserEventSettings evsettings = settings.getEventSettings(event
+		    .getEventID());
+	    if (evsettings != null && evsettings.getColorCode() != null)
+		colored = "#" + evsettings.getColorCode();
+	} catch (NoStorageException e) {
+	    // TODO Auto-generated catch block
+
+	    e.printStackTrace();
 	}
 
 	holder.eventGroupName.setText(db.getEventGroupName(event
