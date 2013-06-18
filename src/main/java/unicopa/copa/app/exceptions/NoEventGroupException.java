@@ -14,19 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package unicopa.copa.app;
+package unicopa.copa.app.exceptions;
 
 /**
- * Occurs if no Event for a given SingleEvent is available.
+ * Occurs if no EventGroup for a given Event is available.
  * 
  * @author Robin Muench
  */
-public class NoEventException extends Exception {
+public class NoEventGroupException extends Exception {
 
-    public NoEventException() {
+    public NoEventGroupException() {
     }
 
-    public NoEventException(String message) {
+    public NoEventGroupException(String message) {
 	super(message);
     }
 

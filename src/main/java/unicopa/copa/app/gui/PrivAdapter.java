@@ -32,10 +32,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import unicopa.copa.app.Database;
-import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.SettingsLocal;
 import unicopa.copa.app.Storage;
+import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.event.Event;
 

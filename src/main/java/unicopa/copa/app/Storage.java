@@ -16,6 +16,8 @@
  */
 package unicopa.copa.app;
 
+import unicopa.copa.app.exceptions.NoStorageException;
+
 import com.google.gson.Gson;
 
 import android.content.Context;

@@ -29,6 +29,9 @@ import org.apache.http.client.ClientProtocolException;
 
 import android.content.Context;
 
+import unicopa.copa.app.exceptions.NoEventException;
+import unicopa.copa.app.exceptions.NoEventGroupException;
+import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.UserSettings;
 import unicopa.copa.base.com.exception.APIException;

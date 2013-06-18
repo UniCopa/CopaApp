@@ -16,10 +16,10 @@
  */
 package unicopa.copa.app.gui;
 
-import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.SettingsLocal;
 import unicopa.copa.app.Storage;
+import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.UserEventSettings;
 
 import android.app.AlertDialog;

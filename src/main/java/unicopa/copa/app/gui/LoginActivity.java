@@ -20,11 +20,11 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
-import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
 import unicopa.copa.app.Storage;
+import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;

@@ -31,12 +31,12 @@ import org.apache.http.client.ClientProtocolException;
 
 import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
-import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
 import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.app.Storage;
+import unicopa.copa.app.exceptions.NoStorageException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

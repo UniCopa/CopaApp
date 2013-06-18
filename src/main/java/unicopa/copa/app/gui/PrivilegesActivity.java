@@ -24,9 +24,7 @@ import org.apache.http.client.ClientProtocolException;
 
 import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
-import unicopa.copa.app.NoStorageException;
 import unicopa.copa.app.R;
-import unicopa.copa.app.ServerConnection;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;

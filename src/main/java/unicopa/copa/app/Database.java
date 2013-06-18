@@ -22,6 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import unicopa.copa.app.exceptions.NoEventException;
+import unicopa.copa.app.exceptions.NoEventGroupException;
 import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.event.Event;
