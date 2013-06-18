@@ -49,6 +49,11 @@ import android.widget.TextView;
  */
 public class PrivilegesActivity extends Activity {
 
+    /**
+     * Creates PrivilegesActivity with a list of the events to which the user
+     * has special rights.
+     * 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -108,12 +113,19 @@ public class PrivilegesActivity extends Activity {
 	}
     }
 
+    /**
+     * Shows the menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.priv_menu, menu);
 	return true;
     }
 
+    /**
+     * Handles clicks on a menu-item and switches to other activity, depending
+     * on which item was clicked.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
