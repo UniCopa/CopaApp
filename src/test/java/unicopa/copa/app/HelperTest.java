@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2013 UniCoPA
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package unicopa.copa.app;
 
 import static org.junit.Assert.*;
@@ -11,8 +27,16 @@ import org.junit.Test;
 import unicopa.copa.base.event.SingleEvent;
 import unicopa.copa.base.event.SingleEventUpdate;
 
+/**
+ * This is the TestClass of the class Helper.
+ * 
+ * @author Martin Rabe
+ */
 public class HelperTest {
 
+    /**
+     * This method tests the checkChanges method.
+     */
     @Test
     public void checkChangesTest() {
 	Date date1 = null;
@@ -80,6 +104,70 @@ public class HelperTest {
 	assertEquals(sEventLocal.getDurationMinutesUpdateCounter(),
 		returnevent.getDurationMinutesUpdateCounter());
 	assertEquals(sEventLocal.getPermission(), returnevent.getPermission());
+    }
+
+    /**
+     * This method tests the singleEventToSingleEventLocal method.
+     */
+    @Test
+    public void singleEventToSingleEventLocalTest() {
+	int singleEventID = 1234;
+	int eventID = 123;
+	String location = "HS-Hu";
+	Date date = new Date(113, 1, 1);
+	String supervisor = "Someone";
+	int durationMinutes = 42;
+
+	SingleEvent sEvent = null;
+	sEvent = new SingleEvent(singleEventID, eventID, location, date,
+		supervisor, durationMinutes);
+
+	SingleEventLocal singleEventLocal = null;
+	singleEventLocal = Helper.singleEventToSingleEventLocal(sEvent, "");
+
+	String colorCode = "000000";
+	String name = "";
+	int locationUpdateCounter = 0;
+	int dateUpdateCounter = 0;
+	int supervisorUpdateCounter = 0;
+	int durationMinutesUpdateCounter = 0;
+	int permission = 0;
+
+	SingleEventLocal expectedSingleEventLocal = null;
+	expectedSingleEventLocal = new SingleEventLocal(singleEventID, eventID,
+		location, date, supervisor, durationMinutes, colorCode, name,
+		locationUpdateCounter, dateUpdateCounter,
+		supervisorUpdateCounter, durationMinutesUpdateCounter,
+		permission);
+
+	assertEquals(expectedSingleEventLocal.getSingleEventID(),
+		singleEventLocal.getSingleEventID());
+	assertEquals(expectedSingleEventLocal.getEventID(),
+		singleEventLocal.getEventID());
+	assertEquals(expectedSingleEventLocal.getLocation(),
+		singleEventLocal.getLocation());
+	assertEquals(expectedSingleEventLocal.getDate(),
+		singleEventLocal.getDate());
+	assertEquals(expectedSingleEventLocal.getSupervisor(),
+		singleEventLocal.getSupervisor());
+	assertEquals(expectedSingleEventLocal.getDurationMinutes(),
+		singleEventLocal.getDurationMinutes());
+	assertEquals(expectedSingleEventLocal.getColorCode(),
+		singleEventLocal.getColorCode());
+	assertEquals(expectedSingleEventLocal.getName(),
+		singleEventLocal.getName());
+	assertEquals(expectedSingleEventLocal.getLoactionUpdateCounter(),
+		singleEventLocal.getLoactionUpdateCounter());
+	assertEquals(expectedSingleEventLocal.getDateUpdateCounter(),
+		singleEventLocal.getDateUpdateCounter());
+	assertEquals(expectedSingleEventLocal.getSupervisorUpdateCounter(),
+		singleEventLocal.getSupervisorUpdateCounter());
+	assertEquals(
+		expectedSingleEventLocal.getDurationMinutesUpdateCounter(),
+		singleEventLocal.getDurationMinutesUpdateCounter());
+	assertEquals(expectedSingleEventLocal.getPermission(),
+		singleEventLocal.getPermission());
+
     }
 
 }
