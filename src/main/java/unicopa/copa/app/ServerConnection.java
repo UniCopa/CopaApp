@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -58,6 +60,8 @@ import unicopa.copa.base.com.request.GetEventRequest;
 import unicopa.copa.base.com.request.GetEventResponse;
 import unicopa.copa.base.com.request.GetEventsRequest;
 import unicopa.copa.base.com.request.GetEventsResponse;
+import unicopa.copa.base.com.request.GetMyEventsRequest;
+import unicopa.copa.base.com.request.GetMyEventsResponse;
 import unicopa.copa.base.com.request.GetSingleEventRequest;
 import unicopa.copa.base.com.request.GetSingleEventResponse;
 import unicopa.copa.base.com.request.GetSingleEventUpdatesRequest;
@@ -476,6 +480,55 @@ public class ServerConnection {
     }
 
     /**
+     * 
+     * 
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public List<List<Integer>> getMyEvents() throws ClientProtocolException, IOException,
+	    APIException, PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	GetMyEventsRequest reqObj = new GetMyEventsRequest();
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer(reqStr);
+
+	GetMyEventsResponse resObj = null;
+	resObj = (GetMyEventsResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetMyEventsResponse) {
+	    List<Integer> rightholder = null;
+	    rightholder = resObj.getRightholderEvents();
+
+	    List<Integer> deputy = null;
+	    deputy = resObj.getDeputyEvents();
+
+	    List<Integer> owner = null;
+	    owner = resObj.getOwnerEvents();
+
+	    List<List<Integer>> ret = null;
+	    ret = new ArrayList<List<Integer>>();
+
+	    ret.add(rightholder);
+	    ret.add(deputy);
+	    ret.add(owner);
+
+	    return ret;
+	} else {
+	    return null;
+	}
+    }
+
+    /**
      * This method returns the new singleEventID for a SingleEvent update.
      * 
      * @param sEvent
@@ -588,7 +641,6 @@ public class ServerConnection {
 	}
     }
 
-    // TODO do we need this?
     /**
      * This method returns to a given singleEventID a SingleEvent.
      * 
