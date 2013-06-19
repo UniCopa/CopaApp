@@ -121,6 +121,7 @@ public class Helper {
 
 		    try {
 			db.insert(event, eventID);
+			db.insert(sEventLocal, -1);
 		    } catch (NoEventGroupException e1) {
 			int eventGroupID;
 			eventGroupID = event.getEventGroupID();
@@ -130,6 +131,18 @@ public class Helper {
 
 			if (eventGroup == null) {
 			    return false;
+			}
+
+			try {
+			    db.insert(eventGroup, eventGroupID);
+			    db.insert(event, eventID);
+			    db.insert(sEventLocal, -1);
+			} catch (NoEventGroupException e2) {
+			    // TODO Auto-generated catch block
+			    e2.printStackTrace();
+			} catch (NoEventException e2) {
+			    // TODO Auto-generated catch block
+			    e2.printStackTrace();
 			}
 			// e1.printStackTrace();
 		    } catch (NoEventException e1) {
@@ -349,6 +362,7 @@ public class Helper {
 
 		try {
 		    db.insert(event, eventID);
+		    db.insert(sEventLocal, oldSEventID);
 		} catch (NoEventGroupException e1) {
 		    int eventGroupID;
 		    eventGroupID = event.getEventGroupID();
@@ -359,6 +373,19 @@ public class Helper {
 		    if (eventGroup == null) {
 			return false;
 		    }
+
+		    try {
+			db.insert(eventGroup, eventGroupID);
+			db.insert(event, eventID);
+			db.insert(sEventLocal, oldSEventID);
+		    } catch (NoEventGroupException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		    } catch (NoEventException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		    }
+
 		    // e1.printStackTrace();
 		} catch (NoEventException e1) {
 		    // This should never happen
