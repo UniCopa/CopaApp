@@ -38,7 +38,7 @@ public final class GCMConstants {
      */
     public static final String INTENT_FROM_GCM_REGISTRATION_CALLBACK =
             "com.google.android.c2dm.intent.REGISTRATION";
-
+//com.google.android
     /**
      * Intent used by the GCM library to indicate that the registration call
      * should be retried.

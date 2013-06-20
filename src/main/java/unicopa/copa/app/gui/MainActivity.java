@@ -16,6 +16,11 @@
  */
 package unicopa.copa.app.gui;
 
+import static unicopa.copa.app.GCMCommonUtilities.EXTRA_MESSAGE;
+import static unicopa.copa.app.GCMCommonUtilities.DISPLAY_MESSAGE_ACTION;
+import static unicopa.copa.app.GCMCommonUtilities.SENDER_ID;
+import static unicopa.copa.app.GCMCommonUtilities.SERVER_URL;
+
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -29,6 +34,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.client.ClientProtocolException;
 
+import unicopa.copa.app.gcm.GCMRegistrar;
+import unicopa.copa.app.GCMServerUtilities;
+
 import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
@@ -38,11 +46,14 @@ import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.app.Storage;
 import unicopa.copa.app.exceptions.NoStorageException;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -73,36 +84,9 @@ public class MainActivity extends Activity {
     ListView singleEventListView;
 
     // begin GCM
-
-    public static final String EXTRA_MESSAGE = "message";
-    public static final String PROPERTY_REG_ID = "registration_id";
-    private static final String PROPERTY_APP_VERSION = "appVersion";
-    private static final String PROPERTY_ON_SERVER_EXPIRATION_TIME = "onServerExpirationTimeMs";
-
-    /**
-     * Default lifespan (7 days) of a reservation until it is considered
-     * expired.
-     */
-    public static final long REGISTRATION_EXPIRY_TIME_MS = 1000 * 3600 * 24 * 7;
-
-    /**
-     * Substitute you own sender ID here. TODO
-     */
-    String SENDER_ID = "Your-Sender-ID";
-
-    /**
-     * Tag used on log messages.
-     */
-    static final String TAG = "GCMDemo";
-
-    // GoogleCloudMessaging gcm;
-    AtomicInteger msgId = new AtomicInteger();
-    SharedPreferences prefs;
-    Context context;
-
-    String regid;
-
-    // end GCM
+    TextView mDisplay;
+    AsyncTask<Void, Void, Void> mRegisterTask;
+    //end GCM
 
     /**
      * Creates MainActivity with a list of the next SingleEvents. By clicking on
@@ -120,15 +104,58 @@ public class MainActivity extends Activity {
 	text = (TextView) findViewById(R.id.main_nothing);
 
 	// begin GCM
+	        checkNotNull(SERVER_URL, "SERVER_URL");
+	        checkNotNull(SENDER_ID, "SENDER_ID");
+	        // Make sure the device has the proper dependencies.
+	        GCMRegistrar.checkDevice(this);
+	        // Make sure the manifest was properly set - comment out this line
+	        // while developing the app, then uncomment it when it's ready.
+	        GCMRegistrar.checkManifest(this);
+	        setContentView(R.layout.main);
+	        mDisplay = (TextView) findViewById(R.id.display);
+	        registerReceiver(mHandleMessageReceiver,
+	                new IntentFilter(DISPLAY_MESSAGE_ACTION));
+	        final String regId = GCMRegistrar.getRegistrationId(this);
+	        if (regId.equals("")) {
+	            // Automatically registers application on startup.
+	            GCMRegistrar.register(this, SENDER_ID);
+	        } else {
+	            // Device is already registered on GCM, check server.
+	            if (GCMRegistrar.isRegisteredOnServer(this)) {
+	                // Skips registration.
+	                mDisplay.append(getString(R.string.already_registered) + "\n");
+	            } else {
+	                // Try to register again, but not in the UI thread.
+	                // It's also necessary to cancel the thread onDestroy(),
+	                // hence the use of AsyncTask instead of a raw thread.
+	                final Context context = this;
+	                mRegisterTask = new AsyncTask<Void, Void, Void>() {
 
-	context = getApplicationContext();
-	regid = "d08ewqf94"; // TODO getRegistrationId(context);
+	                    @Override
+	                    protected Void doInBackground(Void... params) {
+	                        boolean registered =
+	                                GCMServerUtilities.register(context, regId);
+	                        // At this point all attempts to register with the app
+	                        // server failed, so we need to unregister the device
+	                        // from GCM - the app will try to register again when
+	                        // it is restarted. Note that GCM will send an
+	                        // unregistered callback upon completion, but
+	                        // GCMIntentService.onUnregistered() will ignore it.
+	                        if (!registered) {
+	                            GCMRegistrar.unregister(context);
+	                        }
+	                        return null;
+	                    }
 
-	if (regid.length() == 0) {
-	    registerBackground();
-	}
-	// gcm = GoogleCloudMessaging.getInstance(this);
+	                    @Override
+	                    protected void onPostExecute(Void result) {
+	                        mRegisterTask = null;
+	                    }
 
+	                };
+	                mRegisterTask.execute(null, null, null);
+	            }
+	        }
 	// end GCM
 
 	singleEventListView = (ListView) MainActivity.this
@@ -150,6 +177,8 @@ public class MainActivity extends Activity {
 	    PopUp.alert(this, getString(R.string.welcome),
 		    getString(R.string.welcome_text));
 
+	    String regid = "0000";
+	    
 	    // TODO maybe first try to get settings from server?
 	    Set<String> gcmKeys = new HashSet<String>();
 	    gcmKeys.add(regid); // TODO is this the GCMKey?
@@ -232,7 +261,6 @@ public class MainActivity extends Activity {
 
 	Database db = null;
 	db = Database.getInstance(MainActivity.this);
-
 	db.Table_init();
 
 	List<SingleEventLocal> sEventsLocal = null;
@@ -264,12 +292,43 @@ public class MainActivity extends Activity {
 	});
     }
 
+    //for GCM
+    private void checkNotNull(Object reference, String name) {
+        if (reference == null) {
+            throw new NullPointerException(
+                    getString(R.string.error_config, name));
+        }
+    }
+    
+    private final BroadcastReceiver mHandleMessageReceiver =
+            new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
+            mDisplay.append(newMessage + "\n");
+        }
+    };
+    
+    @Override
+    protected void onDestroy() {
+        if (mRegisterTask != null) {
+            mRegisterTask.cancel(true);
+        }
+        unregisterReceiver(mHandleMessageReceiver);
+        GCMRegistrar.onDestroy(this);
+        super.onDestroy();
+    }
+
+    
+    //end GCM
+    
     /**
      * Loads all updates if the user is logged in. If not a dialog reminds the
      * user to log in.
      * 
      * @param view
      */
+    
     public void onRefreshButtonClick(View view) {
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
@@ -410,140 +469,6 @@ public class MainActivity extends Activity {
 	    return super.onOptionsItemSelected(item);
 	}
     }
-
-    // begin GCM
-
-    /**
-     * Gets the current registration id for application on GCM service.
-     * <p>
-     * If result is empty, the registration has failed.
-     * 
-     * @return registration id, or empty string if the registration is not
-     *         complete.
-     */
-    private String getRegistrationId(Context context) {
-	final SharedPreferences prefs = getGCMPreferences(context);
-	String registrationId = prefs.getString(PROPERTY_REG_ID, "");
-	if (registrationId.length() == 0) {
-	    Log.v(TAG, "Registration not found.");
-	    return "";
-	}
-	// check if app was updated; if so, it must clear registration id to
-	// avoid a race condition if GCM sends a message
-	int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION,
-		Integer.MIN_VALUE);
-	int currentVersion = getAppVersion(context);
-	if (registeredVersion != currentVersion || isRegistrationExpired()) {
-	    Log.v(TAG, "App version changed or registration expired.");
-	    return "";
-	}
-	return registrationId;
-    }
-
-    /**
-     * @return Application's {@code SharedPreferences}.
-     */
-    private SharedPreferences getGCMPreferences(Context context) {
-	return getSharedPreferences(MainActivity.class.getSimpleName(),
-		Context.MODE_PRIVATE);
-    }
-
-    /**
-     * @return Application's version code from the {@code PackageManager}.
-     */
-    private static int getAppVersion(Context context) {
-	try {
-	    PackageInfo packageInfo = context.getPackageManager()
-		    .getPackageInfo(context.getPackageName(), 0);
-	    return packageInfo.versionCode;
-	} catch (NameNotFoundException e) {
-	    // should never happen
-	    throw new RuntimeException("Could not get package name: " + e);
-	}
-    }
-
-    /**
-     * Checks if the registration has expired.
-     * 
-     * <p>
-     * To avoid the scenario where the device sends the registration to the
-     * server but the server loses it, the app developer may choose to
-     * re-register after REGISTRATION_EXPIRY_TIME_MS.
-     * 
-     * @return true if the registration has expired.
-     */
-    private boolean isRegistrationExpired() {
-	final SharedPreferences prefs = getGCMPreferences(context);
-	// checks if the information is not stale
-	long expirationTime = prefs.getLong(PROPERTY_ON_SERVER_EXPIRATION_TIME,
-		-1);
-	return System.currentTimeMillis() > expirationTime;
-    }
-
-    /**
-     * Registers the application with GCM servers asynchronously.
-     * <p>
-     * Stores the registration id, app versionCode, and expiration time in the
-     * application's shared preferences.
-     */
-    private void registerBackground() {
-	// new AsyncTask() {
-	// @Override
-	// protected String doInBackground(Object... arg0) {
-	// String msg = "";
-	// try {
-	// if (gcm == null) {
-	// gcm = GoogleCloudMessaging.getInstance(context);
-	// }
-	// regid = gcm.register(SENDER_ID);
-	// msg = "Device registered, registration id=" + regid;
-	//
-	// // You should send the registration ID to your server over HTTP,
-	// // so it can use GCM/HTTP or CCS to send messages to your app.
-	//
-	// // For this demo: we don't need to send it because the device
-	// // will send upstream messages to a server that echo back the message
-	// // using the 'from' address in the message.
-	//
-	// // Save the regid - no need to register again.
-	// setRegistrationId(context, regid);
-	// } catch (IOException ex) {
-	// msg = "Error :" + ex.getMessage();
-	// }
-	// return msg;
-	// }
-	//
-	// protected void onPostExecute() {
-	// }
-	// }.execute(null, null, null);
-    }
-
-    /**
-     * Stores the registration id, app versionCode, and expiration time in the
-     * application's {@code SharedPreferences}.
-     * 
-     * @param context
-     *            application's context.
-     * @param regId
-     *            registration id
-     */
-    private void setRegistrationId(Context context, String regId) {
-	final SharedPreferences prefs = getGCMPreferences(context);
-	int appVersion = getAppVersion(context);
-	Log.v(TAG, "Saving regId on app version " + appVersion);
-	SharedPreferences.Editor editor = prefs.edit();
-	editor.putString(PROPERTY_REG_ID, regId);
-	editor.putInt(PROPERTY_APP_VERSION, appVersion);
-	long expirationTime = System.currentTimeMillis()
-		+ REGISTRATION_EXPIRY_TIME_MS;
-
-	Log.v(TAG, "Setting registration expiry time to "
-		+ new Timestamp(expirationTime));
-	editor.putLong(PROPERTY_ON_SERVER_EXPIRATION_TIME, expirationTime);
-	editor.commit();
-    }
-
-    // end GCM
 
     /**
      * Shows the menu.
