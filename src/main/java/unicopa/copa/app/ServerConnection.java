@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -148,23 +149,13 @@ public class ServerConnection {
 	// Log.v("SITE:", response.toString());
 	// Log.v("SITE AVAILABLE:", response.getStatusLine().toString());
 
-	BufferedReader rd = null;
-
-	rd = new BufferedReader(new InputStreamReader(response.getEntity()
-		.getContent()));
-
 	String line = "";
-	String temp = "";
+	line = new Scanner(response.getEntity().getContent(), "UTF-8")
+		.useDelimiter("\\A").next();
 
-	while ((line = rd.readLine()) != null) {
-	    temp = line;
-	}
+	Log.v("RESPONSE:", line);
 
-	rd.close();
-
-	Log.v("RESPONSE:", temp);
-
-	return temp;
+	return line;
     }
 
     /**
