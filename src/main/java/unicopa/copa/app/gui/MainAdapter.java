@@ -136,7 +136,11 @@ public class MainAdapter extends BaseAdapter {
 	}
 
 	// Convert string color to int
-	String colored = "#" + sEvent.getColorCode();
+	String colored = "#000000";
+	if (sEvent.getColorCode() != null) {
+	    colored = "#" + sEvent.getColorCode();
+	}
+
 	int mColor = Color.parseColor(colored);
 
 	GradientDrawable draw = (GradientDrawable) context.getResources()
