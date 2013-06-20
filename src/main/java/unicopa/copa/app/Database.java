@@ -358,7 +358,7 @@ public class Database extends SQLiteOpenHelper{
 		}
 		//check whether Event has an existing EventGroup
 		String columns[] = {"eventGroupID"};
-		String selection = "eventGrouID='"+String.valueOf(ev.getEventGroupID())+"'";
+		String selection = "eventGroupID='"+String.valueOf(ev.getEventGroupID())+"'";
 		String selectionArgs[] = null;
 		String groupBy = null;
 		String having = null;
