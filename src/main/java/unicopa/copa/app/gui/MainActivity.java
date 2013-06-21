@@ -74,7 +74,7 @@ import unicopa.copa.base.event.SingleEvent;
 /**
  * In this activity the user sees a list of his next SingleEvents.
  * 
- * @author Christiane Kuhn, Martin Rabe
+ * @author Christiane Kuhn, Martin Rabe, Robin Muench
  */
 public class MainActivity extends Activity {
 
@@ -115,20 +115,20 @@ public class MainActivity extends Activity {
 	        mDisplay = (TextView) findViewById(R.id.display);
 	        registerReceiver(mHandleMessageReceiver,
 	                new IntentFilter(DISPLAY_MESSAGE_ACTION));
-	        final String regId = GCMRegistrar.getRegistrationId(this);
+	        final String regId = GCMRegistrar.getRegistrationId(this.getApplicationContext());
 	        if (regId.equals("")) {
 	            // Automatically registers application on startup.
-	            GCMRegistrar.register(this, SENDER_ID);
+	            GCMRegistrar.register(this.getApplicationContext(), SENDER_ID);
 	        } else {
 	            // Device is already registered on GCM, check server.
-	            if (GCMRegistrar.isRegisteredOnServer(this)) {
+	            if (GCMRegistrar.isRegisteredOnServer(this.getApplicationContext())) {
 	                // Skips registration.
 	                mDisplay.append(getString(R.string.already_registered) + "\n");
 	            } else {
 	                // Try to register again, but not in the UI thread.
 	                // It's also necessary to cancel the thread onDestroy(),
 	                // hence the use of AsyncTask instead of a raw thread.
-	                final Context context = this;
+	                final Context context = this.getApplicationContext();
 	                mRegisterTask = new AsyncTask<Void, Void, Void>() {
 
 	                    @Override
@@ -315,7 +315,7 @@ public class MainActivity extends Activity {
             mRegisterTask.cancel(true);
         }
         unregisterReceiver(mHandleMessageReceiver);
-        GCMRegistrar.onDestroy(this);
+        GCMRegistrar.onDestroy(this.getApplicationContext());
         super.onDestroy();
     }
 
