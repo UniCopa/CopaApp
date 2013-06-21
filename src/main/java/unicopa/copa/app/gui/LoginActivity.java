@@ -50,6 +50,13 @@ import android.widget.Toast;
 public class LoginActivity extends Activity {
     ServerConnection scon = ServerConnection.getInstance();
     int fail;
+    TextView title;
+    TextView user;
+    TextView passwordtext;
+    EditText name;
+    EditText pw;
+    Button loginButton;
+    Button logoutButton;
 
     /**
      * Shows Layout and depending on whether the user is logged in or not the
@@ -61,18 +68,18 @@ public class LoginActivity extends Activity {
 	setContentView(R.layout.login);
 	Intent intent = getIntent();
 	fail = intent.getIntExtra("failed", 0);
+	title = (TextView) findViewById(R.id.login_title);
+	user = (TextView) findViewById(R.id.login_username);
+	passwordtext = (TextView) findViewById(R.id.login_pw);
+	name = (EditText) findViewById(R.id.login_usernameField);
+	pw = (EditText) findViewById(R.id.login_passwordField);
+	loginButton = (Button) findViewById(R.id.login_login_button);
+	logoutButton = (Button) findViewById(R.id.login_logout_button);
 
-	TextView title = (TextView) findViewById(R.id.login_title);
-	TextView user = (TextView) findViewById(R.id.login_username);
-	TextView password = (TextView) findViewById(R.id.login_pw);
-	EditText name = (EditText) findViewById(R.id.login_usernameField);
-	EditText pw = (EditText) findViewById(R.id.login_passwordField);
-	Button loginButton = (Button) findViewById(R.id.login_login_button);
-	Button logoutButton = (Button) findViewById(R.id.login_logout_button);
 	if (scon.getConnected()) {
 	    loginButton.setVisibility(View.GONE);
 	    user.setVisibility(View.GONE);
-	    password.setVisibility(View.GONE);
+	    passwordtext.setVisibility(View.GONE);
 	    name.setVisibility(View.GONE);
 	    pw.setVisibility(View.GONE);
 	    logoutButton.setVisibility(View.VISIBLE);
@@ -112,7 +119,8 @@ public class LoginActivity extends Activity {
     /**
      * Is used if LoginButton is clicked. Calls the ServerConnection.login
      * method and logs in the user.If it was successful switches back to
-     * MainActivity.
+     * MainActivity and changes layout of Login before, so that its correct if
+     * the backbutton is pressed.
      * 
      * @param view
      */
@@ -195,6 +203,15 @@ public class LoginActivity extends Activity {
 		    storage.store(settingsLocal);
 		}
 
+		// change layout
+		loginButton.setVisibility(View.GONE);
+		user.setVisibility(View.GONE);
+		passwordtext.setVisibility(View.GONE);
+		name.setVisibility(View.GONE);
+		pw.setVisibility(View.GONE);
+		logoutButton.setVisibility(View.VISIBLE);
+		title.setText(getString(R.string.title_logout));
+
 		Intent intentMain = new Intent(LoginActivity.this,
 			MainActivity.class);
 		LoginActivity.this.startActivity(intentMain);
@@ -207,7 +224,8 @@ public class LoginActivity extends Activity {
     /**
      * Is used if LogoutButton is clicked. Calls the ServerConnection.logout
      * method and logs out the user. If it was successful switches back to
-     * MainActivity.
+     * MainActivity and changes layout of Login before, so that its correct if
+     * the backbutton is pressed.
      * 
      * @param view
      */
@@ -218,6 +236,20 @@ public class LoginActivity extends Activity {
 	Toast toast = Toast.makeText(LoginActivity.this,
 		getString(R.string.logged_out), Toast.LENGTH_SHORT);
 	toast.show();
+
+	if (scon.getConnected()) {
+	    loginButton.setVisibility(View.GONE);
+	    user.setVisibility(View.GONE);
+	    passwordtext.setVisibility(View.GONE);
+	    name.setVisibility(View.GONE);
+	    pw.setVisibility(View.GONE);
+	    logoutButton.setVisibility(View.VISIBLE);
+	    title.setText(getString(R.string.title_logout));
+	} else {
+	    logoutButton.setVisibility(View.GONE);
+	    loginButton.setVisibility(View.VISIBLE);
+	    title.setText(getString(R.string.title_login));
+	}
 
 	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
 	LoginActivity.this.startActivity(intentMain);
