@@ -104,5 +104,7 @@
     <string name="wait">Please wait.</string>
     <string name="welcome">Welcome!</string>
     <string name="welcome_text">Hello, this is the first time you meet CoPA.</string>
+    <string name="help">Help</string>
+    <string name="help_text">As a owner you can appoint deputies and rightowner. All those have the right to change dates of your event. Deputies can also appoint rightholders.</string>
 
 </resources>

@@ -89,5 +89,7 @@
     <string name="wait">Bitte warten.</string>
     <string name="welcome">Willkommen!</string>
     <string name="welcome_text">Dies ist das erste Mal, dass Sie CoPA nutzen.</string>
+    <string name="help">Hilfe</string>
+    <string name="help_text">Als Eigner kann man Rechteinhaber und Stellvertreter ernennen. Diese können Termine zu ihrer Veranstaltung ändern. Stellvertreter können außerdem noch weitere Rechteinhaber ernennen.</string>
 
 </resources>
