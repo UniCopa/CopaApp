@@ -20,5 +20,9 @@
         android:id="@+id/action_subscription"
         android:orderInCategory="9"
         android:title="@string/action_subscription"/>
+    <item
+        android:id="@+id/action_help"
+        android:title="@string/help">
+    </item>
 
 </menu>

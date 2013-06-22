@@ -86,7 +86,8 @@ public class MainActivity extends Activity {
     // begin GCM
     TextView mDisplay;
     AsyncTask<Void, Void, Void> mRegisterTask;
-    //end GCM
+
+    // end GCM
 
     /**
      * Creates MainActivity with a list of the next SingleEvents. By clicking on
@@ -104,58 +105,59 @@ public class MainActivity extends Activity {
 	text = (TextView) findViewById(R.id.main_nothing);
 
 	// begin GCM
-	        checkNotNull(SERVER_URL, "SERVER_URL");
-	        checkNotNull(SENDER_ID, "SENDER_ID");
-	        // Make sure the device has the proper dependencies.
-	        GCMRegistrar.checkDevice(this);
-	        // Make sure the manifest was properly set - comment out this line
-	        // while developing the app, then uncomment it when it's ready.
-	        GCMRegistrar.checkManifest(this);
-	        setContentView(R.layout.main);
-	        mDisplay = (TextView) findViewById(R.id.display);
-	        registerReceiver(mHandleMessageReceiver,
-	                new IntentFilter(DISPLAY_MESSAGE_ACTION));
-	        final String regId = GCMRegistrar.getRegistrationId(this.getApplicationContext());
-	        if (regId.equals("")) {
-	            // Automatically registers application on startup.
-	            GCMRegistrar.register(this.getApplicationContext(), SENDER_ID);
-	        } else {
-	            // Device is already registered on GCM, check server.
-	            if (GCMRegistrar.isRegisteredOnServer(this.getApplicationContext())) {
-	                // Skips registration.
-	                mDisplay.append(getString(R.string.already_registered) + "\n");
-	            } else {
-	                // Try to register again, but not in the UI thread.
-	                // It's also necessary to cancel the thread onDestroy(),
-	                // hence the use of AsyncTask instead of a raw thread.
-	                final Context context = this.getApplicationContext();
-	                mRegisterTask = new AsyncTask<Void, Void, Void>() {
+	checkNotNull(SERVER_URL, "SERVER_URL");
+	checkNotNull(SENDER_ID, "SENDER_ID");
+	// Make sure the device has the proper dependencies.
+	GCMRegistrar.checkDevice(this);
+	// Make sure the manifest was properly set - comment out this line
+	// while developing the app, then uncomment it when it's ready.
+	GCMRegistrar.checkManifest(this);
+	setContentView(R.layout.main);
+	mDisplay = (TextView) findViewById(R.id.display);
+	registerReceiver(mHandleMessageReceiver, new IntentFilter(
+		DISPLAY_MESSAGE_ACTION));
+	final String regId = GCMRegistrar.getRegistrationId(this
+		.getApplicationContext());
+	if (regId.equals("")) {
+	    // Automatically registers application on startup.
+	    GCMRegistrar.register(this.getApplicationContext(), SENDER_ID);
+	} else {
+	    // Device is already registered on GCM, check server.
+	    if (GCMRegistrar.isRegisteredOnServer(this.getApplicationContext())) {
+		// Skips registration.
+		mDisplay.append(getString(R.string.already_registered) + "\n");
+	    } else {
+		// Try to register again, but not in the UI thread.
+		// It's also necessary to cancel the thread onDestroy(),
+		// hence the use of AsyncTask instead of a raw thread.
+		final Context context = this.getApplicationContext();
+		mRegisterTask = new AsyncTask<Void, Void, Void>() {
 
-	                    @Override
-	                    protected Void doInBackground(Void... params) {
-	                        boolean registered =
-	                                GCMServerUtilities.register(context, regId);
-	                        // At this point all attempts to register with the app
-	                        // server failed, so we need to unregister the device
-	                        // from GCM - the app will try to register again when
-	                        // it is restarted. Note that GCM will send an
-	                        // unregistered callback upon completion, but
-	                        // GCMIntentService.onUnregistered() will ignore it.
-	                        if (!registered) {
-	                            GCMRegistrar.unregister(context);
-	                        }
-	                        return null;
-	                    }
+		    @Override
+		    protected Void doInBackground(Void... params) {
+			boolean registered = GCMServerUtilities.register(
+				context, regId);
+			// At this point all attempts to register with the app
+			// server failed, so we need to unregister the device
+			// from GCM - the app will try to register again when
+			// it is restarted. Note that GCM will send an
+			// unregistered callback upon completion, but
+			// GCMIntentService.onUnregistered() will ignore it.
+			if (!registered) {
+			    GCMRegistrar.unregister(context);
+			}
+			return null;
+		    }
 
-	                    @Override
-	                    protected void onPostExecute(Void result) {
-	                        mRegisterTask = null;
-	                    }
+		    @Override
+		    protected void onPostExecute(Void result) {
+			mRegisterTask = null;
+		    }
 
-	                };
-	                mRegisterTask.execute(null, null, null);
-	            }
-	        }
+		};
+		mRegisterTask.execute(null, null, null);
+	    }
+	}
 	// end GCM
 
 	singleEventListView = (ListView) MainActivity.this
@@ -178,7 +180,7 @@ public class MainActivity extends Activity {
 		    getString(R.string.welcome_text));
 
 	    String regid = "0000";
-	    
+
 	    // TODO maybe first try to get settings from server?
 	    Set<String> gcmKeys = new HashSet<String>();
 	    gcmKeys.add(regid); // TODO is this the GCMKey?
@@ -292,43 +294,41 @@ public class MainActivity extends Activity {
 	});
     }
 
-    //for GCM
+    // for GCM
     private void checkNotNull(Object reference, String name) {
-        if (reference == null) {
-            throw new NullPointerException(
-                    getString(R.string.error_config, name));
-        }
-    }
-    
-    private final BroadcastReceiver mHandleMessageReceiver =
-            new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
-            mDisplay.append(newMessage + "\n");
-        }
-    };
-    
-    @Override
-    protected void onDestroy() {
-        if (mRegisterTask != null) {
-            mRegisterTask.cancel(true);
-        }
-        unregisterReceiver(mHandleMessageReceiver);
-        GCMRegistrar.onDestroy(this.getApplicationContext());
-        super.onDestroy();
+	if (reference == null) {
+	    throw new NullPointerException(getString(R.string.error_config,
+		    name));
+	}
     }
 
-    
-    //end GCM
-    
+    private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+	@Override
+	public void onReceive(Context context, Intent intent) {
+	    String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
+	    mDisplay.append(newMessage + "\n");
+	}
+    };
+
+    @Override
+    protected void onDestroy() {
+	if (mRegisterTask != null) {
+	    mRegisterTask.cancel(true);
+	}
+	unregisterReceiver(mHandleMessageReceiver);
+	GCMRegistrar.onDestroy(this.getApplicationContext());
+	super.onDestroy();
+    }
+
+    // end GCM
+
     /**
      * Loads all updates if the user is logged in. If not a dialog reminds the
      * user to log in.
      * 
      * @param view
      */
-    
+
     public void onRefreshButtonClick(View view) {
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
@@ -464,6 +464,11 @@ public class MainActivity extends Activity {
 	    Intent intentSubscription = new Intent(MainActivity.this,
 		    SubscriptionActivity.class);
 	    MainActivity.this.startActivity(intentSubscription);
+	    return true;
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(MainActivity.this,
+		    HelpActivity.class);
+	    MainActivity.this.startActivity(intentHelp);
 	    return true;
 	default:
 	    return super.onOptionsItemSelected(item);

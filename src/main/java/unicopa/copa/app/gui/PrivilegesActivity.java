@@ -152,6 +152,11 @@ public class PrivilegesActivity extends Activity {
 		    SubscriptionActivity.class);
 	    PrivilegesActivity.this.startActivity(intentSubscription);
 	    return true;
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(PrivilegesActivity.this,
+		    HelpActivity.class);
+	    PrivilegesActivity.this.startActivity(intentHelp);
+	    return true;
 
 	default:
 	    return super.onOptionsItemSelected(item);
