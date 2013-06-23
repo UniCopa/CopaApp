@@ -443,10 +443,10 @@ public class Helper {
 	rightholder = rights.get(0);
 
 	List<Integer> deputy = null;
-	deputy = rights.get(0);
+	deputy = rights.get(1);
 
 	List<Integer> owner = null;
-	owner = rights.get(0);
+	owner = rights.get(2);
 	// try {
 	db.updatePermissions(rightholder, 1);
 	db.updatePermissions(deputy, 2);
