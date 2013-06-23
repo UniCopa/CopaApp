@@ -91,5 +91,9 @@
     <string name="welcome_text">Dies ist das erste Mal, dass Sie CoPA nutzen.</string>
     <string name="help">Hilfe</string>
     <string name="help_text">Als Eigner kann man Rechteinhaber und Stellvertreter ernennen. Diese können Termine zu ihrer Veranstaltung ändern. Stellvertreter können außerdem noch weitere Rechteinhaber ernennen.</string>
+    <string name="accept_title">Einverständniserklärung zum Datenschutz</string>
+    <string name="accept_msg">CoPA darf folgendes nutzen...</string>
+    <string name="accept_no">Nein!</string>
+    <string name="accept">Ich akzeptiere.</string>
 
 </resources>

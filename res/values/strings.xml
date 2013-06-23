@@ -55,7 +55,6 @@
     <string name="io_ex">IOException!</string>
     <string name="login_error">Login Error!</string>
     <string name="pick_color">Pick a color</string>
-    
     <string name="gcm_registered">From GCM: device successfully registered!</string>
     <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
     <string name="gcm_message">From GCM: you got message!</string>
@@ -106,5 +105,9 @@
     <string name="welcome_text">Hello, this is the first time you meet CoPA.</string>
     <string name="help">Help</string>
     <string name="help_text">As a owner you can appoint deputies and rightowner. All those have the right to change dates of your event. Deputies can also appoint rightholders.</string>
+    <string name="accept_title">Data protection declaration of consent</string>
+    <string name="accept_msg">I allow CoPA to use ...</string>
+    <string name="accept_no">No!</string>
+    <string name="accept">I accept.</string>
 
 </resources>

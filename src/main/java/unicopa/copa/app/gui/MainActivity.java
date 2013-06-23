@@ -176,6 +176,8 @@ public class MainActivity extends Activity {
 	try {
 	    settingsLocal = storage.load();
 	} catch (NoStorageException e) {
+	    PopUp.firstAlert(this);
+
 	    PopUp.alert(this, getString(R.string.welcome),
 		    getString(R.string.welcome_text));
 

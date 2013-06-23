@@ -110,4 +110,29 @@ public class PopUp {
 			}).show();
     }
 
+    /**
+     * Creates an dialog to inform the user about data protection/usage with two
+     * buttons labeled 'I accept.' and 'No!'.
+     * 
+     * @param context
+     */
+    public static void firstAlert(Context context) {
+	new AlertDialog.Builder(context)
+		.setTitle(R.string.accept_title)
+		.setMessage(R.string.accept_msg)
+		.setPositiveButton(R.string.accept_no,
+			new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog,
+				    int which) {
+				// TODO find out what to do then
+			    }
+			})
+		.setNegativeButton(R.string.accept,
+			new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog,
+				    int which) {
+				// do nothing
+			    }
+			}).show();
+    }
 }
