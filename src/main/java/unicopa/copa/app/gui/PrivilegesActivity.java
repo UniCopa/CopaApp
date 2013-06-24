@@ -25,6 +25,7 @@ import org.apache.http.client.ClientProtocolException;
 import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
 import unicopa.copa.base.com.exception.APIException;
 import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
@@ -56,6 +57,14 @@ public class PrivilegesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.priv);
+
+	// ServerConnection scon = null;
+	// scon = ServerConnection.getInstance();
+	//
+	// // check if logged in if not redirect to LoginActivity
+	// if (!scon.getConnected()) {
+	// PopUp.loginFail(this);
+	// }
 
 	// update list of privileges in database
 	try {
