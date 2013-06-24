@@ -37,6 +37,7 @@ import android.widget.TextView;
 import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
 import unicopa.copa.app.Storage;
 import unicopa.copa.app.exceptions.NoStorageException;
@@ -172,10 +173,19 @@ public class EventAdapter extends BaseAdapter {
 
 	    @Override
 	    public void onClick(View v) {
+
 		ColorDialog color = new ColorDialog();
 		Dialog diag = color.onCreateDialog(null, context,
 			event.getEventID());
 		diag.show();
+
+		ServerConnection scon = null;
+		scon = ServerConnection.getInstance();
+
+		// check if logged in if not redirect to LoginActivity
+		if (!scon.getConnected()) {
+		    PopUp.loginFail(context);
+		}
 	    }
 
 	});
@@ -185,6 +195,14 @@ public class EventAdapter extends BaseAdapter {
 	    @Override
 	    public void onClick(View v) {
 		int eventID = event.getEventID();
+
+		// ServerConnection scon = null;
+		// scon = ServerConnection.getInstance();
+		//
+		// // check if logged in if not redirect to LoginActivity
+		// if (!scon.getConnected()) {
+		// PopUp.loginFail(context);
+		// }
 
 		Storage storage = null;
 		storage = Storage.getInstance(null);
