@@ -715,7 +715,7 @@ public class Database extends SQLiteOpenHelper{
 		Cursor ev_c = data.query("Event", ev_columns, ev_selection,
 			ev_selectionArgs, ev_groupBy, ev_having, ev_orderBy);
 		
-		if(ev_c.getCount()<1) throw new NoEventException("No matching Event for Event "+String.valueOf(eventID)+" found!");
+		if(ev_c.getCount()<1) throw new NoEventException(eventID /*"No matching Event for Event "+String.valueOf(eventID)+" found!"*/);
 		else{
 		    	ev_c.moveToFirst();
 			String evg_columns[] = {"eventGroupID"};
