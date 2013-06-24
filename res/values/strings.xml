@@ -109,5 +109,6 @@
     <string name="accept_msg">I allow CoPA to use ...</string>
     <string name="accept_no">No!</string>
     <string name="accept">I accept.</string>
+    <string name="subscribed">You have subscribed this event.</string>
 
 </resources>
