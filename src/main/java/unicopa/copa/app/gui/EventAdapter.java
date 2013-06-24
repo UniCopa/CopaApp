@@ -174,18 +174,19 @@ public class EventAdapter extends BaseAdapter {
 	    @Override
 	    public void onClick(View v) {
 
-		ColorDialog color = new ColorDialog();
-		Dialog diag = color.onCreateDialog(null, context,
-			event.getEventID());
-		diag.show();
-
 		ServerConnection scon = null;
 		scon = ServerConnection.getInstance();
 
 		// check if logged in if not redirect to LoginActivity
 		if (!scon.getConnected()) {
 		    PopUp.loginFail(context);
+		} else {
+		    ColorDialog color = new ColorDialog();
+		    Dialog diag = color.onCreateDialog(null, context,
+			    event.getEventID());
+		    diag.show();
 		}
+
 	    }
 
 	});
@@ -196,55 +197,64 @@ public class EventAdapter extends BaseAdapter {
 	    public void onClick(View v) {
 		int eventID = event.getEventID();
 
-		// ServerConnection scon = null;
-		// scon = ServerConnection.getInstance();
-		//
-		// // check if logged in if not redirect to LoginActivity
-		// if (!scon.getConnected()) {
-		// PopUp.loginFail(context);
-		// }
-
 		Storage storage = null;
 		storage = Storage.getInstance(null);
 
-		SettingsLocal settingsLocal = null;
-		try {
-		    settingsLocal = (SettingsLocal) storage.load();
-		} catch (NoStorageException e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
+		ServerConnection scon = null;
+		scon = ServerConnection.getInstance();
+
+		// check if logged in if not redirect to LoginActivity
+		if (!scon.getConnected()) {
+
+		    PopUp.loginFail(context);
+
+		} else {
+
+		    SettingsLocal settingsLocal = null;
+		    try {
+			settingsLocal = (SettingsLocal) storage.load();
+		    } catch (NoStorageException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		    }
+
+		    try {
+			Helper.unsubscribe(eventID, settingsLocal, context);
+		    } catch (ClientProtocolException e) {
+			PopUp.exceptionAlert(context,
+				context.getString(R.string.cp_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (APIException e) {
+			PopUp.exceptionAlert(context,
+				context.getString(R.string.api_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (PermissionException e) {
+			PopUp.exceptionAlert(context,
+				context.getString(R.string.per_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (RequestNotPracticableException e) {
+			PopUp.exceptionAlert(context,
+				context.getString(R.string.rnp_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (InternalErrorException e) {
+			PopUp.exceptionAlert(context,
+				context.getString(R.string.ie_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (IOException e) {
+			PopUp.exceptionAlert(context,
+				context.getString(R.string.io_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    }
+
+		    PopUp.unsubscribed(context);
+
 		}
-
-		try {
-		    Helper.unsubscribe(eventID, settingsLocal, context);
-		} catch (ClientProtocolException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.cp_ex), e.getMessage());
-		    // e.printStackTrace();
-		} catch (APIException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.api_ex), e.getMessage());
-		    // e.printStackTrace();
-		} catch (PermissionException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.per_ex), e.getMessage());
-		    // e.printStackTrace();
-		} catch (RequestNotPracticableException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.rnp_ex), e.getMessage());
-		    // e.printStackTrace();
-		} catch (InternalErrorException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.ie_ex), e.getMessage());
-		    // e.printStackTrace();
-		} catch (IOException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.io_ex), e.getMessage());
-		    // e.printStackTrace();
-		}
-
-		PopUp.unsubscribed(context);
-
 	    }
 
 	});
