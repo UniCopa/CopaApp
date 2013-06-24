@@ -696,10 +696,42 @@ public class Database extends SQLiteOpenHelper{
      * 
      * @param eventList
      * @param permissionCode
+     * @throws NoEventException 
+     * @throws NoEventGroupException 
      */
-    public void updatePermissions(List<Integer> eventList,int permissionCode){
+    public void updatePermissions(List<Integer> eventList,int permissionCode) throws NoEventException, NoEventGroupException{
 	data = this.getWritableDatabase();
 	for(int eventID:eventList){
+	    
+	    //Test Event
+		String ev_columns[] = {"eventID,eventGroupID"};
+		String ev_selection = "eventID = "+String.valueOf(eventID);
+		String ev_selectionArgs[] = null;
+		String ev_groupBy = null;
+		String ev_having = null;
+		String ev_orderBy = "";
+
+		Cursor ev_c = data.query("Event", ev_columns, ev_selection,
+			ev_selectionArgs, ev_groupBy, ev_having, ev_orderBy);
+		
+		if(ev_c.getCount()<1) throw new NoEventException("No matching Event for Event "+String.valueOf(eventID)+" found!");
+		else{
+		    	ev_c.moveToFirst();
+			String evg_columns[] = {"eventGroupID"};
+			String evg_selection = "eventGroupID = "+ev_c.getString(1);
+			String evg_selectionArgs[] = null;
+			String evg_groupBy = null;
+			String evg_having = null;
+			String evg_orderBy = "";
+
+			Cursor evg_c = data.query("EventGroup", evg_columns, evg_selection,
+				evg_selectionArgs, evg_groupBy, evg_having, evg_orderBy);
+			
+			if(evg_c.getCount()<1) throw new NoEventGroupException("No matching EventGroup for Event "+String.valueOf(eventID)+" found!");
+			evg_c.close();
+		}
+		ev_c.close();
+		
 	    String updateString ="UPDATE singleEventLocal SET permission = '"+String.valueOf(permissionCode)+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
 	    Log.w("try", updateString);
 	    data.execSQL(updateString);
