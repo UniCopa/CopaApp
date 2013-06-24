@@ -106,12 +106,7 @@ public class ColorDialog extends DialogFragment {
 			UserEventSettings evSettings = settings
 				.getEventSettings(eventId);
 
-			if (evSettings != null) { // TODO Why this check? If
-						  // evSettings = null the Event
-						  // would not be subscribed,
-						  // therefore in would not be
-						  // in the list of subscribed
-						  // SingleEvents.
+			if (evSettings != null) {
 			    evSettings.setColorCode(color);
 			} else {
 			    settings.putEventSettings(eventId,
@@ -126,27 +121,27 @@ public class ColorDialog extends DialogFragment {
 			try {
 			    success = scon.setSettings(settings);
 			} catch (ClientProtocolException e) {
-			    PopUp.exceptionAlert(null,
+			    PopUp.exceptionAlert(context,
 				    getString(R.string.cp_ex), e.getMessage());
 			    // e.printStackTrace();
 			} catch (APIException e) {
-			    PopUp.exceptionAlert(null,
+			    PopUp.exceptionAlert(context,
 				    getString(R.string.api_ex), e.getMessage());
 			    // e.printStackTrace();
 			} catch (PermissionException e) {
-			    PopUp.exceptionAlert(null,
+			    PopUp.exceptionAlert(context,
 				    getString(R.string.per_ex), e.getMessage());
 			    // e.printStackTrace();
 			} catch (RequestNotPracticableException e) {
-			    PopUp.exceptionAlert(null,
+			    PopUp.exceptionAlert(context,
 				    getString(R.string.rnp_ex), e.getMessage());
 			    // e.printStackTrace();
 			} catch (InternalErrorException e) {
-			    PopUp.exceptionAlert(null,
+			    PopUp.exceptionAlert(context,
 				    getString(R.string.ie_ex), e.getMessage());
 			    // e.printStackTrace();
 			} catch (IOException e) {
-			    PopUp.exceptionAlert(null,
+			    PopUp.exceptionAlert(context,
 				    getString(R.string.io_ex), e.getMessage());
 			    // e.printStackTrace();
 			}
