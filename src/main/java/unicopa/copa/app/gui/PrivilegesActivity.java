@@ -58,13 +58,13 @@ public class PrivilegesActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.priv);
 
-	// ServerConnection scon = null;
-	// scon = ServerConnection.getInstance();
-	//
-	// // check if logged in if not redirect to LoginActivity
-	// if (!scon.getConnected()) {
-	// PopUp.loginFail(this);
-	// }
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
+
+	// check if logged in if not redirect to LoginActivity
+	if (!scon.getConnected()) {
+	    PopUp.loginFail(this);
+	}
 
 	// update list of privileges in database
 	try {
