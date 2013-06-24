@@ -669,6 +669,7 @@ public class Database extends SQLiteOpenHelper{
 		c.moveToNext();
 		elements--;
 	    }
+	    c.close();
 	}
 	else{
 	    c.close();
@@ -685,7 +686,7 @@ public class Database extends SQLiteOpenHelper{
      */
     public void clearPermissions(){
 	data = this.getWritableDatabase();
-	String updateString = "UPDATE singleEventLocal SET permission = '0'";
+	String updateString = "UPDATE SingleEventLocal SET permission = '0'";
 	Log.w("try", updateString);
 	data.execSQL(updateString);
 	data.close();
@@ -732,7 +733,7 @@ public class Database extends SQLiteOpenHelper{
 		}
 		ev_c.close();
 		
-	    String updateString ="UPDATE singleEventLocal SET permission = '"+String.valueOf(permissionCode)+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
+	    String updateString ="UPDATE SingleEventLocal SET permission = '"+String.valueOf(permissionCode)+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
 	    Log.w("try", updateString);
 	    data.execSQL(updateString);
 	}
@@ -755,7 +756,7 @@ public class Database extends SQLiteOpenHelper{
 	    eventID = (Integer) iter.next();
 	    UserEventSettings uSett = setLoc.getEventSettings(eventID);
 	    color = uSett.getColorCode();
-	    updateString = "UPDATE singleEventLocal SET colorCode = '"+color+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
+	    updateString = "UPDATE SingleEventLocal SET colorCode = '"+color+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
 	    Log.w("try", updateString);
 	    data.execSQL(updateString);
 	}
