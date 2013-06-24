@@ -196,6 +196,7 @@ public class EventAdapter extends BaseAdapter {
 	    @Override
 	    public void onClick(View v) {
 		int eventID = event.getEventID();
+		boolean success = false;
 
 		Storage storage = null;
 		storage = Storage.getInstance(null);
@@ -219,7 +220,8 @@ public class EventAdapter extends BaseAdapter {
 		    }
 
 		    try {
-			Helper.unsubscribe(eventID, settingsLocal, context);
+			success = Helper.unsubscribe(eventID, settingsLocal,
+				context);
 		    } catch (ClientProtocolException e) {
 			PopUp.exceptionAlert(context,
 				context.getString(R.string.cp_ex),
@@ -252,8 +254,9 @@ public class EventAdapter extends BaseAdapter {
 			// e.printStackTrace();
 		    }
 
-		    PopUp.unsubscribed(context);
-
+		    if (success) {
+			PopUp.unsubscribed(context);
+		    }
 		}
 	    }
 
