@@ -138,10 +138,10 @@ public class Helper {
 			    db.insert(event, eventID);
 			    db.insert(sEventLocal, -1);
 			} catch (NoEventGroupException e2) {
-			    // TODO Auto-generated catch block
+			    // This should never happen
 			    e2.printStackTrace();
 			} catch (NoEventException e2) {
-			    // TODO Auto-generated catch block
+			    // This should never happen
 			    e2.printStackTrace();
 			}
 			// e1.printStackTrace();
@@ -379,10 +379,10 @@ public class Helper {
 			db.insert(event, eventID);
 			db.insert(sEventLocal, oldSEventID);
 		    } catch (NoEventGroupException e2) {
-			// TODO Auto-generated catch block
+			// This should never happen
 			e2.printStackTrace();
 		    } catch (NoEventException e2) {
-			// TODO Auto-generated catch block
+			// This should never happen
 			e2.printStackTrace();
 		    }
 
