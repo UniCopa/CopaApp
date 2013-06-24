@@ -196,6 +196,14 @@ public class EventAdapter extends BaseAdapter {
 	    public void onClick(View v) {
 		int eventID = event.getEventID();
 
+		// ServerConnection scon = null;
+		// scon = ServerConnection.getInstance();
+		//
+		// // check if logged in if not redirect to LoginActivity
+		// if (!scon.getConnected()) {
+		// PopUp.loginFail(context);
+		// }
+
 		Storage storage = null;
 		storage = Storage.getInstance(null);
 
