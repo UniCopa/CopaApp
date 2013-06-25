@@ -70,9 +70,9 @@ public class Helper {
 	    Context context) throws ClientProtocolException, IOException,
 	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException {
-	
-	// TODO perform update if ((gmc-manu and notify) or none) ==true 
-	
+
+	// TODO perform update if ((gmc-manu and notify) or none) ==true
+
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
@@ -226,7 +226,6 @@ public class Helper {
 	    Context context) throws ClientProtocolException, IOException,
 	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException, NoStorageException {
-
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
@@ -253,8 +252,10 @@ public class Helper {
 		return false;
 	    }
 	}
+
 	// end update
 
+	// TODO check for success
 	scon.setSingleEventUpdate(sEventLocal, msg);
 
 	SettingsLocal settingsLocal = null;
@@ -277,15 +278,74 @@ public class Helper {
     }
 
     /**
-     * 
+     * This method implements the removal of a SingleEvent.
      * 
      * @param sEventID
      * @param context
      * @return
+     * @throws NoStorageException
+     * @throws InternalErrorException
+     * @throws RequestNotPracticableException
+     * @throws PermissionException
+     * @throws APIException
+     * @throws IOException
+     * @throws ClientProtocolException
      */
-    public static boolean removeSingleEvent(int sEventID, Context context) {
+    public static boolean removeSingleEvent(int sEventID, String msg,
+	    Context context) throws ClientProtocolException, IOException,
+	    APIException, PermissionException, RequestNotPracticableException,
+	    InternalErrorException, NoStorageException {
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
 
-	return false;
+	// TODO only perform update if ((gmc-manu and notify) or none) == true
+
+	boolean success = false;
+
+	// begin update
+
+	if (true) {
+	    SettingsLocal settingsLocal = null;
+	    settingsLocal = scon.getSettings();
+
+	    if (settingsLocal != null) {
+		Date date = null;
+		date = settingsLocal.getLastUpdate();
+
+		success = Helper.getUpdate(date, context);
+	    } else {
+		return false;
+	    }
+
+	    if (!success) {
+		return false;
+	    }
+	}
+
+	// end update
+
+	success = scon.removeSingleEvent(sEventID, msg);
+
+	if (success) {
+	    SettingsLocal settingsLocal = null;
+	    settingsLocal = scon.getSettings();
+
+	    if (settingsLocal != null) {
+		Date date = null;
+		date = settingsLocal.getLastUpdate();
+
+		success = Helper.getUpdate(date, context);
+
+	    } else {
+		return false;
+	    }
+	}
+
+	if (success) {
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
     /**
