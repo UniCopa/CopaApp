@@ -64,59 +64,59 @@ public class PrivilegesActivity extends Activity {
 	// check if logged in if not redirect to LoginActivity
 	if (!scon.getConnected()) {
 	    PopUp.loginFail(this);
-	}
-
-	// update list of privileges in database
-	try {
-	    Helper.getRights();
-	} catch (ClientProtocolException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (APIException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.api_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (PermissionException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.per_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (RequestNotPracticableException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (InternalErrorException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (IOException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	}
-
-	TextView text = (TextView) findViewById(R.id.priv_nothing);
-	final ListView eventListView = (ListView) PrivilegesActivity.this
-		.findViewById(R.id.privListView);
-
-	eventListView.setAdapter(null);
-
-	Database db = Database.getInstance(PrivilegesActivity.this);
-
-	ArrayList<Event> events = new ArrayList<Event>();
-
-	List<Event> list = db.getEventsWithPermission();
-
-	if (list == null) {
-	    text.setText(getString(R.string.nothing));
 	} else {
-
-	    for (Event item : list) {
-		events.add(item);
+	    // update list of privileges in database
+	    try {
+		Helper.getRights();
+	    } catch (ClientProtocolException e) {
+		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (APIException e) {
+		PopUp.exceptionAlert(this, getString(R.string.api_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (PermissionException e) {
+		PopUp.exceptionAlert(this, getString(R.string.per_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (RequestNotPracticableException e) {
+		PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (InternalErrorException e) {
+		PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (IOException e) {
+		PopUp.exceptionAlert(this, getString(R.string.io_ex),
+			e.getMessage());
+		// e.printStackTrace();
 	    }
 
-	    PrivAdapter privAdapter = new PrivAdapter(this, events);
-	    eventListView.setAdapter((ListAdapter) privAdapter);
+	    TextView text = (TextView) findViewById(R.id.priv_nothing);
+	    final ListView eventListView = (ListView) PrivilegesActivity.this
+		    .findViewById(R.id.privListView);
+
+	    eventListView.setAdapter(null);
+
+	    Database db = Database.getInstance(PrivilegesActivity.this);
+
+	    ArrayList<Event> events = new ArrayList<Event>();
+
+	    List<Event> list = db.getEventsWithPermission();
+
+	    if (list == null) {
+		text.setText(getString(R.string.nothing));
+	    } else {
+
+		for (Event item : list) {
+		    events.add(item);
+		}
+
+		PrivAdapter privAdapter = new PrivAdapter(this, events);
+		eventListView.setAdapter((ListAdapter) privAdapter);
+	    }
 	}
     }
 
