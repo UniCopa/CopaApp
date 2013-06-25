@@ -16,13 +16,23 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.http.client.ClientProtocolException;
+
 import unicopa.copa.app.Database;
+import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SingleEventLocal;
+import unicopa.copa.app.exceptions.NoStorageException;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -37,7 +47,7 @@ import android.widget.Toast;
 /**
  * In this activity a user can update a event, if he has the rights to do it.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class ChangeSingleEventActivity extends Activity {
 
@@ -132,21 +142,55 @@ public class ChangeSingleEventActivity extends Activity {
      * 
      */
     public void onApplyButtonClick(View view) {
-
 	EditText location = (EditText) findViewById(R.id.change_edit_location);
 	EditText date = (EditText) findViewById(R.id.change_edit_date);
 	EditText time = (EditText) findViewById(R.id.change_edit_time);
 	EditText supervisor = (EditText) findViewById(R.id.change_edit_supervisor);
 	EditText durationtime = (EditText) findViewById(R.id.change_edit_dura);
 
-	String newsupervisor = supervisor.getText().toString();
+	String newSupervisor = supervisor.getText().toString();
 	String newLocation = location.getText().toString();
 	// TODO change to input time and date
 	Date newDate = Calendar.getInstance().getTime();
 	int newDura = durationtime.getInputType();
+	int eventID = -1; // TODO get eventID from previous activity
+	String msg = ""; // TODO the comment field is missing in the activity
 
-	// TODO send update to server
+	SingleEventLocal sEventLocal = null;
+	sEventLocal = new SingleEventLocal(0 /* singleEventID */, eventID,
+		newLocation, newDate, newSupervisor, newDura,
+		"000000" /* colorCode */, "" /* name */,
+		0 /* locationUpdateCounter */, 0 /* dateUpdateCounter */,
+		0 /* supervisorUpdateCounter */,
+		0 /* durationMinutesUpdateCounter */, 0 /* permission */);
 
+	try {
+	    Helper.setUpdate(sEventLocal, msg, getApplicationContext());
+	} catch (ClientProtocolException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (APIException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (PermissionException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (RequestNotPracticableException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (InternalErrorException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (IOException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	}
     }
 
 }
