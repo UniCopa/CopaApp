@@ -19,15 +19,25 @@ package unicopa.copa.app.exceptions;
 /**
  * Occurs if no Event for a given SingleEvent is available.
  * 
- * @author Robin Muench
+ * @author Robin Muench, Martin Rabe
  */
 public class NoEventException extends Exception {
+
+    private int eventID;
 
     public NoEventException() {
     }
 
     public NoEventException(String message) {
 	super(message);
+    }
+    
+    public NoEventException(int eventID) {
+	this.eventID = eventID;
+    }
+
+    public int getEventID() {
+	return this.eventID;
     }
 
 }

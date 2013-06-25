@@ -163,7 +163,7 @@ public class ServerConnection {
      * 
      * @param Connected
      */
-    public void setConnected(boolean connected) {
+    private void setConnected(boolean connected) {
 	this.connected = connected;
     }
 

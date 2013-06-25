@@ -141,6 +141,7 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	    @Override
 	    public void onClick(View v) {
 		int eventID = event.getEventID();
+		boolean success = false;
 
 		Storage storage = null;
 		storage = Storage.getInstance(null);
@@ -155,7 +156,7 @@ public class SearchResultEventAdapter extends BaseAdapter {
 		}
 
 		try {
-		    Helper.subscribe(eventID, settingsLocal, context);
+		    success = Helper.subscribe(eventID, settingsLocal, context);
 		} catch (ClientProtocolException e) {
 		    PopUp.exceptionAlert(context,
 			    context.getString(R.string.cp_ex), e.getMessage());
@@ -180,6 +181,10 @@ public class SearchResultEventAdapter extends BaseAdapter {
 		    PopUp.exceptionAlert(context,
 			    context.getString(R.string.io_ex), e.getMessage());
 		    // e.printStackTrace();
+		}
+		if (success) {
+		    PopUp.alert(context, context.getString(R.string.success),
+			    context.getString(R.string.subscribed));
 		}
 	    }
 
