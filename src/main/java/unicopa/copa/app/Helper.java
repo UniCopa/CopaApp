@@ -31,6 +31,8 @@ import android.content.Context;
 import unicopa.copa.app.exceptions.NoEventException;
 import unicopa.copa.app.exceptions.NoEventGroupException;
 import unicopa.copa.app.exceptions.NoStorageException;
+import unicopa.copa.app.gui.MainActivity;
+import unicopa.copa.app.gui.PopUp;
 import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.UserSettings;
 import unicopa.copa.base.com.exception.APIException;
@@ -203,7 +205,7 @@ public class Helper {
     }
 
     /**
-     * This method decides what to do with a SingleEvent change.
+     * This method implements the changing of a SingleEvent.
      * 
      * @param SingleEventLocal
      * @param Message
@@ -215,99 +217,65 @@ public class Helper {
      * @throws PermissionException
      * @throws RequestNotPracticableException
      * @throws InternalErrorException
+     * @throws NoStorageException
      */
     public static boolean setUpdate(SingleEventLocal sEventLocal, String msg,
 	    Context context) throws ClientProtocolException, IOException,
 	    APIException, PermissionException, RequestNotPracticableException,
-	    InternalErrorException {
-
-	// TODO i guess we should force an update before and after the change
+	    InternalErrorException, NoStorageException {
 
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
-	int sEventID = 0;
-	sEventID = sEventLocal.getSingleEventID();
+	// TODO only perform update if ((gmc-manu and notify) or none) == true
 
-	int newEventID = 0;
 	boolean success = false;
 
-	switch (sEventID) {
-	case 0: // TODO not sure what the ID needs to be for remove
-	    success = scon.removeSingleEvent(sEventID, msg);
-	    break;
-	default:
-	    newEventID = scon.setSingleEventUpdate(sEventLocal, msg);
-	    break;
-	}
+	// begin update
 
-	// TODO would probably be better to just update the whole subscription
+	if (true) {
+	    SettingsLocal settingsLocal = null;
+	    settingsLocal = scon.getSettings();
 
-	if (newEventID != -1) {
-	    Database db = null;
-	    db = Database.getInstance(context);
+	    if (settingsLocal != null) {
+		Date date = null;
+		date = settingsLocal.getLastUpdate();
 
-	    SingleEvent newSEvent = null;
-	    newSEvent = scon.getSingleEvent(newEventID);
-
-	    SingleEventLocal newSEventLocal = null;
-	    newSEventLocal = Helper
-		    .singleEventToSingleEventLocal(newSEvent, "");
-
-	    try {
-		db.insert(newSEventLocal, sEventID);
-	    } catch (NoEventGroupException e) {
-		// This should never happen
-		e.printStackTrace();
-	    } catch (NoEventException e) {
-		int eventID = 0;
-		eventID = newSEvent.getEventID();
-
-		Event event = null;
-		event = scon.getEvent(eventID);
-
-		if (event == null) {
-		    return false;
-		}
-
-		try {
-		    db.insert(event, eventID);
-		} catch (NoEventGroupException e1) {
-		    int eventGroupID;
-		    eventGroupID = event.getEventGroupID();
-
-		    EventGroup eventGroup = null;
-		    eventGroup = scon.getEventGroup(eventGroupID);
-
-		    if (eventGroup == null) {
-			return false;
-		    }
-		    // e1.printStackTrace();
-		} catch (NoEventException e1) {
-		    // This should never happen
-		    e1.printStackTrace();
-		}
-		// e.printStackTrace();
+		success = Helper.getUpdate(date, context);
+	    } else {
+		return false;
 	    }
 
-	    return true;
+	    if (!success) {
+		return false;
+	    }
+	}
+	// end update
+
+	scon.setSingleEventUpdate(sEventLocal, msg);
+
+	SettingsLocal settingsLocal = null;
+	settingsLocal = scon.getSettings();
+
+	if (settingsLocal != null) {
+	    Date date = null;
+	    date = settingsLocal.getLastUpdate();
+
+	    success = Helper.getUpdate(date, context);
+	} else {
+	    return false;
 	}
 
 	if (success) {
-	    Database db = null;
-	    db = Database.getInstance(context);
-
-	    // db. TODO remove SinlgeEvent from localDatabase
-
 	    return true;
+	} else {
+	    return false;
 	}
-
-	return false;
     }
-
+    
     /**
      * This method gets all updates since a given date and saves them to the
-     * local database;
+     * local database
      * 
      * @param Date
      * @return True for success. / False for failure.
