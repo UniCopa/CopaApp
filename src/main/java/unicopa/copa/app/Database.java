@@ -971,5 +971,16 @@ public class Database extends SQLiteOpenHelper {
 	c.close();
 	data.close();
     }
+    
+    /**
+     * This Method deletes a SingleEvent from the Database
+     */
+    public void deleteSingleEvent(int singleEventID){
+	data = this.getWritableDatabase();
+	String deleteString = "DELETE FROM SingleEventLocal WHERE singleEventID='"+String.valueOf(singleEventID)+"'";
+	Log.w("try", deleteString);
+	data.execSQL(deleteString);
+	data.close();
+    }
 
 }
