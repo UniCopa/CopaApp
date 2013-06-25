@@ -31,6 +31,7 @@ import unicopa.copa.base.com.exception.InternalErrorException;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.com.exception.RequestNotPracticableException;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -151,6 +152,8 @@ public class ColorDialog extends DialogFragment {
 			} else {
 			    // TODO error popup
 			}
+
+			((Activity) context).finish();
 
 			Intent intentSubscription = new Intent(context,
 				SubscriptionActivity.class);

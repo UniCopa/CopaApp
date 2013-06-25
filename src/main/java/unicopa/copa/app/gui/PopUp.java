@@ -18,6 +18,7 @@ package unicopa.copa.app.gui;
 
 import unicopa.copa.app.R;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -60,9 +61,13 @@ public class PopUp {
 		.setMessage(R.string.unsubscribed)
 		.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int which) {
+
+			((Activity) context).finish();
+
 			Intent intentSubscription = new Intent(context,
 				SubscriptionActivity.class);
 			context.startActivity(intentSubscription);
+
 		    }
 		}).show();
     }
