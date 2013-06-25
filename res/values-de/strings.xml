@@ -101,5 +101,7 @@
     <string name="remove">Entfernen</string>
     <string name="comment">Kommentar:</string>
     <string name="changed">Sie haben diesen Termin bearbeitet.</string>
+    <string name="none">Keiner</string>
+    
 
 </resources>

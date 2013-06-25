@@ -62,6 +62,7 @@ public class SingleEventActivity extends Activity {
 		.findViewById(R.id.supervisor_sEv);
 	TextView durationtime = (TextView) super
 		.findViewById(R.id.durationtime_sEv);
+	TextView comment = (TextView) super.findViewById(R.id.comment_sEv);
 	Button change = (Button) findViewById(R.id.sEv_change);
 
 	location.setText(sEventLocal.getLocation());
@@ -69,6 +70,7 @@ public class SingleEventActivity extends Activity {
 	time.setText(new SimpleDateFormat("HH:mm").format(sEventLocal.getDate()));
 	supervisor.setText(sEventLocal.getSupervisor());
 	durationtime.setText(String.valueOf(sEventLocal.getDurationMinutes()));
+	// TODO comment.setText(sEventLocal.getComment());
 	change.setVisibility(View.GONE);
 
 	if (sEventLocal.getPermission() > 0) {

@@ -115,5 +115,6 @@
     <string name="remove">Remove</string>
     <string name="comment">Comment:</string>
     <string name="changed">You changed this date.</string>
+    <string name="none">None</string>
 
 </resources>

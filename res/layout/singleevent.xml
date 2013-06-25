@@ -72,18 +72,6 @@
         android:layout_alignLeft="@+id/supervisor_sEv"
         android:text="not known" />
 
-    <Button
-        android:id="@+id/sEv_change"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/durationtime_sEv"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/durationtime_sEv"
-        android:layout_marginRight="21dp"
-        android:layout_marginTop="31dp"
-        android:onClick="onChangeDateButtonClick"
-        android:text="@string/button_singleevent_change" />
-
     <TextView
         android:id="@+id/spvs_sEv"
         android:layout_width="wrap_content"
@@ -118,5 +106,34 @@
         android:layout_alignBottom="@+id/durationtime_sEv"
         android:layout_toRightOf="@+id/durationtime_sEv"
         android:text="@string/minutes" />
+
+    <TextView
+        android:id="@+id/cmt_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dtime_sEv"
+        android:layout_marginTop="14dp"
+        android:text="@string/comment" />
+
+    <TextView
+        android:id="@+id/comment_sEv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cmt_sEv"
+        android:layout_alignBottom="@+id/cmt_sEv"
+        android:layout_alignLeft="@+id/durationtime_sEv"
+        android:text="@string/none" />
+
+    <Button
+        android:id="@+id/sEv_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/comment_sEv"
+        android:layout_below="@+id/comment_sEv"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="36dp"
+        android:onClick="onChangeDateButtonClick"
+        android:text="@string/button_singleevent_change" />
 
 </RelativeLayout>
