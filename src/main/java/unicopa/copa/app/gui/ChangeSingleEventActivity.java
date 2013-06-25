@@ -26,7 +26,6 @@ import org.apache.http.client.ClientProtocolException;
 import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
-import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.com.exception.APIException;
@@ -42,7 +41,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * In this activity a user can update a event, if he has the rights to do it.
@@ -191,6 +189,9 @@ public class ChangeSingleEventActivity extends Activity {
 	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
 		    e.getMessage());
 	    // e.printStackTrace();
+	} catch (NoStorageException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
 	
 	if(success) {
