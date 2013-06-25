@@ -17,6 +17,8 @@
 package unicopa.copa.app.gui;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
@@ -28,6 +30,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -129,6 +132,18 @@ public class ChangeSingleEventActivity extends Activity {
      * 
      */
     public void onApplyButtonClick(View view) {
+
+	EditText location = (EditText) findViewById(R.id.change_edit_location);
+	EditText date = (EditText) findViewById(R.id.change_edit_date);
+	EditText time = (EditText) findViewById(R.id.change_edit_time);
+	EditText supervisor = (EditText) findViewById(R.id.change_edit_supervisor);
+	EditText durationtime = (EditText) findViewById(R.id.change_edit_dura);
+
+	String newsupervisor = supervisor.getText().toString();
+	String newLocation = location.getText().toString();
+	// TODO change to input time and date
+	Date newDate = Calendar.getInstance().getTime();
+	int newDura = durationtime.getInputType();
 
 	// TODO send update to server
 
