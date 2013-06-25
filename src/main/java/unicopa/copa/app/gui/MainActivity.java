@@ -135,8 +135,10 @@ public class MainActivity extends Activity {
 
 		    @Override
 		    protected Void doInBackground(Void... params) {
-			boolean registered = GCMServerUtilities.register(
-				context, regId);
+			boolean registered;
+			try {
+			    registered = GCMServerUtilities.register(
+			    	context, regId);
 			// At this point all attempts to register with the app
 			// server failed, so we need to unregister the device
 			// from GCM - the app will try to register again when
@@ -146,6 +148,12 @@ public class MainActivity extends Activity {
 			if (!registered) {
 			    GCMRegistrar.unregister(context);
 			}
+			
+			} catch (NoStorageException e) {
+			    // TODO Auto-generated catch block
+			    e.printStackTrace();
+			}
+			
 			return null;
 		    }
 

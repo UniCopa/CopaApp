@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.app.gcm.GCMBaseIntentService;
 import unicopa.copa.app.gcm.GCMRegistrar;
 import unicopa.copa.app.gui.MainActivity;
@@ -42,14 +43,14 @@ public class GCMIntentService extends GCMBaseIntentService {
     }
 
     @Override
-    protected void onRegistered(Context context, String registrationId) {
+    protected void onRegistered(Context context, String registrationId) throws NoStorageException {
         Log.i(TAG, "Device registered: regId = " + registrationId);
         displayMessage(context, getString(R.string.gcm_registered));
         GCMServerUtilities.register(context, registrationId);
     }
 
     @Override
-    protected void onUnregistered(Context context, String registrationId) {
+    protected void onUnregistered(Context context, String registrationId) throws NoStorageException {
         Log.i(TAG, "Device unregistered");
         displayMessage(context, getString(R.string.gcm_unregistered));
         if (GCMRegistrar.isRegisteredOnServer(context)) {

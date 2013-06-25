@@ -39,6 +39,8 @@ import android.util.Log;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import unicopa.copa.app.exceptions.NoStorageException;
+
 /**
  * Skeleton for application-specific {@link IntentService}s responsible for
  * handling communication from Google Cloud Messaging service.
@@ -174,18 +176,20 @@ public abstract class GCMBaseIntentService extends IntentService {
      *
      * @param context application's context.
      * @param registrationId the registration id returned by the GCM service.
+     * @throws NoStorageException 
      */
     protected abstract void onRegistered(Context context,
-            String registrationId);
+            String registrationId) throws NoStorageException;
 
     /**
      * Called after a device has been unregistered.
      *
      * @param registrationId the registration id that was previously registered.
      * @param context application's context.
+     * @throws NoStorageException 
      */
     protected abstract void onUnregistered(Context context,
-            String registrationId);
+            String registrationId) throws NoStorageException;
 
     @Override
     public final void onHandleIntent(Intent intent) {
@@ -238,7 +242,10 @@ public abstract class GCMBaseIntentService extends IntentService {
                     GCMRegistrar.internalRegister(context, senderIds);
                 }
             }
-        } finally {
+        } catch (NoStorageException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} finally {
             // Release the power lock, so phone can get back to sleep.
             // The lock is reference-counted by default, so multiple
             // messages are ok.
@@ -282,7 +289,7 @@ public abstract class GCMBaseIntentService extends IntentService {
         context.startService(intent);
     }
 
-    private void handleRegistration(final Context context, Intent intent) {
+    private void handleRegistration(final Context context, Intent intent) throws NoStorageException {
         String registrationId = intent.getStringExtra(EXTRA_REGISTRATION_ID);
         String error = intent.getStringExtra(EXTRA_ERROR);
         String unregistered = intent.getStringExtra(EXTRA_UNREGISTERED);
