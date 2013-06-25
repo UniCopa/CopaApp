@@ -288,7 +288,10 @@ public class Database extends SQLiteOpenHelper{
 			Cursor Tc = data.query("Event", Tcolumns, Tselection,
 				TselectionArgs, TgroupBy, Thaving, TorderBy);
 			
-			if(c.getCount()<1) throw new NoEventException("No matching Event for SingleEvent "+c.getString(0)+" found!");
+			if(Tc.getCount()<1){
+			    Tc.close();
+			    throw new NoEventException("No matching Event for SingleEvent "+c.getString(0)+" found!");
+			}
 			Tc.close();
 		    
 			c.close();
@@ -301,25 +304,60 @@ public class Database extends SQLiteOpenHelper{
 	    }
 	    if (newEntry) {
 		
-		//check whether SingleEvent has an existing Event
-		String Tcolumns[] = {"eventID"};
-		String Tselection = "eventID='"+String.valueOf(sev.getEventID())+"'";
-		String TselectionArgs[] = null;
-		String TgroupBy = null;
-		String Thaving = null;
-		String TorderBy = "";
-
-		Cursor Tc = data.query("Event", Tcolumns, Tselection,
-			TselectionArgs, TgroupBy, Thaving, TorderBy);
+		String name = "";
 		
-		if(Tc.getCount()<1) throw new NoEventException("No matching Event for SingleEvent "+String.valueOf(sev.getSingleEventID())+" found!");
-		Tc.close();
+		//check whether SingleEvent has an existing Event
+		String ev_columns[] = {"eventID","eventGroupID","eventName"};
+		String ev_selection = "eventID='"+String.valueOf(sev.getEventID())+"'";
+		String ev_selectionArgs[] = null;
+		String ev_groupBy = null;
+		String ev_having = null;
+		String ev_orderBy = "";
+
+		Cursor ev_c = data.query("Event", ev_columns, ev_selection,
+			ev_selectionArgs, ev_groupBy, ev_having, ev_orderBy);
+		
+		
+		
+		if(ev_c.getCount()<1){
+		    ev_c.close();
+		    throw new NoEventException("No matching Event for SingleEvent "+String.valueOf(sev.getSingleEventID())+" found!");
+		}
+		else{
+		    
+		    ev_c.moveToFirst();
+		    Log.i("Database Viability","singleEventID="+String.valueOf(sev.getSingleEventID())+" Found matching eventID="+ev_c.getString(0));
+		    name=name+ev_c.getString(2);
+		    
+			//check whether Event has an existing EventGroup
+			String evg_columns[] = {"eventGroupID","eventGroupName"};
+			String evg_selection = "eventGroupID='"+ev_c.getString(1)+"'";
+			String evg_selectionArgs[] = null;
+			String evg_groupBy = null;
+			String evg_having = null;
+			String evg_orderBy = "";
+			
+			Cursor evg_c = data.query("EventGroup", evg_columns, evg_selection,
+				evg_selectionArgs, evg_groupBy, evg_having, evg_orderBy);
+			
+			if(evg_c.getCount()<1){
+			    evg_c.close();
+			    throw new NoEventGroupException("No matching Event for SingleEvent "+String.valueOf(sev.getSingleEventID())+" found!");
+			}
+			evg_c.moveToFirst();
+			Log.i("Database Viability","eventID="+ev_c.getString(0)+" Found matching eventGroupID="+evg_c.getString(0));
+			name = " "+evg_c.getString(1);
+			Log.i("Database Viability","Creating singleEventName: "+name);
+			evg_c.close();
+		}
+				
+		ev_c.close();
 		
 		String InsertString = "INSERT INTO "
 			+ sev.getClass().getSimpleName() + " "
 			+ SingleEventLocal_sqlScheme(null) + " VALUES ";
 		String[] values = { String.valueOf(sev.getSingleEventID()),
-			String.valueOf(sev.getEventID()), sev.getName(),
+			String.valueOf(sev.getEventID()), name,
 			String.valueOf(sev.getDate().getTime()),
 			String.valueOf(sev.getDateUpdateCounter()),
 			sev.getSupervisor(),
@@ -367,7 +405,10 @@ public class Database extends SQLiteOpenHelper{
 		Cursor c = data.query("Event", columns, selection,
 			selectionArgs, groupBy, having, orderBy);
 		
-		if(c.getCount()<1) throw new NoEventGroupException("No matching EventGroup for Event "+String.valueOf(ev.getEventGroupID())+" found!");
+		if(c.getCount()<1){
+		    c.close();
+		    throw new NoEventGroupException("No matching EventGroup for Event "+String.valueOf(ev.getEventGroupID())+" found!");
+		}
 		c.close();
 	    }
 	}
@@ -728,7 +769,10 @@ public class Database extends SQLiteOpenHelper{
 			Cursor evg_c = data.query("EventGroup", evg_columns, evg_selection,
 				evg_selectionArgs, evg_groupBy, evg_having, evg_orderBy);
 			
-			if(evg_c.getCount()<1) throw new NoEventGroupException("No matching EventGroup for Event "+String.valueOf(eventID)+" found!");
+			if(evg_c.getCount()<1){
+			    evg_c.close();
+			    throw new NoEventGroupException("No matching EventGroup for Event "+String.valueOf(eventID)+" found!");
+			}
 			evg_c.close();
 		}
 		ev_c.close();
@@ -753,7 +797,7 @@ public class Database extends SQLiteOpenHelper{
 	Set<Integer> events = setLoc.getSubscriptions();
 	Iterator<Integer> iter = events.iterator();
 	while(iter.hasNext()){
-	    eventID = (Integer) iter.next();
+	    eventID = iter.next();
 	    UserEventSettings uSett = setLoc.getEventSettings(eventID);
 	    color = uSett.getColorCode();
 	    updateString = "UPDATE SingleEventLocal SET colorCode = '"+color+"' WHERE eventID = '"+String.valueOf(eventID)+"'";
