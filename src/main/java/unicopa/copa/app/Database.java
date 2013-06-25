@@ -364,7 +364,7 @@ public class Database extends SQLiteOpenHelper {
 			    "eventID=" + ev_c.getString(0)
 				    + " Found matching eventGroupID="
 				    + evg_c.getString(0));
-		    name = " " + evg_c.getString(1);
+		    name = name+" " + evg_c.getString(1);
 		    Log.i("Database Viability", "Creating singleEventName: "
 			    + name);
 		    evg_c.close();
