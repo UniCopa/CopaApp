@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
+import unicopa.copa.app.Database;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
@@ -117,7 +118,6 @@ public class ColorDialog extends DialogFragment {
 			ServerConnection scon = null;
 			scon = ServerConnection.getInstance();
 
-			// TODO context is missing in popups
 			boolean success = false;
 			try {
 			    success = scon.setSettings(settings);
@@ -149,6 +149,8 @@ public class ColorDialog extends DialogFragment {
 
 			if (success) {
 			    S.store(settings);
+			    Database db = Database.getInstance(context);
+			    db.updateColors(settings);
 			} else {
 			    // TODO error popup
 			}
