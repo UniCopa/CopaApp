@@ -17,6 +17,7 @@
 package unicopa.copa.app.gui;
 
 import unicopa.copa.app.R;
+import unicopa.copa.app.Storage;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -121,7 +122,7 @@ public class PopUp {
      * 
      * @param context
      */
-    public static void firstAlert(Context context) {
+    public static void firstAlert(final Context context) {
 	new AlertDialog.Builder(context)
 		.setTitle(R.string.accept_title)
 		.setMessage(R.string.accept_msg)
@@ -129,7 +130,12 @@ public class PopUp {
 			new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog,
 				    int which) {
-				// TODO find out what to do then
+				Storage storage = null;
+				storage = Storage.getInstance(context);
+				storage.deleteSettings();
+
+				((Activity) context).finish();
+				System.exit(0);
 			    }
 			})
 		.setNegativeButton(R.string.accept,
