@@ -70,6 +70,9 @@ public class Helper {
 	    Context context) throws ClientProtocolException, IOException,
 	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException {
+	
+	// TODO perform update if ((gmc-manu and notify) or none) ==true 
+	
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
@@ -272,7 +275,19 @@ public class Helper {
 	    return false;
 	}
     }
-    
+
+    /**
+     * 
+     * 
+     * @param sEventID
+     * @param context
+     * @return
+     */
+    public static boolean removeSingleEvent(int sEventID, Context context) {
+
+	return false;
+    }
+
     /**
      * This method gets all updates since a given date and saves them to the
      * local database
@@ -361,10 +376,6 @@ public class Helper {
 		}
 		// e.printStackTrace();
 	    }
-
-	    // TODO inconsistency (see white board) could be solved by saving
-	    // every sEvent one after another not just the last one, but this is
-	    // a lot of unnecessary work
 	}
 
 	Storage storage = null;
