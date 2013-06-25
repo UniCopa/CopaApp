@@ -52,7 +52,7 @@ public class Database extends SQLiteOpenHelper {
 	    "eventID", "name", "date", "dateUpdateCounter", "supervisor",
 	    "supervisorUpdateCounter", "location", "locationUpdateCounter",
 	    "durationMinutes", "durationMinutesUpdateCounter", "colorCode",
-	    "permission" };
+	    "permission","comment" };
     private static final String[] Event_scheme = { "eventID", "eventGroupID",
 	    "eventName" };
     private static final String[] EventGroup_scheme = { "eventGroupID",
@@ -236,6 +236,16 @@ public class Database extends SQLiteOpenHelper {
 	    if (ID_old != -1)
 		newEntry = false; // Update
 	    if (!newEntry) {
+		
+		    //Test whether SingleEvent is canceled
+		    if(sev.getSingleEventID() == 0 && sev.getEventID() == 0){
+			String cancelString = "UPDATE SingleEventLocal SET durationMinutes = '0' WHERE singleEventID='"+String.valueOf(ID_old)+"'";  
+			Log.w("try", cancelString);
+			data.execSQL(cancelString);
+			return;
+		    }
+		    
+		
 		String columns[] = null;
 		String selection = "singleEventID='" + String.valueOf(ID_old)
 			+ "'";
@@ -247,6 +257,7 @@ public class Database extends SQLiteOpenHelper {
 			selectionArgs, groupBy, having, orderBy);
 		if (c != null && c.getCount() > 0) {
 		    c.moveToFirst();
+		    
 		    String UpdateColumns = "UPDATE " + TableName
 			    + " SET singleEventID='" + sev.getSingleEventID()
 			    + "',";
@@ -385,7 +396,7 @@ public class Database extends SQLiteOpenHelper {
 			String.valueOf(sev.getLoactionUpdateCounter()),
 			String.valueOf(sev.getDurationMinutes()),
 			String.valueOf(sev.getDurationMinutesUpdateCounter()),
-			sev.getColorCode(), String.valueOf(sev.getPermission()) };
+			sev.getColorCode(), String.valueOf(sev.getPermission()),sev.getComment() };
 		InsertString = InsertString + sqlValues(values);
 		Log.w("try", InsertString);
 		try {
@@ -566,7 +577,8 @@ public class Database extends SQLiteOpenHelper {
 		    c.getInt(4), // dateUpdateCounter
 		    c.getInt(6), // supervisorUpdateCounter
 		    c.getInt(10), // durationMinutesUpdateCounter
-		    c.getInt(12) // Permissions
+		    c.getInt(12),
+		    c.getString(13)// Permissions
 
 	    );
 	    SingleEventLocalList.add(sev);
@@ -619,7 +631,8 @@ public class Database extends SQLiteOpenHelper {
 		    c.getInt(4), // dateUpdateCounter
 		    c.getInt(6), // supervisorUpdateCounter
 		    c.getInt(10), // durationMinutesUpdateCounter
-		    c.getInt(12) // Permissions
+		    c.getInt(12),
+		    c.getString(13)// Permissions
 
 	    );
 	    SingleEventLocalList.add(sev);
@@ -667,7 +680,8 @@ public class Database extends SQLiteOpenHelper {
 		    c.getInt(4), // dateUpdateCounter
 		    c.getInt(6), // supervisorUpdateCounter
 		    c.getInt(10), // durationMinutesUpdateCounter
-		    c.getInt(12) // Permissions
+		    c.getInt(12),
+		    c.getString(13)// Permissions
 	    );
 	    c.close();
 	    data.close();
@@ -762,8 +776,13 @@ public class Database extends SQLiteOpenHelper {
     public void updatePermissions(List<Integer> eventList, int permissionCode)
 	    throws NoEventException, NoEventGroupException {
 	data = this.getWritableDatabase();
-	for (int eventID : eventList) {
-
+	Iterator<Integer> iter = eventList.iterator();
+	int eventID;
+	Log.w("vor der","schleife");
+	while (iter.hasNext()) {
+	    eventID = iter.next();
+	    Log.w("Database","eventID="+String.valueOf(eventID)+" perm="+String.valueOf(permissionCode));
+	
 	    // Test Event
 	    String ev_columns[] = { "eventID,eventGroupID" };
 	    String ev_selection = "eventID = " + String.valueOf(eventID);
