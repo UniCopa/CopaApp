@@ -203,7 +203,7 @@ public class ChangeSingleEventActivity extends Activity {
 		    "000000" /* colorCode */, "" /* name */,
 		    0 /* locationUpdateCounter */, 0 /* dateUpdateCounter */,
 		    0 /* supervisorUpdateCounter */,
-		    0 /* durationMinutesUpdateCounter */, 0 /* permission */);
+		    0 /* durationMinutesUpdateCounter */, 0 /* permission */, "" /* comment */);
 
 	    try {
 		success = Helper.setUpdate(newSEventLocal, msg,

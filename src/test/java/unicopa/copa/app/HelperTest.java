@@ -69,17 +69,17 @@ public class HelperTest {
 	sEvent2 = new SingleEvent(1235, 123, "HS-2", date2, "Robin", 90);
 	sEvent3 = new SingleEvent(1236, 123, "HS-2", date3, "David", 90);
 
-	sEventUpdate1 = new SingleEventUpdate(sEvent1, 0, date4, "Martin", "");
+	sEventUpdate1 = new SingleEventUpdate(sEvent1, 0, date4, "Martin", "just cause1");
 	sEventUpdate2 = new SingleEventUpdate(sEvent2, 1234, date5,
-		"Christiane", "");
-	sEventUpdate3 = new SingleEventUpdate(sEvent3, 1235, date6, "Tuki", "");
+		"Christiane", "just cause2");
+	sEventUpdate3 = new SingleEventUpdate(sEvent3, 1235, date6, "Tuki", "just cause3");
 
 	sEventUpdates.add(sEventUpdate3);
 	sEventUpdates.add(sEventUpdate2);
 	sEventUpdates.add(sEventUpdate1);
 
 	sEventLocal = new SingleEventLocal(1236, 123, "HS-2", date1, "David",
-		90, "000000", "", 1, 0, 1, 0, 0);
+		90, "000000", "", 1, 0, 1, 0, 0, "just cause3");
 
 	SingleEventLocal returnevent = Helper.checkChanges(sEventUpdates);
 
@@ -132,13 +132,14 @@ public class HelperTest {
 	int supervisorUpdateCounter = 0;
 	int durationMinutesUpdateCounter = 0;
 	int permission = 0;
+	String comment = "";
 
 	SingleEventLocal expectedSingleEventLocal = null;
 	expectedSingleEventLocal = new SingleEventLocal(singleEventID, eventID,
 		location, date, supervisor, durationMinutes, colorCode, name,
 		locationUpdateCounter, dateUpdateCounter,
 		supervisorUpdateCounter, durationMinutesUpdateCounter,
-		permission);
+		permission, comment);
 
 	assertEquals(expectedSingleEventLocal.getSingleEventID(),
 		singleEventLocal.getSingleEventID());

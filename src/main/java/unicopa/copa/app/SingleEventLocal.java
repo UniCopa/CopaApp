@@ -35,6 +35,7 @@ public class SingleEventLocal extends SingleEvent {
     private int supervisorUpdateCounter = 0;
     private int durationMinutesUpdateCounter = 0;
     private int permission = 0;
+    private String comment = "";
 
     /**
      * Class constructor with initialization.
@@ -57,7 +58,7 @@ public class SingleEventLocal extends SingleEvent {
 	    Date date, String supervisor, int durationMinutes,
 	    String colorCode, String name, int locationUpdateCounter,
 	    int dateUpdateCounter, int supervisorUpdateCounter,
-	    int durationMinutesUpdateCounter, int permission) {
+	    int durationMinutesUpdateCounter, int permission, String comment) {
 	super(singleEventID, eventID, location, date, supervisor,
 		durationMinutes);
 	this.colorCode = colorCode;
@@ -67,6 +68,7 @@ public class SingleEventLocal extends SingleEvent {
 	this.supervisorUpdateCounter = supervisorUpdateCounter;
 	this.durationMinutesUpdateCounter = durationMinutesUpdateCounter;
 	this.permission = permission;
+	this.comment = comment;
     }
 
     public void setColorCode(String colorCode) {
@@ -107,6 +109,10 @@ public class SingleEventLocal extends SingleEvent {
 
     public int getPermission() {
 	return permission;
+    }
+
+    public String getComment() {
+	return comment;
     }
 
 }

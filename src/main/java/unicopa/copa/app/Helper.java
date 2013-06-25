@@ -605,11 +605,14 @@ public class Helper {
 	    }
 	}
 
+	String comment = "";
+	comment = sEventUpdateList.get(0).getComment();
+	
 	SingleEventLocal sEventLocal = null;
 	sEventLocal = new SingleEventLocal(singleEventID, eventID, location,
 		date, supervisor, duration, "000000" /* colorCode */,
 		"" /* name */, locationCount, dateCount, supervisorCount,
-		durationCount, 0 /* permission */);
+		durationCount, 0 /* permission */, comment);
 
 	return sEventLocal;
     }
@@ -637,13 +640,14 @@ public class Helper {
 	int sel_supervisorUpdateCounter = 0;
 	int sel_durationMinutesUpdateCounter = 0;
 	int sel_permission = 0;
+	String sel_comment = "";
 
 	SingleEventLocal sEventLocal = null;
 	sEventLocal = new SingleEventLocal(sel_singleEventID, sel_eventID,
 		sel_location, sel_date, sel_supervisor, sel_durationMinutes,
 		sel_colorCode, sel_name, sel_locationUpdateCounter,
 		sel_dateUpdateCounter, sel_supervisorUpdateCounter,
-		sel_durationMinutesUpdateCounter, sel_permission);
+		sel_durationMinutesUpdateCounter, sel_permission, sel_comment);
 
 	return sEventLocal;
     }
