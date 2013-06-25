@@ -53,6 +53,7 @@ public class SingleEventLocal extends SingleEvent {
      * @param SupervisorUpdateCounter
      * @param DurationMinutesUpdateCounter
      * @param Permission
+     * @param Comment
      */
     public SingleEventLocal(int singleEventID, int eventID, String location,
 	    Date date, String supervisor, int durationMinutes,
