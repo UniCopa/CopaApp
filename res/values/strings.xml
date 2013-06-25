@@ -110,8 +110,10 @@
     <string name="accept_no">No!</string>
     <string name="accept">I accept.</string>
     <string name="subscribed">You have subscribed this event.</string>
-     <string name="sorry">Sorry!</string>
-     <string name="wrong">Something went wrong.</string>
-     
+    <string name="sorry">Sorry!</string>
+    <string name="wrong">Something went wrong.</string>
+    <string name="remove">Remove</string>
+    <string name="comment">Comment:</string>
+    <string name="changed">You changed this date.</string>
 
 </resources>

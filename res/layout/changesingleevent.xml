@@ -179,38 +179,64 @@
             android:id="@+id/change_eventGroupname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/change_button"
+            android:layout_alignBottom="@+id/change_button"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/changes"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="15dp"
             android:text="Group" />
 
         <Button
             android:id="@+id/change_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/change_eventGroupname"
-            android:layout_alignRight="@+id/change_edit_dura"
+            android:layout_alignRight="@+id/change_edit_date"
+            android:layout_below="@+id/changes"
             android:onClick="onApplyButtonClick"
             android:text="@string/change_apply" />
+
+        <CheckBox
+            android:id="@+id/change_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/change_button"
+            android:layout_toLeftOf="@+id/change_button"
+            android:text="@string/remove" />
+
+        <TextView
+            android:id="@+id/change_static_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/change_static_date"
+            android:layout_below="@+id/change_edit_supervisor"
+            android:layout_marginTop="14dp"
+            android:text="@string/comment"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/change_static_dura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/change_static_location"
+            android:layout_alignRight="@+id/change_static_date"
             android:layout_below="@+id/change_edit_time"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="24dp"
             android:text="@string/dura"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/change_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_edit_location"
+            android:layout_alignTop="@+id/change_static_comment"
+            android:ems="10"
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/change_static_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/change_button"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@+id/change_eventGroupname"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/change_remove"
+            android:layout_marginLeft="49dp"
             android:text="@string/date"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>

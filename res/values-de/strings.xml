@@ -96,7 +96,10 @@
     <string name="accept_no">Nein!</string>
     <string name="accept">Ich akzeptiere.</string>
     <string name="subscribed">Sie haben diese Veranstaltung abonniert.</string>
-         <string name="sorry">Entschuldigung!</string>
-     <string name="wrong">Da ist etwas schiefgegangen.</string>
+    <string name="sorry">Entschuldigung!</string>
+    <string name="wrong">Da ist etwas schiefgegangen.</string>
+    <string name="remove">Entfernen</string>
+    <string name="comment">Kommentar:</string>
+    <string name="changed">Sie haben diesen Termin bearbeitet.</string>
 
 </resources>

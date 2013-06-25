@@ -39,6 +39,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -48,6 +49,8 @@ import android.widget.TextView;
  * @author Christiane Kuhn, Martin Rabe
  */
 public class ChangeSingleEventActivity extends Activity {
+
+    SingleEventLocal sEventLocal = null;
 
     /**
      * Creates ChangeSingleEventActivity with editText for an update input and
@@ -145,17 +148,28 @@ public class ChangeSingleEventActivity extends Activity {
 	EditText time = (EditText) findViewById(R.id.change_edit_time);
 	EditText supervisor = (EditText) findViewById(R.id.change_edit_supervisor);
 	EditText durationtime = (EditText) findViewById(R.id.change_edit_dura);
+	EditText comment = (EditText) findViewById(R.id.change_comment);
+	CheckBox remove = (CheckBox) findViewById(R.id.change_remove);
+
+	boolean removeIt = remove.isChecked();
 
 	String newSupervisor = supervisor.getText().toString();
 	String newLocation = location.getText().toString();
 	// TODO change to input time and date
 	Date newDate = Calendar.getInstance().getTime();
 	int newDura = durationtime.getInputType();
-	int eventID = -1; // TODO get eventID from previous activity
-	String msg = ""; // TODO the comment field is missing in the activity
+	int eventID = sEventLocal.getEventID();
+	int oldSingleEventID = sEventLocal.getSingleEventID();
+	String msg = comment.getText().toString();
 
-	SingleEventLocal sEventLocal = null;
-	sEventLocal = new SingleEventLocal(0 /* newSingleEventID */, eventID, // TODO set correct newSingleEventID
+	if (removeIt) {
+	    // TODO check if this is the correct way to tell that a SingleEvent
+	    // should be deleted
+	    oldSingleEventID = 0;
+	}
+
+	SingleEventLocal newSEventLocal = null;
+	newSEventLocal = new SingleEventLocal(oldSingleEventID, eventID,
 		newLocation, newDate, newSupervisor, newDura,
 		"000000" /* colorCode */, "" /* name */,
 		0 /* locationUpdateCounter */, 0 /* dateUpdateCounter */,
@@ -164,7 +178,8 @@ public class ChangeSingleEventActivity extends Activity {
 
 	boolean success = false;
 	try {
-	    success = Helper.setUpdate(sEventLocal, msg, getApplicationContext());
+	    success = Helper.setUpdate(newSEventLocal, msg,
+		    getApplicationContext());
 	} catch (ClientProtocolException e) {
 	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 		    e.getMessage());
@@ -193,9 +208,13 @@ public class ChangeSingleEventActivity extends Activity {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	
-	if(success) {
-	    //TODO PopUp
+
+	if (success) {
+	    PopUp.alert(this.getApplicationContext(),
+		    getString(R.string.success), getString(R.string.changed));
+	} else {
+	    PopUp.alert(this.getApplicationContext(),
+		    getString(R.string.sorry), getString(R.string.wrong));
 	}
     }
 
