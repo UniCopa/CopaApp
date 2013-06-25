@@ -157,15 +157,16 @@ public class ChangeSingleEventActivity extends Activity {
 	String msg = ""; // TODO the comment field is missing in the activity
 
 	SingleEventLocal sEventLocal = null;
-	sEventLocal = new SingleEventLocal(0 /* singleEventID */, eventID,
+	sEventLocal = new SingleEventLocal(0 /* newSingleEventID */, eventID, // TODO set correct newSingleEventID
 		newLocation, newDate, newSupervisor, newDura,
 		"000000" /* colorCode */, "" /* name */,
 		0 /* locationUpdateCounter */, 0 /* dateUpdateCounter */,
 		0 /* supervisorUpdateCounter */,
 		0 /* durationMinutesUpdateCounter */, 0 /* permission */);
 
+	boolean success = false;
 	try {
-	    Helper.setUpdate(sEventLocal, msg, getApplicationContext());
+	    success = Helper.setUpdate(sEventLocal, msg, getApplicationContext());
 	} catch (ClientProtocolException e) {
 	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 		    e.getMessage());
@@ -190,6 +191,10 @@ public class ChangeSingleEventActivity extends Activity {
 	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
 		    e.getMessage());
 	    // e.printStackTrace();
+	}
+	
+	if(success) {
+	    //TODO PopUp
 	}
     }
 
