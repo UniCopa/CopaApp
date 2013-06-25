@@ -43,10 +43,14 @@ public class PopUp {
 		.setMessage(R.string.not_login)
 		.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int which) {
+
+			((Activity) context).finish();
+
 			Intent intentLog = new Intent(context,
 				LoginActivity.class);
 			intentLog.putExtra("failed", 1);
 			context.startActivity(intentLog);
+
 		    }
 		}).show();
 

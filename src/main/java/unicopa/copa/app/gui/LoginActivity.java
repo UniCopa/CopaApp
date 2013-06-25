@@ -98,6 +98,7 @@ public class LoginActivity extends Activity {
     @Override
     public void onBackPressed() {
 	if (fail == 1) {
+	    finish();
 	    Intent intentMain = new Intent(LoginActivity.this,
 		    MainActivity.class);
 	    LoginActivity.this.startActivity(intentMain);
@@ -204,17 +205,20 @@ public class LoginActivity extends Activity {
 		}
 
 		// change layout
-		loginButton.setVisibility(View.GONE);
-		user.setVisibility(View.GONE);
-		passwordtext.setVisibility(View.GONE);
-		name.setVisibility(View.GONE);
-		pw.setVisibility(View.GONE);
-		logoutButton.setVisibility(View.VISIBLE);
-		title.setText(getString(R.string.title_logout));
+		// loginButton.setVisibility(View.GONE);
+		// user.setVisibility(View.GONE);
+		// passwordtext.setVisibility(View.GONE);
+		// name.setVisibility(View.GONE);
+		// pw.setVisibility(View.GONE);
+		// logoutButton.setVisibility(View.VISIBLE);
+		// title.setText(getString(R.string.title_logout));
+
+		finish();
 
 		Intent intentMain = new Intent(LoginActivity.this,
 			MainActivity.class);
 		LoginActivity.this.startActivity(intentMain);
+
 	    } else {
 		PopUp.exceptionAlert(this, getString(R.string.login_error), "" /* TODO */);
 	    }
@@ -231,28 +235,24 @@ public class LoginActivity extends Activity {
      */
     public void onLogoutButtonClick(View view) {
 
-	scon.logout();
+	boolean success;
+	success = scon.logout();
 
-	Toast toast = Toast.makeText(LoginActivity.this,
-		getString(R.string.logged_out), Toast.LENGTH_SHORT);
-	toast.show();
+	if (success) {
+	    Toast toast = Toast.makeText(LoginActivity.this,
+		    getString(R.string.logged_out), Toast.LENGTH_SHORT);
+	    toast.show();
 
-	if (scon.getConnected()) {
-	    loginButton.setVisibility(View.GONE);
-	    user.setVisibility(View.GONE);
-	    passwordtext.setVisibility(View.GONE);
-	    name.setVisibility(View.GONE);
-	    pw.setVisibility(View.GONE);
-	    logoutButton.setVisibility(View.VISIBLE);
-	    title.setText(getString(R.string.title_logout));
+	    finish();
+
+	    Intent intentMain = new Intent(LoginActivity.this,
+		    MainActivity.class);
+	    LoginActivity.this.startActivity(intentMain);
+
 	} else {
-	    logoutButton.setVisibility(View.GONE);
-	    loginButton.setVisibility(View.VISIBLE);
-	    title.setText(getString(R.string.title_login));
+	    PopUp.alert(this.getApplicationContext(),
+		    getString(R.string.sorry), getString(R.string.wrong));
 	}
-
-	Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
-	LoginActivity.this.startActivity(intentMain);
 
     }
 
