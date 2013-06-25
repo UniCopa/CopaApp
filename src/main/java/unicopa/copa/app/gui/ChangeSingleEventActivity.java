@@ -162,51 +162,80 @@ public class ChangeSingleEventActivity extends Activity {
 	int oldSingleEventID = sEventLocal.getSingleEventID();
 	String msg = comment.getText().toString();
 
-	if (removeIt) {
-	    // TODO check if this is the correct way to tell that a SingleEvent
-	    // should be deleted
-	    oldSingleEventID = 0;
-	}
-
-	SingleEventLocal newSEventLocal = null;
-	newSEventLocal = new SingleEventLocal(oldSingleEventID, eventID,
-		newLocation, newDate, newSupervisor, newDura,
-		"000000" /* colorCode */, "" /* name */,
-		0 /* locationUpdateCounter */, 0 /* dateUpdateCounter */,
-		0 /* supervisorUpdateCounter */,
-		0 /* durationMinutesUpdateCounter */, 0 /* permission */);
-
 	boolean success = false;
-	try {
-	    success = Helper.setUpdate(newSEventLocal, msg,
-		    getApplicationContext());
-	} catch (ClientProtocolException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (APIException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.api_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (PermissionException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.per_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (RequestNotPracticableException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (InternalErrorException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (IOException e) {
-	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
-		    e.getMessage());
-	    // e.printStackTrace();
-	} catch (NoStorageException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+
+	if (removeIt) {
+	    try {
+		Helper.removeSingleEvent(oldSingleEventID, msg,
+			getApplicationContext());
+	    } catch (ClientProtocolException e) {
+		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (APIException e) {
+		PopUp.exceptionAlert(this, getString(R.string.api_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (PermissionException e) {
+		PopUp.exceptionAlert(this, getString(R.string.per_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (RequestNotPracticableException e) {
+		PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (InternalErrorException e) {
+		PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (IOException e) {
+		PopUp.exceptionAlert(this, getString(R.string.io_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (NoStorageException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	} else {
+	    SingleEventLocal newSEventLocal = null;
+	    newSEventLocal = new SingleEventLocal(oldSingleEventID, eventID,
+		    newLocation, newDate, newSupervisor, newDura,
+		    "000000" /* colorCode */, "" /* name */,
+		    0 /* locationUpdateCounter */, 0 /* dateUpdateCounter */,
+		    0 /* supervisorUpdateCounter */,
+		    0 /* durationMinutesUpdateCounter */, 0 /* permission */);
+
+	    try {
+		success = Helper.setUpdate(newSEventLocal, msg,
+			getApplicationContext());
+	    } catch (ClientProtocolException e) {
+		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (APIException e) {
+		PopUp.exceptionAlert(this, getString(R.string.api_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (PermissionException e) {
+		PopUp.exceptionAlert(this, getString(R.string.per_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (RequestNotPracticableException e) {
+		PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (InternalErrorException e) {
+		PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (IOException e) {
+		PopUp.exceptionAlert(this, getString(R.string.io_ex),
+			e.getMessage());
+		// e.printStackTrace();
+	    } catch (NoStorageException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
 	}
 
 	if (success) {
