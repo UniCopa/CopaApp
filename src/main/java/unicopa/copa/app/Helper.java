@@ -106,6 +106,43 @@ public class Helper {
 
 	Database db = Database.getInstance(context);
 
+	// if Event has no SingleEvents just insert the Event and EventGroup
+	if (sEvents.size() == 0) {
+	    Event event = null;
+	    event = scon.getEvent(eventID);
+
+	    try {
+		db.insert(event, eventID);
+	    } catch (NoEventGroupException e1) {
+		int eventGroupID;
+		eventGroupID = event.getEventGroupID();
+
+		EventGroup eventGroup = null;
+		eventGroup = scon.getEventGroup(eventGroupID);
+
+		if (eventGroup == null) {
+		    return false;
+		}
+
+		try {
+		    db.insert(eventGroup, eventGroupID);
+		    db.insert(event, eventID);
+		} catch (NoEventGroupException e2) {
+		    // This should never happen
+		    e2.printStackTrace();
+		} catch (NoEventException e2) {
+		    // This should never happen
+		    e2.printStackTrace();
+		}
+		// e1.printStackTrace();
+	    } catch (NoEventException e1) {
+		// This should never happen
+		e1.printStackTrace();
+	    }
+	    // e.printStackTrace();
+	}
+
+	// if Event has SingleEvents insert all
 	if (sEvents.size() != 0) {
 	    for (SingleEvent sEvent : sEvents) {
 		SingleEventLocal sEventLocal = null;
@@ -607,7 +644,7 @@ public class Helper {
 
 	String comment = "";
 	comment = sEventUpdateList.get(0).getComment();
-	
+
 	SingleEventLocal sEventLocal = null;
 	sEventLocal = new SingleEventLocal(singleEventID, eventID, location,
 		date, supervisor, duration, "000000" /* colorCode */,
