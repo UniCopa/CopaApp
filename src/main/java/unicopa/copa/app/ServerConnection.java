@@ -44,8 +44,12 @@ import unicopa.copa.base.com.request.AddSingleEventUpdateRequest;
 import unicopa.copa.base.com.request.AddSingleEventUpdateResponse;
 import unicopa.copa.base.com.request.CancelSingleEventRequest;
 import unicopa.copa.base.com.request.CancelSingleEventResponse;
+import unicopa.copa.base.com.request.GetAllDeputiesRequest;
+import unicopa.copa.base.com.request.GetAllDeputiesResponse;
 import unicopa.copa.base.com.request.GetAllOwnersRequest;
 import unicopa.copa.base.com.request.GetAllOwnersResponse;
+import unicopa.copa.base.com.request.GetAllRightholdersRequest;
+import unicopa.copa.base.com.request.GetAllRightholdersResponse;
 import unicopa.copa.base.com.request.GetCategoriesRequest;
 import unicopa.copa.base.com.request.GetCategoriesResponse;
 import unicopa.copa.base.com.request.GetCurrentSingleEventsRequest;
@@ -773,6 +777,74 @@ public class ServerConnection {
 	    settingsLocal = Helper.userSettingsToSettingsLocal(userSettings);
 
 	    return settingsLocal;
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * This method returns to a given eventID all rightholders.
+     * 
+     * @param EventID
+     * @return A list of names.
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public List<String> getRightholders(int eventID) throws ClientProtocolException,
+	    IOException, APIException, PermissionException,
+	    RequestNotPracticableException, InternalErrorException {
+	GetAllRightholdersRequest reqObj = new GetAllRightholdersRequest(eventID);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer(reqStr);
+
+	GetAllRightholdersResponse resObj = null;
+	resObj = (GetAllRightholdersResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetAllRightholdersResponse) {
+	    return resObj.getNames();
+	} else {
+	    return null;
+	}
+    }
+
+    /**
+     * This method returns to a given eventID all deputies.
+     * 
+     * @param EventID
+     * @return A list of names.
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
+    public List<String> getDeputies(int eventID) throws ClientProtocolException,
+	    IOException, APIException, PermissionException,
+	    RequestNotPracticableException, InternalErrorException {
+	GetAllDeputiesRequest reqObj = new GetAllDeputiesRequest(eventID);
+
+	String reqStr = "";
+	reqStr = ClientSerializer.serialize(reqObj);
+
+	String resStr = "";
+	resStr = sendToServer(reqStr);
+
+	GetAllDeputiesResponse resObj = null;
+	resObj = (GetAllDeputiesResponse) ClientSerializer
+		.deserializeResponse(resStr);
+
+	if (resObj instanceof GetAllDeputiesResponse) {
+	    return resObj.getNames();
 	} else {
 	    return null;
 	}
