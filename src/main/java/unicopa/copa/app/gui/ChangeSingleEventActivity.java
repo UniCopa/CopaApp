@@ -40,8 +40,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 /**
  * In this activity a user can update a event, if he has the rights to do it.
@@ -144,8 +146,8 @@ public class ChangeSingleEventActivity extends Activity {
      */
     public void onApplyButtonClick(View view) {
 	EditText location = (EditText) findViewById(R.id.change_edit_location);
-	EditText date = (EditText) findViewById(R.id.change_edit_date);
-	EditText time = (EditText) findViewById(R.id.change_edit_time);
+	DatePicker datePicker = (DatePicker) findViewById(R.id.change_edit_date);
+	TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker1);
 	EditText supervisor = (EditText) findViewById(R.id.change_edit_supervisor);
 	EditText durationtime = (EditText) findViewById(R.id.change_edit_dura);
 	EditText comment = (EditText) findViewById(R.id.change_comment);
@@ -203,7 +205,8 @@ public class ChangeSingleEventActivity extends Activity {
 		    "000000" /* colorCode */, "" /* name */,
 		    0 /* locationUpdateCounter */, 0 /* dateUpdateCounter */,
 		    0 /* supervisorUpdateCounter */,
-		    0 /* durationMinutesUpdateCounter */, 0 /* permission */, "" /* comment */);
+		    0 /* durationMinutesUpdateCounter */, 0 /* permission */,
+		    "" /* comment */);
 
 	    try {
 		success = Helper.setUpdate(newSEventLocal, msg,
