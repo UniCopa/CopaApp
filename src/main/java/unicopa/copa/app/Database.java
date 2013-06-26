@@ -890,8 +890,8 @@ public class Database extends SQLiteOpenHelper {
 	    throw new PermissionException("You are Owner of this Event");
 	} else {
 	    c.close();
-	    // Test whether there are multiple Events in the same EventGroup
-	    String Event_columns[] = { "eventGroupID" };
+
+	    String Event_columns[] = { "eventID","eventGroupID" };
 	    String Event_selection = "eventID = '" + String.valueOf(eventID)
 		    + "'";
 	    String Event_selectionArgs[] = null;
@@ -899,18 +899,40 @@ public class Database extends SQLiteOpenHelper {
 	    String Event_having = null;
 	    String Event_orderBy = "";
 
-	    c = data.query("Event", Event_columns, Event_selection,
+	    Cursor ev_c = data.query("Event", Event_columns, Event_selection,
 		    Event_selectionArgs, Event_groupBy, Event_having,
 		    Event_orderBy);
+	    
+	    
+	    if (ev_c.getCount() < 1){
+		Log.e("deleting_error","No Event with ID "+String.valueOf(eventID)+" found in local Database!");
+		ev_c.close();
+	    }
+	    else{
+	  
+	    
+	    ev_c.moveToFirst();
+	    String eventGroupID = ev_c.getString(1);	    
+	    ev_c.close();
 
-	    c.moveToFirst();
+	    //check whether Event is last in EventGroup
+	    String Event1_columns[] = { "eventID","eventGroupID" };
+	    String Event1_selection = "eventGroupID = '" + eventGroupID
+		    + "'";
+	    String Event1_selectionArgs[] = null;
+	    String Event1_groupBy = null;
+	    String Event1_having = null;
+	    String Event1_orderBy = "";
 
-	    String eventGroupID = c.getString(0);
-
-	    if (c.getCount() < 2)
-		lastEvent = true;
-	    c.close();
-
+	    Cursor ev1_c = data.query("Event", Event1_columns, Event1_selection,
+		    Event1_selectionArgs, Event1_groupBy, Event1_having,
+		    Event1_orderBy);
+	    
+	    if(ev1_c.getCount()<2){
+		lastEvent=true;
+		Log.w("Database","this is the last Event with ID "+eventGroupID);
+	    }
+	    
 	    // delete Event
 	    String deleteEventString = "DELETE FROM Event WHERE eventID = '"
 		    + String.valueOf(eventID) + "'";
@@ -928,6 +950,7 @@ public class Database extends SQLiteOpenHelper {
 		data.execSQL(deleteEventGroupString);
 	    }
 
+	}
 	}
 	data.close();
     }
