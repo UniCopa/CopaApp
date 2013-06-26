@@ -10,45 +10,62 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_margin="3dp" >
+        android:layout_margin="3dp"
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/eventGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="0.5"
-            android:text="TextView" />
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="0.5"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/eventGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="0"
+                android:text="TextView" />
 
-        <Button
-            android:id="@+id/priv_change"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="0.0"
-            android:text="@string/change" />
+            <TextView
+                android:id="@+id/event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="0"
+                android:text="TextView" />
 
-        <Button
-            android:id="@+id/priv_others"
-            android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/privListButtons"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="0.0"
-            android:text="@string/otherprivs" />
+            android:layout_margin="3dp" >
+
+            <Button
+                android:id="@+id/priv_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="0.5"
+                android:text="@string/change" />
+
+            <Button
+                android:id="@+id/priv_others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="0.5"
+                android:text="@string/otherprivs" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
