@@ -16,22 +16,6 @@
             android:text="@string/makechanges" />
 
         <TextView
-            android:id="@+id/change_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/change_edit_date"
-            android:layout_toRightOf="@+id/change_static_date"
-            android:text="date" />
-
-        <TextView
-            android:id="@+id/change_static_new_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/change_static_date"
-            android:layout_alignTop="@+id/change_edit_date"
-            android:text="@string/new_change" />
-
-        <TextView
             android:id="@+id/change_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,32 +24,12 @@
             android:text="time" />
 
         <TextView
-            android:id="@+id/change_static_new_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/change_static_new_time"
-            android:layout_below="@+id/change_static_location"
-            android:text="@string/new_change" />
-
-        <TextView
             android:id="@+id/change_static_new_dura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/change_static_new_location"
             android:layout_below="@+id/change_static_dura"
             android:text="@string/new_change" />
-
-        <EditText
-            android:id="@+id/change_edit_dura"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/change_static_new_dura"
-            android:layout_toRightOf="@+id/change_static_time"
-            android:ems="10"
-            android:inputType="number" >
-
-            <requestFocus />
-        </EditText>
 
         <TextView
             android:id="@+id/change_dura"
@@ -85,14 +49,6 @@
             android:layout_toRightOf="@+id/change_static_location"
             android:text="location" />
 
-        <EditText
-            android:id="@+id/change_edit_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/change_edit_dura"
-            android:layout_alignTop="@+id/change_static_new_location"
-            android:ems="10" />
-
         <TextView
             android:id="@+id/change_supervisor"
             android:layout_width="wrap_content"
@@ -110,98 +66,6 @@
             android:layout_below="@+id/change_static_supervisor"
             android:text="@string/new_change" />
 
-        <EditText
-            android:id="@+id/change_edit_supervisor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/change_edit_location"
-            android:layout_alignTop="@+id/change_static_new_supervisor"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/change_static_supervisor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/change_edit_location"
-            android:layout_marginTop="14dp"
-            android:layout_toLeftOf="@+id/change_edit_supervisor"
-            android:text="@string/supervisor"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/change_static_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/change_edit_dura"
-            android:layout_marginTop="14dp"
-            android:layout_toLeftOf="@+id/change_edit_location"
-            android:text="@string/location"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/change_eventGroupname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/change_button"
-            android:layout_alignBottom="@+id/change_button"
-            android:layout_alignParentLeft="true"
-            android:text="Group" />
-
-        <TextView
-            android:id="@+id/change_static_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/change_static_date"
-            android:layout_below="@+id/change_edit_supervisor"
-            android:layout_marginTop="14dp"
-            android:text="@string/comment"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/change_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/change_edit_location"
-            android:layout_alignTop="@+id/change_static_comment"
-            android:ems="10"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/change_static_dura"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/timePicker1"
-            android:layout_marginTop="16dp"
-            android:layout_toLeftOf="@+id/change_edit_dura"
-            android:text="@string/dura"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <DatePicker
-            android:id="@+id/change_edit_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/change_date"
-            android:layout_below="@+id/change_static_date"
-            android:layout_marginTop="26dp" />
-
-        <TextView
-            android:id="@+id/change_static_new_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/timePicker1"
-            android:layout_marginBottom="48dp"
-            android:layout_toLeftOf="@+id/change_time"
-            android:text="@string/new_change" />
-
-        <TimePicker
-            android:id="@+id/timePicker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/change_edit_date"
-            android:layout_below="@+id/change_edit_date"
-            android:layout_marginTop="42dp" />
-
         <TextView
             android:id="@+id/change_static_time"
             android:layout_width="wrap_content"
@@ -211,14 +75,6 @@
             android:layout_marginTop="24dp"
             android:text="@string/time"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <CheckBox
-            android:id="@+id/change_remove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/change_button"
-            android:layout_toLeftOf="@+id/change_button"
-            android:text="@string/remove" />
 
         <Button
             android:id="@+id/change_button"
@@ -231,15 +87,159 @@
             android:text="@string/change_apply" />
 
         <TextView
+            android:id="@+id/change_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/change_edit_date"
+            android:layout_toRightOf="@+id/change_static_time"
+            android:text="date" />
+
+        <TextView
+            android:id="@+id/change_static_new_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_static_date"
+            android:layout_alignTop="@+id/change_edit_date"
+            android:text="@string/new_change" />
+
+        <EditText
+            android:id="@+id/change_edit_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_supervisor"
+            android:layout_alignTop="@+id/change_static_new_location"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/change_eventGroupname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/change_button"
+            android:layout_alignBottom="@+id/change_button"
+            android:layout_alignLeft="@+id/change_static_supervisor"
+            android:text="Group" />
+
+        <EditText
+            android:id="@+id/change_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_edit_supervisor"
+            android:layout_alignTop="@+id/change_static_comment"
+            android:ems="10"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/change_edit_supervisor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/change_static_new_supervisor"
+            android:layout_toRightOf="@+id/change_static_supervisor"
+            android:ems="10"
+            android:inputType="textPersonName" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/change_static_new_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/timePicker1"
+            android:layout_marginBottom="38dp"
+            android:layout_toLeftOf="@+id/change_time"
+            android:text="@string/new_change" />
+
+        <TimePicker
+            android:id="@+id/timePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/change_time"
+            android:layout_marginRight="25dp" />
+
+        <TextView
+            android:id="@+id/change_static_supervisor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_static_time"
+            android:layout_below="@+id/change_edit_location"
+            android:layout_marginTop="17dp"
+            android:text="@string/supervisor"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/change_static_dura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_static_time"
+            android:layout_below="@+id/change_static_new_time"
+            android:layout_marginTop="16dp"
+            android:text="@string/dura"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/change_static_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_static_supervisor"
+            android:layout_below="@+id/change_edit_dura"
+            android:layout_marginTop="19dp"
+            android:text="@string/location"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/change_static_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_static_supervisor"
+            android:layout_below="@+id/change_edit_supervisor"
+            android:layout_marginTop="15dp"
+            android:text="@string/comment"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/change_edit_dura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_edit_location"
+            android:layout_alignTop="@+id/change_static_new_dura"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/change_static_new_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_location"
+            android:layout_toLeftOf="@+id/change_time"
+            android:text="@string/new_change" />
+
+        <CheckBox
+            android:id="@+id/change_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/change_button"
+            android:layout_centerHorizontal="true"
+            android:text="@string/remove" />
+
+        <TextView
             android:id="@+id/change_static_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/change_remove"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@+id/change_eventGroupname"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="17dp"
             android:text="@string/date"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <DatePicker
+            android:id="@+id/change_edit_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_static_date"
+            android:layout_marginTop="27dp"
+            android:layout_toRightOf="@+id/change_static_date" />
     </RelativeLayout>
 
 </ScrollView>
