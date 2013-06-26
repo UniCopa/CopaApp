@@ -155,10 +155,18 @@ public class ChangeSingleEventActivity extends Activity {
 
 	boolean removeIt = remove.isChecked();
 
+	int day = datePicker.getDayOfMonth();
+	int month = datePicker.getMonth() + 1;
+	int year = datePicker.getYear();
+	int hour = timePicker.getCurrentHour();
+	int minutes = timePicker.getCurrentMinute();
+
+	Calendar cal = Calendar.getInstance();
+	cal.set(year, month, day, hour, minutes);
+	Date newDate = cal.getTime();
+
 	String newSupervisor = supervisor.getText().toString();
 	String newLocation = location.getText().toString();
-	// TODO change to input time and date
-	Date newDate = Calendar.getInstance().getTime();
 	int newDura = durationtime.getInputType();
 	int eventID = sEventLocal.getEventID();
 	int oldSingleEventID = sEventLocal.getSingleEventID();
