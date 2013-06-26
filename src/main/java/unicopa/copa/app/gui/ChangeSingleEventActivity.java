@@ -26,6 +26,7 @@ import org.apache.http.client.ClientProtocolException;
 import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.com.exception.APIException;
@@ -65,6 +66,13 @@ public class ChangeSingleEventActivity extends Activity {
 	setContentView(R.layout.changesingleevent);
 	Intent intent = getIntent();
 	int sEventID = intent.getIntExtra("singleID", 0);
+
+	ServerConnection scon = ServerConnection.getInstance();
+
+	// check if logged in if not redirect to LoginActivity
+	if (!scon.getConnected()) {
+	    PopUp.loginFail(this);
+	}
 
 	Database db = Database.getInstance(ChangeSingleEventActivity.this);
 

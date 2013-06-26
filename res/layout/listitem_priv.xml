@@ -37,7 +37,6 @@
                 android:layout_marginTop="15dp"
                 android:layout_weight="0"
                 android:text="TextView" />
-
         </LinearLayout>
 
         <LinearLayout
