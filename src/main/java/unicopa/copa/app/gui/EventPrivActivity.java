@@ -16,18 +16,30 @@
  */
 package unicopa.copa.app.gui;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import unicopa.copa.app.R;
+import unicopa.copa.app.ServerConnection;
+import unicopa.copa.app.exceptions.NoStorageException;
+import unicopa.copa.base.com.exception.APIException;
+import unicopa.copa.base.com.exception.InternalErrorException;
+import unicopa.copa.base.com.exception.PermissionException;
+import unicopa.copa.base.com.exception.RequestNotPracticableException;
 
 /**
  * In this activity a user can see all rightholders, deputies and owners of an
  * event.
  * 
- * @author Christiane Kuhn
+ * @author Christiane Kuhn, Martin Rabe
  */
 public class EventPrivActivity extends Activity {
 
@@ -41,6 +53,62 @@ public class EventPrivActivity extends Activity {
 	setContentView(R.layout.eventpriv);
 	Intent intent = getIntent();
 	int event = intent.getIntExtra("eventID", 0);
+
+	ServerConnection scon = null;
+	scon = ServerConnection.getInstance();
+
+	List<String> rightholders = null;
+	List<String> deputies = null;
+	List<String> owners = null;
+
+	int eventID = 0;
+	eventID = 2; // TODO get eventID from previous activity
+	
+	try {
+	    rightholders = scon.getRightholders(eventID);
+	    deputies = scon.getDeputies(eventID);
+	    owners = scon.getOwners(eventID);
+	} catch (ClientProtocolException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (APIException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (PermissionException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (RequestNotPracticableException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (InternalErrorException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	} catch (IOException e) {
+	    PopUp.exceptionAlert(this, getString(R.string.io_ex),
+		    e.getMessage());
+	    // e.printStackTrace();
+	}
+
+	if (rightholders != null) {
+	    Log.v("RIGHTHOLDERS: ", rightholders.toString());
+	    // TODO display rightholders
+	}
+
+	if (deputies != null) {
+	    Log.v("DEPUTIES: ", deputies.toString());
+	    // TODO display deputies
+	}
+
+	if (owners != null) {
+	    Log.v("OWNERS: ", owners.toString());
+	    // TODO display owners
+	}
+
     }
 
     /**
