@@ -176,10 +176,11 @@ public class ChangeSingleEventActivity extends Activity {
 	String newSupervisor = supervisor.getText().toString();
 	String newLocation = location.getText().toString();
 	int newDura = durationtime.getInputType();
-	int eventID = sEventLocal.getEventID();
-	int oldSingleEventID = sEventLocal.getSingleEventID();
+	int eventID = 42; // TODO sEventLocal.getEventID();
+	int oldSingleEventID = 42; // TODO sEventLocal.getSingleEventID();
 	String msg = comment.getText().toString();
-
+	// those two lines break the app
+	
 	boolean success = false;
 
 	if (removeIt) {
