@@ -280,7 +280,7 @@ public class Database extends SQLiteOpenHelper {
 				+ String.valueOf(c.getInt(8) + 1) + "',";
 		    }
 		    if (sev.getDurationMinutesUpdateCounter() == 1) {
-			UpdateColumns = UpdateColumns + "duration='"
+			UpdateColumns = UpdateColumns + "durationMinutes='"
 				+ sev.getDurationMinutes()
 				+ "',durationMinutesUpdateCounter='"
 				+ String.valueOf(c.getInt(10) + 1) + "',";
@@ -438,11 +438,13 @@ public class Database extends SQLiteOpenHelper {
 		Cursor c = data.query("Event", columns, selection,
 			selectionArgs, groupBy, having, orderBy);
 
-		if (c.getCount() < 1)
+		if (c.getCount() < 1){
+		    c.close();
 		    throw new NoEventGroupException(
 			    "No matching EventGroup for Event "
 				    + String.valueOf(ev.getEventGroupID())
 				    + " found!");
+		}
 		c.close();
 	    }
 	}
@@ -968,9 +970,11 @@ public class Database extends SQLiteOpenHelper {
 	data.close();
     }
 
-    /**
-     * This Method deletes a SingleEvent from the Database
-     */
+/**    
+ * This Method deletes a SingleEvent from the Database
+ * 
+ * @param singleEventID
+ */
     public void deleteSingleEvent(int singleEventID) {
 	data = this.getWritableDatabase();
 	String deleteString = "DELETE FROM SingleEventLocal WHERE singleEventID='"
