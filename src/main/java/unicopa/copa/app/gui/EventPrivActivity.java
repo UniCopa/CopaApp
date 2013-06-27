@@ -17,6 +17,7 @@
 package unicopa.copa.app.gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
@@ -27,6 +28,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.exceptions.NoStorageException;
@@ -47,27 +50,32 @@ public class EventPrivActivity extends Activity {
      * Creates the EventPrivActivity with a list of all rightholders, deputies
      * and owners that belong to an event, that the user picked before.
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.eventpriv);
 	Intent intent = getIntent();
-	int event = intent.getIntExtra("eventID", 0);
+	int eventId = intent.getIntExtra("eventID", 0);
+
+	ListView rightholderList = (ListView) findViewById(R.id.eventpriv_list_rightholder);
+	ListView deputyList = (ListView) findViewById(R.id.eventpriv_list_deputy);
+	ListView ownerList = (ListView) findViewById(R.id.eventpriv_list_owner);
 
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
-	List<String> rightholders = null;
-	List<String> deputies = null;
-	List<String> owners = null;
+	ArrayList<String> rightholders = null;
+	ArrayList<String> deputies = null;
+	ArrayList<String> owners = null;
 
 	int eventID = 0;
-	eventID = 2; // TODO get eventID from previous activity
-	
+	eventID = eventId;
+
 	try {
-	    rightholders = scon.getRightholders(eventID);
-	    deputies = scon.getDeputies(eventID);
-	    owners = scon.getOwners(eventID);
+	    rightholders = (ArrayList<String>) scon.getRightholders(eventID);
+	    deputies = (ArrayList<String>) scon.getDeputies(eventID);
+	    owners = (ArrayList<String>) scon.getOwners(eventID);
 	} catch (ClientProtocolException e) {
 	    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
 		    e.getMessage());
@@ -96,17 +104,38 @@ public class EventPrivActivity extends Activity {
 
 	if (rightholders != null) {
 	    Log.v("RIGHTHOLDERS: ", rightholders.toString());
-	    // TODO display rightholders
+
+	    if (rightholders.isEmpty()) {
+		rightholders.add(getString(R.string.none_));
+	    }
+
+	    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+		    android.R.layout.simple_list_item_1, rightholders);
+	    rightholderList.setAdapter(arrayAdapter);
 	}
 
 	if (deputies != null) {
 	    Log.v("DEPUTIES: ", deputies.toString());
-	    // TODO display deputies
+
+	    if (deputies.isEmpty()) {
+		deputies.add(getString(R.string.none_));
+	    }
+
+	    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+		    android.R.layout.simple_list_item_1, deputies);
+	    deputyList.setAdapter(arrayAdapter);
 	}
 
 	if (owners != null) {
 	    Log.v("OWNERS: ", owners.toString());
-	    // TODO display owners
+
+	    if (owners.isEmpty()) {
+		owners.add(getString(R.string.none_));
+	    }
+
+	    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+		    android.R.layout.simple_list_item_1, owners);
+	    ownerList.setAdapter(arrayAdapter);
 	}
 
     }

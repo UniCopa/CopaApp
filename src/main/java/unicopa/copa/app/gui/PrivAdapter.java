@@ -162,7 +162,7 @@ public class PrivAdapter extends BaseAdapter {
 	    public void onClick(View v) {
 		Intent intentEventPriv = new Intent(context,
 			EventPrivActivity.class);
-		intentEventPriv.putExtra("key", "value");
+		intentEventPriv.putExtra("eventID", event.getEventID());
 		context.startActivity(intentEventPriv);
 
 	    }

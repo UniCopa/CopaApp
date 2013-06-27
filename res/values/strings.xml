@@ -116,5 +116,9 @@
     <string name="comment">Comment:</string>
     <string name="changed">You changed this date.</string>
     <string name="none">None</string>
+    <string name="none_">None</string>
+    <string name="rightholder">Rightholders:</string>
+    <string name="deputy">Deputies:</string>
+    <string name="owner">Owners:</string>
 
 </resources>

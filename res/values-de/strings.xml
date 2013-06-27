@@ -102,6 +102,9 @@
     <string name="comment">Kommentar:</string>
     <string name="changed">Sie haben diesen Termin bearbeitet.</string>
     <string name="none">Keiner</string>
-    
+    <string name="none_">Keine</string>
+    <string name="rightholder">Rechteinhaber:</string>
+    <string name="deputy">Stellvertreter:</string>
+    <string name="owner">Eigner:</string>
 
 </resources>
