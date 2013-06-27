@@ -120,5 +120,8 @@
     <string name="rightholder">Rightholders:</string>
     <string name="deputy">Deputies:</string>
     <string name="owner">Owners:</string>
+    <string name="change_user">Change User</string>
+    <string name="attention">Attention!</string>
+    <string name="userchanged">This will remove all stored events from your device.\n Enter new UserName:</string>
 
 </resources>

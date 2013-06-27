@@ -32,6 +32,8 @@ import unicopa.copa.base.com.exception.RequestNotPracticableException;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +59,8 @@ public class LoginActivity extends Activity {
     EditText pw;
     Button loginButton;
     Button logoutButton;
+    String userName;
+    TextView currentUserName;
 
     /**
      * Shows Layout and depending on whether the user is logged in or not the
@@ -71,23 +75,44 @@ public class LoginActivity extends Activity {
 	title = (TextView) findViewById(R.id.login_title);
 	user = (TextView) findViewById(R.id.login_username);
 	passwordtext = (TextView) findViewById(R.id.login_pw);
+	currentUserName = (TextView) findViewById(R.id.login_current_username);
 	name = (EditText) findViewById(R.id.login_usernameField);
 	pw = (EditText) findViewById(R.id.login_passwordField);
 	loginButton = (Button) findViewById(R.id.login_login_button);
 	logoutButton = (Button) findViewById(R.id.login_logout_button);
-
+	Button changeUser = (Button) findViewById(R.id.login_changeUser_button);
 	if (scon.getConnected()) {
 	    loginButton.setVisibility(View.GONE);
 	    user.setVisibility(View.GONE);
 	    passwordtext.setVisibility(View.GONE);
 	    name.setVisibility(View.GONE);
 	    pw.setVisibility(View.GONE);
+	    // changeUser.setVisibility(View.GONE);
 	    logoutButton.setVisibility(View.VISIBLE);
 	    title.setText(getString(R.string.title_logout));
 	} else {
 	    logoutButton.setVisibility(View.GONE);
 	    loginButton.setVisibility(View.VISIBLE);
 	    title.setText(getString(R.string.title_login));
+	}
+
+	Storage S = null;
+	S = Storage.getInstance(this.getApplicationContext());
+
+	SettingsLocal settings = null;
+
+	try {
+	    settings = S.load();
+	} catch (NoStorageException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	String actualUser = "bla";// settings.getUserName();
+	if (actualUser == "") {
+	    // changeUser.setVisibility(View.GONE);
+	} else {
+	    currentUserName.setText(actualUser);
+	    name.setVisibility(View.GONE);
 	}
 
     }
@@ -136,7 +161,7 @@ public class LoginActivity extends Activity {
 	// TODO check if already logged in
 	if (!scon.getConnected()) {
 
-	    String userName = "";
+	    userName = "";
 	    String password = "";
 
 	    // read userName and password from respective textEdit
@@ -204,15 +229,6 @@ public class LoginActivity extends Activity {
 		    storage.store(settingsLocal);
 		}
 
-		// change layout
-		// loginButton.setVisibility(View.GONE);
-		// user.setVisibility(View.GONE);
-		// passwordtext.setVisibility(View.GONE);
-		// name.setVisibility(View.GONE);
-		// pw.setVisibility(View.GONE);
-		// logoutButton.setVisibility(View.VISIBLE);
-		// title.setText(getString(R.string.title_logout));
-
 		finish();
 
 		Intent intentMain = new Intent(LoginActivity.this,
@@ -270,5 +286,44 @@ public class LoginActivity extends Activity {
 	default:
 	    return super.onOptionsItemSelected(item);
 	}
+    }
+
+    /**
+     * Is used if ChangeUserButton is clicked. Does the necessary steps to
+     * change the user if its possible. Informs the user about the other
+     * necessary steps.
+     * 
+     * @param view
+     */
+    public void onChangeUserButtonClick(View view) {
+
+	AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+	alert.setTitle(getString(R.string.attention));
+	alert.setMessage(getString(R.string.userchanged));
+
+	// Set an EditText view to get user input
+	final EditText input = new EditText(this);
+	alert.setView(input);
+
+	alert.setNegativeButton("Cancel",
+		new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int whichButton) {
+			// Canceled.
+
+		    }
+		});
+
+	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+	    public void onClick(DialogInterface dialog, int whichButton) {
+		userName = input.getText().toString();
+
+		currentUserName.setText(userName);
+		name.setVisibility(View.GONE);
+	    }
+	});
+
+	alert.show();
+
     }
 }
