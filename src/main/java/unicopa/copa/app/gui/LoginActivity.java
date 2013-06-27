@@ -61,6 +61,7 @@ public class LoginActivity extends Activity {
     Button logoutButton;
     String userName;
     TextView currentUserName;
+    boolean firstTime;
 
     /**
      * Shows Layout and depending on whether the user is logged in or not the
@@ -71,6 +72,7 @@ public class LoginActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.login);
 	Intent intent = getIntent();
+	firstTime = false;
 	fail = intent.getIntExtra("failed", 0);
 	title = (TextView) findViewById(R.id.login_title);
 	user = (TextView) findViewById(R.id.login_username);
@@ -86,8 +88,9 @@ public class LoginActivity extends Activity {
 	    user.setVisibility(View.GONE);
 	    passwordtext.setVisibility(View.GONE);
 	    name.setVisibility(View.GONE);
+	    currentUserName.setVisibility(View.GONE);
 	    pw.setVisibility(View.GONE);
-	    // changeUser.setVisibility(View.GONE);
+	    changeUser.setVisibility(View.GONE);
 	    logoutButton.setVisibility(View.VISIBLE);
 	    title.setText(getString(R.string.title_logout));
 	} else {
@@ -107,9 +110,10 @@ public class LoginActivity extends Activity {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	String actualUser = "bla";// settings.getUserName();
+	String actualUser = "";// TODO settings.getUserName();
 	if (actualUser == "") {
-	    // changeUser.setVisibility(View.GONE);
+	    changeUser.setVisibility(View.GONE);
+	    firstTime = true;
 	} else {
 	    currentUserName.setText(actualUser);
 	    name.setVisibility(View.GONE);
@@ -151,6 +155,20 @@ public class LoginActivity extends Activity {
      * @param view
      */
     public void onLoginButtonClick(View view) {
+	if (firstTime) {
+	    userName = name.getText().toString();
+	    Storage storage = null;
+	    storage = Storage.getInstance(null);
+	    SettingsLocal settings = null;
+	    try {
+		settings = storage.load();
+	    } catch (NoStorageException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	    // TODO store in SettingsLocal
+	    storage.store(settings);
+	}
 
 	// A Loading Screen or something similar would be nice. Otherwise when
 	// you click during load the app crashes.
@@ -161,12 +179,11 @@ public class LoginActivity extends Activity {
 	// TODO check if already logged in
 	if (!scon.getConnected()) {
 
-	    userName = "";
+	    // userName = "";
 	    String password = "";
 
 	    // read userName and password from respective textEdit
 	    EditText name = (EditText) findViewById(R.id.login_usernameField);
-	    userName = name.getText().toString();
 	    EditText pw = (EditText) findViewById(R.id.login_passwordField);
 	    password = pw.getText().toString();
 
@@ -316,10 +333,24 @@ public class LoginActivity extends Activity {
 
 	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 	    public void onClick(DialogInterface dialog, int whichButton) {
+		SettingsLocal settings = null;
+		Storage storage = null;
+		storage = Storage.getInstance(null);
+
+		try {
+		    settings = storage.load();
+		} catch (NoStorageException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+
 		userName = input.getText().toString();
+		// TODO store in SettingsLocal
+		storage.store(settings);
 
 		currentUserName.setText(userName);
 		name.setVisibility(View.GONE);
+
 	    }
 	});
 
