@@ -76,8 +76,7 @@ public class ChangeSingleEventActivity extends Activity {
 
 	Database db = Database.getInstance(ChangeSingleEventActivity.this);
 
-	SingleEventLocal sEventLocal = db
-		.getSingleEventBySingleEventID(sEventID);
+	sEventLocal = db.getSingleEventBySingleEventID(sEventID);
 	db.close();
 
 	TextView name = (TextView) findViewById(R.id.change_eventGroupname);
@@ -176,11 +175,10 @@ public class ChangeSingleEventActivity extends Activity {
 	String newSupervisor = supervisor.getText().toString();
 	String newLocation = location.getText().toString();
 	int newDura = durationtime.getInputType();
-	int eventID = 42; // TODO sEventLocal.getEventID();
-	int oldSingleEventID = 42; // TODO sEventLocal.getSingleEventID();
+	int eventID = sEventLocal.getEventID();
+	int oldSingleEventID = sEventLocal.getSingleEventID();
 	String msg = comment.getText().toString();
-	// those two lines break the app
-	
+
 	boolean success = false;
 
 	if (removeIt) {
@@ -259,12 +257,11 @@ public class ChangeSingleEventActivity extends Activity {
 	}
 
 	if (success) {
-	    PopUp.alert(this.getApplicationContext(),
-		    getString(R.string.success), getString(R.string.changed));
+	    PopUp.alert(this, getString(R.string.success),
+		    getString(R.string.changed));
 	} else {
-	    PopUp.alert(this.getApplicationContext(),
-		    getString(R.string.sorry), getString(R.string.wrong));
+	    PopUp.alert(this, getString(R.string.sorry),
+		    getString(R.string.wrong));
 	}
     }
-
 }

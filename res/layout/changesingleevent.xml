@@ -135,10 +135,7 @@
             android:layout_alignTop="@+id/change_static_new_supervisor"
             android:layout_toRightOf="@+id/change_static_supervisor"
             android:ems="10"
-            android:inputType="textPersonName" >
-
-            <requestFocus />
-        </EditText>
+            android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/change_static_new_time"
@@ -214,14 +211,6 @@
             android:layout_toLeftOf="@+id/change_time"
             android:text="@string/new_change" />
 
-        <CheckBox
-            android:id="@+id/change_remove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/change_button"
-            android:layout_centerHorizontal="true"
-            android:text="@string/remove" />
-
         <TextView
             android:id="@+id/change_static_date"
             android:layout_width="wrap_content"
@@ -240,6 +229,15 @@
             android:layout_below="@+id/change_static_date"
             android:layout_marginTop="27dp"
             android:layout_toRightOf="@+id/change_static_date" />
+
+        <CheckBox
+            android:id="@+id/change_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/change_button"
+            android:layout_toLeftOf="@+id/change_button"
+            android:text="@string/remove" />
+
     </RelativeLayout>
 
 </ScrollView>
