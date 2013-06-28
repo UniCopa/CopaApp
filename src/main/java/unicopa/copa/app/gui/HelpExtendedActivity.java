@@ -22,13 +22,14 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 
 /**
- * This activity shows the categories of help.
+ * This activity shows helpful information as the rights hierarchy of CoPA.
  * 
  * @author Christiane Kuhn
  */
-public class HelpActivity extends Activity {
+public class HelpExtendedActivity extends Activity {
 
     /**
      * Creates HelpActivity with a text.
@@ -37,28 +38,20 @@ public class HelpActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.help);
+	setContentView(R.layout.help_extended);
+	Intent intent = getIntent();
+	int from = intent.getIntExtra("from", 0);
+	TextView text = (TextView) findViewById(R.id.helpEx_text);
+	switch (from) {
+	case 1:
+	    text.setText(R.string.help_priv);
+	    break;
+	case 2:
+	    break;
+	case 3:
+	    break;
+	default:
+	    break;
+	}
     }
-
-    public void onPrivilegesButtonClick(View view) {
-	Intent intent = new Intent(HelpActivity.this,
-		HelpExtendedActivity.class);
-	intent.putExtra("from", 1);
-	HelpActivity.this.startActivity(intent);
-    }
-
-    public void onFunctionalityButtonClick(View view) {
-	Intent intent = new Intent(HelpActivity.this,
-		HelpExtendedActivity.class);
-	intent.putExtra("from", 2);
-	HelpActivity.this.startActivity(intent);
-    }
-
-    public void onExceptionButtonClick(View view) {
-	Intent intent = new Intent(HelpActivity.this,
-		HelpExtendedActivity.class);
-	intent.putExtra("from", 3);
-	HelpActivity.this.startActivity(intent);
-    }
-
 }
