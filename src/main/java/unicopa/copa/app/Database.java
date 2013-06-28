@@ -120,12 +120,13 @@ public class Database extends SQLiteOpenHelper {
 	    sqlString = delLast(sqlString) + ")";
 	return sqlString;
     }
-    
+
     /**
      * This is a debug-method to print local Tables in LogCat
+     * 
      * @param table
      */
-    public void printTable(String table){
+    public void printTable(String table) {
 	data = this.getReadableDatabase();
 	String columns[] = null;
 	String selection = null;
@@ -133,21 +134,22 @@ public class Database extends SQLiteOpenHelper {
 	String groupBy = null;
 	String having = null;
 	String orderBy = null;
-	Cursor c = data.query(table, columns, selection,
-		selectionArgs, groupBy, having, orderBy);
-	
-	if(c.getCount()>0){
+	Cursor c = data.query(table, columns, selection, selectionArgs,
+		groupBy, having, orderBy);
+
+	if (c.getCount() > 0) {
 	    c.moveToFirst();
-	    for(int i = 0; i<c.getCount(); i++){
-		Log.i("Table: "+table,"#####Dataset "+String.valueOf(i+1)+"#####");
-		for(int j = 0; j<c.getColumnCount();j++){
-		    Log.i(c.getColumnName(j),c.getString(j));
+	    for (int i = 0; i < c.getCount(); i++) {
+		Log.i("Table: " + table,
+			"#####Dataset " + String.valueOf(i + 1) + "#####");
+		for (int j = 0; j < c.getColumnCount(); j++) {
+		    Log.i(c.getColumnName(j), c.getString(j));
 		}
 		c.moveToNext();
 	    }
 	}
-	   c.close();
-	   data.close();
+	c.close();
+	data.close();
     }
 
     /**
@@ -254,7 +256,7 @@ public class Database extends SQLiteOpenHelper {
      * @throws NoEventException
      */
     public void insert(Object obj, int ID_old) throws NoEventGroupException,
-	    NoEventException{
+	    NoEventException {
 	data = this.getWritableDatabase();
 	String TableName = obj.getClass().getSimpleName();
 	boolean newEntry = false;
@@ -269,29 +271,30 @@ public class Database extends SQLiteOpenHelper {
 
 		// Test whether SingleEvent is canceled
 		if (sev.getSingleEventID() == 0 && sev.getEventID() == 0) {
-		    	//test ID_old
-			String columns[] = {"singleEventID"};
-			String selection = "singleEventID='" + String.valueOf(ID_old)
-				+ "'";
-			String selectionArgs[] = null;
-			String groupBy = null;
-			String having = null;
-			String orderBy = null;
-			Cursor c = data.query(TableName, columns, selection,
-				selectionArgs, groupBy, having, orderBy);
-			if(c.getCount()>=1){
-		    c.close();
-		    String cancelString = "UPDATE SingleEventLocal SET durationMinutes = '0' WHERE singleEventID='"
+		    // test ID_old
+		    String columns[] = { "singleEventID" };
+		    String selection = "singleEventID='"
 			    + String.valueOf(ID_old) + "'";
-		    Log.w("try", cancelString);
-		    data.execSQL(cancelString);
-		    return;
+		    String selectionArgs[] = null;
+		    String groupBy = null;
+		    String having = null;
+		    String orderBy = null;
+		    Cursor c = data.query(TableName, columns, selection,
+			    selectionArgs, groupBy, having, orderBy);
+		    if (c.getCount() >= 1) {
+			c.close();
+			String cancelString = "UPDATE SingleEventLocal SET durationMinutes = '0' WHERE singleEventID='"
+				+ String.valueOf(ID_old) + "'";
+			Log.w("try", cancelString);
+			data.execSQL(cancelString);
+			return;
+		    } else {
+			c.close();
+			Log.e("SingleEvent canceled",
+				"No SingleEvent with ID_old "
+					+ String.valueOf(ID_old) + " found!");
+			return;
 		    }
-			else {
-			    c.close();
-			    Log.e("SingleEvent canceled","No SingleEvent with ID_old "+String.valueOf(ID_old)+" found!");
-			    return;
-			}
 		}
 
 		String columns[] = null;
@@ -486,7 +489,7 @@ public class Database extends SQLiteOpenHelper {
 		Cursor c = data.query("Event", columns, selection,
 			selectionArgs, groupBy, having, orderBy);
 
-		if (c.getCount() < 1){
+		if (c.getCount() < 1) {
 		    c.close();
 		    throw new NoEventGroupException(
 			    "No matching EventGroup for Event "
@@ -786,7 +789,7 @@ public class Database extends SQLiteOpenHelper {
 		} else {
 		    Log.w("error", "no Event with ID " + c.getString(0)
 			    + " found");
-		  //  ev_c.close();
+		    // ev_c.close();
 		}
 		ev_c.close();
 		c.moveToNext();
@@ -833,46 +836,34 @@ public class Database extends SQLiteOpenHelper {
 	    eventID = iter.next();
 	    Log.w("Database", "eventID=" + String.valueOf(eventID) + " perm="
 		    + String.valueOf(permissionCode));
-/*	TODO test whether event got eventGroup
-	    // Test Event
-	    String ev_columns[] = { "eventID","eventGroupID" };
-	    String ev_selection = "eventID = '" + String.valueOf(eventID) + "'";
-	    String ev_selectionArgs[] = null;
-	    String ev_groupBy = null;
-	    String ev_having = null;
-	    String ev_orderBy = "";
-
-	    Cursor ev_c = data.query("Event", ev_columns, ev_selection,
-		    ev_selectionArgs, ev_groupBy, ev_having, ev_orderBy);
-
-	    if (ev_c.getCount() < 1) {
-		ev_c.close();
-		throw new NoEventException(eventID);
-	    }
-
-	    else {
-		ev_c.moveToFirst();
-		String evg_columns[] = { "eventGroupID" };
-		String evg_selection = "eventGroupID = '" + ev_c.getString(1)
-			+ "'";
-		String evg_selectionArgs[] = null;
-		String evg_groupBy = null;
-		String evg_having = null;
-		String evg_orderBy = "";
-
-		Cursor evg_c = data.query("EventGroup", evg_columns,
-			evg_selection, evg_selectionArgs, evg_groupBy,
-			evg_having, evg_orderBy);
-
-		if (evg_c.getCount() < 1) {
-		    evg_c.close();
-		    throw new NoEventGroupException("No matching EventGroup="
-			    + ev_c.getString(1) + " for Event "
-			    + String.valueOf(eventID) + " found!");
-		}
-		evg_c.close();
-	    }
-	    ev_c.close();*/
+	    /*
+	     * TODO test whether event got eventGroup // Test Event String
+	     * ev_columns[] = { "eventID","eventGroupID" }; String ev_selection
+	     * = "eventID = '" + String.valueOf(eventID) + "'"; String
+	     * ev_selectionArgs[] = null; String ev_groupBy = null; String
+	     * ev_having = null; String ev_orderBy = "";
+	     * 
+	     * Cursor ev_c = data.query("Event", ev_columns, ev_selection,
+	     * ev_selectionArgs, ev_groupBy, ev_having, ev_orderBy);
+	     * 
+	     * if (ev_c.getCount() < 1) { ev_c.close(); throw new
+	     * NoEventException(eventID); }
+	     * 
+	     * else { ev_c.moveToFirst(); String evg_columns[] = {
+	     * "eventGroupID" }; String evg_selection = "eventGroupID = '" +
+	     * ev_c.getString(1) + "'"; String evg_selectionArgs[] = null;
+	     * String evg_groupBy = null; String evg_having = null; String
+	     * evg_orderBy = "";
+	     * 
+	     * Cursor evg_c = data.query("EventGroup", evg_columns,
+	     * evg_selection, evg_selectionArgs, evg_groupBy, evg_having,
+	     * evg_orderBy);
+	     * 
+	     * if (evg_c.getCount() < 1) { evg_c.close(); throw new
+	     * NoEventGroupException("No matching EventGroup=" +
+	     * ev_c.getString(1) + " for Event " + String.valueOf(eventID) +
+	     * " found!"); } evg_c.close(); } ev_c.close();
+	     */
 
 	    String updateString = "UPDATE SingleEventLocal SET permission = '"
 		    + String.valueOf(permissionCode) + "' WHERE eventID = '"
@@ -940,7 +931,7 @@ public class Database extends SQLiteOpenHelper {
 	} else {
 	    c.close();
 
-	    String Event_columns[] = { "eventID","eventGroupID" };
+	    String Event_columns[] = { "eventID", "eventGroupID" };
 	    String Event_selection = "eventID = '" + String.valueOf(eventID)
 		    + "'";
 	    String Event_selectionArgs[] = null;
@@ -951,55 +942,55 @@ public class Database extends SQLiteOpenHelper {
 	    Cursor ev_c = data.query("Event", Event_columns, Event_selection,
 		    Event_selectionArgs, Event_groupBy, Event_having,
 		    Event_orderBy);
-	    
-	    
-	    if (ev_c.getCount() < 1){
-		Log.e("deleting_error","No Event with ID "+String.valueOf(eventID)+" found in local Database!");
+
+	    if (ev_c.getCount() < 1) {
+		Log.e("deleting_error",
+			"No Event with ID " + String.valueOf(eventID)
+				+ " found in local Database!");
 		ev_c.close();
+	    } else {
+
+		ev_c.moveToFirst();
+		String eventGroupID = ev_c.getString(1);
+		ev_c.close();
+
+		// check whether Event is last in EventGroup
+		String Event1_columns[] = { "eventID", "eventGroupID" };
+		String Event1_selection = "eventGroupID = '" + eventGroupID
+			+ "'";
+		String Event1_selectionArgs[] = null;
+		String Event1_groupBy = null;
+		String Event1_having = null;
+		String Event1_orderBy = "";
+
+		Cursor ev1_c = data.query("Event", Event1_columns,
+			Event1_selection, Event1_selectionArgs, Event1_groupBy,
+			Event1_having, Event1_orderBy);
+
+		if (ev1_c.getCount() < 2) {
+		    lastEvent = true;
+		    Log.w("Database", "this is the last Event with ID "
+			    + eventGroupID);
+		}
+
+		// delete Event
+		String deleteEventString = "DELETE FROM Event WHERE eventID = '"
+			+ String.valueOf(eventID) + "'";
+		String deleteSingleEventString = "DELETE FROM SingleEventLocal WHERE eventID = '"
+			+ String.valueOf(eventID) + "'";
+		Log.w("try", deleteEventString);
+		data.execSQL(deleteEventString);
+		Log.w("try", deleteSingleEventString);
+		data.execSQL(deleteSingleEventString);
+
+		if (lastEvent) {
+		    String deleteEventGroupString = "DELETE FROM EventGroup WHERE eventGroupID = '"
+			    + eventGroupID + "'";
+		    Log.w("try", deleteEventGroupString);
+		    data.execSQL(deleteEventGroupString);
+		}
+
 	    }
-	    else{
-	  
-	    
-	    ev_c.moveToFirst();
-	    String eventGroupID = ev_c.getString(1);	    
-	    ev_c.close();
-
-	    //check whether Event is last in EventGroup
-	    String Event1_columns[] = { "eventID","eventGroupID" };
-	    String Event1_selection = "eventGroupID = '" + eventGroupID
-		    + "'";
-	    String Event1_selectionArgs[] = null;
-	    String Event1_groupBy = null;
-	    String Event1_having = null;
-	    String Event1_orderBy = "";
-
-	    Cursor ev1_c = data.query("Event", Event1_columns, Event1_selection,
-		    Event1_selectionArgs, Event1_groupBy, Event1_having,
-		    Event1_orderBy);
-	    
-	    if(ev1_c.getCount()<2){
-		lastEvent=true;
-		Log.w("Database","this is the last Event with ID "+eventGroupID);
-	    }
-	    
-	    // delete Event
-	    String deleteEventString = "DELETE FROM Event WHERE eventID = '"
-		    + String.valueOf(eventID) + "'";
-	    String deleteSingleEventString = "DELETE FROM SingleEventLocal WHERE eventID = '"
-		    + String.valueOf(eventID) + "'";
-	    Log.w("try", deleteEventString);
-	    data.execSQL(deleteEventString);
-	    Log.w("try", deleteSingleEventString);
-	    data.execSQL(deleteSingleEventString);
-
-	    if (lastEvent) {
-		String deleteEventGroupString = "DELETE FROM EventGroup WHERE eventGroupID = '"
-			+ eventGroupID + "'";
-		Log.w("try", deleteEventGroupString);
-		data.execSQL(deleteEventGroupString);
-	    }
-
-	}
 	}
 	data.close();
     }
@@ -1042,11 +1033,11 @@ public class Database extends SQLiteOpenHelper {
 	data.close();
     }
 
-/**    
- * This Method deletes a SingleEvent from the Database
- * 
- * @param singleEventID
- */
+    /**
+     * This Method deletes a SingleEvent from the Database
+     * 
+     * @param singleEventID
+     */
     public void deleteSingleEvent(int singleEventID) {
 	data = this.getWritableDatabase();
 	String deleteString = "DELETE FROM SingleEventLocal WHERE singleEventID='"
@@ -1054,6 +1045,21 @@ public class Database extends SQLiteOpenHelper {
 	Log.w("try", deleteString);
 	data.execSQL(deleteString);
 	data.close();
+    }
+
+    /**
+     * This method sets the durationMinutes for the matching singleEvent to 0.
+     * This symbolizes that the SingleEvent is canceled.
+     * 
+     * @param singleEventID
+     */
+    public void setCanceled(int singleEventID) {
+	String cancelString;
+	cancelString = "UPDATE SingleEventLocal SET durationMinutes = '0' WHERE singleEventID='"
+		+ String.valueOf(singleEventID) + "'";
+
+	Log.w("try", cancelString);
+	data.execSQL(cancelString);
     }
 
 }
