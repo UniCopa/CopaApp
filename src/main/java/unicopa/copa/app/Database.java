@@ -261,6 +261,7 @@ public class Database extends SQLiteOpenHelper {
 			else {
 			    c.close();
 			    Log.e("SingleEvent canceled","No SingleEvent with ID_old "+String.valueOf(ID_old)+" found!");
+			    return;
 			}
 		}
 
