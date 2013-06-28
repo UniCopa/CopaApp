@@ -571,8 +571,11 @@ public class Helper {
     public static SingleEventLocal checkChanges(
 	    List<SingleEventUpdate> sEventUpdateList) {
 
+	int size = 0;
+	size = sEventUpdateList.size();
+	
 	SingleEvent newestSEvent = null;
-	newestSEvent = sEventUpdateList.get(0).getUpdatedSingleEvent();
+	newestSEvent = sEventUpdateList.get(size - 1).getUpdatedSingleEvent();
 
 	String location = "";
 	location = newestSEvent.getLocation();
