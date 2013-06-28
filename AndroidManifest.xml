@@ -87,6 +87,9 @@
         <activity
             android:name="unicopa.copa.app.gui.HelpActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name="unicopa.copa.app.gui.HelpExtendedActivity"
+            android:label="@string/app_name" />
 
         <receiver
             android:name="unicopa.copa.app.gcm.GCMBroadcastReceiver"
