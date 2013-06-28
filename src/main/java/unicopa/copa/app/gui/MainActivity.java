@@ -113,7 +113,6 @@ public class MainActivity extends Activity {
 	// while developing the app, then uncomment it when it's ready.
 	GCMRegistrar.checkManifest(this);
 	setContentView(R.layout.main);
-	mDisplay = (TextView) findViewById(R.id.display);
 	registerReceiver(mHandleMessageReceiver, new IntentFilter(
 		DISPLAY_MESSAGE_ACTION));
 	final String regId = GCMRegistrar.getRegistrationId(this
@@ -316,6 +315,7 @@ public class MainActivity extends Activity {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 	    String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
+	    Log.e("new message",newMessage);
 	    mDisplay.append(newMessage + "\n");
 	}
     };

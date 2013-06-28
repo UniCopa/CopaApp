@@ -17,6 +17,7 @@ package unicopa.copa.app;
 
 import static unicopa.copa.app.GCMCommonUtilities.SENDER_ID;
 import static unicopa.copa.app.GCMCommonUtilities.displayMessage;
+import static unicopa.copa.app.gcm.GCMConstants.EXTRA_SPECIAL_MESSAGE;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -63,19 +64,36 @@ public class GCMIntentService extends GCMBaseIntentService {
     }
 
     @Override
+    protected void onMessage(Context arg0, Intent intent) {
+
+            Log.d(TAG, "MESSAGE RECEIVED : "+intent.getExtras().toString());
+            String action  = intent.getStringExtra("msg");
+            int extra = 0;
+            try {
+                    extra = Integer.parseInt(intent.getStringExtra("action_id"));
+            } catch (Exception e){
+                    /* ignore */
+            }
+            String message = intent.getStringExtra("msg");
+            Log.w("wjne",action);
+            Log.w("wjne",String.valueOf(extra));
+            generateNotification(getApplicationContext(), message);
+    }
+    /*
+    @Override
     protected void onMessage(Context context, Intent intent) {
         Log.i(TAG, "Received message");
         String message = getString(R.string.gcm_message);
         displayMessage(context, message);
         // notifies user
         generateNotification(context, message);
-    }
+    }*/
 
     @Override
     protected void onDeletedMessages(Context context, int total) {
         Log.i(TAG, "Received deleted messages notification");
         String message = getString(R.string.gcm_deleted, total);
-        displayMessage(context, message);
+        //displayMessage(context, message);
         // notifies user
         generateNotification(context, message);
     }
@@ -83,15 +101,15 @@ public class GCMIntentService extends GCMBaseIntentService {
     @Override
     public void onError(Context context, String errorId) {
         Log.i(TAG, "Received error: " + errorId);
-        displayMessage(context, getString(R.string.gcm_error, errorId));
+        //displayMessage(context, getString(R.string.gcm_error, errorId));
     }
 
     @Override
     protected boolean onRecoverableError(Context context, String errorId) {
         // log message
         Log.i(TAG, "Received recoverable error: " + errorId);
-        displayMessage(context, getString(R.string.gcm_recoverable_error,
-                errorId));
+        //displayMessage(context, getString(R.string.gcm_recoverable_error,
+        //        errorId));
         return super.onRecoverableError(context, errorId);
     }
 

@@ -43,7 +43,7 @@ public final class GCMCommonUtilities {
      * Intent used to display a message in the screen.
      */
     public static final String DISPLAY_MESSAGE_ACTION =
-            "com.google.android.gcm.demo.app.DISPLAY_MESSAGE";
+            "unicopa.copa.app.DISPLAY_MESSAGE";
 
     /**
      * Intent's extra that contains the message to be displayed.
@@ -60,7 +60,7 @@ public final class GCMCommonUtilities {
      * @param message message to be displayed.
      */
     static void displayMessage(Context context, String message) {
-        Intent intent = new Intent(DISPLAY_MESSAGE_ACTION);
+        Intent intent = new Intent(/*DISPLAY_MESSAGE_ACTION*/);
         intent.putExtra(EXTRA_MESSAGE, message);
         context.sendBroadcast(intent);
     }
