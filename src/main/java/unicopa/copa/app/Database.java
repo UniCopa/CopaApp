@@ -296,6 +296,8 @@ public class Database extends SQLiteOpenHelper {
 			    + " SET singleEventID='" + sev.getSingleEventID()
 			    + "',";
 
+		    
+		    
 		    if (sev.getDateUpdateCounter() == 1) {
 			UpdateColumns = UpdateColumns + "date='"
 				+ sev.getDate() + "',dateUpdateCounter='"
@@ -319,8 +321,8 @@ public class Database extends SQLiteOpenHelper {
 				+ "',durationMinutesUpdateCounter='"
 				+ String.valueOf(c.getInt(10) + 1) + "',";
 		    }
-		    UpdateColumns = delLast(UpdateColumns)
-			    + " WHERE singleEventID='" + ID_old + "'";
+		    UpdateColumns = UpdateColumns + ",comment = '"+sev.getComment()+"'";
+		    UpdateColumns = UpdateColumns + " WHERE singleEventID='" + String.valueOf(ID_old) + "'";
 
 		    // check whether SingleEvent has an existing Event
 		    String Tcolumns[] = { "eventID" };
