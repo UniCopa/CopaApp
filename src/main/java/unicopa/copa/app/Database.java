@@ -120,6 +120,35 @@ public class Database extends SQLiteOpenHelper {
 	    sqlString = delLast(sqlString) + ")";
 	return sqlString;
     }
+    
+    /**
+     * This is a debug-method to print local Tables in LogCat
+     * @param table
+     */
+    public void printTable(String table){
+	data = this.getReadableDatabase();
+	String columns[] = null;
+	String selection = null;
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = null;
+	Cursor c = data.query(table, columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	
+	if(c.getCount()>0){
+	    c.moveToFirst();
+	    for(int i = 0; i<c.getCount(); i++){
+		Log.i("Table: "+table,"#####Dataset "+String.valueOf(i+1)+"#####");
+		for(int j = 0; j<c.getColumnCount();j++){
+		    Log.i(c.getColumnName(j),c.getString(j));
+		}
+		c.moveToNext();
+	    }
+	}
+	   c.close();
+	   data.close();
+    }
 
     /**
      * This is a helper-method to create the SQLDatabase-schemeString for
