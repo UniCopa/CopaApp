@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -53,6 +54,12 @@ import android.widget.TimePicker;
  */
 public class ChangeSingleEventActivity extends Activity {
 
+    EditText location;
+    DatePicker datePicker;
+    TimePicker timePicker;
+    EditText supervisor;
+    EditText durationtime;
+    EditText comment;
     SingleEventLocal sEventLocal = null;
 
     /**
@@ -79,19 +86,48 @@ public class ChangeSingleEventActivity extends Activity {
 	sEventLocal = db.getSingleEventBySingleEventID(sEventID);
 	db.close();
 
+	location = (EditText) findViewById(R.id.change_edit_location);
+	datePicker = (DatePicker) findViewById(R.id.change_edit_date);
+	timePicker = (TimePicker) findViewById(R.id.timePicker1);
+	supervisor = (EditText) findViewById(R.id.change_edit_supervisor);
+	durationtime = (EditText) findViewById(R.id.change_edit_dura);
+	comment = (EditText) findViewById(R.id.change_comment);
+
 	TextView name = (TextView) findViewById(R.id.change_eventGroupname);
-	TextView location = (TextView) findViewById(R.id.change_location);
+	TextView locationText = (TextView) findViewById(R.id.change_location);
 	TextView date = (TextView) findViewById(R.id.change_date);
 	TextView time = (TextView) findViewById(R.id.change_time);
-	TextView supervisor = (TextView) findViewById(R.id.change_supervisor);
-	TextView durationtime = (TextView) findViewById(R.id.change_dura);
+	TextView supervisorText = (TextView) findViewById(R.id.change_supervisor);
+	TextView durationtimeText = (TextView) findViewById(R.id.change_dura);
 
 	name.setText(sEventLocal.getName());
-	location.setText(sEventLocal.getLocation());
+	locationText.setText(sEventLocal.getLocation());
 	date.setText(new SimpleDateFormat("dd.MM").format(sEventLocal.getDate()));
 	time.setText(new SimpleDateFormat("HH:mm").format(sEventLocal.getDate()));
+	supervisorText.setText(sEventLocal.getSupervisor());
+	durationtimeText.setText(String.valueOf(sEventLocal
+		.getDurationMinutes()));
+	location.setText(sEventLocal.getLocation());
+	datePicker.setTag(sEventLocal.getDate());
+	timePicker.setTag(sEventLocal.getDate());
 	supervisor.setText(sEventLocal.getSupervisor());
 	durationtime.setText(String.valueOf(sEventLocal.getDurationMinutes()));
+
+	// just to convert date to calendar
+	Date actualDate = sEventLocal.getDate();
+	Calendar cal = new GregorianCalendar();
+	cal.setTime(actualDate);
+
+	int year = cal.get(Calendar.YEAR);
+	int month = cal.get(Calendar.MONTH);
+	int day = cal.get(Calendar.DAY_OF_MONTH);
+	int hour = cal.get(Calendar.HOUR_OF_DAY);
+	int min = cal.get(Calendar.MINUTE);
+
+	datePicker.updateDate(year, month, day);
+
+	timePicker.setCurrentHour(hour);
+	timePicker.setCurrentMinute(min);
 
     }
 
@@ -152,12 +188,7 @@ public class ChangeSingleEventActivity extends Activity {
      * 
      */
     public void onApplyButtonClick(View view) {
-	EditText location = (EditText) findViewById(R.id.change_edit_location);
-	DatePicker datePicker = (DatePicker) findViewById(R.id.change_edit_date);
-	TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker1);
-	EditText supervisor = (EditText) findViewById(R.id.change_edit_supervisor);
-	EditText durationtime = (EditText) findViewById(R.id.change_edit_dura);
-	EditText comment = (EditText) findViewById(R.id.change_comment);
+
 	CheckBox remove = (CheckBox) findViewById(R.id.change_remove);
 
 	boolean removeIt = remove.isChecked();
