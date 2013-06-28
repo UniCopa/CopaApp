@@ -109,6 +109,25 @@
         <b>Deputy</b>\nA deputy is appointed by an owner of an event. \nAs a deputy you can discard your privileges as a deputy or appoint and remove rightholders on the CoPA-Website. A deputy can also see all owners, deputies and rightholders of his event and change dates of his event.This works from the CoPA-App and CoPA-Website. \n\n 
         <b>Rightholder</b>\nA rightholder is appointed by an owner or a deputy of an event.\nAs a rightholder you can discard your privileges on the CoPA-Website.You can also change dates with the CoPA-App or on the -Website and see all owners, deputies and rightholders.But a rightholder has no chance to appoint anyone.</string>
     <string name="accept_title">Data protection declaration of consent</string>
+    <string name="help_functionality">These are all functionalities that are useable with the CoPA-App:\n\n
+        <b>Login</b>\n\n
+        <b>Logout</b>\n\n
+        <b>Search</b>\n\n
+        <b>Subscribe</b>\n\n
+        <b>Unsubscribe</b>\n\n
+        <b>Get updates</b>\n\n
+        <b>See subscribed events</b>\n\n
+        <b>See an informationtext from an event</b>\n\n
+        <b>See events with privileges</b>\n\n
+        <b>See owners,deputies and rightholders of an event</b>\n\n
+        <b>Change date of an event</b>\n\n
+        <b>Change color of an event</b>\n\n
+        <b>Change e-mail-/CoPA-Website-language</b>\n\n
+        <b>Change kind of notification</b>\n\n
+        \nThese functionalities are only reachable from the CoPA-Website:\n
+        <b>Discard a privilege</b>\n\n
+        <b>Appoint deputies/rightholders</b>\n
+        </string>
     <string name="accept_msg">I allow CoPA to use ...</string>
     <string name="accept_no">No!</string>
     <string name="accept">I accept.</string>

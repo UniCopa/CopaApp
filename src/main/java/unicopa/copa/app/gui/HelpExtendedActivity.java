@@ -47,6 +47,7 @@ public class HelpExtendedActivity extends Activity {
 	    text.setText(R.string.help_priv);
 	    break;
 	case 2:
+	    text.setText(R.string.help_functionality);
 	    break;
 	case 3:
 	    break;
