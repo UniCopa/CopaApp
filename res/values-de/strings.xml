@@ -41,6 +41,10 @@
     <string name="gcm_auto">automatisch pushen</string>
     <string name="gcm_manu">manuell pushen</string>
     <string name="gcm_none">manuell</string>
+    <string name="gcm_USER_SETTINGS_CHANGED">Nutzereinstellungen</string>
+    <string name="gcm_SERVER_STATUS_NOTE">CoPA-Serverstatus</string>
+    <string name="gcm_USER_EVENT_PERMISSIONS_CHANGED">Berechtigungen</string>
+    <string name="gcm_SINGLE_EVENT_UPDATE">Einzelveranstaltung</string>
     <string name="success">Erfolreich!</string>
     <string name="settings_saved">Ihre Einstellungen wurden gespeichert.</string>
     <string name="logged_out">Sie haben sich ausgeloggt.</string>

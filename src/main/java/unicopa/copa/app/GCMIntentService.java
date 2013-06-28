@@ -68,16 +68,27 @@ public class GCMIntentService extends GCMBaseIntentService {
 
             Log.d(TAG, "MESSAGE RECEIVED : "+intent.getExtras().toString());
             String action  = intent.getStringExtra("msg");
-            int extra = 0;
-            try {
-                    extra = Integer.parseInt(intent.getStringExtra("action_id"));
-            } catch (Exception e){
-                    /* ignore */
+            String gcmNotification = "Something got updated";
+            
+            if(action.equals("USER_SETTINGS_CHANGED")){
+        	gcmNotification = getString(R.string.gcm_USER_SETTINGS_CHANGED);
+        	//TODO handle change of UserSettings
+        	
             }
-            String message = intent.getStringExtra("msg");
-            Log.w("wjne",action);
-            Log.w("wjne",String.valueOf(extra));
-            generateNotification(getApplicationContext(), message);
+            if(action.equals("SERVER_STATUS_NOTE")){
+        	gcmNotification = getString(R.string.gcm_SERVER_STATUS_NOTE);
+        	//TODO handle change of UserSettings
+            }
+            if(action.equals("USER_EVENT_PERMISSIONS_CHANGED")){
+        	gcmNotification = getString(R.string.gcm_USER_EVENT_PERMISSIONS_CHANGED);
+        	//TODO handle change of UserSettings
+            }
+            if(action.equals("SINGLE_EVENT_UPDATE")){
+        	gcmNotification = getString(R.string.gcm_SINGLE_EVENT_UPDATE);
+        	//TODO handle change of UserSettings
+            }
+            
+            generateNotification(getApplicationContext(), gcmNotification);
     }
     /*
     @Override

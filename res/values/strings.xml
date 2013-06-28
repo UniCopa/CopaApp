@@ -61,6 +61,10 @@
     <string name="gcm_error">From GCM: error (%1$s).</string>
     <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
     <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
+    <string name="gcm_USER_SETTINGS_CHANGED">UserSettings</string>
+    <string name="gcm_SERVER_STATUS_NOTE">CoPA-Server-Status</string>
+    <string name="gcm_USER_EVENT_PERMISSIONS_CHANGED">Permissions</string>
+    <string name="gcm_SINGLE_EVENT_UPDATE">SingleEvent</string>
     <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on CoPA Server.</string>
     <string name="server_registered">From CoPA Server: successfully added device!</string>
     <string name="server_unregistered">From Demo Server: successfully removed device!</string>
