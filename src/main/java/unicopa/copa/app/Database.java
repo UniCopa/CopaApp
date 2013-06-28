@@ -223,10 +223,9 @@ public class Database extends SQLiteOpenHelper {
      * @param ID_old
      * @throws NoEventGroupException
      * @throws NoEventException
-     * @throws NoSingleEventException 
      */
     public void insert(Object obj, int ID_old) throws NoEventGroupException,
-	    NoEventException, NoSingleEventException {
+	    NoEventException{
 	data = this.getWritableDatabase();
 	String TableName = obj.getClass().getSimpleName();
 	boolean newEntry = false;
@@ -261,7 +260,7 @@ public class Database extends SQLiteOpenHelper {
 		    }
 			else {
 			    c.close();
-			    throw new NoSingleEventException("No SingleEvent found with ID "+String.valueOf(ID_old));
+			    Log.e("SingleEvent canceled","No SingleEvent with ID_old "+String.valueOf(ID_old)+" found!");
 			}
 		}
 
