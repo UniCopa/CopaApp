@@ -70,7 +70,10 @@ public class Helper {
 	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException {
 
-	// TODO perform update if ((gmc-manu and notify) or none) ==true
+	// TODO if (gmc-auto or (gmc-manu and !notift)) == true
+	// setLastUpdate(currentDate)
+
+	// TODO perform update if ((gmc-manu and notify) or none) == true
 
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
@@ -133,19 +136,9 @@ public class Helper {
 		    // This should never happen
 		    e2.printStackTrace();
 		}
-		// e1.printStackTrace();
-		catch (NoSingleEventException e) {
-		    // TODO should not happen if in db in right order
-		    e.printStackTrace();
-		}
 	    } catch (NoEventException e1) {
 		// This should never happen
 		e1.printStackTrace();
-	    }
-	    // e.printStackTrace();
-	    catch (NoSingleEventException e) {
-		// TODO get singleEvent and save it to db
-		// e.printStackTrace();
 	    }
 	}
 
@@ -194,23 +187,10 @@ public class Helper {
 			    // This should never happen
 			    e2.printStackTrace();
 			}
-			// e1.printStackTrace();
-			catch (NoSingleEventException e2) {
-			    // TODO Auto-generated catch block
-			    e2.printStackTrace();
-			}
 		    } catch (NoEventException e1) {
 			// This should never happen
 			e1.printStackTrace();
 		    }
-		    // e.printStackTrace();
-		    catch (NoSingleEventException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		    }
-		} catch (NoSingleEventException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
 		}
 	    }
 	}
@@ -483,9 +463,6 @@ public class Helper {
 		    } catch (NoEventException e2) {
 			// This should never happen
 			e2.printStackTrace();
-		    } catch (NoSingleEventException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
 		    }
 
 		    // e1.printStackTrace();
@@ -493,14 +470,6 @@ public class Helper {
 		    // This should never happen
 		    e1.printStackTrace();
 		}
-		// e.printStackTrace();
-		catch (NoSingleEventException e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
-		}
-	    } catch (NoSingleEventException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
 	    }
 	}
 
@@ -585,11 +554,6 @@ public class Helper {
 		// e1.printStackTrace();
 	    } catch (NoEventException e1) {
 		// This should never happen
-		e1.printStackTrace();
-	    }
-	    // e.printStackTrace();
-	    catch (NoSingleEventException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	    }
 	}
