@@ -270,31 +270,14 @@ public class Database extends SQLiteOpenHelper {
 	    if (!newEntry) {
 
 		// Test whether SingleEvent is canceled
-		if (sev.getSingleEventID() == 0 && sev.getEventID() == 0) {
-		    // test ID_old
-		    String columns[] = { "singleEventID" };
-		    String selection = "singleEventID='"
-			    + String.valueOf(ID_old) + "'";
-		    String selectionArgs[] = null;
-		    String groupBy = null;
-		    String having = null;
-		    String orderBy = null;
-		    Cursor c = data.query(TableName, columns, selection,
-			    selectionArgs, groupBy, having, orderBy);
-		    if (c.getCount() >= 1) {
-			c.close();
-			String cancelString = "UPDATE SingleEventLocal SET durationMinutes = '0' WHERE singleEventID='"
-				+ String.valueOf(ID_old) + "'";
-			Log.w("try", cancelString);
-			data.execSQL(cancelString);
-			return;
-		    } else {
-			c.close();
-			Log.e("SingleEvent canceled",
-				"No SingleEvent with ID_old "
-					+ String.valueOf(ID_old) + " found!");
-			return;
-		    }
+		if (sev.getSingleEventID() == 0 || sev.getEventID() == 0) {
+		    Log.w("Database_insert",
+			    "rejected SingleEvent with singleEventID="
+				    + String.valueOf(sev.getSingleEventID())
+				    + " eventID="
+				    + String.valueOf(sev.getEventID())
+				    + " old_ID=" + String.valueOf(ID_old));
+		    return;
 		}
 
 		String columns[] = null;
