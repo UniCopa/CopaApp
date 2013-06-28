@@ -30,9 +30,8 @@ import android.content.Context;
 
 import unicopa.copa.app.exceptions.NoEventException;
 import unicopa.copa.app.exceptions.NoEventGroupException;
+import unicopa.copa.app.exceptions.NoSingleEventException;
 import unicopa.copa.app.exceptions.NoStorageException;
-import unicopa.copa.app.gui.MainActivity;
-import unicopa.copa.app.gui.PopUp;
 import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.UserSettings;
 import unicopa.copa.base.com.exception.APIException;
@@ -135,11 +134,19 @@ public class Helper {
 		    e2.printStackTrace();
 		}
 		// e1.printStackTrace();
+		catch (NoSingleEventException e) {
+		    // TODO should not happen if in db in right order
+		    e.printStackTrace();
+		}
 	    } catch (NoEventException e1) {
 		// This should never happen
 		e1.printStackTrace();
 	    }
 	    // e.printStackTrace();
+	    catch (NoSingleEventException e) {
+		// TODO get singleEvent and save it to db
+		// e.printStackTrace();
+	    }
 	}
 
 	// if Event has SingleEvents insert all
@@ -164,6 +171,7 @@ public class Helper {
 		    try {
 			db.insert(event, eventID);
 			db.insert(sEventLocal, -1);
+
 		    } catch (NoEventGroupException e1) {
 			int eventGroupID;
 			eventGroupID = event.getEventGroupID();
@@ -187,11 +195,22 @@ public class Helper {
 			    e2.printStackTrace();
 			}
 			// e1.printStackTrace();
+			catch (NoSingleEventException e2) {
+			    // TODO Auto-generated catch block
+			    e2.printStackTrace();
+			}
 		    } catch (NoEventException e1) {
 			// This should never happen
 			e1.printStackTrace();
 		    }
 		    // e.printStackTrace();
+		    catch (NoSingleEventException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		    }
+		} catch (NoSingleEventException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
 		}
 	    }
 	}
@@ -464,6 +483,9 @@ public class Helper {
 		    } catch (NoEventException e2) {
 			// This should never happen
 			e2.printStackTrace();
+		    } catch (NoSingleEventException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
 		    }
 
 		    // e1.printStackTrace();
@@ -472,6 +494,13 @@ public class Helper {
 		    e1.printStackTrace();
 		}
 		// e.printStackTrace();
+		catch (NoSingleEventException e1) {
+		    // TODO Auto-generated catch block
+		    e1.printStackTrace();
+		}
+	    } catch (NoSingleEventException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	    }
 	}
 
@@ -559,6 +588,10 @@ public class Helper {
 		e1.printStackTrace();
 	    }
 	    // e.printStackTrace();
+	    catch (NoSingleEventException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	    }
 	}
 
 	return true;
