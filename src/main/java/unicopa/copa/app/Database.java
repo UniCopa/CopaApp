@@ -24,6 +24,7 @@ import java.util.Set;
 
 import unicopa.copa.app.exceptions.NoEventException;
 import unicopa.copa.app.exceptions.NoEventGroupException;
+import unicopa.copa.app.exceptions.NoSingleEventException;
 import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.event.Event;
@@ -222,9 +223,10 @@ public class Database extends SQLiteOpenHelper {
      * @param ID_old
      * @throws NoEventGroupException
      * @throws NoEventException
+     * @throws NoSingleEventException 
      */
     public void insert(Object obj, int ID_old) throws NoEventGroupException,
-	    NoEventException {
+	    NoEventException, NoSingleEventException {
 	data = this.getWritableDatabase();
 	String TableName = obj.getClass().getSimpleName();
 	boolean newEntry = false;
@@ -239,11 +241,28 @@ public class Database extends SQLiteOpenHelper {
 
 		// Test whether SingleEvent is canceled
 		if (sev.getSingleEventID() == 0 && sev.getEventID() == 0) {
+		    	//test ID_old
+			String columns[] = {"singleEventID"};
+			String selection = "singleEventID='" + String.valueOf(ID_old)
+				+ "'";
+			String selectionArgs[] = null;
+			String groupBy = null;
+			String having = null;
+			String orderBy = null;
+			Cursor c = data.query(TableName, columns, selection,
+				selectionArgs, groupBy, having, orderBy);
+			if(c.getCount()>=1){
+		    c.close();
 		    String cancelString = "UPDATE SingleEventLocal SET durationMinutes = '0' WHERE singleEventID='"
 			    + String.valueOf(ID_old) + "'";
 		    Log.w("try", cancelString);
 		    data.execSQL(cancelString);
 		    return;
+		    }
+			else {
+			    c.close();
+			    throw new NoSingleEventException("No SingleEvent found with ID "+String.valueOf(ID_old));
+			}
 		}
 
 		String columns[] = null;
@@ -738,8 +757,9 @@ public class Database extends SQLiteOpenHelper {
 		} else {
 		    Log.w("error", "no Event with ID " + c.getString(0)
 			    + " found");
-		    ev_c.close();
+		  //  ev_c.close();
 		}
+		ev_c.close();
 		c.moveToNext();
 		elements--;
 	    }
