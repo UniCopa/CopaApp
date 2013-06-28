@@ -414,6 +414,19 @@ public class Helper {
 	    int listSize = 0;
 	    listSize = sEventUpdateList.size();
 
+	    boolean cancel = false;
+	    cancel = sEventUpdateList.get(listSize - 1).isCancellation();
+
+	    int cancelID = 0;
+	    if (cancel) {
+		cancelID = sEventUpdateList.get(listSize - 1)
+			.getOldSingleEventID();
+
+		sEventUpdateList.remove(listSize - 1);
+
+		listSize -= 1;
+	    }
+
 	    int oldSEventID = 0;
 	    oldSEventID = sEventUpdateList.get(listSize - 1)
 		    .getOldSingleEventID();
@@ -470,6 +483,10 @@ public class Helper {
 		    // This should never happen
 		    e1.printStackTrace();
 		}
+	    }
+
+	    if (cancel) {
+		db.deleteSingleEvent(cancelID);
 	    }
 	}
 
@@ -570,10 +587,9 @@ public class Helper {
      */
     public static SingleEventLocal checkChanges(
 	    List<SingleEventUpdate> sEventUpdateList) {
-
 	int size = 0;
 	size = sEventUpdateList.size();
-	
+
 	SingleEvent newestSEvent = null;
 	newestSEvent = sEventUpdateList.get(size - 1).getUpdatedSingleEvent();
 
@@ -643,7 +659,7 @@ public class Helper {
 	}
 
 	String comment = "";
-	comment = sEventUpdateList.get(0).getComment();
+	comment = sEventUpdateList.get(size - 1).getComment();
 
 	SingleEventLocal sEventLocal = null;
 	sEventLocal = new SingleEventLocal(singleEventID, eventID, location,
