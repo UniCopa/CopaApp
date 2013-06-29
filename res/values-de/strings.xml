@@ -94,7 +94,76 @@
     <string name="welcome">Willkommen!</string>
     <string name="welcome_text">Dies ist das erste Mal, dass Sie CoPA nutzen.</string>
     <string name="help">Hilfe</string>
-    <string name="help_text">Als Eigner kann man Rechteinhaber und Stellvertreter ernennen. Diese können Termine zu ihrer Veranstaltung ändern. Stellvertreter können außerdem noch weitere Rechteinhaber ernennen.</string>
+    <string name="help_text">Als Eigner kann man Rechteinhaber und Stellvertreter ernennen. Diese können Termine zu ihrer Veranstaltung ändern. Stellvertreter können außerdem noch weitere Rechteinhaber ernennen.</string>   
+	<string name="help_priv">Es gibt folgende Rechtegruppen: "Eigner","Stellvertreter" und "Rechteinhaber". Ein Nutzer kann bezüglich einer Veranstaltung zu genau einer dieser Rechtegruppen gehören. Abhängig von der Rechtegruppe kann man verschiedene Aktionen ausführen.:\n\n
+        <b>Eigner</b> \nEin Eigner ist vom CoPA-System oder einem Administrator bestimmt worden.\nAls Eigner kann man Stellvertreter oder Rechteinhaber auf der CoPA-Webseite ernennen oder entfernen. Außerdem können Eigner Termine von ihren Veranstaltung ändern und  auch die anderen Eigner, Stellvertreter oder Rechteinhaber einsehen.\nFür einen Eigener ist es nicht möglich seine Rechte abzugeben.\n\n
+        <b>Stellvertreter</b>\nEin Stellvertreter ist bezüglich einer Veranstaltung von einem Eigener ernannt worden. \nEin Stellvertreter kann auf der CoPA-Webseite Rechteinhaber bestimmen oder entfernen und auch seine eigenen Rechte abgeben. Ein Stellvertreter kann ebenfalls alle Eigner, Stellvertreter, auch Rechteinhaber von seiner Veranstaltung einsehen und einen Termin der Veranstaltung ändern.\n\n 
+        <b>Rechteinhaber</b>\nEin Rechteinhaber wird von einem Eigner oder Stellvertreter für die jeweilige Veranstaltung ernannt.\nEin Rechtinhaber kann auf der CoPA-Website seine Rechte aufgeben.Außerdem kann er einen Termin einer Veranstaltung verändern. Allerdings ist es ihm nicht möglich Eigner, Stellvertreter oder Rechteinhaber zu ernnenn.
+        </string> 
+    <string name="help_functionality">Folgende Funktionen sind mit der CoPA-App nutzbar:\n\n
+        <b>Anmelden</b>\n
+        Nutzen Sie ihre Uni-Anmelde-Daten um sich zu authentifizieren. Die Login-Seite können Sie bespielsweise erreichen indem sie auf der Startseite auf den Menü-Knopf klicken.\n\n
+        <b>Abmelden</b>\n
+        Den Weg zur Abmelde-Seite finden Sie indem sie den Menü-Knopf nutzen und anschließend auf "An-/Abmelden"klicken, wenn Sie bereits angemeldet sind.\n\n
+        <b>Suchen</b>\n
+        Den Weg zur Abmelde-Seite finden Sie indem sie den Menü-Knopf nutzen und anschließend auf "Suche"klicken, wenn Sie bereits angemeldet sind. Nun können Sie sich noch die Kategorie aussuchen und ein Suchwort eingeben. Die Suchanfrage wird gestartet, wenn keine nachfolgenden Kategorien mehr wählbar sind oder sie auf den "Suchen"-Knopf geklickt haben.\n\n
+        <b>Abonnieren</b>\n
+        Um eine Veranstaltung zu abonnieren, nutzen Sie zunächst die Suche um diese zu finden.Anschließend können Sie auf den "Abonnieren"-Knopf klicken. Nachdem Sie die Veranstaltung abonniert haben, werden sie über Änderungen an Terminen dieser Veranstaltung informiert. Die Art der Information hängt von den von Ihnen gewählten Einstellungen ab.\n\n
+        <b>Abbestellen</b>\n
+        Um eine Veranstaltung abzubestellen, suchen Sie diese zunächst in Ihrer Liste der abonnierten Veranstaltungen(siehe"Abonnierte Veranstaltungen ansehen") und klicken auf den "Abbestellen"-Knopf, wenn sie angemeldet sind. Anschließend werden Sie nicht länger über Änderungen informiert.\n\n
+        <b>Aktualisierungen bekommen</b>\n
+        Abhängig von Ihren Einstellungen werden sie automatisch über Änderungen benachrichtigt oder müssen den "Aktualisieren"-Knopf auf der Startseite nutzen. Für mehr Informationen lesen Sie "Mögliche Einstellungen".\n\n
+        <b>Abonnierte Veranstaltungen ansehen</b>\n
+        Mit einem Klick auf "Abonnierte Veranstaltungen" im Menü, das erscheint, nachdem Sie den Menü-Knopf geklickt haben, gelangen Sie auf die Seite Ihrer abonnierten Veranstaltungen.\n\n
+        <b>Informationstext zu einer Veranstaltung ansehen</b>\n
+        Nutzen Sie die Suche(siehe "Suchen"), um die Veranstaltung zu finden. Mit einem Klick auf "Info" erhalten sie weitere Informationen zu der Veranstaltung.\n\n
+        <b>Veranstaltungen mit besonderen Rechten ansehen</b>\n
+        Mit einem Klick auf den Menü-Knopf können sie "Rechte" auswählen und alle Veranstaltungen zu denen sie besondere Rechte haben ansehen.\n\n
+        <b>Eigner,Stellvertreter und Rechteinhaber einer Veranstaltung ansehen</b>\n
+        Diese können Sie sich nur ansehen, wenn Sie besondere Rechte bezüglich dieser Veranstaltung haben. Klicken Sie in der Liste Ihrer Veranstaltungen mit besonderen Rechten auf "andere Rechteinhaber".\n\n
+        <b>Einen Termin einer Veranstaltung ändern</b>\n
+        Zunächst müssen Sie den Termin, den sie ändern wollen, finden. Nutzen Sie dazu bespielsweise die Liste der abonnierten Veranstaltungen und klicken Sie auf die Veranstaltung, zu der er gehört. Mit einem Klick auf "Ändern" können Sie ihre Änderungen eintragen und mit "bestätigen" werden sie übernommen.\n\n
+        <b>Farbe einer Veranstaltung ändern</b>\n
+        Klicken Sie in der Liste der abonnierten Veranstaltungen auf den "Farbe"-Knopf und wählen Sie die neue Farbe aus.\n\n
+        <b>E-Mail-/CoPA-Webseiten-Sprache ändern</b>\n
+        Klicken Sie auf "Einstellungen" im Menü, das sich öffnet wenn Sie auf der Startseite den Menü-Knopf klicken.Mit einem Klick auf "Bestätigen" werden ihre Sprachänderungen übernommen. Für weitere Informationen zu den Auswahlmöglichkeiten lesen Sie "mögliche Einstellungen"\n\n
+        <b>Benachrichtigungsart ändern</b>\n
+        Klicken Sie auf "Einstellungen" im Menü, das sich öffnet wenn Sie auf der Startseite den Menü-Knopf klicken.Mit einem Klick auf "Bestätigen" werden ihre Benachrichtigungsänderungen übernommen. Für weitere Informationen zu den Auswahlmöglichkeiten lesen Sie "mögliche Einstellungen".\n\n
+        \nFolgende Funktionen sind nur von der CoPA-Webseite zu erreichen:\n
+        <b>Rechte aufgeben</b>\n
+        Sie können ihre Vorteile als Rechteinhaber oder Stellvertreter auf der Webseite aufgeben.\n\n
+        <b>Ernennen oder Entlassen von Stellvertretern und Rechteinhabern</b>\n
+        Abhängig von der Rechtegruppe, der Sie angehören(siehe "Über Rechte"), können sie anderen Rechte erteilen oder entziehen.
+        </string>
+    <string name="help_settings">\n
+        <b>Sprache</b>\n
+        <b>E-mail und CoPA-Webseite:</b>\n
+        In den Einstellungen können sie zwischen Englisch und Deutsch wählen. Falls Sie E-Mail als Benachrichtigungsart ausgewählt haben, erhalten Sie diese in der hier von Ihnen ausgewählten Sprache.\n
+        Auch die CoPA-Webseite wird diese Sprache verwenden, sobald Sie sich angemeldet haben.\n\n
+        <b>CoPA-App</b>\n
+        Die CoPA-App kann in zwei Sprachen genutzt werden: Deutsch oder Englisch. Sie passt sich automatisch an ihre Systemsprache an. Wenn die Systemsprache weder deutsch noch englisch ist, wird die App englisch verwenden. Um die Sprache zu verändern, sehen Sie in Ihre System-Einstellungen.\n\n
+        <b>Benachrichtigungsart</b>\n
+        <b>E-Mail</b>\n
+        Wenn Sie dies aktivieren, wird Ihnen automatisch eine E-Mail zugeschickt, wenn sich eine Ihrer abonnierten Veranstaltungen verändert. Dazu wird Ihre Uni-E-Mail-Adresse verwendet.\n\n
+        <b>Automatisch pushen</b>\n
+        Wenn Sie diese Einstellung wählen, erhalten Sie, sobald sich etwas ändert, eine Nachricht auf Ihr Gerät und die Änderung wird sofort auf ihrem Gerät angezeigt. Natürlich können Sie die Nachricht und die Änderung nur erhalten, wenn Sie mit dem Internet verbunden sind.\n\n
+        <b>Manuell pushen</b>\n
+        Wenn Sie diese Einstellung wählen, erhalten Sie, sobald sich etwas ändert, eine Nachricht auf Ihr Gerät, aber die Änderung wird nicht sofort auf ihrem Gerät angezeigt. Um die Änderung zu holen, müssen Sie den "Aktualisieren"-Knopf auf der Startseite nutzen. Natürlich können Sie die Nachricht nur erhalten, wenn Sie mit dem Internet verbunden sind.\n\n
+        <b>Manuell</b>\n
+        Wenn Sie diese Einstellung wählen, erhalten Sie,keine Nachricht auf Ihr Gerät. Um die Änderung mitzubekommen, müssen Sie den "Aktualisieren"-Knopf auf der Startseite nutzen.
+        </string>
+    <string name="help_error">
+        <b>ClientProtocolException</b>\n
+        <b>APIException</b>\n
+        Indicates an error caused by inappropriate API usage.\n\n
+        <b>PermissionException</b>\n
+         Indicates a rejection of a request by the service because of insufficient permission.\n\n
+        <b>RequestNotPracticableException</b>\n
+        Indicates that a request could not be executed because of its parameterization.\n\n
+        <b>InternalErrorException</b>\n
+        Indicates an internal error at the service.\n\n
+        <b>IOException</b>\n
+    </string>
     <string name="accept_title">Einverständniserklärung zum Datenschutz</string>
     <string name="accept_msg">CoPA darf folgendes nutzen...</string>
     <string name="accept_no">Nein!</string>
@@ -110,5 +179,12 @@
     <string name="rightholder">Rechteinhaber:</string>
     <string name="deputy">Stellvertreter:</string>
     <string name="owner">Eigner:</string>
-
+    <string name="change_user">Nutzer wechseln</string>
+    <string name="attention">Achtung!</string>
+    <string name="userchanged">Dies wird alle abonnierten Veranstaltungen von deinem Gerät löschen.\n Neuer Nutzername:</string>
+    <string name="about_privileges">Rechtemanagement</string>
+    <string name="functionality">Funktionen</string>
+    <string name="exceptions">Fehlerbehandlung</string>
+    <string name="p_settings">Mögliche Einstellungen</string>
+    <string name="no_info">Keine weiterführenden Informationen vorhanden</string>
 </resources>
