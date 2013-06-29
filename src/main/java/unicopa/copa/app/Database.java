@@ -293,35 +293,30 @@ public class Database extends SQLiteOpenHelper {
 		    c.moveToFirst();
 
 		    String UpdateColumns = "UPDATE " + TableName
-			    + " SET singleEventID='" + sev.getSingleEventID()
-			    + "',";
-
+			    + " SET ";
 		    
+		    UpdateColumns = UpdateColumns + "singleEventID='" + String.valueOf(sev.getSingleEventID())+ "',";
+		    UpdateColumns = UpdateColumns + "date = '"+String.valueOf(sev.getDate().getTime())+"',";
+		    UpdateColumns = UpdateColumns + "location = '"+sev.getLocation()+"',";
+		    UpdateColumns = UpdateColumns + "durationMinutes = '"+String.valueOf(sev.getDurationMinutes())+"',";
 		    
 		    if (sev.getDateUpdateCounter() == 1) {
-			UpdateColumns = UpdateColumns + "date='"
-				+ sev.getDate() + "',dateUpdateCounter='"
+			UpdateColumns = UpdateColumns + " dateUpdateCounter='"
 				+ String.valueOf(c.getInt(4) + 1) + "',";
 		    }
 		    if (sev.getSupervisorUpdateCounter() == 1) {
-			UpdateColumns = UpdateColumns + "supervisor='"
-				+ sev.getSupervisor()
-				+ "',supervisorUpdateCounter='"
+			UpdateColumns = UpdateColumns + " supervisorUpdateCounter='"
 				+ String.valueOf(c.getInt(6) + 1) + "',";
 		    }
 		    if (sev.getLoactionUpdateCounter() == 1) {
-			UpdateColumns = UpdateColumns + "location='"
-				+ sev.getLocation()
-				+ "',locationUpdateCounter='"
+			UpdateColumns = UpdateColumns + " locationUpdateCounter='"
 				+ String.valueOf(c.getInt(8) + 1) + "',";
 		    }
 		    if (sev.getDurationMinutesUpdateCounter() == 1) {
-			UpdateColumns = UpdateColumns + "durationMinutes='"
-				+ sev.getDurationMinutes()
-				+ "',durationMinutesUpdateCounter='"
+			UpdateColumns = UpdateColumns + " durationMinutesUpdateCounter='"
 				+ String.valueOf(c.getInt(10) + 1) + "',";
 		    }
-		    UpdateColumns = UpdateColumns + ",comment = '"+sev.getComment()+"'";
+		    UpdateColumns = UpdateColumns + "comment = '"+sev.getComment()+"'";
 		    UpdateColumns = UpdateColumns + " WHERE singleEventID='" + String.valueOf(ID_old) + "'";
 
 		    // check whether SingleEvent has an existing Event
