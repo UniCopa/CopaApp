@@ -296,6 +296,7 @@ public class Database extends SQLiteOpenHelper {
 			    + " SET ";
 		    
 		    UpdateColumns = UpdateColumns + "singleEventID='" + String.valueOf(sev.getSingleEventID())+ "',";
+		    UpdateColumns = UpdateColumns + "supervisor='" + sev.getSupervisor()+ "',";
 		    UpdateColumns = UpdateColumns + "date = '"+String.valueOf(sev.getDate().getTime())+"',";
 		    UpdateColumns = UpdateColumns + "location = '"+sev.getLocation()+"',";
 		    UpdateColumns = UpdateColumns + "durationMinutes = '"+String.valueOf(sev.getDurationMinutes())+"',";

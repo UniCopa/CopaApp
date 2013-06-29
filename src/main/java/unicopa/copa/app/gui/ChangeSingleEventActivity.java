@@ -50,7 +50,7 @@ import android.widget.TimePicker;
 /**
  * In this activity a user can update a event, if he has the rights to do it.
  * 
- * @author Christiane Kuhn, Martin Rabe
+ * @author Christiane Kuhn, Martin Rabe, Robin Muench
  */
 public class ChangeSingleEventActivity extends Activity {
 
@@ -205,11 +205,11 @@ public class ChangeSingleEventActivity extends Activity {
 
 	String newSupervisor = supervisor.getText().toString();
 	String newLocation = location.getText().toString();
-	int newDura = durationtime.getInputType();
+	int newDura = Integer.parseInt(durationtime.getText().toString());
 	int eventID = sEventLocal.getEventID();
 	int oldSingleEventID = sEventLocal.getSingleEventID();
 	String msg = comment.getText().toString();
-
+	
 	boolean success = false;
 
 	if (removeIt) {
