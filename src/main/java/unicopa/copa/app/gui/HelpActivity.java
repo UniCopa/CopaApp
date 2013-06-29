@@ -31,7 +31,8 @@ import android.view.View;
 public class HelpActivity extends Activity {
 
     /**
-     * Creates HelpActivity with a text.
+     * Creates HelpActivity with a buttons with which the user can choose is
+     * topic of interest.
      * 
      */
     @Override
@@ -54,10 +55,17 @@ public class HelpActivity extends Activity {
 	HelpActivity.this.startActivity(intent);
     }
 
-    public void onExceptionButtonClick(View view) {
+    public void onSettingsButtonClick(View view) {
 	Intent intent = new Intent(HelpActivity.this,
 		HelpExtendedActivity.class);
 	intent.putExtra("from", 3);
+	HelpActivity.this.startActivity(intent);
+    }
+
+    public void onExceptionButtonClick(View view) {
+	Intent intent = new Intent(HelpActivity.this,
+		HelpExtendedActivity.class);
+	intent.putExtra("from", 4);
 	HelpActivity.this.startActivity(intent);
     }
 

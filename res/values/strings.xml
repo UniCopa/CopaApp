@@ -40,8 +40,8 @@
     <string name="subscr">Subscribe</string>
     <string name="mail">E-Mail</string>
     <string name="gcm_auto">Push automatic</string>
-    <string name="gcm_manu">Push manuel</string>
-    <string name="gcm_none">manuel</string>
+    <string name="gcm_manu">Push manual</string>
+    <string name="gcm_none">manual</string>
     <string name="success">Success</string>
     <string name="settings_saved">Your settings have been saved.</string>
     <string name="logged_out">You have been logged out.</string>
@@ -107,12 +107,12 @@
     <string name="wait">Please wait.</string>
     <string name="welcome">Welcome!</string>
     <string name="welcome_text">Hello, this is the first time you meet CoPA.</string>
+    <string name="accept_title">Data protection declaration of consent</string>
     <string name="help">Help</string>
     <string name="help_priv">All of the privileges "Owner", "Deputy", "Rightholder" belong to an event. So you can have a privilege for an specified event. Depending an which privilege you got, you can do different things:\n\n
-        <b>Owner</b> \nAn owner is chosen from the CoPA-System or appointed by an admin.\nAs a owner you can appoint and remove deputies and rightholders on the CoPA-Website. Of course a owner can change dates of his event and see the other owners, deputies and rightholders. This works from the CoPA-App and CoPA-Website.\nFor an owner it is not possible to remove his privilege to be an owner.\n\n
-        <b>Deputy</b>\nA deputy is appointed by an owner of an event. \nAs a deputy you can discard your privileges as a deputy or appoint and remove rightholders on the CoPA-Website. A deputy can also see all owners, deputies and rightholders of his event and change dates of his event.This works from the CoPA-App and CoPA-Website. \n\n 
+        <b>Owner</b> \nAn owner is chosen from the CoPA-System or appointed by an admin.\nAs a owner you can appoint and remove deputies and rightholders on the CoPA-Website. The following works from the CoPA-App and CoPA-Website: Of course a owner can change dates of his event and see the other owners, deputies and rightholders. \nFor an owner it is not possible to remove his privilege to be an owner.\n\n
+        <b>Deputy</b>\nA deputy is appointed by an owner of an event. \nAs a deputy you can discard your privileges as a deputy or appoint and remove rightholders on the CoPA-Website.The following works from the CoPA-App and CoPA-Website: A deputy can also see all owners, deputies and rightholders of his event and change dates of his event. \n\n 
         <b>Rightholder</b>\nA rightholder is appointed by an owner or a deputy of an event.\nAs a rightholder you can discard your privileges on the CoPA-Website.You can also change dates with the CoPA-App or on the -Website and see all owners, deputies and rightholders.But a rightholder has no chance to appoint anyone.</string>
-    <string name="accept_title">Data protection declaration of consent</string>
     <string name="help_functionality">These are all functionalities that are useable with the CoPA-App:\n\n
         <b>Login</b>\n
         Just use your uni-login-data to authenticate.You can reach the loginpage with the "Menu"-button for example on the startpage if you are not logged in.\n\n
@@ -148,6 +148,23 @@
         <b>Appoint or remove deputies/rightholders</b>\n
         Depending on your privilege(look at"About privileges") you can delegate or remove privileges to another person. For this use the CoPA-Website.
         </string>
+    <string name="help_settings">\n
+        <b>Language</b>\n
+        <b>E-mail and CoPA-Website:</b>\n
+        In the settings you can choose between english and german. This will be the language in which the e-mails that you receive will be written if you selected e-mail as notificationkind.\n
+        Also the CoPA-Website will have this language if you are logged in.\n\n
+        <b>CoPA-App</b>\n
+        The CoPA-App can be used two languages: english and german. It will automatically be set on the android-system-language. If the system-language is either english or german the app will use english. To change the app-language use your system-settings.\n\n
+        <b>Kind of notification</b>\n
+        <b>E-mail</b>\n
+        If you allow e-mail-notification an e-mail will automatically be send to you if one of your subscribed events is changed. This will use your uni e-mail adress.\n\n
+        <b>Push automatic</b>\n
+        If you use this option you will receive a message if any date of a subscribed event changes and the change will be automatically send to your decive. Of course you can just receive the message or the change if you got an internet connection.\n\n
+        <b>Push manual</b>\n
+        If you use this option you will receive a message if any date of a subscribed event changes but the change will not be automatically send to your decive. To get the update you need to click "refresh" on the startpage. Of course you can just receive the message if you got an internet connection.\n\n
+        <b>Manual</b>\n
+        If you use this option you will not receive a message if any date of a subscribed event changes. You need to click "refresh" on the startpage to get informed about changes.
+        </string>
     <string name="accept_msg">I allow CoPA to use ...</string>
     <string name="accept_no">No!</string>
     <string name="accept">I accept.</string>
@@ -168,5 +185,6 @@
     <string name="about_privileges">About Privileges</string>
     <string name="functionality">Functionalities</string>
     <string name="exceptions">Error treatment</string>
+    <string name="p_settings">Possible settings</string>
 
 </resources>

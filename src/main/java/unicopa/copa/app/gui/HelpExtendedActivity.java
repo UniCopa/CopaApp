@@ -25,7 +25,8 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * This activity shows helpful information as the rights hierarchy of CoPA.
+ * This activity shows helpful information as for example the rights hierarchy
+ * of CoPA.
  * 
  * @author Christiane Kuhn
  */
@@ -50,6 +51,9 @@ public class HelpExtendedActivity extends Activity {
 	    text.setText(R.string.help_functionality);
 	    break;
 	case 3:
+	    text.setText(R.string.help_settings);
+	    break;
+	case 4:
 	    break;
 	default:
 	    break;
