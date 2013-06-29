@@ -105,9 +105,14 @@ public class SearchResultGroupAdapter extends BaseAdapter {
 
 	    @Override
 	    public void onClick(View v) {
+		String info = "";
+		if (eventGroup.getEventGroupInfo() == "") {
+		    info = context.getString(R.string.no_info);
+		} else {
+		    info = eventGroup.getEventGroupInfo();
+		}
 
-		PopUp.alert(context, eventGroup.getEventGroupName(),
-			eventGroup.getEventGroupInfo());
+		PopUp.alert(context, eventGroup.getEventGroupName(), info);
 	    }
 
 	});
