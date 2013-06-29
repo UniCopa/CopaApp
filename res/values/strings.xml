@@ -165,6 +165,14 @@
         <b>Manual</b>\n
         If you use this option you will not receive a message if any date of a subscribed event changes. You need to click "refresh" on the startpage to get informed about changes.
         </string>
+    <string name="help_error">
+        <b>ClientProtocolException</b>\n
+        <b>APIException</b>\n
+        <b>PermissionException</b>\n
+        <b>RequestNotPracticableException</b>\n
+        <b>InternalErrorException</b>\n
+        <b>IOException</b>\n
+    </string>
     <string name="accept_msg">I allow CoPA to use ...</string>
     <string name="accept_no">No!</string>
     <string name="accept">I accept.</string>
