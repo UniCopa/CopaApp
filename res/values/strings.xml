@@ -168,9 +168,13 @@
     <string name="help_error">
         <b>ClientProtocolException</b>\n
         <b>APIException</b>\n
+        Indicates an error caused by inappropriate API usage.\n\n
         <b>PermissionException</b>\n
+         Indicates a rejection of a request by the service because of insufficient permission.\n\n
         <b>RequestNotPracticableException</b>\n
+        Indicates that a request could not be executed because of its parameterization.\n\n
         <b>InternalErrorException</b>\n
+        Indicates an internal error at the service.\n\n
         <b>IOException</b>\n
     </string>
     <string name="accept_msg">I allow CoPA to use ...</string>
