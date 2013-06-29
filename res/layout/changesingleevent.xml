@@ -76,16 +76,6 @@
             android:text="@string/time"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Button
-            android:id="@+id/change_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/timePicker1"
-            android:layout_below="@+id/changes"
-            android:layout_marginTop="14dp"
-            android:onClick="onApplyButtonClick"
-            android:text="@string/change_apply" />
-
         <TextView
             android:id="@+id/change_date"
             android:layout_width="wrap_content"
@@ -109,15 +99,6 @@
             android:layout_alignLeft="@+id/change_supervisor"
             android:layout_alignTop="@+id/change_static_new_location"
             android:ems="10" />
-
-        <TextView
-            android:id="@+id/change_eventGroupname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/change_button"
-            android:layout_alignBottom="@+id/change_button"
-            android:layout_alignLeft="@+id/change_static_supervisor"
-            android:text="Group" />
 
         <EditText
             android:id="@+id/change_comment"
@@ -234,9 +215,28 @@
             android:id="@+id/change_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/change_button"
+            android:layout_below="@+id/change_eventGroupname"
             android:layout_toLeftOf="@+id/change_button"
             android:text="@string/remove" />
+
+        <Button
+            android:id="@+id/change_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/change_remove"
+            android:layout_alignBottom="@+id/change_remove"
+            android:layout_alignRight="@+id/timePicker1"
+            android:onClick="onApplyButtonClick"
+            android:text="@string/change_apply" />
+
+        <TextView
+            android:id="@+id/change_eventGroupname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_static_date"
+            android:layout_below="@+id/changes"
+            android:layout_marginTop="17dp"
+            android:text="Group" />
 
     </RelativeLayout>
 
