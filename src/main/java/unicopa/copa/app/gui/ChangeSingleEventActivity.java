@@ -46,6 +46,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 /**
  * In this activity a user can update a event, if he has the rights to do it.
@@ -205,7 +206,7 @@ public class ChangeSingleEventActivity extends Activity {
 
 	String newSupervisor = supervisor.getText().toString();
 	String newLocation = location.getText().toString();
-	int newDura = durationtime.getInputType();
+	int newDura = Integer.parseInt(durationtime.getText().toString());
 	int eventID = sEventLocal.getEventID();
 	int oldSingleEventID = sEventLocal.getSingleEventID();
 	String msg = comment.getText().toString();
