@@ -70,7 +70,7 @@ public class SingleEventActivity extends Activity {
 	time.setText(new SimpleDateFormat("HH:mm").format(sEventLocal.getDate()));
 	supervisor.setText(sEventLocal.getSupervisor());
 	durationtime.setText(String.valueOf(sEventLocal.getDurationMinutes()));
-	// TODO comment.setText(sEventLocal.getComment());
+	comment.setText(sEventLocal.getComment());
 	change.setVisibility(View.GONE);
 
 	if (sEventLocal.getPermission() > 0) {
