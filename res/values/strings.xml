@@ -109,7 +109,7 @@
     <string name="welcome_text">Hello, this is the first time you meet CoPA.</string>
     <string name="accept_title">Data protection declaration of consent</string>
     <string name="help">Help</string>
-    <string name="help_priv">All of the privileges "Owner", "Deputy", "Rightholder" belong to an event. So you can have a privilege for an specified event. Depending an which privilege you got, you can do different things:\n\n
+    <string name="help_priv">All of the privileges "Owner", "Deputy", "Rightholder" belong to an event. So you can have a privilege for an specified event. Depending on which privilege you got, you can do different things:\n\n
         <b>Owner</b> \nAn owner is chosen by the CoPA-System or appointed by an admin.\nAs a owner you can appoint and remove deputies and rightholders on the CoPA-Website. The following works from the CoPA-App and CoPA-Website: A owner can change dates of his event and see the other owners, deputies and rightholders. \nFor an owner it is not possible to remove his privilege to be an owner.\n\n
         <b>Deputy</b>\nA deputy is appointed by an owner of an event. \nAs a deputy you can discard your privileges or appoint and remove rightholders on the CoPA-Website.The following works from the CoPA-App and CoPA-Website: A deputy can also see all owners, deputies and rightholders of his event and change dates of his event. \n\n 
         <b>Rightholder</b>\nA rightholder is appointed by an owner or a deputy of an event.\nAs a rightholder you can discard your privileges on the CoPA-Website.You can also change dates with the CoPA-App or on the -Website and see all owners, deputies and rightholders.But a rightholder has no chance to appoint anyone.</string>
@@ -119,31 +119,31 @@
         <b>Logout</b>\n
         You can reach the logoutpage with the "Menu"-button on the startpage if you are logged in.\n\n
         <b>Search</b>\n
-        The search is reachable with the "Menu"-button for example on the startpage if you are logged in. Just click throw the categories and enter a searchterm. Your request will automatically start if there are no following categories pickable.\n\n
+        The search is reachable with the "Menu"-button for example on the startpage if you are logged in. Just click through the categories and enter a searchterm. Your request will automatically start if there are no following categories pickable.\n\n
         <b>Subscribe</b>\n
         Use the search to find the event you want to subscribe. Then click the "subscribe"-button. You need to be logged in for this. After you have successfully subscribed an event you will be informed about changes of dates that belong to it. How you will be informed belongs on your chosen settings.\n\n
         <b>Unsubscribe</b>\n
-        To unsubscribe an event find it in the list of your subscribed events(look at "see subscribed events") and click the button "unsubscribe" if you are logged in. You will be no longer informed about changes that belong to this event.\n\n
+        To unsubscribe an event find it in the list of your subscribed events(look at "Look up subscribed events") and click the button "unsubscribe" if you are logged in. You will be no longer informed about changes that belong to this event.\n\n
         <b>Get updates</b>\n
         Depending on your chosen settings you will be automatically informed about changes or you have to use the "refresh"-button on the startpage. For more details have a look at "Possible settings".\n\n
-        <b>See subscribed events</b>\n
+        <b>Look up subscribed events</b>\n
         With a click on the "Menu"-button you can select "Subscribed events" and see all events for which you get updates.\n\n
-        <b>See an informationtext from an event</b>\n
+        <b>Look up information of an event</b>\n
         Just search(look at "search") the event that you are interested in and click on "info".\n\n
-        <b>See events with privileges</b>\n
+        <b>Look up events with privileges</b>\n
          With a click on the "Menu"-button you can select "privileges" and see all events for which you have privileges.\n\n
-        <b>See owners,deputies and rightholders of an event</b>\n
+        <b>Look up owners,deputies and rightholders of an event</b>\n
         You can only see them if you have privileges for this event. Use the "Menu"-button to switch to the list of events with privileges and click on "privileged".\n\n
         <b>Change date of an event</b>\n
         Find the date you want to change for example by clicking on the event to which it belongs to this date. Then enter your changes and click on "Apply" to change this date.\n\n
         <b>Change color of an event</b>\n
-        Use your list of subscribed events (look at "See subscribed events") and click on the button "color" to select one.\n\n
+        Use your list of subscribed events (look at "Look up subscribed events") and click on the button "color" to select one.\n\n
         <b>Change e-mail-/CoPA-Website-language</b>\n
         Click on "Settings" in the menu that opens by pressing the "Menu"-button and use the "save" button to confirm your changes. This will set the language for the CoPA-Website and e-mails. For details about the possibilities look at "Possible settings".\n\n
         <b>Change kind of notification</b>\n
         Click on "Settings" in the menu that opens by pressing the "Menu"-button and use the "save" button to confirm your changes. This will choose the way on which you are informed. For details about the possibilities look at "Possible settings".\n\n
         \nThese functionalities are only reachable from the CoPA-Website:\n
-        <b>Discard a privilege</b>\n
+        <b>Relinquish a privilege</b>\n
         You can give up your privileges if you are not a owner. For this use the CoPA-Website.\n\n
         <b>Appoint or remove deputies/rightholders</b>\n
         Depending on your privilege(look at"About privileges") you can delegate or remove privileges to another person. For this use the CoPA-Website.
