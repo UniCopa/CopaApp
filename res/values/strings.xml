@@ -110,7 +110,7 @@
     <string name="accept_title">Data protection declaration of consent</string>
     <string name="help">Help</string>
     <string name="help_priv">All of the privileges "Owner", "Deputy", "Rightholder" belong to an event. So you can have a privilege for an specified event. Depending an which privilege you got, you can do different things:\n\n
-        <b>Owner</b> \nAn owner is chosen from the CoPA-System or appointed by an admin.\nAs a owner you can appoint and remove deputies and rightholders on the CoPA-Website. The following works from the CoPA-App and CoPA-Website: Of course a owner can change dates of his event and see the other owners, deputies and rightholders. \nFor an owner it is not possible to remove his privilege to be an owner.\n\n
+        <b>Owner</b> \nAn owner is chosen by the CoPA-System or appointed by an admin.\nAs a owner you can appoint and remove deputies and rightholders on the CoPA-Website. The following works from the CoPA-App and CoPA-Website: A owner can change dates of his event and see the other owners, deputies and rightholders. \nFor an owner it is not possible to remove his privilege to be an owner.\n\n
         <b>Deputy</b>\nA deputy is appointed by an owner of an event. \nAs a deputy you can discard your privileges or appoint and remove rightholders on the CoPA-Website.The following works from the CoPA-App and CoPA-Website: A deputy can also see all owners, deputies and rightholders of his event and change dates of his event. \n\n 
         <b>Rightholder</b>\nA rightholder is appointed by an owner or a deputy of an event.\nAs a rightholder you can discard your privileges on the CoPA-Website.You can also change dates with the CoPA-App or on the -Website and see all owners, deputies and rightholders.But a rightholder has no chance to appoint anyone.</string>
     <string name="help_functionality">These are all functionalities that are useable with the CoPA-App:\n\n
@@ -151,7 +151,7 @@
     <string name="help_settings">\n
         <b>Language</b>\n
         <b>E-mail and CoPA-Website:</b>\n
-        In the settings you can choose between english and german. This will be the language in which the e-mails that you receive will be written if you selected e-mail as notificationkind.\n
+        In the settings you can choose between english and german. This will be the language in which the e-mails that you receive will be written if you selected e-mail as notification.\n
         Also the CoPA-Website will have this language if you are logged in.\n\n
         <b>CoPA-App</b>\n
         The CoPA-App can be used two languages: english and german. It will automatically be set on the android-system-language. If the system-language is either english or german the app will use english. To change the app-language use your system-settings.\n\n
