@@ -210,7 +210,7 @@ public class ChangeSingleEventActivity extends Activity {
 	int eventID = sEventLocal.getEventID();
 	int oldSingleEventID = sEventLocal.getSingleEventID();
 	String msg = comment.getText().toString();
-	
+
 	boolean success = false;
 
 	if (removeIt) {
@@ -218,28 +218,22 @@ public class ChangeSingleEventActivity extends Activity {
 		Helper.removeSingleEvent(oldSingleEventID, msg,
 			getApplicationContext());
 	    } catch (ClientProtocolException e) {
-		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.cp_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (APIException e) {
-		PopUp.exceptionAlert(this, getString(R.string.api_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.api_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (PermissionException e) {
-		PopUp.exceptionAlert(this, getString(R.string.per_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.per_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (RequestNotPracticableException e) {
-		PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.rnp_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (InternalErrorException e) {
-		PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.ie_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (IOException e) {
-		PopUp.exceptionAlert(this, getString(R.string.io_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (NoStorageException e) {
 		// TODO Auto-generated catch block
@@ -259,28 +253,22 @@ public class ChangeSingleEventActivity extends Activity {
 		success = Helper.setUpdate(newSEventLocal, msg,
 			getApplicationContext());
 	    } catch (ClientProtocolException e) {
-		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.cp_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (APIException e) {
-		PopUp.exceptionAlert(this, getString(R.string.api_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.api_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (PermissionException e) {
-		PopUp.exceptionAlert(this, getString(R.string.per_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.per_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (RequestNotPracticableException e) {
-		PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.rnp_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (InternalErrorException e) {
-		PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.ie_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (IOException e) {
-		PopUp.exceptionAlert(this, getString(R.string.io_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (NoStorageException e) {
 		// TODO Auto-generated catch block

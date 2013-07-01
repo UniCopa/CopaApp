@@ -177,7 +177,12 @@
         Indicates an internal error at the service.\n\n
         <b>IOException</b>\n
     </string>
-    <string name="accept_msg">I allow CoPA to use ...</string>
+    <string name="accept_msg">In order to use the CoPA service some user information has to be saved.\n
+These information are:\n
+Your Name\n
+Your Uni-Login (for the sake of autentification) and\n
+Your e-mail address (for the sake of the e-mail notification)\n
+All your data will be kept in confidence and will not be passed to a third party.</string>
     <string name="accept_no">No!</string>
     <string name="accept">I accept.</string>
     <string name="subscribed">You have subscribed this event.</string>

@@ -136,23 +136,26 @@ public class MainActivity extends Activity {
 		    protected Void doInBackground(Void... params) {
 			boolean registered;
 			try {
-			    registered = GCMServerUtilities.register(
-			    	context, regId);
-			// At this point all attempts to register with the app
-			// server failed, so we need to unregister the device
-			// from GCM - the app will try to register again when
-			// it is restarted. Note that GCM will send an
-			// unregistered callback upon completion, but
-			// GCMIntentService.onUnregistered() will ignore it.
-			if (!registered) {
-			    GCMRegistrar.unregister(context);
-			}
-			
+			    registered = GCMServerUtilities.register(context,
+				    regId);
+			    // At this point all attempts to register with the
+			    // app
+			    // server failed, so we need to unregister the
+			    // device
+			    // from GCM - the app will try to register again
+			    // when
+			    // it is restarted. Note that GCM will send an
+			    // unregistered callback upon completion, but
+			    // GCMIntentService.onUnregistered() will ignore it.
+			    if (!registered) {
+				GCMRegistrar.unregister(context);
+			    }
+
 			} catch (NoStorageException e) {
 			    // TODO Auto-generated catch block
 			    e.printStackTrace();
 			}
-			
+
 			return null;
 		    }
 
@@ -315,7 +318,7 @@ public class MainActivity extends Activity {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 	    String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
-	    Log.e("new message",newMessage);
+	    Log.e("new message", newMessage);
 	    mDisplay.append(newMessage + "\n");
 	}
     };
@@ -349,28 +352,22 @@ public class MainActivity extends Activity {
 	    try {
 		settingsLocal = scon.getSettings();
 	    } catch (ClientProtocolException e) {
-		PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.cp_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (APIException e) {
-		PopUp.exceptionAlert(this, getString(R.string.api_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.api_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (PermissionException e) {
-		PopUp.exceptionAlert(this, getString(R.string.per_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.per_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (RequestNotPracticableException e) {
-		PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.rnp_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (InternalErrorException e) {
-		PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.ie_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (IOException e) {
-		PopUp.exceptionAlert(this, getString(R.string.io_ex),
-			e.getMessage());
+		PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (NoStorageException e) {
 		// TODO Auto-generated catch block
@@ -386,28 +383,25 @@ public class MainActivity extends Activity {
 		try {
 		    success = Helper.getUpdate(date, MainActivity.this);
 		} catch (ClientProtocolException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.cp_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (APIException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    PopUp.alert(this, getString(R.string.api_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (PermissionException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    PopUp.alert(this, getString(R.string.per_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (RequestNotPracticableException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    PopUp.alert(this, getString(R.string.rnp_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (InternalErrorException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.ie_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (IOException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.io_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (NoStorageException e) {
 		    // TODO Auto-generated catch block

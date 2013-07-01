@@ -198,25 +198,22 @@ public class SettingsActivity extends Activity {
 	try {
 	    success = scon.setSettings(settingsLocal);
 	} catch (ClientProtocolException e) {
-	    PopUp.exceptionAlert(this, "ClientProtocolException!",
-		    e.getMessage());
+	    PopUp.alert(this, "ClientProtocolException!", e.getMessage());
 	    // e.printStackTrace();
 	} catch (APIException e) {
-	    PopUp.exceptionAlert(this, "APIException!", e.getMessage());
+	    PopUp.alert(this, "APIException!", e.getMessage());
 	    // e.printStackTrace();
 	} catch (PermissionException e) {
-	    PopUp.exceptionAlert(this, "PermissionException!", e.getMessage());
+	    PopUp.alert(this, "PermissionException!", e.getMessage());
 	    // e.printStackTrace();
 	} catch (RequestNotPracticableException e) {
-	    PopUp.exceptionAlert(this, "RequestNotPracticableException!",
-		    e.getMessage());
+	    PopUp.alert(this, "RequestNotPracticableException!", e.getMessage());
 	    // e.printStackTrace();
 	} catch (InternalErrorException e) {
-	    PopUp.exceptionAlert(this, "InternalErrorException!",
-		    e.getMessage());
+	    PopUp.alert(this, "InternalErrorException!", e.getMessage());
 	    // e.printStackTrace();
 	} catch (IOException e) {
-	    PopUp.exceptionAlert(this, "IOException!", e.getMessage());
+	    PopUp.alert(this, "IOException!", e.getMessage());
 	    // e.printStackTrace();
 	}
 
