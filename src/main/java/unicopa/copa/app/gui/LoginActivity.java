@@ -17,18 +17,13 @@
 package unicopa.copa.app.gui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import org.apache.http.client.ClientProtocolException;
 
-import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
-import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.app.Storage;
 import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.com.exception.APIException;
@@ -46,7 +41,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -284,6 +278,36 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		    }
+		}
+		// end only if ...
+
+		// check whether all subscribed Events are in database
+		try {
+		    Helper.checkSubscriptions();
+		} catch (ClientProtocolException e) {
+		    PopUp.alert(this, getString(R.string.cp_ex), e.getMessage());
+		    // e.printStackTrace();
+		} catch (APIException e) {
+		    PopUp.alert(this, getString(R.string.api_ex),
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (PermissionException e) {
+		    PopUp.alert(this, getString(R.string.per_ex),
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (RequestNotPracticableException e) {
+		    PopUp.alert(this, getString(R.string.rnp_ex),
+			    e.getMessage());
+		    // e.printStackTrace();
+		} catch (InternalErrorException e) {
+		    PopUp.alert(this, getString(R.string.ie_ex), e.getMessage());
+		    // e.printStackTrace();
+		} catch (IOException e) {
+		    PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
+		    // e.printStackTrace();
+		} catch (NoStorageException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
 		}
 
 		finish();

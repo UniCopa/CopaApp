@@ -26,11 +26,11 @@ import java.util.Set;
 
 import org.apache.http.client.ClientProtocolException;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import unicopa.copa.app.exceptions.NoEventException;
 import unicopa.copa.app.exceptions.NoEventGroupException;
-import unicopa.copa.app.exceptions.NoSingleEventException;
 import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.UserSettings;
@@ -190,6 +190,129 @@ public class Helper {
 		    } catch (NoEventException e1) {
 			// This should never happen
 			e1.printStackTrace();
+		    }
+		}
+	    }
+	}
+
+	return true;
+    }
+
+    public static boolean checkSubscriptions() throws NoStorageException,
+	    ClientProtocolException, IOException, APIException,
+	    PermissionException, RequestNotPracticableException,
+	    InternalErrorException {
+	Date date = null;
+	date = Calendar.getInstance().getTime();
+
+	Storage storage = null;
+	storage = Storage.getInstance(null);
+
+	SettingsLocal settingsLocal = null;
+	settingsLocal = storage.load();
+
+	Set<Integer> subscriptionList = null;
+	subscriptionList = settingsLocal.getSubscriptions();
+	for (int eventID : subscriptionList) {
+	    Database db = null;
+	    db = Database.getInstance(null);
+
+	    boolean missing = false;
+	    missing = db.checkEvent(eventID);
+
+	    if (missing) {
+		ServerConnection scon = null;
+		scon = ServerConnection.getInstance();
+
+		List<SingleEvent> sEvents = null;
+		sEvents = scon.getCurrentSingleEvents(eventID, date);
+
+		// if Event has no SingleEvents just insert the Event and
+		// EventGroup
+		if (sEvents.size() == 0) {
+		    Event event = null;
+		    event = scon.getEvent(eventID);
+
+		    try {
+			db.insert(event, eventID);
+		    } catch (NoEventGroupException e1) {
+			int eventGroupID;
+			eventGroupID = event.getEventGroupID();
+
+			EventGroup eventGroup = null;
+			eventGroup = scon.getEventGroup(eventGroupID);
+
+			if (eventGroup == null) {
+			    return false;
+			}
+
+			try {
+			    db.insert(eventGroup, eventGroupID);
+			    db.insert(event, eventID);
+			} catch (NoEventGroupException e2) {
+			    // This should never happen
+			    e2.printStackTrace();
+			} catch (NoEventException e2) {
+			    // This should never happen
+			    e2.printStackTrace();
+			}
+		    } catch (NoEventException e1) {
+			// This should never happen
+			e1.printStackTrace();
+		    }
+		}
+
+		// if Event has SingleEvents insert all
+		if (sEvents.size() != 0) {
+		    for (SingleEvent sEvent : sEvents) {
+			SingleEventLocal sEventLocal = null;
+			sEventLocal = Helper.singleEventToSingleEventLocal(
+				sEvent, "");
+
+			try {
+			    db.insert(sEventLocal, -1);
+			} catch (NoEventGroupException e) {
+			    // This should never happen
+			    e.printStackTrace();
+			} catch (NoEventException e) {
+			    Event event = null;
+			    event = scon.getEvent(eventID);
+
+			    if (event == null) {
+				return false;
+			    }
+
+			    try {
+				db.insert(event, eventID);
+				db.insert(sEventLocal, -1);
+
+			    } catch (NoEventGroupException e1) {
+				int eventGroupID;
+				eventGroupID = event.getEventGroupID();
+
+				EventGroup eventGroup = null;
+				eventGroup = scon.getEventGroup(eventGroupID);
+
+				if (eventGroup == null) {
+				    return false;
+				}
+
+				try {
+				    db.insert(eventGroup, eventGroupID);
+				    db.insert(event, eventID);
+				    db.insert(sEventLocal, -1);
+				} catch (NoEventGroupException e2) {
+				    // This should never happen
+				    e2.printStackTrace();
+				} catch (NoEventException e2) {
+				    // This should never happen
+				    e2.printStackTrace();
+				}
+			    } catch (NoEventException e1) {
+				// This should never happen
+				e1.printStackTrace();
+			    }
+			}
 		    }
 		}
 	    }
@@ -716,6 +839,7 @@ public class Helper {
      * @return SettingsLocal
      * @throws NoStorageException
      */
+    @SuppressLint("UseSparseArrays")
     public static SettingsLocal userSettingsToSettingsLocal(
 	    UserSettings settings) throws NoStorageException {
 	Set<String> gcmKeys = null;
