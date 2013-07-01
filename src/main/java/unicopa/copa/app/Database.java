@@ -292,33 +292,42 @@ public class Database extends SQLiteOpenHelper {
 		if (c != null && c.getCount() > 0) {
 		    c.moveToFirst();
 
-		    String UpdateColumns = "UPDATE " + TableName
-			    + " SET ";
-		    
-		    UpdateColumns = UpdateColumns + "singleEventID='" + String.valueOf(sev.getSingleEventID())+ "',";
-		    UpdateColumns = UpdateColumns + "supervisor='" + sev.getSupervisor()+ "',";
-		    UpdateColumns = UpdateColumns + "date = '"+String.valueOf(sev.getDate().getTime())+"',";
-		    UpdateColumns = UpdateColumns + "location = '"+sev.getLocation()+"',";
-		    UpdateColumns = UpdateColumns + "durationMinutes = '"+String.valueOf(sev.getDurationMinutes())+"',";
-		    
+		    String UpdateColumns = "UPDATE " + TableName + " SET ";
+
+		    UpdateColumns = UpdateColumns + "singleEventID='"
+			    + String.valueOf(sev.getSingleEventID()) + "',";
+		    UpdateColumns = UpdateColumns + "supervisor='"
+			    + sev.getSupervisor() + "',";
+		    UpdateColumns = UpdateColumns + "date = '"
+			    + String.valueOf(sev.getDate().getTime()) + "',";
+		    UpdateColumns = UpdateColumns + "location = '"
+			    + sev.getLocation() + "',";
+		    UpdateColumns = UpdateColumns + "durationMinutes = '"
+			    + String.valueOf(sev.getDurationMinutes()) + "',";
+
 		    if (sev.getDateUpdateCounter() == 1) {
 			UpdateColumns = UpdateColumns + " dateUpdateCounter='"
 				+ String.valueOf(c.getInt(4) + 1) + "',";
 		    }
 		    if (sev.getSupervisorUpdateCounter() == 1) {
-			UpdateColumns = UpdateColumns + " supervisorUpdateCounter='"
+			UpdateColumns = UpdateColumns
+				+ " supervisorUpdateCounter='"
 				+ String.valueOf(c.getInt(6) + 1) + "',";
 		    }
 		    if (sev.getLoactionUpdateCounter() == 1) {
-			UpdateColumns = UpdateColumns + " locationUpdateCounter='"
+			UpdateColumns = UpdateColumns
+				+ " locationUpdateCounter='"
 				+ String.valueOf(c.getInt(8) + 1) + "',";
 		    }
 		    if (sev.getDurationMinutesUpdateCounter() == 1) {
-			UpdateColumns = UpdateColumns + " durationMinutesUpdateCounter='"
+			UpdateColumns = UpdateColumns
+				+ " durationMinutesUpdateCounter='"
 				+ String.valueOf(c.getInt(10) + 1) + "',";
 		    }
-		    UpdateColumns = UpdateColumns + "comment = '"+sev.getComment()+"'";
-		    UpdateColumns = UpdateColumns + " WHERE singleEventID='" + String.valueOf(ID_old) + "'";
+		    UpdateColumns = UpdateColumns + "comment = '"
+			    + sev.getComment() + "'";
+		    UpdateColumns = UpdateColumns + " WHERE singleEventID='"
+			    + String.valueOf(ID_old) + "'";
 
 		    // check whether SingleEvent has an existing Event
 		    String Tcolumns[] = { "eventID" };
@@ -1044,16 +1053,19 @@ public class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * This method checks whether a SingleEvent with the given singleEventID exists in the local database.
+     * This method checks whether a SingleEvent with the given singleEventID
+     * exists in the local database.
+     * 
      * @param singleEventID
      * @return
      */
-    public boolean checkSingleEvent(int singleEventID){
+    public boolean checkSingleEvent(int singleEventID) {
 	data = this.getReadableDatabase();
 	boolean found = false;
-	
-	String columns[] = { "singleEventID"};
-	String selection = "singleEventID = '"+String.valueOf(singleEventID)+"'";
+
+	String columns[] = { "singleEventID" };
+	String selection = "singleEventID = '" + String.valueOf(singleEventID)
+		+ "'";
 	String selectionArgs[] = null;
 	String groupBy = null;
 	String having = null;
@@ -1061,68 +1073,77 @@ public class Database extends SQLiteOpenHelper {
 
 	Cursor c = data.query("SingleEventLocal", columns, selection,
 		selectionArgs, groupBy, having, orderBy);
-	
-	if(c.getCount()>0) found = true;
-	
+
+	if (c.getCount() > 0)
+	    found = true;
+
 	c.close();
 	data.close();
 	return found;
     }
-    
+
     /**
-     * This method checks whether an Event with the given eventID exists in the local database.
+     * This method checks whether an Event with the given eventID exists in the
+     * local database.
+     * 
      * @param eventID
      * @return
      */
-    public boolean checkEvent(int eventID){
+    public boolean checkEvent(int eventID) {
 	data = this.getReadableDatabase();
 	boolean found = false;
-	
-	String columns[] = { "eventID"};
-	String selection = "eventID = '"+String.valueOf(eventID)+"'";
+
+	String columns[] = { "eventID" };
+	String selection = "eventID = '" + String.valueOf(eventID) + "'";
 	String selectionArgs[] = null;
 	String groupBy = null;
 	String having = null;
 	String orderBy = "";
 
-	Cursor c = data.query("Event", columns, selection,
-		selectionArgs, groupBy, having, orderBy);
-	
-	if(c.getCount()>0) found = true;
-	
+	Cursor c = data.query("Event", columns, selection, selectionArgs,
+		groupBy, having, orderBy);
+
+	if (c.getCount() > 0)
+	    found = true;
+
 	c.close();
 	data.close();
 	return found;
     }
 
     /**
-     * This method checks whether an EventGroup with the given eventGroupID exists in the local database.
+     * This method checks whether an EventGroup with the given eventGroupID
+     * exists in the local database.
+     * 
      * @param eventGroupID
      * @return
      */
-    public boolean checkEventGroup(int eventGroupID){
+    public boolean checkEventGroup(int eventGroupID) {
 	data = this.getReadableDatabase();
 	boolean found = false;
-	
-	String columns[] = { "eventGroupID"};
-	String selection = "eventGroupID = '"+String.valueOf(eventGroupID)+"'";
+
+	String columns[] = { "eventGroupID" };
+	String selection = "eventGroupID = '" + String.valueOf(eventGroupID)
+		+ "'";
 	String selectionArgs[] = null;
 	String groupBy = null;
 	String having = null;
 	String orderBy = "";
 
-	Cursor c = data.query("EventGroup", columns, selection,
-		selectionArgs, groupBy, having, orderBy);
-	
-	if(c.getCount()>0) found = true;
-	
+	Cursor c = data.query("EventGroup", columns, selection, selectionArgs,
+		groupBy, having, orderBy);
+
+	if (c.getCount() > 0)
+	    found = true;
+
 	c.close();
 	data.close();
 	return found;
-}
-    
+    }
+
     /**
      * This method is to return the next updated SingleEvents
+     * 
      * @param num
      * @return
      */
@@ -1134,7 +1155,7 @@ public class Database extends SQLiteOpenHelper {
 	int elements = 0;
 
 	String columns[] = null;
-	String selection = "locationUpdateCounter > '0' OR dateUpdateCounter > '0' OR supdervisorUpdateCounter > '0' OR durationMinutesUpdateCounter > '0'";
+	String selection = "locationUpdateCounter > '0' OR dateUpdateCounter > '0' OR supervisorUpdateCounter > '0' OR durationMinutesUpdateCounter > '0'";
 	String selectionArgs[] = null;
 	String groupBy = null;
 	String having = null;
@@ -1173,5 +1194,5 @@ public class Database extends SQLiteOpenHelper {
 	data.close();
 	return SingleEventLocalList;
     }
-    
+
 }
