@@ -158,28 +158,28 @@ public class SearchResultEventAdapter extends BaseAdapter {
 		try {
 		    success = Helper.subscribe(eventID, settingsLocal, context);
 		} catch (ClientProtocolException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.cp_ex), e.getMessage());
+		    PopUp.alert(context, context.getString(R.string.cp_ex),
+			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (APIException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.api_ex), e.getMessage());
+		    PopUp.alert(context, context.getString(R.string.api_ex),
+			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (PermissionException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.per_ex), e.getMessage());
+		    PopUp.alert(context, context.getString(R.string.per_ex),
+			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (RequestNotPracticableException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.rnp_ex), e.getMessage());
+		    PopUp.alert(context, context.getString(R.string.rnp_ex),
+			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (InternalErrorException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.ie_ex), e.getMessage());
+		    PopUp.alert(context, context.getString(R.string.ie_ex),
+			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (IOException e) {
-		    PopUp.exceptionAlert(context,
-			    context.getString(R.string.io_ex), e.getMessage());
+		    PopUp.alert(context, context.getString(R.string.io_ex),
+			    e.getMessage());
 		    // e.printStackTrace();
 		}
 		if (success) {

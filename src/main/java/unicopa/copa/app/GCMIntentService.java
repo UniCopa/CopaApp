@@ -109,28 +109,25 @@ public class GCMIntentService extends GCMBaseIntentService {
 		try {
 		    settingsLocal = scon.getSettings();
 		} catch (ClientProtocolException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.cp_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (APIException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    PopUp.alert(this, getString(R.string.api_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (PermissionException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    PopUp.alert(this, getString(R.string.per_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (RequestNotPracticableException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    PopUp.alert(this, getString(R.string.rnp_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (InternalErrorException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.ie_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (IOException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.io_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (NoStorageException e) {
 		    // TODO Auto-generated catch block
@@ -153,28 +150,25 @@ public class GCMIntentService extends GCMBaseIntentService {
 		try {
 		    Helper.getRights();
 		} catch (ClientProtocolException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.cp_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (APIException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    PopUp.alert(this, getString(R.string.api_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (PermissionException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    PopUp.alert(this, getString(R.string.per_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (RequestNotPracticableException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    PopUp.alert(this, getString(R.string.rnp_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (InternalErrorException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.ie_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (IOException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.io_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		    // e.printStackTrace();
 		}
 	    } else {
@@ -189,28 +183,25 @@ public class GCMIntentService extends GCMBaseIntentService {
 		try {
 		    settingsLocal = scon.getSettings();
 		} catch (ClientProtocolException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.cp_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.cp_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (APIException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.api_ex),
+		    PopUp.alert(this, getString(R.string.api_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (PermissionException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.per_ex),
+		    PopUp.alert(this, getString(R.string.per_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (RequestNotPracticableException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+		    PopUp.alert(this, getString(R.string.rnp_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
 		} catch (InternalErrorException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.ie_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.ie_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (IOException e) {
-		    PopUp.exceptionAlert(this, getString(R.string.io_ex),
-			    e.getMessage());
+		    PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (NoStorageException e) {
 		    // TODO Auto-generated catch block
@@ -228,27 +219,27 @@ public class GCMIntentService extends GCMBaseIntentService {
 								// context
 								// right?
 		    } catch (ClientProtocolException e) {
-			PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+			PopUp.alert(this, getString(R.string.cp_ex),
 				e.getMessage());
 			// e.printStackTrace();
 		    } catch (APIException e) {
-			PopUp.exceptionAlert(this, getString(R.string.api_ex),
+			PopUp.alert(this, getString(R.string.api_ex),
 				e.getMessage());
 			// e.printStackTrace();
 		    } catch (PermissionException e) {
-			PopUp.exceptionAlert(this, getString(R.string.per_ex),
+			PopUp.alert(this, getString(R.string.per_ex),
 				e.getMessage());
 			// e.printStackTrace();
 		    } catch (RequestNotPracticableException e) {
-			PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+			PopUp.alert(this, getString(R.string.rnp_ex),
 				e.getMessage());
 			// e.printStackTrace();
 		    } catch (InternalErrorException e) {
-			PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+			PopUp.alert(this, getString(R.string.ie_ex),
 				e.getMessage());
 			// e.printStackTrace();
 		    } catch (IOException e) {
-			PopUp.exceptionAlert(this, getString(R.string.io_ex),
+			PopUp.alert(this, getString(R.string.io_ex),
 				e.getMessage());
 			// e.printStackTrace();
 		    } catch (NoStorageException e) {

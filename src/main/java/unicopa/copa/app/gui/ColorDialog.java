@@ -122,28 +122,28 @@ public class ColorDialog extends DialogFragment {
 			try {
 			    success = scon.setSettings(settings);
 			} catch (ClientProtocolException e) {
-			    PopUp.exceptionAlert(context,
-				    getString(R.string.cp_ex), e.getMessage());
+			    PopUp.alert(context, getString(R.string.cp_ex),
+				    e.getMessage());
 			    // e.printStackTrace();
 			} catch (APIException e) {
-			    PopUp.exceptionAlert(context,
-				    getString(R.string.api_ex), e.getMessage());
+			    PopUp.alert(context, getString(R.string.api_ex),
+				    e.getMessage());
 			    // e.printStackTrace();
 			} catch (PermissionException e) {
-			    PopUp.exceptionAlert(context,
-				    getString(R.string.per_ex), e.getMessage());
+			    PopUp.alert(context, getString(R.string.per_ex),
+				    e.getMessage());
 			    // e.printStackTrace();
 			} catch (RequestNotPracticableException e) {
-			    PopUp.exceptionAlert(context,
-				    getString(R.string.rnp_ex), e.getMessage());
+			    PopUp.alert(context, getString(R.string.rnp_ex),
+				    e.getMessage());
 			    // e.printStackTrace();
 			} catch (InternalErrorException e) {
-			    PopUp.exceptionAlert(context,
-				    getString(R.string.ie_ex), e.getMessage());
+			    PopUp.alert(context, getString(R.string.ie_ex),
+				    e.getMessage());
 			    // e.printStackTrace();
 			} catch (IOException e) {
-			    PopUp.exceptionAlert(context,
-				    getString(R.string.io_ex), e.getMessage());
+			    PopUp.alert(context, getString(R.string.io_ex),
+				    e.getMessage());
 			    // e.printStackTrace();
 			}
 
