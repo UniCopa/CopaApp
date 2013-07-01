@@ -1121,4 +1121,57 @@ public class Database extends SQLiteOpenHelper {
 	return found;
 }
     
+    /**
+     * This method is to return the next updated SingleEvents
+     * @param num
+     * @return
+     */
+    public List<SingleEventLocal> getUpdatedSingleEvents(int num) {
+	data = this.getReadableDatabase();
+
+	List<SingleEventLocal> SingleEventLocalList = new ArrayList<SingleEventLocal>();
+
+	int elements = 0;
+
+	String columns[] = null;
+	String selection = "locationUpdateCounter > '0' OR dateUpdateCounter > '0' OR supdervisorUpdateCounter > '0' OR durationMinutesUpdateCounter > '0'";
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "date ASC";
+
+	Cursor c = data.query("SingleEventLocal", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	if (c.getCount() > 0) {
+	    c.moveToFirst();
+	    elements = c.getCount();
+	}
+	while (elements > 0 && num > 0) {
+	    Date date = new Date(c.getLong(3));
+	    SingleEventLocal sev = new SingleEventLocal(c.getInt(0), // singleEventID
+		    c.getInt(1), // eventID
+		    c.getString(7),// Location
+		    date, // Date
+		    c.getString(5),// supervisor
+		    c.getInt(9), // durationMinutes
+		    c.getString(11),// colorCode
+		    c.getString(2),// name
+		    c.getInt(8), // locationUpdateCounter
+		    c.getInt(4), // dateUpdateCounter
+		    c.getInt(6), // supervisorUpdateCounter
+		    c.getInt(10), // durationMinutesUpdateCounter
+		    c.getInt(12), c.getString(13)// Permissions
+
+	    );
+	    SingleEventLocalList.add(sev);
+	    c.moveToNext();
+	    num--;
+	    elements--;
+
+	}
+	c.close();
+	data.close();
+	return SingleEventLocalList;
+    }
+    
 }
