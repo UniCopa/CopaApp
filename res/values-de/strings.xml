@@ -165,7 +165,11 @@
         <b>IOException</b>\n
     </string>
     <string name="accept_title">Einverständniserklärung zum Datenschutz</string>
-    <string name="accept_msg">CoPA darf folgendes nutzen...</string>
+    <string name="accept_msg">Um den Copa-Service nutzen zu können, müssen diverse Nutzerinformationen von Ihnen gespeichert werden. Diese beinhalten:\n
+Ihren Namen,\n
+Ihren Uni-Login (zum Autentifizieren) und\n
+Ihre E-Mail Adresse (für die Email Benachrichtigung)\n
+Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.\n</string>
     <string name="accept_no">Nein!</string>
     <string name="accept">Ich akzeptiere.</string>
     <string name="subscribed">Sie haben diese Veranstaltung abonniert.</string>

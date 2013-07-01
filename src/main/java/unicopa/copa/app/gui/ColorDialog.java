@@ -75,7 +75,7 @@ public class ColorDialog extends DialogFragment {
 			    color = "B22222";
 			    break;
 			case 2:// yellow
-			    color = "FFA500";
+			    color = "FFDD00";
 			    break;
 			case 3:// pink
 			    color = "FF1493";
