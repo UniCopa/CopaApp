@@ -90,7 +90,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/login_usernameField" />
+        android:layout_below="@+id/login_usernameField"
+        android:layout_margin="15dp" />
 
     <TextView
         android:id="@+id/login_pw"

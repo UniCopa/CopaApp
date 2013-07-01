@@ -117,8 +117,8 @@ public class LoginActivity extends Activity {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	String actualUser = "";// TODO settings.getUserName();
-	if (actualUser == "") {
+	String actualUser = settings.getUserName();
+	if (actualUser == "empty") {
 	    changeUser.setVisibility(View.GONE);
 	    firstTime = true;
 	} else {
@@ -162,18 +162,20 @@ public class LoginActivity extends Activity {
      * @param view
      */
     public void onLoginButtonClick(View view) {
+	Storage storage = null;
+	storage = Storage.getInstance(null);
+	SettingsLocal settings = null;
+	try {
+	    settings = storage.load();
+	} catch (NoStorageException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
 	if (firstTime) {
 	    userName = name.getText().toString();
-	    Storage storage = null;
-	    storage = Storage.getInstance(null);
-	    SettingsLocal settings = null;
-	    try {
-		settings = storage.load();
-	    } catch (NoStorageException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	    }
-	    // TODO store in SettingsLocal
+
+	    settings.setUserName(userName);
 	    storage.store(settings);
 	}
 
@@ -186,13 +188,13 @@ public class LoginActivity extends Activity {
 	// TODO check if already logged in
 	if (!scon.getConnected()) {
 
-	    // userName = "";
 	    String password = "";
 
 	    // read userName and password from respective textEdit
 	    EditText name = (EditText) findViewById(R.id.login_usernameField);
 	    EditText pw = (EditText) findViewById(R.id.login_passwordField);
 	    password = pw.getText().toString();
+	    userName = settings.getUserName();
 
 	    boolean success = false;
 
@@ -243,11 +245,11 @@ public class LoginActivity extends Activity {
 		}
 
 		if (settingsLocal != null) {
-		    Storage storage = null;
-		    storage = Storage.getInstance(null);
+		    Storage storage1 = null;
+		    storage1 = Storage.getInstance(null);
 
 		    settingsLocal.setUserName(userName);
-		    storage.store(settingsLocal);
+		    storage1.store(settingsLocal);
 
 		    Date date = null;
 		    date = settingsLocal.getLastUpdate();
