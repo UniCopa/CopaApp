@@ -17,12 +17,18 @@
 package unicopa.copa.app.gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 
+import unicopa.copa.app.Database;
+import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
 import unicopa.copa.app.SettingsLocal;
+import unicopa.copa.app.SingleEventLocal;
 import unicopa.copa.app.Storage;
 import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.com.exception.APIException;
@@ -40,6 +46,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -205,7 +212,7 @@ public class LoginActivity extends Activity {
 	    if (success) {
 
 		// TODO only if notificationKind 'none' or 'gcm-manu'/'gmc-auto'
-		// and a gcm message with settings update notification
+		// and a gcm message with settings update notification or first time
 		SettingsLocal settingsLocal = null;
 
 		try {
@@ -244,6 +251,40 @@ public class LoginActivity extends Activity {
 		    storage = Storage.getInstance(null);
 
 		    storage.store(settingsLocal);
+
+		    Date date = null;
+		    date = settingsLocal.getLastUpdate();
+
+		    try {
+			success = Helper.getUpdate(date, LoginActivity.this);
+		    } catch (ClientProtocolException e) {
+			PopUp.exceptionAlert(this, getString(R.string.cp_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (APIException e) {
+			PopUp.exceptionAlert(this, getString(R.string.api_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (PermissionException e) {
+			PopUp.exceptionAlert(this, getString(R.string.per_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (RequestNotPracticableException e) {
+			PopUp.exceptionAlert(this, getString(R.string.rnp_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (InternalErrorException e) {
+			PopUp.exceptionAlert(this, getString(R.string.ie_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (IOException e) {
+			PopUp.exceptionAlert(this, getString(R.string.io_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (NoStorageException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		    }
 		}
 
 		finish();
