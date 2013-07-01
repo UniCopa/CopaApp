@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Date;
 import org.apache.http.client.ClientProtocolException;
 
+import unicopa.copa.app.Database;
 import unicopa.copa.app.Helper;
 import unicopa.copa.app.R;
 import unicopa.copa.app.ServerConnection;
@@ -112,8 +113,10 @@ public class LoginActivity extends Activity {
 	    e.printStackTrace();
 	}
 	String actualUser = settings.getUserName();
-	if (actualUser == "empty") {
+	if (actualUser.equals("empty")) {
 	    changeUser.setVisibility(View.GONE);
+	    currentUserName.setVisibility(View.GONE);
+	    name.setVisibility(View.VISIBLE);
 	    firstTime = true;
 	} else {
 	    currentUserName.setText(actualUser);
@@ -166,13 +169,6 @@ public class LoginActivity extends Activity {
 	    e.printStackTrace();
 	}
 
-	if (firstTime) {
-	    userName = name.getText().toString();
-
-	    settings.setUserName(userName);
-	    storage.store(settings);
-	}
-
 	// A Loading Screen or something similar would be nice. Otherwise when
 	// you click during load the app crashes.
 	Toast toast = Toast.makeText(LoginActivity.this,
@@ -189,6 +185,13 @@ public class LoginActivity extends Activity {
 	    EditText pw = (EditText) findViewById(R.id.login_passwordField);
 	    password = pw.getText().toString();
 	    userName = settings.getUserName();
+
+	    if (firstTime) {
+		userName = name.getText().toString();
+
+		settings.setUserName(userName);
+		storage.store(settings);
+	    }
 
 	    boolean success = false;
 
@@ -428,7 +431,12 @@ public class LoginActivity extends Activity {
 			    userName = input.getText().toString();
 			    settings.setUserName(userName);
 			    storage.store(settings);
-
+			    // Database db.table_delete("SingleEventLocal");
+			    // db.table_delete("Event");
+			    // db.table_delete("EventGroup");
+			    // db = Database
+			    // .getInstance(LoginActivity.this);
+			    //
 			    currentUserName.setText(userName);
 			    name.setVisibility(View.GONE);
 
