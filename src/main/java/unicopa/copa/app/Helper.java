@@ -427,61 +427,65 @@ public class Helper {
 		listSize -= 1;
 	    }
 
+	    Database db = null;
+	    db = Database.getInstance(context);
+
 	    int oldSEventID = 0;
-	    oldSEventID = sEventUpdateList.get(listSize - 1)
-		    .getOldSingleEventID();
-
 	    SingleEventLocal sEventLocal = null;
-	    sEventLocal = checkChanges(sEventUpdateList);
 
-	    Database db = Database.getInstance(context);
+	    if (listSize > 0) {
+		oldSEventID = sEventUpdateList.get(listSize - 1)
+			.getOldSingleEventID();
 
-	    try {
-		db.insert(sEventLocal, oldSEventID);
-	    } catch (NoEventGroupException e) {
-		// This should never happen
-		e.printStackTrace();
-	    } catch (NoEventException e) {
-		int eventID = 0;
-		eventID = sEventLocal.getEventID();
-
-		Event event = null;
-		event = scon.getEvent(eventID);
-
-		if (event == null) {
-		    return false;
-		}
+		sEventLocal = checkChanges(sEventUpdateList);
 
 		try {
-		    db.insert(event, eventID);
 		    db.insert(sEventLocal, oldSEventID);
-		} catch (NoEventGroupException e1) {
-		    int eventGroupID;
-		    eventGroupID = event.getEventGroupID();
+		} catch (NoEventGroupException e) {
+		    // This should never happen
+		    e.printStackTrace();
+		} catch (NoEventException e) {
+		    int eventID = 0;
+		    eventID = sEventLocal.getEventID();
 
-		    EventGroup eventGroup = null;
-		    eventGroup = scon.getEventGroup(eventGroupID);
+		    Event event = null;
+		    event = scon.getEvent(eventID);
 
-		    if (eventGroup == null) {
+		    if (event == null) {
 			return false;
 		    }
 
 		    try {
-			db.insert(eventGroup, eventGroupID);
 			db.insert(event, eventID);
 			db.insert(sEventLocal, oldSEventID);
-		    } catch (NoEventGroupException e2) {
-			// This should never happen
-			e2.printStackTrace();
-		    } catch (NoEventException e2) {
-			// This should never happen
-			e2.printStackTrace();
-		    }
+		    } catch (NoEventGroupException e1) {
+			int eventGroupID;
+			eventGroupID = event.getEventGroupID();
 
-		    // e1.printStackTrace();
-		} catch (NoEventException e1) {
-		    // This should never happen
-		    e1.printStackTrace();
+			EventGroup eventGroup = null;
+			eventGroup = scon.getEventGroup(eventGroupID);
+
+			if (eventGroup == null) {
+			    return false;
+			}
+
+			try {
+			    db.insert(eventGroup, eventGroupID);
+			    db.insert(event, eventID);
+			    db.insert(sEventLocal, oldSEventID);
+			} catch (NoEventGroupException e2) {
+			    // This should never happen
+			    e2.printStackTrace();
+			} catch (NoEventException e2) {
+			    // This should never happen
+			    e2.printStackTrace();
+			}
+
+			// e1.printStackTrace();
+		    } catch (NoEventException e1) {
+			// This should never happen
+			e1.printStackTrace();
+		    }
 		}
 	    }
 
