@@ -1043,4 +1043,82 @@ public class Database extends SQLiteOpenHelper {
 	data.execSQL(cancelString);
     }
 
+    /**
+     * This method checks whether a SingleEvent with the given singleEventID exists in the local database.
+     * @param singleEventID
+     * @return
+     */
+    public boolean checkSingleEvent(int singleEventID){
+	data = this.getReadableDatabase();
+	boolean found = false;
+	
+	String columns[] = { "singleEventID"};
+	String selection = "singleEventID = '"+String.valueOf(singleEventID)+"'";
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "";
+
+	Cursor c = data.query("SingleEventLocal", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	
+	if(c.getCount()>0) found = true;
+	
+	c.close();
+	data.close();
+	return found;
+    }
+    
+    /**
+     * This method checks whether an Event with the given eventID exists in the local database.
+     * @param eventID
+     * @return
+     */
+    public boolean checkEvent(int eventID){
+	data = this.getReadableDatabase();
+	boolean found = false;
+	
+	String columns[] = { "eventID"};
+	String selection = "eventID = '"+String.valueOf(eventID)+"'";
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "";
+
+	Cursor c = data.query("Event", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	
+	if(c.getCount()>0) found = true;
+	
+	c.close();
+	data.close();
+	return found;
+    }
+
+    /**
+     * This method checks whether an EventGroup with the given eventGroupID exists in the local database.
+     * @param eventGroupID
+     * @return
+     */
+    public boolean checkEventGroup(int eventGroupID){
+	data = this.getReadableDatabase();
+	boolean found = false;
+	
+	String columns[] = { "eventGroupID"};
+	String selection = "eventGroupID = '"+String.valueOf(eventGroupID)+"'";
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "";
+
+	Cursor c = data.query("EventGroup", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+	
+	if(c.getCount()>0) found = true;
+	
+	c.close();
+	data.close();
+	return found;
+}
+    
 }
