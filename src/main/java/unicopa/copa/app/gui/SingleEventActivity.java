@@ -71,6 +71,35 @@ public class SingleEventActivity extends Activity {
 	supervisor.setText(sEventLocal.getSupervisor());
 	durationtime.setText(String.valueOf(sEventLocal.getDurationMinutes()));
 	comment.setText(sEventLocal.getComment());
+
+	int locationUpdateCounter = sEventLocal.getLoactionUpdateCounter();
+	int dateUpdateCounter = sEventLocal.getDateUpdateCounter();
+	int supervisorUpdateCounter = sEventLocal.getSupervisorUpdateCounter();
+	int durationMinutesUpdateCounter = sEventLocal
+		.getDurationMinutesUpdateCounter();
+	if (locationUpdateCounter > 0) {
+	    location.setTextColor(SingleEventActivity.this.getResources()
+		    .getColor(R.color.changed));
+	}
+	if (dateUpdateCounter > 0) {
+	    date.setTextColor(SingleEventActivity.this.getResources().getColor(
+		    R.color.changed));
+	    time.setTextColor(SingleEventActivity.this.getResources().getColor(
+		    R.color.changed));
+	}
+	if (supervisorUpdateCounter > 0) {
+	    supervisor.setTextColor(SingleEventActivity.this.getResources()
+		    .getColor(R.color.changed));
+	}
+
+	if (sEventLocal.getDurationMinutes() == 0) {
+	    durationtime.setText(R.string.cancellation);
+	}
+
+	if (durationMinutesUpdateCounter > 0) {
+	    durationtime.setTextColor(SingleEventActivity.this.getResources()
+		    .getColor(R.color.changed));
+	}
 	change.setVisibility(View.GONE);
 
 	if (sEventLocal.getPermission() > 0) {

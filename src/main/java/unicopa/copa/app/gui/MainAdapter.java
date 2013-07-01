@@ -123,6 +123,8 @@ public class MainAdapter extends BaseAdapter {
 		    R.color.changed));
 	}
 	if (dateUpdateCounter > 0) {
+	    holder.date.setTextColor(context.getResources().getColor(
+		    R.color.changed));
 	    holder.time.setTextColor(context.getResources().getColor(
 		    R.color.changed));
 	}
@@ -130,6 +132,11 @@ public class MainAdapter extends BaseAdapter {
 	    holder.supervisor.setTextColor(context.getResources().getColor(
 		    R.color.changed));
 	}
+
+	if (sEvent.getDurationMinutes() == 0) {
+	    holder.dura.setText(R.string.cancellation);
+	}
+
 	if (durationMinutesUpdateCounter > 0) {
 	    holder.dura.setTextColor(context.getResources().getColor(
 		    R.color.changed));
