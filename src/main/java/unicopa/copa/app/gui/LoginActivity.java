@@ -54,7 +54,7 @@ import android.widget.Toast;
  * In this activity a user can enter his name and password to login or click a
  * button to logout.
  * 
- * @author Christiane Kuhn, Martin Rabe
+ * @author Christiane Kuhn, Martin Rabe, Robin Muench
  */
 public class LoginActivity extends Activity {
     ServerConnection scon = ServerConnection.getInstance();
@@ -250,6 +250,7 @@ public class LoginActivity extends Activity {
 		    Storage storage = null;
 		    storage = Storage.getInstance(null);
 
+		    settingsLocal.setUserName(userName);
 		    storage.store(settingsLocal);
 
 		    Date date = null;

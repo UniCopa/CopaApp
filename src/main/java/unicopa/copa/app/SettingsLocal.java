@@ -27,13 +27,14 @@ import unicopa.copa.base.UserSettings;
  * This class extends the BaseClass Settings with notification kind and last
  * update.
  * 
- * @author Martin Rabe
+ * @author Martin Rabe, Robin Muench
  */
 public class SettingsLocal extends UserSettings {
 
     private int notificationKind;
     private Date lastUpdate;
     private String localGcmKey;
+    private String userName="empty";
 
     /**
      * Class constructor without initialization.
@@ -83,6 +84,14 @@ public class SettingsLocal extends UserSettings {
     
     public String getLocalGcmKey() {
 	return localGcmKey;
+    }
+    
+    public void setUserName(String userName) {
+	this.userName = userName;
+    }
+    
+    public String getUserName() {
+	return userName;
     }
 
 }
