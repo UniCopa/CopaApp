@@ -194,5 +194,8 @@ Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.\n</st
     <string name="gcm_active">Push-Nachrichten für dieses Gerät bereits aktiert</string>
     <string name="inactivate_gcm">Ein anderer Nutzer hat bereits Push-Nachrichten für dieses Gerät aktiviert. Bitte loggen Sie sich mit dem altem Nutzernamen ein und wählen Sie "manuell" in den Einstellungen.</string>
     <string name="cancellation">Ausfall</string>
+	<string name="only_updates">Nur Änderungen</string>
+	<string name="show_more">Zeig mehr Termine</string>
+    <string name="all_dates">Alle Termine</string>
     
 </resources>

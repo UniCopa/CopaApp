@@ -207,5 +207,8 @@ All your data will be kept in confidence and will not be passed to a third party
     <string name="gcm_active">Push is still activated for another user</string>
     <string name="inactivate_gcm">Another user has activated push notification. Please log in with the old username and select "manual" in the settings.</string>
 	<string name="cancellation">Cancellation</string>
+	<string name="only_updates">Only updates</string>
+	<string name="show_more">Show more dates</string>
+	<string name="all_dates">All dates</string>
     
 </resources>

@@ -61,6 +61,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -82,6 +83,7 @@ public class MainActivity extends Activity {
     MainAdapter sEventAdapter;
     TextView text;
     ListView singleEventListView;
+    int num = 5;
 
     // begin GCM
     TextView mDisplay;
@@ -278,7 +280,7 @@ public class MainActivity extends Activity {
 	db.Table_init();
 
 	List<SingleEventLocal> sEventsLocal = null;
-	sEventsLocal = db.getNearestSingleEvents(10); // TODO maybe more?
+	sEventsLocal = db.getNearestSingleEvents(num);
 
 	for (SingleEventLocal item : sEventsLocal) {
 	    sEvents.add(item);
@@ -413,8 +415,7 @@ public class MainActivity extends Activity {
 		    db = Database.getInstance(MainActivity.this);
 
 		    List<SingleEventLocal> sEventsLocal = null;
-		    sEventsLocal = db.getNearestSingleEvents(10); // TODO maybe
-								  // more?
+		    sEventsLocal = db.getNearestSingleEvents(num);
 
 		    sEvents.clear();
 		    text.setText("");
@@ -488,4 +489,55 @@ public class MainActivity extends Activity {
 	return true;
     }
 
+    /**
+     * Shows only the changes SingleEvents if "Only Updates" is clicked.
+     */
+    public void onOnlyUpdatesButtonClick(View view) {
+	Database db = null;
+	db = Database.getInstance(MainActivity.this);
+	Button updates = (Button) findViewById(R.id.main_only_updates);
+	String label = (String) updates.getText();
+	List<SingleEventLocal> sEventsLocal = null;
+
+	if (label.equals(getString(R.string.only_updates))) {
+	    sEventsLocal = db.getUpdatedSingleEvents(num);
+	    updates.setText(getString(R.string.all_dates));
+	} else {
+	    sEventsLocal = db.getNearestSingleEvents(num);
+	    updates.setText(getString(R.string.only_updates));
+	}
+
+	sEvents.clear();
+	text.setText("");
+
+	for (SingleEventLocal item : sEventsLocal) {
+	    sEvents.add(item);
+	}
+
+	if (sEvents.equals(new ArrayList<SingleEventLocal>())) {
+	    text.setText(getString(R.string.nothing));
+	}
+
+	sEventAdapter = new MainAdapter(this, sEvents);
+
+	singleEventListView.setAdapter((ListAdapter) sEventAdapter);
+
+    }
+
+    /**
+     * Shows more SingleEvents if "Only Updates" is clicked.
+     */
+    public void onShowMoreButtonClick(View view) {
+	num = num + 10;
+	Button updates = (Button) findViewById(R.id.main_only_updates);
+	String label = (String) updates.getText();
+
+	if (label.equals(getString(R.string.only_updates))) {
+	    updates.setText(getString(R.string.all_dates));
+	} else {
+	    updates.setText(getString(R.string.only_updates));
+	}
+	onOnlyUpdatesButtonClick(view);
+
+    }
 }
