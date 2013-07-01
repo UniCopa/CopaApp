@@ -377,48 +377,65 @@ public class LoginActivity extends Activity {
      * @param view
      */
     public void onChangeUserButtonClick(View view) {
+	SettingsLocal settings = null;
+	Storage storage = null;
+	storage = Storage.getInstance(null);
 
-	AlertDialog.Builder alert = new AlertDialog.Builder(this);
+	try {
+	    settings = storage.load();
+	} catch (NoStorageException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 
-	alert.setTitle(getString(R.string.attention));
-	alert.setMessage(getString(R.string.userchanged));
+	if (settings.getNotificationKind() != 2) {
+	    PopUp.alert(this, getString(R.string.gcm_active),
+		    getString(R.string.inactivate_gcm));
+	} else {
+	    AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-	// Set an EditText view to get user input
-	final EditText input = new EditText(this);
-	alert.setView(input);
+	    alert.setTitle(getString(R.string.attention));
+	    alert.setMessage(getString(R.string.userchanged));
 
-	alert.setNegativeButton("Cancel",
-		new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int whichButton) {
-			// Canceled.
+	    // Set an EditText view to get user input
+	    final EditText input = new EditText(this);
+	    alert.setView(input);
 
-		    }
-		});
+	    alert.setNegativeButton("Cancel",
+		    new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,
+				int whichButton) {
+			    // Canceled.
 
-	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-	    public void onClick(DialogInterface dialog, int whichButton) {
-		SettingsLocal settings = null;
-		Storage storage = null;
-		storage = Storage.getInstance(null);
+			}
+		    });
 
-		try {
-		    settings = storage.load();
-		} catch (NoStorageException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		}
+	    alert.setPositiveButton("Ok",
+		    new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,
+				int whichButton) {
+			    SettingsLocal settings = null;
+			    Storage storage = null;
+			    storage = Storage.getInstance(null);
 
-		userName = input.getText().toString();
-		// TODO store in SettingsLocal
-		storage.store(settings);
+			    try {
+				settings = storage.load();
+			    } catch (NoStorageException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			    }
 
-		currentUserName.setText(userName);
-		name.setVisibility(View.GONE);
+			    userName = input.getText().toString();
+			    settings.setUserName(userName);
+			    storage.store(settings);
 
-	    }
-	});
+			    currentUserName.setText(userName);
+			    name.setVisibility(View.GONE);
 
-	alert.show();
+			}
+		    });
 
+	    alert.show();
+	}
     }
 }

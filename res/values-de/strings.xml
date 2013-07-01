@@ -191,4 +191,7 @@ Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.\n</st
     <string name="exceptions">Fehlerbehandlung</string>
     <string name="p_settings">Mögliche Einstellungen</string>
     <string name="no_info">Keine weiterführenden Informationen vorhanden</string>
+    <string name="gcm_active">Push-Nachrichten für dieses Gerät bereits aktiert</string>
+    <string name="inactivate_gcm">Ein anderer Nutzer hat bereits Push-Nachrichten für dieses Gerät aktiviert. Bitte loggen Sie sich mit dem altem Nutzernamen ein und wählen Sie "manuell" in den Einstellungen.</string>
+    
 </resources>

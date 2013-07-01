@@ -204,5 +204,7 @@ All your data will be kept in confidence and will not be passed to a third party
     <string name="exceptions">Error treatment</string>
     <string name="p_settings">Possible settings</string>
     <string name="no_info">No further information available</string>
+    <string name="gcm_active">Push is still activated for another user</string>
+    <string name="inactivate_gcm">Another user has activated push notification. Please log in with the old username and select "manual" in the settings.</string>
 
 </resources>
