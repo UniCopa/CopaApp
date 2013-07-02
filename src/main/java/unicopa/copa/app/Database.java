@@ -25,6 +25,7 @@ import java.util.Set;
 import unicopa.copa.app.exceptions.NoEventException;
 import unicopa.copa.app.exceptions.NoEventGroupException;
 import unicopa.copa.app.exceptions.NoSingleEventException;
+import unicopa.copa.app.exceptions.NoStorageException;
 import unicopa.copa.base.UserEventSettings;
 import unicopa.copa.base.com.exception.PermissionException;
 import unicopa.copa.base.event.Event;
@@ -305,24 +306,20 @@ public class Database extends SQLiteOpenHelper {
 		    UpdateColumns = UpdateColumns + "durationMinutes = '"
 			    + String.valueOf(sev.getDurationMinutes()) + "',";
 
-		    if (sev.getDateUpdateCounter() == 1) {
-			UpdateColumns = UpdateColumns + " dateUpdateCounter='"
-				+ String.valueOf(c.getInt(4) + 1) + "',";
+		    if (sev.getDate().getTime() != c.getLong(3)) {
+			UpdateColumns = UpdateColumns + " dateUpdateCounter='1',";
 		    }
-		    if (sev.getSupervisorUpdateCounter() == 1) {
+		    if (!sev.getSupervisor().equals(c.getString(5))) {
 			UpdateColumns = UpdateColumns
-				+ " supervisorUpdateCounter='"
-				+ String.valueOf(c.getInt(6) + 1) + "',";
+				+ " supervisorUpdateCounter='1',";
 		    }
-		    if (sev.getLoactionUpdateCounter() == 1) {
+		    if (!sev.getLocation().equals(c.getString(7))) {
 			UpdateColumns = UpdateColumns
-				+ " locationUpdateCounter='"
-				+ String.valueOf(c.getInt(8) + 1) + "',";
+				+ " locationUpdateCounter='1',";
 		    }
-		    if (sev.getDurationMinutesUpdateCounter() == 1) {
+		    if (sev.getDurationMinutes() != c.getInt(9)) {
 			UpdateColumns = UpdateColumns
-				+ " durationMinutesUpdateCounter='"
-				+ String.valueOf(c.getInt(10) + 1) + "',";
+				+ " durationMinutesUpdateCounter='1',";
 		    }
 		    UpdateColumns = UpdateColumns + "comment = '"
 			    + sev.getComment() + "'";
@@ -446,6 +443,14 @@ public class Database extends SQLiteOpenHelper {
 		} catch (SQLiteConstraintException ex) {
 		    Log.e("error", "singleEventID is not unique");
 		}
+	    }
+	    Storage storage = Storage.getInstance(null);
+	    try {
+		SettingsLocal settings = storage.load();
+		updateColors(settings);
+	    } catch (NoStorageException e) {
+		Log.e("Database updateColors","failed to load Settings");
+		e.printStackTrace();
 	    }
 
 	}
