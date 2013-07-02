@@ -64,16 +64,31 @@ public class Helper {
      * @throws APIException
      * @throws IOException
      * @throws ClientProtocolException
+     * @throws NoStorageException
      */
     public static boolean subscribe(int eventID, SettingsLocal settingsLocal,
 	    Context context) throws ClientProtocolException, IOException,
 	    APIException, PermissionException, RequestNotPracticableException,
-	    InternalErrorException {
+	    InternalErrorException, NoStorageException {
 
-	// TODO if (gmc-auto or (gmc-manu and !notift)) == true
-	// setLastUpdate(currentDate)
 
-	// TODO perform update if ((gmc-manu and notify) or none) == true
+	Date date = null;
+	boolean success = false;
+
+	// TODO only perform update if ((gmc-manu and notify) or none) == true
+	date = settingsLocal.getLastUpdate();
+
+	success = Helper.getUpdate(date, context);
+
+	if (!success) {
+	    return false;
+	}
+
+	// end only perform update...
+
+	date = Calendar.getInstance().getTime();
+	settingsLocal.setLastUpdate(date);
+	
 
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
@@ -88,7 +103,6 @@ public class Helper {
 	UserSettings userSettings = null;
 	userSettings = (UserSettings) settingsLocal;
 
-	boolean success = false;
 	success = scon.setSettings(userSettings);
 
 	if (!success) {
@@ -100,7 +114,6 @@ public class Helper {
 
 	storage.store(settingsLocal);
 
-	Date date = null;
 	date = Calendar.getInstance().getTime();
 
 	List<SingleEvent> sEvents = null;
@@ -199,7 +212,8 @@ public class Helper {
     }
 
     /**
-     * This Method checks whether all the necessary data is in the local database.
+     * This Method checks whether all the necessary data is in the local
+     * database.
      * 
      * @return True for success. / False for failure.
      * @throws NoStorageException
