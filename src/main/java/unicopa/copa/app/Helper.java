@@ -557,10 +557,12 @@ public class Helper {
 	    SingleEventLocal sEventLocal = null;
 
 	    if (listSize > 0) {
-		oldSEventID = sEventUpdateList.get(listSize - 1)
-			.getOldSingleEventID();
+		oldSEventID = sEventUpdateList.get(0).getOldSingleEventID();
 
-		sEventLocal = checkChanges(sEventUpdateList);
+		// sEventLocal = checkChanges(sEventUpdateList);
+
+		sEventLocal = (SingleEventLocal) sEventUpdateList.get(
+			listSize - 1).getUpdatedSingleEvent();
 
 		try {
 		    db.insert(sEventLocal, oldSEventID);
