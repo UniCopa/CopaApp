@@ -37,6 +37,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -135,9 +136,10 @@ public class LoginActivity extends Activity {
 	    Intent intentMain = new Intent(LoginActivity.this,
 		    MainActivity.class);
 	    LoginActivity.this.startActivity(intentMain);
-	} else {
+	} else if (scon.connectionCheck()) {
 	    finish();
-	}
+	} else
+	    Log.e("You cannot go back", "never");
     }
 
     /**
@@ -159,15 +161,30 @@ public class LoginActivity extends Activity {
      * @param view
      */
     public void onLoginButtonClick(View view) {
-	Storage storage = null;
-	storage = Storage.getInstance(null);
-	SettingsLocal settings = null;
+	boolean firstUserOnDevice = false;
+	boolean success = false;
+
+	Storage s = Storage.getInstance(null);
+	SettingsLocal setLoc = null;
 	try {
-	    settings = storage.load();
+	    setLoc = s.load();
 	} catch (NoStorageException e) {
-	    // TODO Auto-generated catch block
+	    Log.e("error", "NoSettings found");
 	    e.printStackTrace();
 	}
+
+	if (!currentUserName.getText().toString().equals("")) {
+	    userName = currentUserName.getText().toString();
+
+	    if (!userName.equals(setLoc.getUserName())) {
+		Database db = Database.getInstance(null);
+		db.Table_delete("SingleEventLocal");
+		db.Table_delete("Event");
+		db.Table_delete("EventGroup");
+		db.Table_init();
+	    }
+	} else
+	    userName = name.getText().toString();
 
 	// A Loading Screen or something similar would be nice. Otherwise when
 	// you click during load the app crashes.
@@ -184,16 +201,6 @@ public class LoginActivity extends Activity {
 	    EditText name = (EditText) findViewById(R.id.login_usernameField);
 	    EditText pw = (EditText) findViewById(R.id.login_passwordField);
 	    password = pw.getText().toString();
-	    userName = settings.getUserName();
-
-	    if (firstTime) {
-		userName = name.getText().toString();
-
-		settings.setUserName(userName);
-		storage.store(settings);
-	    }
-
-	    boolean success = false;
 
 	    try {
 		success = scon.login(userName, password,
@@ -242,11 +249,8 @@ public class LoginActivity extends Activity {
 		}
 
 		if (settingsLocal != null) {
-		    Storage storage1 = null;
-		    storage1 = Storage.getInstance(null);
-		    storage1.deleteSettings();
 		    settingsLocal.setUserName(userName);
-		    storage1.store(settingsLocal);
+		    s.store(settingsLocal);
 
 		    Date date = null;
 		    date = settingsLocal.getLastUpdate();
@@ -434,12 +438,6 @@ public class LoginActivity extends Activity {
 			    }
 
 			    userName = input.getText().toString();
-
-			    Database db = Database.getInstance(null);
-			    db.Table_delete("SingleEventLocal");
-			    db.Table_delete("Event");
-			    db.Table_delete("EventGroup");
-			    storage.deleteSettings();
 
 			    currentUserName.setText(userName);
 			    name.setVisibility(View.GONE);
