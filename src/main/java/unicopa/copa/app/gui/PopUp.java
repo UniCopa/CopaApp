@@ -93,34 +93,6 @@ public class PopUp {
 		}).show();
     }
 
-    // /**
-    // * Creates an alert dialog with two buttons labeled 'Retry' and 'Cancel'.
-    // *
-    // * @param context
-    // * @param title
-    // * @param msg
-    // */
-    // public static void exceptionAlert(Context context, String title, String
-    // msg) {
-    // new AlertDialog.Builder(context)
-    // .setTitle(title)
-    // .setMessage(msg)
-    // .setPositiveButton("Retry",
-    // new DialogInterface.OnClickListener() {
-    // public void onClick(DialogInterface dialog,
-    // int which) {
-    // // TODO retry
-    // }
-    // })
-    // .setNegativeButton("Cancel",
-    // new DialogInterface.OnClickListener() {
-    // public void onClick(DialogInterface dialog,
-    // int which) {
-    // // do nothing
-    // }
-    // }).show();
-    // }
-
     /**
      * Creates an dialog to inform the user about data protection/usage with two
      * buttons labeled 'I accept.' and 'No!'.
