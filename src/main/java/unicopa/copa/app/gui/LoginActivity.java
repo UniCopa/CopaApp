@@ -110,7 +110,7 @@ public class LoginActivity extends Activity {
 	try {
 	    settings = S.load();
 	} catch (NoStorageException e) {
-	    // TODO Auto-generated catch block
+	    // should not happen
 	    e.printStackTrace();
 	}
 	String actualUser = settings.getUserName();
@@ -136,7 +136,7 @@ public class LoginActivity extends Activity {
 	    Intent intentMain = new Intent(LoginActivity.this,
 		    MainActivity.class);
 	    LoginActivity.this.startActivity(intentMain);
-	} else if (scon.connectionCheck()) {
+	} else if (scon.getConnected()) {
 	    finish();
 	} else
 	    Log.e("You cannot go back", "never");
@@ -192,7 +192,6 @@ public class LoginActivity extends Activity {
 		getString(R.string.wait), Toast.LENGTH_SHORT);
 	toast.show();
 
-	// TODO check if already logged in
 	if (!scon.getConnected()) {
 
 	    String password = "";
@@ -244,7 +243,7 @@ public class LoginActivity extends Activity {
 		    PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (NoStorageException e) {
-		    // TODO Auto-generated catch block
+		    // should not happen
 		    e.printStackTrace();
 		}
 
@@ -282,7 +281,7 @@ public class LoginActivity extends Activity {
 				e.getMessage());
 			// e.printStackTrace();
 		    } catch (NoStorageException e) {
-			// TODO Auto-generated catch block
+			// should not happen
 			e.printStackTrace();
 		    }
 		}
@@ -313,7 +312,7 @@ public class LoginActivity extends Activity {
 		    PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (NoStorageException e) {
-		    // TODO Auto-generated catch block
+		    // should not happen
 		    e.printStackTrace();
 		}
 
@@ -396,7 +395,7 @@ public class LoginActivity extends Activity {
 	try {
 	    settings = storage.load();
 	} catch (NoStorageException e) {
-	    // TODO Auto-generated catch block
+	    // should not happen
 	    e.printStackTrace();
 	}
 
@@ -433,7 +432,7 @@ public class LoginActivity extends Activity {
 			    try {
 				settings = storage.load();
 			    } catch (NoStorageException e) {
-				// TODO Auto-generated catch block
+				// should not happen
 				e.printStackTrace();
 			    }
 
