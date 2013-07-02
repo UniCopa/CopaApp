@@ -1,0 +1,6 @@
+<map id="unicopa.copa.base.com.serialization.SimpleExceptionDeserializer" name="unicopa.copa.base.com.serialization.SimpleExceptionDeserializer">
+<area shape="rect" id="node2" href="$classunicopa_1_1copa_1_1base_1_1com_1_1serialization_1_1APIExceptionDeserializer.html" title="{unicopa.copa.base.com.serialization.\lAPIExceptionDeserializer\n||+ deserialize()\l}" alt="" coords="5,147,241,239"/>
+<area shape="rect" id="node3" href="$classunicopa_1_1copa_1_1base_1_1com_1_1serialization_1_1InternalErrorExceptionDeserializer.html" title="{unicopa.copa.base.com.serialization.\lInternalErrorExceptionDeserializer\n||+ deserialize()\l}" alt="" coords="267,147,503,239"/>
+<area shape="rect" id="node4" href="$classunicopa_1_1copa_1_1base_1_1com_1_1serialization_1_1PermissionExceptionDeserializer.html" title="{unicopa.copa.base.com.serialization.\lPermissionExceptionDeserializer\n||+ deserialize()\l}" alt="" coords="528,147,764,239"/>
+<area shape="rect" id="node5" href="$classunicopa_1_1copa_1_1base_1_1com_1_1serialization_1_1RequestNotPracticableExceptionDeserializer.html" title="{unicopa.copa.base.com.serialization.\lRequestNotPracticableExceptionDeserializer\n||+ deserialize()\l}" alt="" coords="789,147,1072,239"/>
+</map>

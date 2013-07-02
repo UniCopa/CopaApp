@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classunicopa_1_1copa_1_1base_1_1com_1_1serialization_1_1Serializer.html" title="A serializer to serialize/deserialize objects in a way used by the system using GSON. " alt="" coords="5,38,243,79"/>
+<area shape="rect" id="node2" href="$classunicopa_1_1copa_1_1base_1_1com_1_1serialization_1_1ClientSerializer.html" title="The serializer to be used by the client. " alt="" coords="291,5,528,46"/>
+<area shape="rect" id="node3" href="$classunicopa_1_1copa_1_1base_1_1com_1_1serialization_1_1ServerSerializer.html" title="The serializer to be used by the server. " alt="" coords="291,70,528,111"/>
+</map>

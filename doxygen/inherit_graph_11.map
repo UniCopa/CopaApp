@@ -1,0 +1,10 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classunicopa_1_1copa_1_1app_1_1gui_1_1EventAdapter.html" title="This Adapter helps to show the List of subscribed Events. " alt="" coords="157,5,339,46"/>
+<area shape="rect" id="node3" href="$classunicopa_1_1copa_1_1app_1_1gui_1_1MainAdapter.html" title="This Adapter helps to show the List of SingleEvents on the MainActivity. " alt="" coords="159,70,337,111"/>
+<area shape="rect" id="node4" href="$classunicopa_1_1copa_1_1app_1_1gui_1_1PrivAdapter.html" title="This Adapter helps to show the List of Events to which a user has special rights. ..." alt="" coords="162,135,334,177"/>
+<area shape="rect" id="node5" href="$classunicopa_1_1copa_1_1app_1_1gui_1_1SearchAdapter.html" title="This Adapter helps to show the List of Events. " alt="" coords="153,201,343,242"/>
+<area shape="rect" id="node6" href="$classunicopa_1_1copa_1_1app_1_1gui_1_1SearchResultEventAdapter.html" title="This Adapter helps to show the List of Events. " alt="" coords="153,266,343,307"/>
+<area shape="rect" id="node7" href="$classunicopa_1_1copa_1_1app_1_1gui_1_1SearchResultGroupAdapter.html" title="This Adapter helps to show the List of Events. " alt="" coords="153,331,343,373"/>
+<area shape="rect" id="node8" href="$classunicopa_1_1copa_1_1app_1_1gui_1_1SearchResultSingleEventAdapter.html" title="This Adapter helps to show the List of SingleEvents which belong to a before with the search found Ev..." alt="" coords="153,397,343,438"/>
+<area shape="rect" id="node9" href="$classunicopa_1_1copa_1_1app_1_1gui_1_1SingleEventListAdapter.html" title="This Adapter helps to show the List of SingleEvents. " alt="" coords="155,462,341,503"/>
+</map>

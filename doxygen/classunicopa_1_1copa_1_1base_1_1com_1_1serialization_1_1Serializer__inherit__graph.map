@@ -1,0 +1,4 @@
+<map id="unicopa.copa.base.com.serialization.Serializer" name="unicopa.copa.base.com.serialization.Serializer">
+<area shape="rect" id="node2" href="$classunicopa_1_1copa_1_1base_1_1com_1_1serialization_1_1ClientSerializer.html" title="The serializer to be used by the client. " alt="" coords="5,177,241,269"/>
+<area shape="rect" id="node3" href="$classunicopa_1_1copa_1_1base_1_1com_1_1serialization_1_1ServerSerializer.html" title="The serializer to be used by the server. " alt="" coords="267,177,503,269"/>
+</map>
