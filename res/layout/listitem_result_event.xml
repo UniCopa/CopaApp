@@ -24,23 +24,24 @@
             android:text="TextView" />
 
         <Button
-            android:id="@+id/item_result_event_datesbutton"
+            android:id="@+id/item_result_event_subcrbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
             android:layout_weight="0.0"
-            android:text="@string/dates" />
+            android:text="@string/subscr" />
 
         <Button
-            android:id="@+id/item_result_event_subcrbutton"
+            android:id="@+id/item_result_event_datesbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:layout_weight="0.0"
-            android:text="@string/subscr" />
+            android:text="@string/dates" />
+
     </LinearLayout>
 
 </RelativeLayout>

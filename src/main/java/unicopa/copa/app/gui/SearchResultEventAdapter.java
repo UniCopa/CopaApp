@@ -119,7 +119,21 @@ public class SearchResultEventAdapter extends BaseAdapter {
 	Drawable draw = context.getResources().getDrawable(
 		R.drawable.border_cat);
 	holder.colour.setBackgroundDrawable(draw);
+	Storage S = null;
+	S = Storage.getInstance(context);
 
+	SettingsLocal settings = null;
+
+	try {
+	    settings = S.load();
+	} catch (NoStorageException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	if (settings.hasSubscribed(event.getEventID())) {
+	    holder.subscr.setVisibility(View.GONE);
+	}
 	holder.dates.setOnClickListener(new OnClickListener() {
 
 	    @Override
