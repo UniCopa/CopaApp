@@ -181,6 +181,9 @@ public class SearchResultEventAdapter extends BaseAdapter {
 		    PopUp.alert(context, context.getString(R.string.io_ex),
 			    e.getMessage());
 		    // e.printStackTrace();
+		} catch (NoStorageException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
 		}
 		if (success) {
 		    PopUp.alert(context, context.getString(R.string.success),
