@@ -560,10 +560,12 @@ public class Helper {
 		oldSEventID = sEventUpdateList.get(0).getOldSingleEventID();
 
 		// sEventLocal = checkChanges(sEventUpdateList);
-
-		sEventLocal = (SingleEventLocal) sEventUpdateList.get(
+		SingleEvent sEvent = null;
+		sEvent = sEventUpdateList.get(
 			listSize - 1).getUpdatedSingleEvent();
 
+		sEventLocal = Helper.singleEventToSingleEventLocal(sEvent, null);
+		
 		try {
 		    db.insert(sEventLocal, oldSEventID);
 		} catch (NoEventGroupException e) {
