@@ -105,9 +105,7 @@
     <string name="allSingle">All dates</string>
     <string name="subscrEve">List of all subscribed events</string>
     <string name="wait">Please wait.</string>
-    <string name="welcome">Welcome!</string>
-    <string name="welcome_text">Hello, this is the first time you meet CoPA.</string>
-    <string name="accept_title">Data protection declaration of consent</string>
+    <string name="accept_title">Welcome!</string>
     <string name="help">Help</string>
     <string name="help_priv">All of the privileges "Owner", "Deputy", "Rightholder" belong to an event. So you can have a privilege for an specified event. Depending on which privilege you got, you can do different things:\n\n
         <b>Owner</b> \nAn owner is chosen by the CoPA-System or appointed by an admin.\nAs a owner you can appoint and remove deputies and rightholders on the CoPA-Website. The following works from the CoPA-App and CoPA-Website: A owner can change dates of his event and see the other owners, deputies and rightholders. \nFor an owner it is not possible to remove his privilege to be an owner.\n\n
@@ -165,7 +163,10 @@
         <b>Manual</b>\n
         If you use this option you will not receive a message if any date of a subscribed event changes. You need to click "refresh" on the startpage to get informed about changes.
         </string>
-    <string name="accept_msg">In order to use the CoPA service some user information has to be saved.\n
+    <string name="accept_msg">
+Hello, this is the first time you meet CoPA.\n\n
+<b>Data protection declaration of consent</b>\n\n
+In order to use the CoPA service some user information has to be saved.\n
 These information are:\n
 Your Name\n
 Your Uni-Login (for the sake of autentification) and\n

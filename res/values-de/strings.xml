@@ -91,8 +91,6 @@
     <string name="allSingle">Alle Termine</string>
     <string name="subscrEve">Abonnierte Veranstaltungen</string>
     <string name="wait">Bitte warten.</string>
-    <string name="welcome">Willkommen!</string>
-    <string name="welcome_text">Dies ist das erste Mal, dass Sie CoPA nutzen.</string>
     <string name="help">Hilfe</string>
     <string name="help_text">Als Eigner kann man Rechteinhaber und Stellvertreter ernennen. Diese können Termine zu ihrer Veranstaltung ändern. Stellvertreter können außerdem noch weitere Rechteinhaber ernennen.</string>   
 	<string name="help_priv">Es gibt folgende Rechtegruppen: "Eigner","Stellvertreter" und "Rechteinhaber". Ein Nutzer kann bezüglich einer Veranstaltung zu genau einer dieser Rechtegruppen gehören. Abhängig von der Rechtegruppe kann man verschiedene Aktionen ausführen.:\n\n
@@ -152,8 +150,10 @@
         <b>Manuell</b>\n
         Wenn Sie diese Einstellung wählen, erhalten Sie,keine Nachricht auf Ihr Gerät. Um die Änderung mitzubekommen, müssen Sie den "Aktualisieren"-Knopf auf der Startseite nutzen.
         </string>
-    <string name="accept_title">Einverständniserklärung zum Datenschutz</string>
-    <string name="accept_msg">Um den Copa-Service nutzen zu können, müssen diverse Nutzerinformationen von Ihnen gespeichert werden. Diese beinhalten:\n
+    <string name="accept_title">Willkommen!</string>
+    <string name="accept_msg">Dies ist das erste Mal, dass Sie CoPA nutzen.\n\n
+<b>Einverständniserklärung zum Datenschutz</b>\n\n
+Um den Copa-Service nutzen zu können, müssen diverse Nutzerinformationen von Ihnen gespeichert werden. Diese beinhalten:\n
 Ihren Namen,\n
 Ihren Uni-Login (zum Autentifizieren) und\n
 Ihre E-Mail Adresse (für die Email Benachrichtigung)\n

@@ -190,9 +190,6 @@ public class MainActivity extends Activity {
 	} catch (NoStorageException e) {
 	    PopUp.firstAlert(this);
 
-	    PopUp.alert(this, getString(R.string.welcome),
-		    getString(R.string.welcome_text));
-
 	    Set<String> gcmKeys = new HashSet<String>();
 	    boolean emailNotification = true;
 	    String language = "german";
