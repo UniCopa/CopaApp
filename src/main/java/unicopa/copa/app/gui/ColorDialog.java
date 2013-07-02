@@ -151,9 +151,6 @@ public class ColorDialog extends DialogFragment {
 			    S.store(settings);
 			    Database db = Database.getInstance(context);
 			    db.updateColors(settings);
-			} else {
-			    PopUp.alert(context, getString(R.string.sorry),
-				    getString(R.string.wrong));
 			}
 
 			((Activity) context).finish();
