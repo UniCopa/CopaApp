@@ -280,6 +280,10 @@ public class ChangeSingleEventActivity extends Activity {
 	if (success) {
 	    PopUp.alert(this, getString(R.string.success),
 		    getString(R.string.changed));
+
+	    Intent intentMain = new Intent(ChangeSingleEventActivity.this,
+		    MainActivity.class);
+	    ChangeSingleEventActivity.this.startActivity(intentMain);
 	}
     }
 }
