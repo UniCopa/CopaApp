@@ -244,7 +244,7 @@ public class LoginActivity extends Activity {
 		if (settingsLocal != null) {
 		    Storage storage1 = null;
 		    storage1 = Storage.getInstance(null);
-
+		    storage1.deleteSettings();
 		    settingsLocal.setUserName(userName);
 		    storage1.store(settingsLocal);
 
@@ -429,14 +429,13 @@ public class LoginActivity extends Activity {
 			    }
 
 			    userName = input.getText().toString();
-			    settings.setUserName(userName);
-			    storage.store(settings);
-			    // Database db.table_delete("SingleEventLocal");
-			    // db.table_delete("Event");
-			    // db.table_delete("EventGroup");
-			    // db = Database
-			    // .getInstance(LoginActivity.this);
-			    //
+			  
+			    Database db = Database.getInstance(null);
+			    db.Table_delete("SingleEventLocal");
+			    db.Table_delete("Event");
+			    db.Table_delete("EventGroup");
+			    storage.deleteSettings();
+			    
 			    currentUserName.setText(userName);
 			    name.setVisibility(View.GONE);
 
