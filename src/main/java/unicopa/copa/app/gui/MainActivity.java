@@ -383,7 +383,7 @@ public class MainActivity extends Activity {
 		boolean success = false;
 
 		try {
-		    success = Helper.getUpdate(date, MainActivity.this);
+		    success = Helper.checkSubscriptions();
 		} catch (ClientProtocolException e) {
 		    PopUp.alert(this, getString(R.string.cp_ex), e.getMessage());
 		    // e.printStackTrace();
@@ -411,26 +411,61 @@ public class MainActivity extends Activity {
 		}
 
 		if (success) {
-		    Database db = null;
-		    db = Database.getInstance(MainActivity.this);
 
-		    List<SingleEventLocal> sEventsLocal = null;
-		    sEventsLocal = db.getNearestSingleEvents(num);
-
-		    sEvents.clear();
-		    text.setText("");
-
-		    for (SingleEventLocal item : sEventsLocal) {
-			sEvents.add(item);
+		    try {
+			success = Helper.getUpdate(date, MainActivity.this);
+		    } catch (ClientProtocolException e) {
+			PopUp.alert(this, getString(R.string.cp_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (APIException e) {
+			PopUp.alert(this, getString(R.string.api_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (PermissionException e) {
+			PopUp.alert(this, getString(R.string.per_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (RequestNotPracticableException e) {
+			PopUp.alert(this, getString(R.string.rnp_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (InternalErrorException e) {
+			PopUp.alert(this, getString(R.string.ie_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (IOException e) {
+			PopUp.alert(this, getString(R.string.io_ex),
+				e.getMessage());
+			// e.printStackTrace();
+		    } catch (NoStorageException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		    }
 
-		    if (sEvents.equals(new ArrayList<SingleEventLocal>())) {
-			text.setText(getString(R.string.nothing));
+		    if (success) {
+			Database db = null;
+			db = Database.getInstance(MainActivity.this);
+
+			List<SingleEventLocal> sEventsLocal = null;
+			sEventsLocal = db.getNearestSingleEvents(num);
+
+			sEvents.clear();
+			text.setText("");
+
+			for (SingleEventLocal item : sEventsLocal) {
+			    sEvents.add(item);
+			}
+
+			if (sEvents.equals(new ArrayList<SingleEventLocal>())) {
+			    text.setText(getString(R.string.nothing));
+			}
+
+			sEventAdapter = new MainAdapter(this, sEvents);
+
+			singleEventListView
+				.setAdapter((ListAdapter) sEventAdapter);
 		    }
-
-		    sEventAdapter = new MainAdapter(this, sEvents);
-
-		    singleEventListView.setAdapter((ListAdapter) sEventAdapter);
 		}
 	    }
 	} else {
