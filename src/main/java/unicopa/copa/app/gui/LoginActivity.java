@@ -136,10 +136,7 @@ public class LoginActivity extends Activity {
 	    Intent intentMain = new Intent(LoginActivity.this,
 		    MainActivity.class);
 	    LoginActivity.this.startActivity(intentMain);
-	} else if (scon.getConnected()) {
-	    finish();
-	} else
-	    Log.e("You cannot go back", "never");
+	} else finish();
     }
 
     /**
