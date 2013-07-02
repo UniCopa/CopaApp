@@ -53,9 +53,6 @@ public class HelpExtendedActivity extends Activity {
 	case 3:
 	    text.setText(R.string.help_settings);
 	    break;
-	case 4:
-	    text.setText(R.string.help_error);
-	    break;
 	default:
 	    break;
 	}
