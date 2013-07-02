@@ -136,7 +136,8 @@ public class LoginActivity extends Activity {
 	    Intent intentMain = new Intent(LoginActivity.this,
 		    MainActivity.class);
 	    LoginActivity.this.startActivity(intentMain);
-	} else finish();
+	} else
+	    finish();
     }
 
     /**
@@ -320,7 +321,8 @@ public class LoginActivity extends Activity {
 		LoginActivity.this.startActivity(intentMain);
 
 	    } else {
-		PopUp.alert(this, getString(R.string.login_error), "" /* TODO */);
+		PopUp.alert(this, getString(R.string.login_error),
+			getString(R.string.wrong));
 	    }
 	}
     }
