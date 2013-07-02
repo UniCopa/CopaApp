@@ -22,16 +22,12 @@ import static unicopa.copa.app.GCMCommonUtilities.SENDER_ID;
 import static unicopa.copa.app.GCMCommonUtilities.SERVER_URL;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.apache.http.client.ClientProtocolException;
 
 import unicopa.copa.app.gcm.GCMRegistrar;
@@ -50,9 +46,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -152,9 +145,8 @@ public class MainActivity extends Activity {
 			    if (!registered) {
 				GCMRegistrar.unregister(context);
 			    }
-
 			} catch (NoStorageException e) {
-			    // TODO Auto-generated catch block
+			    // should not happen
 			    e.printStackTrace();
 			}
 
@@ -203,70 +195,6 @@ public class MainActivity extends Activity {
 	    storage.store(settingsLocal);
 	    // e.printStackTrace();
 	}
-
-	// begin Just for testing
-
-	// Settings
-	// Set<String> gcmKeys = new HashSet<String>();
-	// gcmKeys.add("ololo");
-	// boolean emailNotification = true;
-	// String language = "german";
-	// Map<Integer, UserEventSettings> map = new HashMap<Integer,
-	// UserEventSettings>();
-	// UserEventSettings farb1 = new UserEventSettings();
-	// UserEventSettings farb2 = new UserEventSettings();
-	// farb1.setColorCode("999999");
-	// farb2.setColorCode("444444");
-	//
-	// map.put(1, farb1);
-	// map.put(2, farb2);
-	//
-	// int notificationKind = 2;
-	// Date lastUpdate = new Date(4000);
-	//
-	// SettingsLocal setLoc = new SettingsLocal(gcmKeys, emailNotification,
-	// language, map, notificationKind, lastUpdate);
-	//
-	// Storage S = Storage.getInstance(this.getApplicationContext());
-	// S.store(setLoc);
-
-	// Database
-	// Database db = Database.getInstance(MainActivity.this);
-	// db.Table_delete("SingleEventLocal");
-	// db.Table_delete("Event");
-	// db.Table_delete("EventGroup");
-	// db.Table_init();
-
-	// EventGroup g1 = new EventGroup(3, "Telematik", "info", null);
-	// EventGroup g2 = new EventGroup(2, "Mathe", "blabla", null);
-	// EventGroup g3 = new EventGroup(4, "Linux", "info2", null);
-	//
-	// Event ev1 = new Event(1, 3, "Übung1", new ArrayList<Integer>());
-	// Event ev2 = new Event(2, 2, "Vorlesung", new ArrayList<Integer>());
-	// Event ev3 = new Event(3, 4, "Übung2", new ArrayList<Integer>());
-	//
-	// SingleEventLocal test = new SingleEventLocal(1, 3, "HU 102", Calendar
-	// .getInstance().getTime(), "Martin", 4, "#77DD22",
-	// "Linux Übung2", 2, 2, 2, 2, 2);
-	// SingleEventLocal test2 = new SingleEventLocal(5, 2, "HU 104",
-	// Calendar
-	// .getInstance().getTime(), "Robin", 5, "#770000",
-	// "Mathe Vorlesung", 0, 0, 0, 0, 0);
-	// SingleEventLocal test3 = new SingleEventLocal(6, 1, "HU 103",
-	// Calendar
-	// .getInstance().getTime(), "Philip", 90, "#005577",
-	// "Telematik Übung1", 0, 0, 0, 0, 0);
-	//
-	// db.insert(test, -1);
-	// db.insert(test2, -1);
-	// db.insert(test3, -1);
-	// db.insert(ev1, -1);
-	// db.insert(ev2, -1);
-	// db.insert(ev3, -1);
-	// db.insert(g1, -1);
-	// db.insert(g2, -1);
-	// db.insert(g3, -1);
-	// end Just for testing
 
 	Database db = null;
 	db = Database.getInstance(MainActivity.this);
@@ -365,7 +293,7 @@ public class MainActivity extends Activity {
 		PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		// e.printStackTrace();
 	    } catch (NoStorageException e) {
-		// TODO Auto-generated catch block
+		// should not happen
 		e.printStackTrace();
 	    }
 
@@ -399,7 +327,7 @@ public class MainActivity extends Activity {
 		    PopUp.alert(this, getString(R.string.io_ex), e.getMessage());
 		    // e.printStackTrace();
 		} catch (NoStorageException e) {
-		    // TODO Auto-generated catch block
+		    // should not happen
 		    e.printStackTrace();
 		}
 
@@ -432,7 +360,7 @@ public class MainActivity extends Activity {
 				e.getMessage());
 			// e.printStackTrace();
 		    } catch (NoStorageException e) {
-			// TODO Auto-generated catch block
+			// should not happen
 			e.printStackTrace();
 		    }
 
