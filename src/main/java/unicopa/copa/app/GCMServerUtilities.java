@@ -55,7 +55,7 @@ public final class GCMServerUtilities {
         Log.i(TAG, "fill Settings with RegID:" + regId);
         Storage S = Storage.getInstance(null);
         SettingsLocal sLocal = S.load();
-        sLocal.addGCMKey(regId);
+        sLocal.setLocalGcmKey(regId);
         S.store(sLocal);
         return true;
     }
