@@ -28,6 +28,7 @@ import org.apache.http.client.ClientProtocolException;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
 import unicopa.copa.app.exceptions.NoEventException;
 import unicopa.copa.app.exceptions.NoEventGroupException;
@@ -57,7 +58,7 @@ public class Helper {
      * 
      * @param EventID
      * @param SettingsLocal
-     * @return True for success. / False for Failure.
+     * @return True for success. / False for failure.
      * @throws InternalErrorException
      * @throws RequestNotPracticableException
      * @throws PermissionException
@@ -71,7 +72,6 @@ public class Helper {
 	    APIException, PermissionException, RequestNotPracticableException,
 	    InternalErrorException, NoStorageException {
 
-
 	Date date = null;
 	boolean success = false;
 
@@ -83,12 +83,10 @@ public class Helper {
 	if (!success) {
 	    return false;
 	}
-
 	// end only perform update...
 
 	date = Calendar.getInstance().getTime();
 	settingsLocal.setLastUpdate(date);
-	
 
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
@@ -368,7 +366,14 @@ public class Helper {
 	ServerConnection scon = null;
 	scon = ServerConnection.getInstance();
 
-	settingsLocal.removeSubscription(eventID);
+	boolean test = false;
+	test = settingsLocal.removeSubscription(eventID);
+
+	if (test) {
+	    Log.v("TEST:", "true");
+	} else {
+	    Log.v("TEST:", "false");
+	}
 
 	UserSettings userSettings = null;
 	userSettings = (UserSettings) settingsLocal;
@@ -644,7 +649,7 @@ public class Helper {
 	    }
 
 	    if (cancel) {
-		db.deleteSingleEvent(cancelID);
+		db.setCanceled(cancelID);
 	    }
 	}
 
