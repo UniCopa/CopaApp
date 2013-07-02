@@ -217,10 +217,10 @@ public class Helper {
 	    Database db = null;
 	    db = Database.getInstance(null);
 
-	    boolean missing = false;
-	    missing = db.checkEvent(eventID);
+	    boolean available = false;
+	    available = db.checkEvent(eventID);
 
-	    if (missing) {
+	    if (!available) {
 		ServerConnection scon = null;
 		scon = ServerConnection.getInstance();
 
@@ -561,11 +561,12 @@ public class Helper {
 
 		// sEventLocal = checkChanges(sEventUpdateList);
 		SingleEvent sEvent = null;
-		sEvent = sEventUpdateList.get(
-			listSize - 1).getUpdatedSingleEvent();
+		sEvent = sEventUpdateList.get(listSize - 1)
+			.getUpdatedSingleEvent();
 
-		sEventLocal = Helper.singleEventToSingleEventLocal(sEvent, null);
-		
+		sEventLocal = Helper
+			.singleEventToSingleEventLocal(sEvent, null);
+
 		try {
 		    db.insert(sEventLocal, oldSEventID);
 		} catch (NoEventGroupException e) {
