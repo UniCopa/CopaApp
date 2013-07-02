@@ -50,8 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/login_username"
-        android:layout_weight="1"
-        android:text="bla" />
+        android:layout_weight="1" />
 
     <EditText
         android:id="@+id/login_usernameField"
