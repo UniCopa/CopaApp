@@ -21,6 +21,7 @@
     <string name="button_subscription">Farbe ändern</string>
     <string name="details_to_singleevent">Mehr Details</string>
     <string name="all_singleevents">Alle Termine</string>
+    <string name="button_priv_change">Datum zum Ändern aussuchen</string> <!-- !!! -->
     <string name="action_subscription">Abonnements</string>
     <string name="button_singleevent_change">Termin ändern</string>
     <string name="language_pick">Sprache auswählen</string>
@@ -58,7 +59,20 @@
     <string name="io_ex">IOException!</string>
     <string name="login_error">Anmeldefehler!</string>
     <string name="pick_color">Farbe auswählen</string>
-
+    <string name="gcm_registered">Von GCM: Gerät erfolgreich registriert!</string>  <!-- ab hier bis absatz -->
+    <string name="gcm_unregistered">Von GCM: Gerät erfolgreich unregistriert!</string>
+    <string name="gcm_message">Von GCM: Sie haben eine Nachricht!</string>
+    <string name="gcm_error">Von GCM: Fehler (%1$s).</string>
+    <string name="gcm_recoverable_error">Von GCM: behebbarer Fehler (%1$s).</string>
+    <string name="gcm_deleted">Von GCM: %1$d ausstehende Nachrichten wurden vom Server gelöscht!</string>
+    <string name="server_registering">Versuch Nr. (%1$d/%2$d) das Gerät am Copa-Service zu registireren</string>
+    <string name="server_registered">Vom CoPA Server: Gerät erfolgreich hinzugefügt !</string>
+    <string name="server_unregistered">Vom Demo Server: Gerät erfolgreich entfernt!</string>
+    <string name="server_register_error">Das Gerät konnte nach %1$d Versuchen nicht auf dem Copa Server registriert werden.</string>
+    <string name="server_unregister_error">Das Gerät konnte nicht vom Copa Server unregistriert werden (%1$s).</string>
+    <string name="already_registered">Das Gerät ist schon am Copa Server registriert</string>
+    <string name="error_config">Bitte setze die %1$s Konstante und compiliere die App neu.</string>
+   
     <string-array name="colors_array">
         <item>blau</item>
         <item>rot</item>
@@ -91,6 +105,7 @@
     <string name="allSingle">Alle Termine</string>
     <string name="subscrEve">Abonnierte Veranstaltungen</string>
     <string name="wait">Bitte warten.</string>
+    <string name="accept_title">Willkommen!</string>
     <string name="help">Hilfe</string>
     <string name="help_text">Als Eigner kann man Rechteinhaber und Stellvertreter ernennen. Diese können Termine zu ihrer Veranstaltung ändern. Stellvertreter können außerdem noch weitere Rechteinhaber ernennen.</string>   
 	<string name="help_priv">Es gibt folgende Rechtegruppen: "Eigner","Stellvertreter" und "Rechteinhaber". Ein Nutzer kann bezüglich einer Veranstaltung zu genau einer dieser Rechtegruppen gehören. Abhängig von der Rechtegruppe kann man verschiedene Aktionen ausführen.:\n\n
@@ -150,7 +165,6 @@
         <b>Manuell</b>\n
         Wenn Sie diese Einstellung wählen, erhalten Sie,keine Nachricht auf Ihr Gerät. Um die Änderung mitzubekommen, müssen Sie den "Aktualisieren"-Knopf auf der Startseite nutzen.
         </string>
-    <string name="accept_title">Willkommen!</string>
     <string name="accept_msg">Dies ist das erste Mal, dass Sie CoPA nutzen.\n\n
 <b>Einverständniserklärung zum Datenschutz</b>\n\n
 Um den Copa-Service nutzen zu können, müssen diverse Nutzerinformationen von Ihnen gespeichert werden. Diese beinhalten:\n
