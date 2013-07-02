@@ -195,7 +195,8 @@ public class ChangeSingleEventActivity extends Activity {
 	boolean removeIt = remove.isChecked();
 
 	int day = datePicker.getDayOfMonth();
-	int month = datePicker.getMonth() + 1;
+	int month = datePicker.getMonth();
+	// January=0
 	int year = datePicker.getYear();
 	int hour = timePicker.getCurrentHour();
 	int minutes = timePicker.getCurrentMinute();
@@ -279,9 +280,6 @@ public class ChangeSingleEventActivity extends Activity {
 	if (success) {
 	    PopUp.alert(this, getString(R.string.success),
 		    getString(R.string.changed));
-	} else {
-	    PopUp.alert(this, getString(R.string.sorry),
-		    getString(R.string.wrong));
 	}
     }
 }

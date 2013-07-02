@@ -127,14 +127,6 @@
             android:layout_toLeftOf="@+id/change_time"
             android:text="@string/new_change" />
 
-        <TimePicker
-            android:id="@+id/timePicker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/change_time"
-            android:layout_marginRight="25dp" />
-
         <TextView
             android:id="@+id/change_static_supervisor"
             android:layout_width="wrap_content"
@@ -219,16 +211,6 @@
             android:layout_toLeftOf="@+id/change_button"
             android:text="@string/remove" />
 
-        <Button
-            android:id="@+id/change_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/change_remove"
-            android:layout_alignBottom="@+id/change_remove"
-            android:layout_alignRight="@+id/timePicker1"
-            android:onClick="onApplyButtonClick"
-            android:text="@string/change_apply" />
-
         <TextView
             android:id="@+id/change_eventGroupname"
             android:layout_width="wrap_content"
@@ -237,6 +219,23 @@
             android:layout_below="@+id/changes"
             android:layout_marginTop="17dp"
             android:text="Group" />
+
+        <TimePicker
+            android:id="@+id/timePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/change_time"
+            android:layout_below="@+id/change_time" />
+
+        <Button
+            android:id="@+id/change_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/change_remove"
+            android:layout_alignBottom="@+id/change_remove"
+            android:layout_alignRight="@+id/change_edit_dura"
+            android:onClick="onApplyButtonClick"
+            android:text="@string/change_apply" />
 
     </RelativeLayout>
 

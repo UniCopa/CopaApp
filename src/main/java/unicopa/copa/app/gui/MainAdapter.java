@@ -106,7 +106,7 @@ public class MainAdapter extends BaseAdapter {
 	holder.location.setText(sEvent.getLocation());
 	holder.eventName.setText(sEvent.getName());
 	holder.supervisor.setText(sEvent.getSupervisor());
-	holder.date.setText(new SimpleDateFormat("dd.MM").format(sEvent
+	holder.date.setText(new SimpleDateFormat("dd.MM.yyyy").format(sEvent
 		.getDate()));
 	holder.dura.setText(String.valueOf(sEvent.getDurationMinutes()));
 	holder.time.setText(new SimpleDateFormat("HH:mm").format(sEvent

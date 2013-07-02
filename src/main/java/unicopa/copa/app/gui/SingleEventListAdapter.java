@@ -108,7 +108,7 @@ public class SingleEventListAdapter extends BaseAdapter {
 	final SingleEventLocal sEvent = (SingleEventLocal) this
 		.getItem(position);
 
-	holder.date.setText(new SimpleDateFormat("dd.MM").format(sEvent
+	holder.date.setText(new SimpleDateFormat("dd.MM.yyyy").format(sEvent
 		.getDate()));
 	holder.time.setText(new SimpleDateFormat("HH:mm").format(sEvent
 		.getDate()));
