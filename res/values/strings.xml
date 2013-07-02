@@ -22,7 +22,7 @@
     <string name="details_to_singleevent">More Details</string>
     <string name="all_singleevents">Show all dates</string>
     <string name="button_priv_change">Select date to change</string>
-    <string name="action_subscription">subscribed events</string>
+    <string name="action_subscription">Subscribed events</string>
     <string name="button_singleevent_change">Change this date</string>
     <string name="language_pick">Pick your language</string>
     <string name="notification_pick">Pick your kind of notification</string>
@@ -94,7 +94,7 @@
     <string name="upcoming">Upcoming</string>
     <string name="refresh">Refresh</string>
     <string name="room">Room:</string>
-    <string name="privevents">Events with permissions</string>
+    <string name="privevents">Events with privileges</string>
     <string name="makechanges">Make changes</string>
     <string name="rightholderlist">List of all rightholders, deputies and owners</string>
     <string name="color">Color</string>
@@ -199,5 +199,6 @@ All your data will be kept in confidence and will not be passed to a third party
 	<string name="only_updates">Only updates</string>
 	<string name="show_more">Show more dates</string>
 	<string name="all_dates">All dates</string>
+	<string name="no_priv_events">You got no events with privileges.</string>
     
 </resources>

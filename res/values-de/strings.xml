@@ -21,7 +21,7 @@
     <string name="button_subscription">Farbe ändern</string>
     <string name="details_to_singleevent">Mehr Details</string>
     <string name="all_singleevents">Alle Termine</string>
-    <string name="button_priv_change">Datum zum Ändern aussuchen</string> <!-- !!! -->
+    <string name="button_priv_change">Termin zum Ändern aussuchen</string>
     <string name="action_subscription">Abonnements</string>
     <string name="button_singleevent_change">Termin ändern</string>
     <string name="language_pick">Sprache auswählen</string>
@@ -199,5 +199,6 @@ Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.\n</st
 	<string name="only_updates">Nur Änderungen</string>
 	<string name="show_more">Zeig mehr Termine</string>
     <string name="all_dates">Alle Termine</string>
+    <string name="no_priv_events">Sie haben keine Veranstaltung mit besonderen Rechten.</string>
     
 </resources>

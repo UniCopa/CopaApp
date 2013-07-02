@@ -101,7 +101,7 @@ public class PrivilegesActivity extends Activity {
 	    List<Event> list = db.getEventsWithPermission();
 
 	    if (list == null) {
-		text.setText(getString(R.string.nothing));
+		text.setText(getString(R.string.no_priv_events));
 	    } else {
 
 		for (Event item : list) {
