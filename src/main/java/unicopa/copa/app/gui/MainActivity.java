@@ -193,11 +193,7 @@ public class MainActivity extends Activity {
 	    PopUp.alert(this, getString(R.string.welcome),
 		    getString(R.string.welcome_text));
 
-	    String regid = "0000";
-
-	    // TODO maybe first try to get settings from server?
 	    Set<String> gcmKeys = new HashSet<String>();
-	    gcmKeys.add(regid); // TODO is this the GCMKey?
 	    boolean emailNotification = true;
 	    String language = "german";
 	    Map<Integer, UserEventSettings> map = null;
@@ -205,7 +201,7 @@ public class MainActivity extends Activity {
 	    Date lastUpdate = new Date(0);
 
 	    settingsLocal = new SettingsLocal(gcmKeys, emailNotification,
-		    language, map, notificationKind, lastUpdate, regid);
+		    language, map, notificationKind, lastUpdate, regId);
 
 	    storage.store(settingsLocal);
 	    // e.printStackTrace();
