@@ -66,7 +66,8 @@ public class SingleEventActivity extends Activity {
 	Button change = (Button) findViewById(R.id.sEv_change);
 
 	location.setText(sEventLocal.getLocation());
-	date.setText(new SimpleDateFormat("dd.MM").format(sEventLocal.getDate()));
+	date.setText(new SimpleDateFormat("dd.MM.yyyy").format(sEventLocal
+		.getDate()));
 	time.setText(new SimpleDateFormat("HH:mm").format(sEventLocal.getDate()));
 	supervisor.setText(sEventLocal.getSupervisor());
 	durationtime.setText(String.valueOf(sEventLocal.getDurationMinutes()));
