@@ -6,5 +6,6 @@
     <color name="grey_light">#ffcccccc</color>
     <color name="background">#65B17D</color>
     <color name="changed">#D00000</color>
+    <color name="black">#000000</color>
 
 </resources>

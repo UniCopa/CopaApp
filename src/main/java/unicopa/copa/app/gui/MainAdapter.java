@@ -117,17 +117,28 @@ public class MainAdapter extends BaseAdapter {
 	int supervisorUpdateCounter = sEvent.getSupervisorUpdateCounter();
 	int durationMinutesUpdateCounter = sEvent
 		.getDurationMinutesUpdateCounter();
-
+	holder.eventName.setTextColor(context.getResources().getColor(
+		R.color.black));
+	holder.location.setTextColor(context.getResources().getColor(
+		R.color.black));
 	if (locationUpdateCounter > 0) {
 	    holder.location.setTextColor(context.getResources().getColor(
 		    R.color.changed));
 	}
+
+	holder.date
+		.setTextColor(context.getResources().getColor(R.color.black));
+	holder.time
+		.setTextColor(context.getResources().getColor(R.color.black));
 	if (dateUpdateCounter > 0) {
 	    holder.date.setTextColor(context.getResources().getColor(
 		    R.color.changed));
 	    holder.time.setTextColor(context.getResources().getColor(
 		    R.color.changed));
 	}
+
+	holder.supervisor.setTextColor(context.getResources().getColor(
+		R.color.black));
 	if (supervisorUpdateCounter > 0) {
 	    holder.supervisor.setTextColor(context.getResources().getColor(
 		    R.color.changed));
@@ -137,6 +148,8 @@ public class MainAdapter extends BaseAdapter {
 	    holder.dura.setText(R.string.cancellation);
 	}
 
+	holder.dura
+		.setTextColor(context.getResources().getColor(R.color.black));
 	if (durationMinutesUpdateCounter > 0) {
 	    holder.dura.setTextColor(context.getResources().getColor(
 		    R.color.changed));
