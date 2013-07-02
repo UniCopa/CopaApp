@@ -198,6 +198,18 @@ public class Helper {
 	return true;
     }
 
+    /**
+     * This Method checks whether all the necessary data is in the local database.
+     * 
+     * @return True for success. / False for failure.
+     * @throws NoStorageException
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws APIException
+     * @throws PermissionException
+     * @throws RequestNotPracticableException
+     * @throws InternalErrorException
+     */
     public static boolean checkSubscriptions() throws NoStorageException,
 	    ClientProtocolException, IOException, APIException,
 	    PermissionException, RequestNotPracticableException,
