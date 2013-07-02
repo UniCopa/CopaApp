@@ -62,11 +62,4 @@ public class HelpActivity extends Activity {
 	HelpActivity.this.startActivity(intent);
     }
 
-    public void onExceptionButtonClick(View view) {
-	Intent intent = new Intent(HelpActivity.this,
-		HelpExtendedActivity.class);
-	intent.putExtra("from", 4);
-	HelpActivity.this.startActivity(intent);
-    }
-
 }
