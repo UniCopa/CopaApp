@@ -307,7 +307,8 @@ public class Database extends SQLiteOpenHelper {
 			    + String.valueOf(sev.getDurationMinutes()) + "',";
 
 		    if (sev.getDate().getTime() != c.getLong(3)) {
-			UpdateColumns = UpdateColumns + " dateUpdateCounter='1',";
+			UpdateColumns = UpdateColumns
+				+ " dateUpdateCounter='1',";
 		    }
 		    if (!sev.getSupervisor().equals(c.getString(5))) {
 			UpdateColumns = UpdateColumns
@@ -449,7 +450,7 @@ public class Database extends SQLiteOpenHelper {
 		SettingsLocal settings = storage.load();
 		updateColors(settings);
 	    } catch (NoStorageException e) {
-		Log.e("Database updateColors","failed to load Settings");
+		Log.e("Database updateColors", "failed to load Settings");
 		e.printStackTrace();
 	    }
 
@@ -1049,12 +1050,32 @@ public class Database extends SQLiteOpenHelper {
      * @param singleEventID
      */
     public void setCanceled(int singleEventID) {
+	data = this.getWritableDatabase();
 	String cancelString;
-	cancelString = "UPDATE SingleEventLocal SET durationMinutes = '0' WHERE singleEventID='"
-		+ String.valueOf(singleEventID) + "'";
+	String columns[] = { "singleEventID" };
+	String selection = "singleEventID = '" + String.valueOf(singleEventID)
+		+ "'";
+	String selectionArgs[] = null;
+	String groupBy = null;
+	String having = null;
+	String orderBy = "";
 
-	Log.w("try", cancelString);
-	data.execSQL(cancelString);
+	Cursor c = data.query("SingleEventLocal", columns, selection,
+		selectionArgs, groupBy, having, orderBy);
+
+	if (c.getCount() > 0) {
+
+	    cancelString = "UPDATE SingleEventLocal SET durationMinutes = '0' WHERE singleEventID='"
+		    + String.valueOf(singleEventID) + "'";
+
+	    Log.w("try", cancelString);
+	    data.execSQL(cancelString);
+	} else
+	    Log.e("Database Cancel",
+		    "No SingleEvent with ID" + String.valueOf(singleEventID)
+			    + " found!");
+	c.close();
+	data.close();
     }
 
     /**
