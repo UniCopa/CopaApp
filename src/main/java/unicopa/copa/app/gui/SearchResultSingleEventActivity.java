@@ -161,6 +161,11 @@ public class SearchResultSingleEventActivity extends Activity {
 	    SearchResultSingleEventActivity.this
 		    .startActivity(intentSubscription);
 	    return true;
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(
+		    SearchResultSingleEventActivity.this, HelpActivity.class);
+	    SearchResultSingleEventActivity.this.startActivity(intentHelp);
+	    return true;
 
 	default:
 	    return super.onOptionsItemSelected(item);

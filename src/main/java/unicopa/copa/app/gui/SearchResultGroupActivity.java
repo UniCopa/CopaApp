@@ -166,6 +166,11 @@ public class SearchResultGroupActivity extends Activity {
 		    SearchResultGroupActivity.this, SubscriptionActivity.class);
 	    SearchResultGroupActivity.this.startActivity(intentSubscription);
 	    return true;
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(SearchResultGroupActivity.this,
+		    HelpActivity.class);
+	    SearchResultGroupActivity.this.startActivity(intentHelp);
+	    return true;
 
 	default:
 	    return super.onOptionsItemSelected(item);

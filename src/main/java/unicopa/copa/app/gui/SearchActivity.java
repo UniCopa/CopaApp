@@ -189,7 +189,11 @@ public class SearchActivity extends Activity {
 		    SubscriptionActivity.class);
 	    SearchActivity.this.startActivity(intentSubscription);
 	    return true;
-
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(SearchActivity.this,
+		    HelpActivity.class);
+	    SearchActivity.this.startActivity(intentHelp);
+	    return true;
 	default:
 	    return super.onOptionsItemSelected(item);
 	}

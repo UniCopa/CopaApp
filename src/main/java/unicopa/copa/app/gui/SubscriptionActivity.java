@@ -115,6 +115,11 @@ public class SubscriptionActivity extends Activity {
 		    SettingsActivity.class);
 	    SubscriptionActivity.this.startActivity(intentSettings);
 	    return true;
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(SubscriptionActivity.this,
+		    HelpActivity.class);
+	    SubscriptionActivity.this.startActivity(intentHelp);
+	    return true;
 	default:
 	    return super.onOptionsItemSelected(item);
 	}

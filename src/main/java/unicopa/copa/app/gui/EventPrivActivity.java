@@ -180,7 +180,11 @@ public class EventPrivActivity extends Activity {
 		    SubscriptionActivity.class);
 	    EventPrivActivity.this.startActivity(intentSubscription);
 	    return true;
-
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(EventPrivActivity.this,
+		    HelpActivity.class);
+	    EventPrivActivity.this.startActivity(intentHelp);
+	    return true;
 	default:
 	    return super.onOptionsItemSelected(item);
 	}

@@ -239,6 +239,11 @@ public class SettingsActivity extends Activity {
 		    AboutActivity.class);
 	    SettingsActivity.this.startActivity(intentLog);
 	    return true;
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(SettingsActivity.this,
+		    HelpActivity.class);
+	    SettingsActivity.this.startActivity(intentHelp);
+	    return true;
 	default:
 	    return super.onOptionsItemSelected(item);
 	}

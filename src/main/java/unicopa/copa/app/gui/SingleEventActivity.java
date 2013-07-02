@@ -155,7 +155,11 @@ public class SingleEventActivity extends Activity {
 		    SubscriptionActivity.class);
 	    SingleEventActivity.this.startActivity(intentSubscription);
 	    return true;
-
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(SingleEventActivity.this,
+		    HelpActivity.class);
+	    SingleEventActivity.this.startActivity(intentHelp);
+	    return true;
 	default:
 	    return super.onOptionsItemSelected(item);
 	}

@@ -367,6 +367,11 @@ public class LoginActivity extends Activity {
 		    AboutActivity.class);
 	    LoginActivity.this.startActivity(intentLog);
 	    return true;
+	case R.id.action_help:
+	    Intent intentHelp = new Intent(LoginActivity.this,
+		    HelpActivity.class);
+	    LoginActivity.this.startActivity(intentHelp);
+	    return true;
 	default:
 	    return super.onOptionsItemSelected(item);
 	}
@@ -429,13 +434,13 @@ public class LoginActivity extends Activity {
 			    }
 
 			    userName = input.getText().toString();
-			  
+
 			    Database db = Database.getInstance(null);
 			    db.Table_delete("SingleEventLocal");
 			    db.Table_delete("Event");
 			    db.Table_delete("EventGroup");
 			    storage.deleteSettings();
-			    
+
 			    currentUserName.setText(userName);
 			    name.setVisibility(View.GONE);
 
